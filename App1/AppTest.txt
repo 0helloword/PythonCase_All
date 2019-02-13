@@ -1,0 +1,41 @@
+*** Settings ***
+Library           AppiumLibrary
+Resource          元素操作.txt
+
+*** Test Cases ***
+test1
+    Open Application    http://localhost:4723/wd/hub    platformName=Android    platform Version=6.0    deviceName=192.168.64.101:5555    appPackage=cn.jrx.jiufu    appActivity=.base.WelcomeActivity
+    Sleep    5    #手动绘制解锁
+    Comment    点击元素    切换至账号登录
+    Comment    输入文本    cn.jrx.jiufu:id/accountEdt    998866
+    Comment    输入文本    cn.jrx.jiufu:id/passwordEdt    cyj123    #输入密码
+    Comment    点击元素    登 录
+    Comment    Comment    Close Application
+    点击元素    新增工单
+    点击元素    门店选择
+    Swipe    374    1095    374    1034    #将坐标向下移选择竹子林门店
+    点击元素    确定
+    点击元素    职业选择
+    点击元素    确定
+    点击元素    系列选择
+    Swipe    380    946    380    1040    #将坐标向上移选择手机
+    点击元素    确定
+    点击元素    货物类别
+    点击元素    确定
+    点击元素    商品类型
+    Swipe    361    1094    364    1040    #将坐标向下移选择手机配件
+    点击元素    确定
+    输入文本    cn.jrx.jiufu:id/brandET01    oneplus    #商品品牌
+    输入文本    cn.jrx.jiufu:id/typeET    123    #商品型号
+    输入文本    cn.jrx.jiufu:id/priceET    2000    #商品价格
+    输入文本    cn.jrx.jiufu:id/payTV    1000    #自付金额
+    Swipe    396    910    396    706    #将屏幕向下移动
+    点击元素    试 算
+    点击元素    手机-1K-3
+    点击元素    确定
+    点击元素    提交
+    输入文本    cn.jrx.jiufu:id/nameET    逆光    #申请人姓名
+    输入文本    cn.jrx.jiufu:id/idCardET    420222198808201064    #申请人身份证号
+    输入文本    cn.jrx.jiufu:id/telET    15626513325    #申请人手机号码
+    click Element    id=cn.jrx.jiufu:id/bankTV
+    [Teardown]

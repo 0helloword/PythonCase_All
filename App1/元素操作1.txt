@@ -1,0 +1,13 @@
+*** Settings ***
+Library           AppiumLibrary
+
+*** Keywords ***
+点击元素
+    [Arguments]    ${name}
+    Sleep    2
+    Click Element    name=${name}
+    Sleep    1
+
+输入文本
+    [Arguments]    ${id}    ${value}
+    input text    id=${id}    ${value}
