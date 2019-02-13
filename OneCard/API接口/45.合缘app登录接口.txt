@@ -1,0 +1,94 @@
+*** Settings ***
+Library           RequestsLibrary
+Library           requests
+Library           json
+Library           Collections
+Library           ExcelLibrary
+Resource          ../公共关键字.txt
+Library           ../自写库/recordLoanData.py
+
+*** Test Cases ***
+入参正确
+    读取header公共参数-YJ
+    读取测试数据    hy.xlsx    合缘APP登录    2
+    ${mobile}    读取参数    1
+    ${password}    读取参数    2
+    ${fingerPrint}    读取参数    3
+    设置入参    mobile=${mobile}    password=${password}    fingerPrint=${fingerPrint}
+    发送post请求(无token)
+    打印请求返回结果
+    判断请求响应状态为200
+    判断返回status正确
+    判断返回data参数正确
+
+mobile为空
+    读取header公共参数-YJ
+    读取测试数据    hy.xlsx    合缘APP登录    3
+    ${mobile}    Set Variable
+    ${password}    读取参数    2
+    ${fingerPrint}    读取参数    3
+    设置入参    mobile=${mobile}    password=${password}    fingerPrint=${fingerPrint}
+    发送post请求(无token)
+    打印请求返回结果
+    判断请求响应状态为200
+    判断返回status正确
+
+password为空
+    读取header公共参数-YJ
+    读取测试数据    hy.xlsx    合缘APP登录    4
+    ${mobile}    读取参数    1
+    ${password}    Set Variable
+    ${fingerPrint}    读取参数    3
+    设置入参    mobile=${mobile}    password=${password}    fingerPrint=${fingerPrint}
+    发送post请求(无token)
+    打印请求返回结果
+    判断请求响应状态为200
+    判断返回status正确
+
+fingerPrint为空
+    读取header公共参数-YJ
+    读取测试数据    hy.xlsx    合缘APP登录    5
+    ${mobile}    读取参数    1
+    ${password}    读取参数    2
+    ${fingerPrint}    Set Variable
+    设置入参    mobile=${mobile}    password=${password}    fingerPrint=${fingerPrint}
+    发送post请求(无token)
+    打印请求返回结果
+    判断请求响应状态为200
+    判断返回status正确
+
+mobile参数错误
+    读取header公共参数-YJ
+    读取测试数据    hy.xlsx    合缘APP登录    6
+    ${mobile}    读取参数    1
+    ${password}    读取参数    2
+    ${fingerPrint}    读取参数    3
+    设置入参    mobile=${mobile}    password=${password}    fingerPrint=${fingerPrint}
+    发送post请求(无token)
+    打印请求返回结果
+    判断请求响应状态为200
+    判断返回status正确
+
+mobile参数未注册
+    读取header公共参数-YJ
+    读取测试数据    hy.xlsx    合缘APP登录    7
+    ${mobile}    读取参数    1
+    ${password}    读取参数    2
+    ${fingerPrint}    读取参数    3
+    设置入参    mobile=${mobile}    password=${password}    fingerPrint=${fingerPrint}
+    发送post请求(无token)
+    打印请求返回结果
+    判断请求响应状态为200
+    判断返回status正确
+
+password参数错误
+    读取header公共参数-YJ
+    读取测试数据    hy.xlsx    合缘APP登录    8
+    ${mobile}    读取参数    1
+    ${password}    读取参数    2
+    ${fingerPrint}    读取参数    3
+    设置入参    mobile=${mobile}    password=${password}    fingerPrint=${fingerPrint}
+    发送post请求(无token)
+    打印请求返回结果
+    判断请求响应状态为200
+    判断返回status正确

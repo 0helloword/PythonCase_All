@@ -1,0 +1,260 @@
+*** Settings ***
+Library           String
+Library           Collections
+Library           Process
+Library           OperatingSystem
+Library           XML
+Resource          关键字.txt
+Library           Selenium2Library
+Library           AutoItLibrary
+Library           ../9fchaoneng-oc/自写库/mysqltest1.py
+Library           DatabaseLibrary
+
+*** Test Cases ***
+随机数
+    ${a}    Evaluate    random.randint(0,1000)    random
+
+随机字符串
+    ${str}    Evaluate    'abcdefghijklmnopqrstuvwxyz123456789'    string
+    ${strlen}    Evaluate    len('${str}')
+    ${len}    Get Length    ${str}
+    ${num}    Set Variable    10
+    ${newstr}    Set Variable    ${EMPTY}
+    : FOR    ${index}    IN RANGE    ${num}
+    \    ${i}    Evaluate    random.randint(0,int(${len})-1)+1    random
+    \    ${temp}    Set Variable    ${str[int(${i})-1]}
+    \    ${newstr}    Set Variable    ${newstr}${temp}    #拼接10个随机的字符组成字符串
+    log    ${newstr}
+    ${gen}    Generate Random String    4    [UPPER]    #生成随机字符串
+
+字符串处理
+    ${str}    Set Variable    \ hello world \
+    log    =${str}=
+    ${str}    Evaluate    '${str}'.strip()    #去掉空格
+    log    =${str}=
+    ${str}    Evaluate    '${str}'.replace('o','h')
+    ${str}    Evaluate    '${str}'.replace(' ','')
+    ${urlA}    Set Variable    http://www.baidu.com
+    ${urlB}    Set Variable    more
+    ${url}    Evaluate    string.join(['${urlA}','${urlB}'],'/')    string    #拼接字符串
+
+中文处理
+    ${utf8}    Set Variable    u'\\u4e2d\\u6587'
+    ${utf8cn}    Evaluate    ${utf8}
+    ${gbk}    Set Variable    \\xd6\\xd0\\xce\\xc4
+    ${gbkcn}    Evaluate    '${gbk}'.decode('gbk')
+    ${a}    Set Variable    中文
+    ${utf8}    Evaluate    '${a}'.decode('utf-8')
+    ${utf8cn}    Evaluate    u'${utf8}'
+    ${utflist}    Create List    ${a}
+    ${gbk}    Evaluate    '${a}'.decode('utf-8').encode('gbk')
+    ${gbkcn}    Evaluate    '${gbk}'.decode('gbk')    #该行报错
+
+关键字
+    ${count}    Get Count    hello world    o
+    @{list}    Create List    1    2    3
+    log many    @{list}
+    ${len}    Get Length    ${list}
+    Length Should Be    ${list}    ${len}
+    Comment    Fail    #停止当前case
+    Comment    Fatal Error    #停止所有的case
+
+正则表达式
+    ${rm}    Set Variable    paic-2.523.6-90
+    ${subn}    Evaluate    re.subn(['^\\w']','_','${rm}')    re
+    log    ${subn[0]}
+    ${sub}    Evaluate    re.sub('[\\d]','*','${rm}')    re
+    ${findnumber}    Evaluate    re.findall('\\d','${rm}')    re
+    ${findnumbers}    Evaluate    re.findall('\\d+','${rm}')    re
+
+日期处理
+    ${ymd}    Get Time    year month day    NOW-1 day    #当前日期减一天
+    ${gettime}    Get Time    year month day    2014-10-15
+    ${year}    ${month}    ${day}    Set Variable    ${gettime}
+    ${addDays}    Set Variable    -1
+    ${newDate}    Evaluate    datetime.date(int('${year}'),int('${month}'),int('${day}'))+datetime.timedelta(days=int('${addDays}'))    datetime    #指定日期减一天
+    ${newYMD}    Evaluate    '${newDate}'.split('-')    \    #使用split把年月日分开
+    ${newTime}    Evaluate    time.strftime("%Y-%m-%d-%H-%M-%S")    time    #time的日期字符串格式转换
+    ${newTime2}    Evaluate    time.strftime("%Y-%m-%d %H:%M:%S")    time
+    ${newTime2}    Evaluate    time.strftime("%Y.%m.%d")    time
+
+String转换
+    ${str}    Set Variable    Hello World
+    ${lowser}    Convert To Lowercase    ${str}
+    ${upper}    Convert To Uppercase    ${str}
+    ${a}    Set Variable    中文
+    ${utf8}    Encode String To Bytes    ${a}    UTF-8    #将字符串encode对应编码的bytes
+    ${gbk}    Encode String To Bytes    ${a}    GBK
+    ${utf8cn}    Decode Bytes To String    ${utf8}    UTF-8    #用decode转回字符串
+    ${gbkcn}    Decode Bytes To String    ${gbk}    GBK
+
+String多行文本处理
+    ${str}    Set Variable    hello\nworld\ntest\nrobot
+    ${linecount}    Get Line Count    ${str}
+    ${lines}    Split To Lines    ${str}    #按行拆分为单行的文本
+    ${line}    Get Line    ${str}    1
+    ${linecontain}    Get Lines Containing String    ${str}    t    #返回包含指定字符串的行
+    ${lines}    Split To Lines    ${linecontain}    \    #多行再进行split
+
+String处理
+    ${str}    Set Variable    hello world test
+    ${replace}    Replace String    ${str}    o    h
+    ${remove}    Remove String    ${str}    wo
+    ${split}    Split String    ${str}
+    ${splitright}    Split String From Right    ${str}    e    1    #从右边开始用空格拆分，最多拆分1次
+    ${splitchar}    Split String To Characters    ${str}    #按单个字符拆分
+    ${fetchright}    Fetch From Right    ${str}    o    #从右边开始找到指定的第一个字符o,获取右边字符串
+    ${fetchleft}    Fetch From Left    ${str}    o    #从左边开始找到指定的第一个字符o,获取左边字符串
+    ${sub}    Get Substring    ${str}    6
+    Log    ${str[6:]}
+    ${gen}    Generate Random String    4    [UPPER]    #生成随机字符串
+
+list
+    ${tuple}    Evaluate    (u'a',u'b',u'c',u'd')
+    ${conlist}    Convert To List    ${tuple}
+    Append To List    ${conlist}    e    f    #加上ef
+    Insert Into List    ${conlist}    1    q    #在下标1插入字符q
+    log    ${conlist}
+    ${get}    Get From List    ${conlist}    -1
+    ${getindex}    Get Index From List    ${conlist}    f
+    @{list}    Create list    hello    world    cc    dd
+    log    @{list}[1]    #取值
+
+dictionary
+    ${dict}    Create Dictionary    a=1    b=2
+    Set To Dictionary    ${dict}    a=3    c=4
+    Log Dictionary    ${dict}
+    Remove From Dictionary    ${dict}    a    #去掉字典里的key
+    Log    ${dict}
+    Keep In Dictionary    ${dict}    b    #保留字典里的key
+    Log    ${dict}
+    ${keys}    Get Dictionary Keys    ${dict}    #获取字典中的keys
+    ${values}    Get Dictionary Values    ${dict}    #获取字典中的values
+    ${d}    Get From Dictionary    ${dict}    b    #获取字典中key值为b的value
+
+操作系统关键字
+    ${output}    Run    df -h    #查看磁盘空间使用情况-返回结果
+    ${rc}    Run and Return RC    df -h    #返回状态码
+    ${rcandoutput}    Run and Return RC and Output    df -h    #状态码和结果都返回
+    ${path}    Get Environment Variable    PATH    #获取环境变量
+    Set Environment Variable    TEST    ride    #设置环境变量
+    ${test}    Get Environment Variable    TEST
+    Append To Environment Variable    TEST    robot
+    ${envs}    Get Environment Variables
+    Remove Environment Variable    TEST
+    Log Environment Variables
+
+file
+    Create File    ${CURDIR}${/}file1.txt    中文内容test    #在当前项目目录下创建file1.txt
+    ${file}    Get File    ${CURDIR}${/}file1.txt    #获取文件内容
+    ${file-size}    Get File Size    ${CURDIR}${/}file1.txt    #获取文件大小
+    Append To File    ${CURDIR}${/}file1.txt    \n自动化测试\n测试指南    #添加内容
+    ${grep}    Grep File    ${CURDIR}${/}file1.txt    测试    #搜索特定关键字的行
+    Touch    ${CURDIR}${/}touch.txt    #创建一个空文件或修改文件的时间戳
+    Comment    Remove Files    ${CURDIR}${/}touch.txt    ${CURDIR}${/}file1.txt    #删除文件
+
+directory
+    Create Directory    ${CURDIR}${/}dir1    #创建目录
+    Create Directory    ${CURDIR}${/}dir1${/}subdir
+    Copy Directory    ${CURDIR}${/}dir1    ${CURDIR}${/}dir2    #复制目录
+    Move Directory    ${CURDIR}${/}dir2    ${CURDIR}${/}dir3    #移动目录
+    ${list}    List Directory    ${CURDIR}
+    ${countdir}    Count Directories In Directory    ${CURDIR}    #计算目录中有多少个子目录
+    Empty Directory    ${CURDIR}${/}dir3    #清空目录
+    Comment    Remove Directory    ${CURDIR}${/}dir3    #删除目录
+    Empty Directory    ${CURDIR}${/}dir1
+    Comment    Remove Directory    ${CURDIR}${/}dir1
+
+path
+    ${path}    Join Path    ${CURDIR}    test
+    ${paths}    Join Paths    ${CURDIR}    /usr    test
+    Comment    ${normalpath}    Normalize Path    ${CURDIR}..${/}7.3-String
+    Comment    ${split}    Split Path    ${CURDIR}
+    Comment    ${split}    Split Extension    ${CURDIR}${/}sample.txt
+    Comment    ${time}    Get Modified Time    ${CURDIR}
+    Comment    Set Modified Time    ${CURDIR}${/}sample.txt    NOW-1day
+    Comment    ${time}    Get Modified Time    ${CURDIR}${/}sample.txt
+
+Process
+    ${result}    Run Process    python    -c    print "robot"
+    log    ${result.stdout}
+    Run Process    python    -c    print "rf"    alias=rf
+    ${presult}    Get Process Result    rf
+    Start Process    python    alias=py2
+    Start Process    ping    alias=ping
+    Switch Process    py2
+    Terminate All Processes
+
+XML
+    ${XML}    Parse Xml    <xml><robot>test</robot></xml>    #将一段文本信息处理成XML对象
+    ${element}    Get Element    ${XML}    robot    #获取XML的节点元素
+    Add Element    ${XML}    <auto id='4'>theone</auto>    #添加一个节点
+    ${text}    Get Element Text    ${XML}    auto
+    Set Element Tag    ${XML}    rf    robot
+    Set Element Tag    ${XML}    settext    xpath=rf
+    Comment    Remove Element Attribute    ${XML}    id    auto
+    Comment    Clear Element    ${XML}    #清除所有节点
+
+连接数据库
+    ${a}    mysql_test    select ID from ln_app where APP_STATE=12 and LOAN_TYPE='POS' order by ID DESC limit 1;    jf_cn    Xe4P7PJb1a    jf_cn2
+    Comment    ${aa}    Evaluate    str(${a[0][0]})
+    Comment    @{b}    mysql_test    select ID from ln_app where APP_STATE=12 and LOAN_TYPE='POS' order by ID DESC limit 1;    ${mysql-user}    ${mysql-pwd}    ${mysql-db}
+    Comment    log    @{b[0]}
+
+Run keyword if
+    ${a}    Set Variable    0
+    ${b}    Set Variable    5
+    Run Keyword If    ${a}>=1    log    1
+    ...    ELSE IF    ${b}<=4    log    2
+    ...    ELSE    log    3
+
+循环
+    Comment    #example1
+    Comment    : FOR    ${i}    IN RANGE    10
+    Comment    \    log    joo${i}
+    #example2
+    : FOR    ${i}    IN RANGE    10    1    -1
+    \    log    joo${i}
+    \    #example3
+    Comment    : FOR    ${j}    IN    a    b
+    Comment    \    log    too-${j}
+    Comment    #example4
+    Comment    @{j}    Create List    a    b
+    Comment    : FOR    ${j}    IN    @{j}
+    Comment    \    log    too-${j}
+    Comment    #example5    #双循环
+    Comment    : FOR    ${i}    IN RANGE    1    10
+    Comment    \    log    joo${i}
+    Comment    \    forJ
+
+web对话框
+    open browser    http://192.168.200.232:8888/svn/CN/Task/%E5%BC%80%E5%8F%91%E5%BA%93/%E6%B5%8B%E8%AF%95%E6%96%87%E6%A1%A3/%E8%87%AA%E5%8A%A8%E5%8C%96%E6%B5%8B%E8%AF%95    chrome
+
+常用关键字
+    log    123    #打印信息
+    log many    123    #打印多个信息
+    ${a}    Set Variable    abc    #定义变量
+    ${c}    Catenate    hello    world    \    #连接对象
+    ${d}    Catenate    SEPARATOR=111    hello    world    #对多个连接的信息进行分割
+    ${b}    Catenate    SEPARATOR=    hello    world
+    Should Be Equal As Strings    ${a}    ${a}    #比较2个字符串是否相等
+    Should Be Equal As Integers    11    11    #比较2个整数是否相等
+    Should Be Equal As Numbers    12.3    12.3    #比较2个数字是否相等    #不相等时运行会报错，提示12.3!=12.5
+    log    ${11.1}    #数值常量
+    log    ${/}    #特殊字符常量
+    log    ${:}
+    log    ${EMPTY}
+    log    ${False}
+    log    ${None}
+    log    ${null}
+    log    ${SPACE}
+    log    ${True}
+    log    True
+    ${s}    Set Variable    qqq    #scalar变量
+    @{l}    Create list    1    2    3    #一维列表
+
+连接数据库2
+    Connect To Database Using Custom Params    pymysql    database='jf_cn2', user='jf_cn', password='Xe4P7PJb1a', host='127.0.0.1', port=1234
+    @{a}    query    select ID from ln_app where APP_STATE=12 and LOAN_TYPE='POS' order by ID DESC limit 1;
+    log    ${a[0][0]}
+    log    @{a[0]}[0]

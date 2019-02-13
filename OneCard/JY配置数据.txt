@@ -1,0 +1,97 @@
+*** Settings ***
+Library           ExcelLibrary
+Library           RequestsLibrary
+Library           requests
+Library           Collections
+Library           自写库/recordLoanData.py
+Library           自写库/mysqltest.py
+Library           自写库/dif.py
+Library           自写库/mysqlOperate.py
+Library           自写库/posttest.py
+Resource          公共关键字.txt
+
+*** Keywords ***
+获取token-JY
+    读取header公共参数-JY
+    读取测试数据    登录注册    2
+    ${mobile}    读取参数    1
+    ${memberId}    读取参数    2
+    ${fingerPrint}    读取参数    3
+    设置入参    mobile=${mobile}    memberId=${memberId}    fingerPrint=${fingerPrint}
+    发送post请求(无token)
+    ${token}    Set Variable    ${addr.json()['data']['token']}
+    Set Global Variable    ${token}
+
+读取用户主要数据-JY
+    @{info}    listExcel    onecard.xlsx    合缘    20    2    9
+    ${name}    Set Variable    @{info}[0]
+    Set Global Variable    ${name}
+    ${mobile}    Set Variable    @{info}[1]
+    Set Global Variable    ${mobile}
+    ${idCard}    Set Variable    @{info}[2]
+    Set Global Variable    ${idCard}
+    ${card}    Set Variable    @{info}[3]
+    Set Global Variable    ${card}
+    ${loginpwd}    Set Variable    @{info}[4]
+    Set Global Variable    ${loginpwd}
+    ${tradepwd}    Set Variable    @{info}[5]
+    Set Global Variable    ${tradepwd}
+    ${email}    Set Variable    @{info}[6]
+    Set Global Variable    ${email}
+    ${fingerPrint}    Set Variable    @{info}[7]
+    Set Global Variable    ${fingerPrint}
+
+获取验证码-JY
+    [Arguments]    ${type}
+    Comment    获取token-JY
+    读取测试数据    发送验证码    2
+    ${mobile}    Set Variable    15626513325
+    ${type}    Set Variable    ${type}
+    设置入参    mobile=${mobile}    type=${type}
+    发送post请求
+    判断请求响应状态为200
+    ${a}    Mysql Test    select * from wk_sms_log where mobile='15626513325' \ ORDER BY sendTime DESC limit 1;
+    ${code}    Evaluate    int(${a[0][2]})
+    Set Global Variable    ${code}
+
+获取token(APP登录)-JY
+    读取header公共参数-JY
+    读取用户主要数据-JY
+    读取测试数据    合缘APP登录    2
+    设置入参    mobile=${mobile}    password=${loginpwd}    fingerPrint=${fingerPrint}
+    发送post请求(无token)
+    ${token}    Set Variable    ${addr.json()['data']['token']}
+    Set Global Variable    ${token}
+
+读取header公共参数-JY
+    @{dict}    listExcel    onecard.xlsx    合缘    1    2    11
+    Set Global Variable    @{dict}
+    ${url}    Set Variable    @{dict}[0]
+    Set Global Variable    ${url}
+    ${Content-Type}    Set Variable    @{dict}[1]
+    Set Global Variable    ${Content-Type}
+    ${appId}    Set Variable    @{dict}[2]
+    Set Global Variable    ${appId}
+    ${partnerId}    Set Variable    @{dict}[3]
+    Set Global Variable    ${partnerId}
+    ${format}    Set Variable    @{dict}[4]
+    Set Global Variable    ${format}
+    ${signMethod}    Set Variable    @{dict}[5]
+    Set Global Variable    ${signMethod}
+    ${timeStamp}    Set Variable    @{dict}[6]
+    Set Global Variable    ${timeStamp}
+    ${sign}    Set Variable    @{dict}[7]
+    Set Global Variable    ${sign}
+    ${deviceType}    Set Variable    @{dict}[8]
+    Set Global Variable    ${deviceType}
+    ${channelCode}    Set Variable    @{dict}[9]
+    Set Global Variable    ${channelCode}
+    ${proid}    Set Variable    @{dict}[10]
+    Set Global Variable    ${proid}
+
+获取产品ID-JY
+    @{ProId}    listExcel    onecard.xlsx    合缘    31    2    2
+    ${MProId}    Set Variable    @{ProId}[0]
+    Set Global Variable    ${MProId}
+    ${FProId}    Set Variable    @{ProId}[1]
+    Set Global Variable    ${FProId}

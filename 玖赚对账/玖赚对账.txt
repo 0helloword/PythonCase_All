@@ -1,0 +1,205 @@
+*** Settings ***
+Documentation     测试点
+...               分成：
+...               1.草根自己办卡不升级不分钱
+...               2.小资分成比例65%
+...               3.中间有草根分成断开
+...               4.草根升小资奖励该卡的60%
+...               5.小资平行奖励5%
+...               6.老板分成比例85%
+...               7.老板-小资-草根，比例为25%，60%
+...               8.老板-小资-小资-草根，比例20%，5%，60%
+...               9.平级分成不可超过两级
+...               10.土豪分成比例95%
+...               11.下级高于上级时分成断开
+...               升级：
+...               1.草根邀请办卡一张升级为小资
+...               2.小资直属达3个小资升级为老板
+...               4.老板直属达30个小资升级土豪
+Library           自写库/mysqlOperate.py
+Library           Selenium2Library
+Library           自写库/mysqltest.py
+
+*** Test Cases ***
+初始化数据
+    更新wk_account表数据
+    更新wk_customer表数据
+    更新wk_user_creditcard表数据
+    初始化公共账户
+    初始化记录流水表
+
+上传银行excel数据
+    open browser    http://123.57.234.78:8812/initLogin    chrome
+    Maximize Browser Window
+    Input Text    id=username    admin
+    Input Text    id=password    cn123789
+    Click Button    id=loginButton
+    Sleep    2
+    Page Should Contain    财务管理
+    Wait Until Keyword Succeeds    20    2    click element    jquery=ul li>a:contains('信用卡对账'):eq(0)
+    Sleep    2
+    Choose File    id=excel_file    G:\\pythonCase\\玖赚对账\\credit.xlsx
+    click element    css=input.btn.btn-primary
+    sleep    2
+    Page Should Contain    财务管理
+    close browser
+
+验证个人升级
+    ${availableBalance}    mysql_test    select * from wk_customer where customerId like '22220%';
+    ${丸一}    Evaluate    int(${availableBalance[0][9]})
+    ${丸二}    Evaluate    int(${availableBalance[1][9]})
+    ${丸三}    Evaluate    int(${availableBalance[2][9]})
+    ${丸四}    Evaluate    int(${availableBalance[3][9]})
+    ${丸五}    Evaluate    int(${availableBalance[4][9]})
+    ${丸六}    Evaluate    int(${availableBalance[5][9]})
+    ${丸七}    Evaluate    int(${availableBalance[6][9]})
+    ${丸八}    Evaluate    int(${availableBalance[7][9]})
+    ${丸九}    Evaluate    int(${availableBalance[8][9]})
+    ${丸十}    Evaluate    int(${availableBalance[9][9]})
+    ${丸十一}    Evaluate    int(${availableBalance[10][9]})
+    ${丸十二}    Evaluate    int(${availableBalance[11][9]})
+    ${丸十三}    Evaluate    int(${availableBalance[12][9]})
+    ${丸十四}    Evaluate    int(${availableBalance[13][9]})
+    ${丸十五}    Evaluate    int(${availableBalance[14][9]})
+    ${丸十六}    Evaluate    int(${availableBalance[15][9]})
+    ${丸十七}    Evaluate    int(${availableBalance[16][9]})
+    Should Be Equal As Strings    ${丸一}    3
+    Should Be Equal As Strings    ${丸二}    2
+    Should Be Equal As Strings    ${丸三}    2
+    Should Be Equal As Strings    ${丸四}    2
+    Should Be Equal As Strings    ${丸五}    2
+    Should Be Equal As Strings    ${丸六}    1
+    Should Be Equal As Strings    ${丸七}    1
+    Should Be Equal As Strings    ${丸八}    1
+    Should Be Equal As Strings    ${丸九}    1
+    Should Be Equal As Strings    ${丸十}    4
+    Should Be Equal As Strings    ${丸十一}    2
+    Should Be Equal As Strings    ${丸十二}    1
+    Should Be Equal As Strings    ${丸十三}    1
+    Should Be Equal As Strings    ${丸十四}    1
+    Should Be Equal As Strings    ${丸十五}    2
+    Should Be Equal As Strings    ${丸十六}    1
+    Should Be Equal As Strings    ${丸十七}    1
+
+验证公共账户金额
+    ${availableBalance}    mysql_test    select * from wk_customer where name in ('固定账户','营销账户','差额账户');
+    ${固定账户}    Evaluate    int(${availableBalance[0][13]})
+    ${营销账户}    Evaluate    int(${availableBalance[1][13]})
+    ${差额账户}    Evaluate    int(${availableBalance[2][13]})
+    Should Be Equal As Strings    ${固定账户}    425    #17*25
+    Should Be Equal As Strings    ${营销账户}    -420    #7*60
+    Should Be Equal As Strings    ${差额账户}    1015    #100+100+40+40+100+35+100+100+15+15+100+15+100+35+15+100+5
+
+验证个人账户金额
+    ${availableBalance}    mysql_test    select * from wk_customer where customerId like '22220%';
+    ${丸一}    Evaluate    str(${availableBalance[0][13]})
+    ${丸二}    Evaluate    str(${availableBalance[1][13]})
+    ${丸三}    Evaluate    str(${availableBalance[2][13]})
+    ${丸四}    Evaluate    str(${availableBalance[3][13]})
+    ${丸五}    Evaluate    str(${availableBalance[4][13]})
+    ${丸六}    Evaluate    str(${availableBalance[5][13]})
+    ${丸七}    Evaluate    str(${availableBalance[6][13]})
+    ${丸八}    Evaluate    str(${availableBalance[7][13]})
+    ${丸九}    Evaluate    str(${availableBalance[8][13]})
+    ${丸十}    Evaluate    str(${availableBalance[9][13]})
+    ${丸十一}    Evaluate    str(${availableBalance[10][13]})
+    ${丸十二}    Evaluate    str(${availableBalance[11][13]})
+    ${丸十三}    Evaluate    str(${availableBalance[12][13]})
+    ${丸十四}    Evaluate    str(${availableBalance[13][13]})
+    ${丸十五}    Evaluate    str(${availableBalance[14][13]})
+    ${丸十六}    Evaluate    str(${availableBalance[15][13]})
+    ${丸十七}    Evaluate    str(${availableBalance[16][13]})
+    Should Be Equal As Strings    ${丸一}    324.99    #9.99+60+60+60+5+85+25+20
+    Should Be Equal As Strings    ${丸二}    134.99    #9.99+60+60+5
+    Should Be Equal As Strings    ${丸三}    69.99    #9.99+60
+    Should Be Equal As Strings    ${丸四}    129.99    #9.99+60+60
+    Should Be Equal As Strings    ${丸五}    134.99    #9.99+60+5+60
+    Should Be Equal As Strings    ${丸六}    9.99
+    Should Be Equal As Strings    ${丸七}    9.99
+    Should Be Equal As Strings    ${丸八}    9.99
+    Should Be Equal As Strings    ${丸九}    9.99
+    Should Be Equal As Strings    ${丸十}    189.99    #9.99+85+95
+    Should Be Equal As Strings    ${丸十一}    129.99    #9.99+60+60
+    Should Be Equal As Strings    ${丸十二}    9.99
+    Should Be Equal As Strings    ${丸十三}    9.99
+    Should Be Equal As Strings    ${丸十四}    9.99
+    Should Be Equal As Strings    ${丸十五}    69.99    #9.99+60
+    Should Be Equal As Strings    ${丸十六}    9.99
+    Should Be Equal As Strings    ${丸十七}    9.99
+
+1
+    log    123
+
+*** Keywords ***
+更新wk_account表数据
+    mysql_operate    delete from wk_account where accountName like '1562651900%'
+    mysql_operate    INSERT INTO `wildfire_loan`.`wk_account` (`accountId`, `accountName`, `uuid`, `certId`, `customerId`, `custNo`, `status`, `source`, `createTime`, `updatedTime`, `realNameTime`, `isOld`, `active`, `inviteCode`, `operator`, `location`, `prodid`, `openid`, `inviteAcode`, `inviteRcode`, `utmMedium`, `utmCampaign`, `registerId`, `hasOldOrder`, `fileId`, `isConfirmProtocol`, `unionid`, `activeCode`, `proxy`, `active2Code`, `generateTime`) VALUES ('1155001', '15626519001', NULL, '420222198501011101', '2222001', NULL, '0', '0', '2018-08-30 11:11:28', '2018-10-25 11:08:36', NULL, 'N', 'Y', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '93dbe566-003b-48fa-b093-8b759b8b6df9', 'N', NULL, NULL, '', NULL, NULL);
+    mysql_operate    INSERT INTO `wildfire_loan`.`wk_account` (`accountId`, `accountName`, `uuid`, `certId`, `customerId`, `custNo`, `status`, `source`, `createTime`, `updatedTime`, `realNameTime`, `isOld`, `active`, `inviteCode`, `operator`, `location`, `prodid`, `openid`, `inviteAcode`, `inviteRcode`, `utmMedium`, `utmCampaign`, `registerId`, `hasOldOrder`, `fileId`, `isConfirmProtocol`, `unionid`, `activeCode`, `proxy`, `active2Code`, `generateTime`) VALUES ('1155002', '15626519002', NULL, '420222198501011102', '2222002', NULL, '0', '0', '2018-08-30 11:12:36', '2018-09-12 20:10:56', NULL, 'N', 'Y', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '3b573777-07c3-42bf-80c0-f391a430466f', 'N', NULL, NULL, '', NULL, NULL);
+    mysql_operate    INSERT INTO `wildfire_loan`.`wk_account` (`accountId`, `accountName`, `uuid`, `certId`, `customerId`, `custNo`, `status`, `source`, `createTime`, `updatedTime`, `realNameTime`, `isOld`, `active`, `inviteCode`, `operator`, `location`, `prodid`, `openid`, `inviteAcode`, `inviteRcode`, `utmMedium`, `utmCampaign`, `registerId`, `hasOldOrder`, `fileId`, `isConfirmProtocol`, `unionid`, `activeCode`, `proxy`, `active2Code`, `generateTime`) VALUES ('1155003', '15626519003', NULL, '420222198501011103', '2222003', NULL, '0', '0', '2018-08-30 11:13:24', '2018-09-12 19:14:51', NULL, 'N', 'Y', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'fb69ea99-fd62-4ee3-b213-8416306784ec', 'N', NULL, NULL, '', NULL, NULL);
+    mysql_operate    INSERT INTO `wildfire_loan`.`wk_account` (`accountId`, `accountName`, `uuid`, `certId`, `customerId`, `custNo`, `status`, `source`, `createTime`, `updatedTime`, `realNameTime`, `isOld`, `active`, `inviteCode`, `operator`, `location`, `prodid`, `openid`, `inviteAcode`, `inviteRcode`, `utmMedium`, `utmCampaign`, `registerId`, `hasOldOrder`, `fileId`, `isConfirmProtocol`, `unionid`, `activeCode`, `proxy`, `active2Code`, `generateTime`) VALUES ('1155004', '15626519004', NULL, '420222198501011104', '2222004', NULL, '0', '0', '2018-08-30 20:50:17', '2018-09-12 19:14:51', NULL, 'N', 'Y', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '85360beb-3edb-4bec-8026-6cf66727abf1', 'N', NULL, NULL, '', NULL, NULL);
+    mysql_operate    INSERT INTO `wildfire_loan`.`wk_account` (`accountId`, `accountName`, `uuid`, `certId`, `customerId`, `custNo`, `status`, `source`, `createTime`, `updatedTime`, `realNameTime`, `isOld`, `active`, `inviteCode`, `operator`, `location`, `prodid`, `openid`, `inviteAcode`, `inviteRcode`, `utmMedium`, `utmCampaign`, `registerId`, `hasOldOrder`, `fileId`, `isConfirmProtocol`, `unionid`, `activeCode`, `proxy`, `active2Code`, `generateTime`) VALUES ('1155005', '15626519005', NULL, '420222198501011105', '2222005', NULL, '0', '0', '2018-08-30 20:51:57', '2018-09-12 19:14:51', NULL, 'N', 'Y', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '102cc3fb-88d8-4b0f-ba38-fdc084239b20', 'N', NULL, NULL, '', NULL, NULL);
+    mysql_operate    INSERT INTO `wildfire_loan`.`wk_account` (`accountId`, `accountName`, `uuid`, `certId`, `customerId`, `custNo`, `status`, `source`, `createTime`, `updatedTime`, `realNameTime`, `isOld`, `active`, `inviteCode`, `operator`, `location`, `prodid`, `openid`, `inviteAcode`, `inviteRcode`, `utmMedium`, `utmCampaign`, `registerId`, `hasOldOrder`, `fileId`, `isConfirmProtocol`, `unionid`, `activeCode`, `proxy`, `active2Code`, `generateTime`) VALUES ('1155006', '15626519006', NULL, '420222198501011106', '2222006', NULL, '0', '0', '2018-08-30 20:53:00', '2018-09-12 19:32:53', NULL, 'N', 'Y', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2c8e2389-e197-43c9-a053-f32e37907f20', 'N', NULL, NULL, '', NULL, NULL);
+    mysql_operate    INSERT INTO `wildfire_loan`.`wk_account` (`accountId`, `accountName`, `uuid`, `certId`, `customerId`, `custNo`, `status`, `source`, `createTime`, `updatedTime`, `realNameTime`, `isOld`, `active`, `inviteCode`, `operator`, `location`, `prodid`, `openid`, `inviteAcode`, `inviteRcode`, `utmMedium`, `utmCampaign`, `registerId`, `hasOldOrder`, `fileId`, `isConfirmProtocol`, `unionid`, `activeCode`, `proxy`, `active2Code`, `generateTime`) VALUES ('1155007', '15626519007', NULL, '420222198501011107', '2222007', NULL, '0', '0', '2018-08-30 20:53:57', '2018-09-12 19:14:51', NULL, 'N', 'Y', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'cb396762-9a85-4a60-9783-c4d7471d6e40', 'N', NULL, NULL, '', NULL, NULL);
+    mysql_operate    INSERT INTO `wildfire_loan`.`wk_account` (`accountId`, `accountName`, `uuid`, `certId`, `customerId`, `custNo`, `status`, `source`, `createTime`, `updatedTime`, `realNameTime`, `isOld`, `active`, `inviteCode`, `operator`, `location`, `prodid`, `openid`, `inviteAcode`, `inviteRcode`, `utmMedium`, `utmCampaign`, `registerId`, `hasOldOrder`, `fileId`, `isConfirmProtocol`, `unionid`, `activeCode`, `proxy`, `active2Code`, `generateTime`) VALUES ('1155008', '15626519008', NULL, '420222198501011108', '2222008', NULL, '0', '0', '2018-08-30 20:54:57', '2018-09-12 19:14:51', NULL, 'N', 'Y', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '618eed0d-588c-46d1-b17b-09ff6455179a', 'N', NULL, NULL, '', NULL, NULL);
+    mysql_operate    INSERT INTO `wildfire_loan`.`wk_account` (`accountId`, `accountName`, `uuid`, `certId`, `customerId`, `custNo`, `status`, `source`, `createTime`, `updatedTime`, `realNameTime`, `isOld`, `active`, `inviteCode`, `operator`, `location`, `prodid`, `openid`, `inviteAcode`, `inviteRcode`, `utmMedium`, `utmCampaign`, `registerId`, `hasOldOrder`, `fileId`, `isConfirmProtocol`, `unionid`, `activeCode`, `proxy`, `active2Code`, `generateTime`) VALUES ('1155009', '15626519009', NULL, '420222198501011109', '2222009', NULL, '0', '0', '2018-08-30 20:55:38', '2018-10-10 16:16:46', NULL, 'N', 'Y', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'ff89546d-5e0e-4c5d-914a-433e048f5031', 'N', NULL, NULL, '', NULL, NULL);
+    mysql_operate    INSERT INTO `wildfire_loan`.`wk_account` (`accountId`, `accountName`, `uuid`, `certId`, `customerId`, `custNo`, `status`, `source`, `createTime`, `updatedTime`, `realNameTime`, `isOld`, `active`, `inviteCode`, `operator`, `location`, `prodid`, `openid`, `inviteAcode`, `inviteRcode`, `utmMedium`, `utmCampaign`, `registerId`, `hasOldOrder`, `fileId`, `isConfirmProtocol`, `unionid`, `activeCode`, `proxy`, `active2Code`, `generateTime`) VALUES ('1155010', 1'15626519010', NULL, '420222198501011110', '2222010', NULL, '0', '0', '2018-08-30 20:55:38', '2018-10-10 16:16:46', NULL, 'N', 'Y', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'ff89546d-5e0e-4c5d-914a-433e048f5031', 'N', NULL, NULL, '', NULL, NULL);    #15626510010用户用作土豪升级测试
+    mysql_operate    INSERT INTO `wildfire_loan`.`wk_account` (`accountId`, `accountName`, `uuid`, `certId`, `customerId`, `custNo`, `status`, `source`, `createTime`,9 `updat9edTime`, `realNameTime`, `isOld`, `active`, `inviteCode`, `operator`, `location`, `prodid`, `openid`, `inviteAcode`, `inviteRcode`, `utmMedium`, `utmCampaign`, `regi1ster2Id`, `hasOldOrder`, `fileId`, `isConfirmProtocol`, `unionid`, `activeCode`, `proxy`, `active2Code`, `generateTime`) VALUES ('1155011', '15626519011', NULL, '420222198501011111', '2222011', NULL, '0', '0', '2018-08-30 20:55:38', '2018-10-10 16:16:46', NULL, 'N', 'Y', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'ff89546d-5e0e-4c5d-914a-433e048f5031', 'N', NULL, NULL, '', NULL, NULL);
+    mysql_operate    INSERT INTO `wildfire_loan`.`wk_account` (`accountId`, `accountName`, `uuid`, `certId`, `customerId`, `custNo`, `status`, `source`, `createTime`, `updatedTime`, `realNameTime`, `isOld`, `active`, `inviteCode`, `operator`, `location`, `prodid`, `openid`, `inviteAcode`, `inviteRcode`, `utmMedium`, `utmCampaign`, `registerId`, `hasOldOrder`, `fileId`, `isConfirmProtocol`, `unionid`, `activeCode`, `proxy`, `active2Code`, `generateTime`) VALUES ('1155012', '15626519012', NULL, '420222198501011112', '2222012', NULL, '0', '0', '2018-08-30 20:55:38', '2018-10-10 16:16:46', NULL, 'N', 'Y', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'ff89546d-5e0e-4c5d-914a-433e048f5031', 'N', NULL, NULL, '', NULL, NULL);
+    mysql_operate    INSERT INTO `wildfire_loan`.`wk_account` (`accountId`, `accountName`, `uuid`, `certId`, `customerId`, `custNo`, `status`, `source`, `createTime`, `updatedTime`, `realNameTime`, `isOld`, `active`, `inviteCode`, `operator`, `location`, `prodid`, `openid`, `inviteAcode`, `inviteRcode`, `utmMedium`, `utmCampaign`, `registerId`, `hasOldOrder`, `fileId`, `isConfirmProtocol`, `unionid`, `activeCode`, `proxy`, `active2Code`, `generateTime`) VALUES ('1155013', '15626519013', NULL, '420222198501011113', '2222013', NULL, '0', '0', '2018-08-30 20:55:38', '2018-10-10 16:16:46', NULL, 'N', 'Y', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'ff89546d-5e0e-4c5d-914a-433e048f5031', 'N', NULL, NULL, '', NULL, NULL);
+    mysql_operate    INSERT INTO `wildfire_loan`.`wk_account` (`accountId`, `accountName`, `uuid`, `certId`, `customerId`, `custNo`, `status`, `source`, `createTime`, `updatedTime`, `realNameTime`, `isOld`, `active`, `inviteCode`, `operator`, `location`, `prodid`, `openid`, `inviteAcode`, `inviteRcode`, `utmMedium`, `utmCampaign`, `registerId`, `hasOldOrder`, `fileId`, `isConfirmProtocol`, `unionid`, `activeCode`, `proxy`, `active2Code`, `generateTime`) VALUES ('1155014', '15626519014', NULL, '420222198501011114', '2222014', NULL, '0', '0', '2018-08-30 20:55:38', '2018-10-10 16:16:46', NULL, 'N', 'Y', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'ff89546d-5e0e-4c5d-914a-433e048f5031', 'N', NULL, NULL, '', NULL, NULL);
+    mysql_operate    INSERT INTO `wildfire_loan`.`wk_account` (`accountId`, `accountName`, `uuid`, `certId`, `customerId`, `custNo`, `status`, `source`, `createTime`, `updatedTime`, `realNameTime`, `isOld`, `active`, `inviteCode`, `operator`, `location`, `prodid`, `openid`, `inviteAcode`, `inviteRcode`, `utmMedium`, `utmCampaign`, `registerId`, `hasOldOrder`, `fileId`, `isConfirmProtocol`, `unionid`, `activeCode`, `proxy`, `active2Code`, `generateTime`) VALUES ('1155015', '15626519015', NULL, '420222198501011115', '2222015', NULL, '0', '0', '2018-08-30 20:55:38', '2018-10-10 16:16:46', NULL, 'N', 'Y', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'ff89546d-5e0e-4c5d-914a-433e048f5031', 'N', NULL, NULL, '', NULL, NULL);
+    mysql_operate    INSERT INTO `wildfire_loan`.`wk_account` (`accountId`, `accountName`, `uuid`, `certId`, `customerId`, `custNo`, `status`, `source`, `createTime`, `updatedTime`, `realNameTime`, `isOld`, `active`, `inviteCode`, `operator`, `location`, `prodid`, `openid`, `inviteAcode`, `inviteRcode`, `utmMedium`, `utmCampaign`, `registerId`, `hasOldOrder`, `fileId`, `isConfirmProtocol`, `unionid`, `activeCode`, `proxy`, `active2Code`, `generateTime`) VALUES ('1155016', '15626519016', NULL, '420222198501011116', '2222016', NULL, '0', '0', '2018-08-30 20:55:38', '2018-10-10 16:16:46', NULL, 'N', 'Y', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'ff89546d-5e0e-4c5d-914a-433e048f5031', 'N', NULL, NULL, '', NULL, NULL);
+    mysql_operate    INSERT INTO `wildfire_loan`.`wk_account` (`accountId`, `accountName`, `uuid`, `certId`, `customerId`, `custNo`, `status`, `source`, `createTime`, `updatedTime`, `realNameTime`, `isOld`, `active`, `inviteCode`, `operator`, `location`, `prodid`, `openid`, `inviteAcode`, `inviteRcode`, `utmMedium`, `utmCampaign`, `registerId`, `hasOldOrder`, `fileId`, `isConfirmProtocol`, `unionid`, `activeCode`, `proxy`, `active2Code`, `generateTime`) VALUES ('1155017', '15626519017', NULL, '420222198501011117', '2222017', NULL, '0', '0', '2018-08-30 20:55:38', '2018-10-10 16:16:46', NULL, 'N', 'Y', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'ff89546d-5e0e-4c5d-914a-433e048f5031', 'N', NULL, NULL, '', NULL, NULL);
+
+更新wk_customer表数据
+    mysql_operate    delete from wk_customer where customerId like '22220%'
+    mysql_operate    INSERT INTO `wildfire_loan`.`wk_customer` (`customerId`, `name`, `certId`, `source`, `birthDay`, `sex`, `tradePwd`, `createTime`, `updatedTime`, `level`, `subordinate`, `subordinateEligible`, `successCards`, `availableBalance`, `usedAmount`, `frozenAmount`, `inviteCode`, `invite2Code`) VALUES ('2222001', '丸一', '420222198501011101', '0', '1985-01-01', '1', 'Y3lqMTIz', '2018-08-30 11:12:36', '2018-09-04 10:55:56', '1', '0', '0', '0', '9.99', '0.00', '0.00', '0001396069', '');
+    mysql_operate    INSERT INTO `wildfire_loan`.`wk_customer` (`customerId`, `name`, `certId`, `source`, `birthDay`, `sex`, `tradePwd`, `createTime`, `updatedTime`, `level`, `subordinate`, `subordinateEligible`, `successCards`, `availableBalance`, `usedAmount`, `frozenAmount`, `inviteCode`, `invite2Code`) VALUES ('2222002', '丸二', '420222198501011102', '0', '1985-01-01', '1', 'Y3lqMTIz', '2018-08-30 11:12:36', '2018-09-04 10:55:56', '1', '0', '0', '0', '9.99', '0.00', '0.00', '0002396079', '0001396069');
+    mysql_operate    INSERT INTO `wildfire_loan`.`wk_customer` (`customerId`, `name`, `certId`, `source`, `birthDay`, `sex`, `tradePwd`, `createTime`, `updatedTime`, `level`, `subordinate`, `subordinateEligible`, `successCards`, `availableBalance`, `usedAmount`, `frozenAmount`, `inviteCode`, `invite2Code`) VALUES ('2222003', '丸三', '420222198501011103', '0', '1985-01-01', '1', 'Y3lqMTIz', '2018-08-30 11:13:24', '2018-09-04 11:00:52', '1', '0', '0', '0', '9.99', '0.00', '0.00', '0003422761', '0001396069');
+    mysql_operate    INSERT INTO `wildfire_loan`.`wk_customer` (`customerId`, `name`, `certId`, `source`, `birthDay`, `sex`, `tradePwd`, `createTime`, `updatedTime`, `level`, `subordinate`, `subordinateEligible`, `successCards`, `availableBalance`, `usedAmount`, `frozenAmount`, `inviteCode`, `invite2Code`) VALUES ('2222004', '丸四', '420222198501011104', '0', '1985-01-01', '1', 'Y3lqMTIz', '2018-08-30 20:50:17', '2018-09-04 11:04:04', '1', '0', '0', '0', '9.99', '0.00', '0.00', '0004554948', '0001396069');
+    mysql_operate    INSERT INTO `wildfire_loan`.`wk_customer` (`customerId`, `name`, `certId`, `source`, `birthDay`, `sex`, `tradePwd`, `createTime`, `updatedTime`, `level`, `subordinate`, `subordinateEligible`, `successCards`, `availableBalance`, `usedAmount`, `frozenAmount`, `inviteCode`, `invite2Code`) VALUES ('2222005', '丸五', '420222198501011105', '0', '1985-01-01', '1', 'Y3lqMTIz', '2018-08-30 20:51:57', '2018-08-30 20:51:57', '1', '0', '0', '0', '9.99', '0.00', '0.00', '0005823355', '0002396079');
+    mysql_operate    INSERT INTO `wildfire_loan`.`wk_customer` (`customerId`, `name`, `certId`, `source`, `birthDay`, `sex`, `tradePwd`, `createTime`, `updatedTime`, `level`, `subordinate`, `subordinateEligible`, `successCards`, `availableBalance`, `usedAmount`, `frozenAmount`, `inviteCode`, `invite2Code`) VALUES ('2222006', '丸六', '420222198501011106', '0', '1985-01-01', '1', 'Y3lqMTIz', '2018-08-30 20:53:00', '2018-08-30 20:53:00', '1', '0', '0', '0', '9.99', '0.00', '0.00', '0006996533', '0002396079');
+    mysql_operate    INSERT INTO `wildfire_loan`.`wk_customer` (`customerId`, `name`, `certId`, `source`, `birthDay`, `sex`, `tradePwd`, `createTime`, `updatedTime`, `level`, `subordinate`, `subordinateEligible`, `successCards`, `availableBalance`, `usedAmount`, `frozenAmount`, `inviteCode`, `invite2Code`) VALUES ('2222007', '丸七', '420222198501011107', '0', '1985-01-01', '1', 'Y3lqMTIz', '2018-08-30 20:53:57', '2018-08-30 20:53:57', '1', '0', '0', '0', '9.99', '0.00', '0.00', '0007858112', '0003422761');
+    mysql_operate    INSERT INTO `wildfire_loan`.`wk_customer` (`customerId`, `name`, `certId`, `source`, `birthDay`, `sex`, `tradePwd`, `createTime`, `updatedTime`, `level`, `subordinate`, `subordinateEligible`, `successCards`, `availableBalance`, `usedAmount`, `frozenAmount`, `inviteCode`, `invite2Code`) VALUES ('2222008', '丸八', '420222198501011108', '0', '1985-01-01', '1', 'Y3lqMTIz', '2018-08-30 20:54:57', '2018-09-06 11:46:59', '1', '0', '0', '0', '9.99', '0.00', '0.00', '0008342598', '0004554948');
+    mysql_operate    INSERT INTO `wildfire_loan`.`wk_customer` (`customerId`, `name`, `certId`, `source`, `birthDay`, `sex`, `tradePwd`, `createTime`, `updatedTime`, `level`, `subordinate`, `subordinateEligible`, `successCards`, `availableBalance`, `usedAmount`, `frozenAmount`, `inviteCode`, `invite2Code`) VALUES ('2222009', '丸九', '420222198501011109', '0', '1985-01-01', '1', 'Y3lqMTIz', '2018-08-30 20:55:38', '2018-08-30 20:55:38', '1', '0', '0', '0', '9.99', '0.00', '0.00', '0009245186', '0001396069');
+    mysql_operate    INSERT INTO `wildfire_loan`.`wk_customer` (`customerId`, `name`, `certId`, `source`, `birthDay`, `sex`, `tradePwd`, `createTime`, `updatedTime`, `level`, `subordinate`, `subordinateEligible`, `successCards`, `availableBalance`, `usedAmount`, `frozenAmount`, `inviteCode`, `invite2Code`) VALUES ('2222010', '丸十', '420222198501011110', '0', '1985-01-01', '1', 'Y3lqMTIz', '2018-08-30 20:55:38', '2018-08-30 20:55:38', '3', '0', '29', '0', '9.99', '0.00', '0.00', '0010244283', '0004554948');    #15626510010用户用作土豪升级测试
+    mysql_operate    INSERT INTO `wildfire_loan`.`wk_customer` (`customerId`, `name`, `certId`, `source`, `birthDay`, `sex`, `tradePwd`, `createTime`, `updatedTime`, `level`, `subordinate`, `subordinateEligible`, `successCards`, `availableBalance`, `usedAmount`, `frozenAmount`, `inviteCode`, `invite2Code`) VALUES ('2222011', '丸十一', '420222198501011111', '0', '1985-01-01', '1', 'Y3lqMTIz', '2018-08-30 20:55:38', '2018-08-30 20:55:38', '1', '0', '0', '0', '9.99', '0.00', '0.00', '0011246786', '0005823355');
+    mysql_operate    INSERT INTO `wildfire_loan`.`wk_customer` (`customerId`, `name`, `certId`, `source`, `birthDay`, `sex`, `tradePwd`, `createTime`, `updatedTime`, `level`, `subordinate`, `subordinateEligible`, `successCards`, `availableBalance`, `usedAmount`, `frozenAmount`, `inviteCode`, `invite2Code`) VALUES ('2222012', '丸十二', '420222198501011112', '0', '1985-01-01', '1', 'Y3lqMTIz', '2018-08-30 20:55:38', '2018-08-30 20:55:38', '1', '0', '0', '0', '9.99', '0.00', '0.00', '0012242286', '0005823355');
+    mysql_operate    INSERT INTO `wildfire_loan`.`wk_customer` (`customerId`, `name`, `certId`, `source`, `birthDay`, `sex`, `tradePwd`, `createTime`, `updatedTime`, `level`, `subordinate`, `subordinateEligible`, `successCards`, `availableBalance`, `usedAmount`, `frozenAmount`, `inviteCode`, `invite2Code`) VALUES ('2222013', '丸十三', '420222198501011113', '0', '1985-01-01', '1', 'Y3lqMTIz', '2018-08-30 20:55:38', '2018-08-30 20:55:38', '1', '0', '0', '0', '9.99', '0.00', '0.00', '0013244786', '0011246786');
+    mysql_operate    INSERT INTO `wildfire_loan`.`wk_customer` (`customerId`, `name`, `certId`, `source`, `birthDay`, `sex`, `tradePwd`, `createTime`, `updatedTime`, `level`, `subordinate`, `subordinateEligible`, `successCards`, `availableBalance`, `usedAmount`, `frozenAmount`, `inviteCode`, `invite2Code`) VALUES ('2222014', '丸十四', '420222198501011114', '0', '1985-01-01', '1', 'Y3lqMTIz', '2018-08-30 20:55:38', '2018-08-30 20:55:38', '1', '0', '0', '0', '9.99', '0.00', '0.00', '0014245946', '0011246786');
+    mysql_operate    INSERT INTO `wildfire_loan`.`wk_customer` (`customerId`, `name`, `certId`, `source`, `birthDay`, `sex`, `tradePwd`, `createTime`, `updatedTime`, `level`, `subordinate`, `subordinateEligible`, `successCards`, `availableBalance`, `usedAmount`, `frozenAmount`, `inviteCode`, `invite2Code`) VALUES ('2222015', '丸十五', '420222198501011115', '0', '1985-01-01', '1', 'Y3lqMTIz', '2018-08-30 20:55:38', '2018-08-30 20:55:38', '1', '0', '0', '0', '9.99', '0.00', '0.00', '0015245746', '0010244283');
+    mysql_operate    INSERT INTO `wildfire_loan`.`wk_customer` (`customerId`, `name`, `certId`, `source`, `birthDay`, `sex`, `tradePwd`, `createTime`, `updatedTime`, `level`, `subordinate`, `subordinateEligible`, `successCards`, `availableBalance`, `usedAmount`, `frozenAmount`, `inviteCode`, `invite2Code`) VALUES ('2222016', '丸十六', '420222198501011116', '0', '1985-01-01', '1', 'Y3lqMTIz', '2018-08-30 20:55:38', '2018-08-30 20:55:38', '1', '0', '0', '0', '9.99', '0.00', '0.00', '0016245496', '0015245746');
+    mysql_operate    INSERT INTO `wildfire_loan`.`wk_customer` (`customerId`, `name`, `certId`, `source`, `birthDay`, `sex`, `tradePwd`, `createTime`, `updatedTime`, `level`, `subordinate`, `subordinateEligible`, `successCards`, `availableBalance`, `usedAmount`, `frozenAmount`, `inviteCode`, `invite2Code`) VALUES ('2222017', '丸十七', '420222198501011117', '0', '1985-01-01', '1', 'Y3lqMTIz', '2018-08-30 20:55:38', '2018-08-30 20:55:38', '1', '0', '0', '0', '9.99', '0.00', '0.00', '0017244246', '0010244283');
+
+初始化公共账户
+    mysql_operate    update wk_customer set availableBalance=0 where name in ('固定账户','营销账户','差额账户');
+    Comment    mysql_operate    update wk_productInfo set where productType='浦发银行';
+    Comment    mysql_operate    INSERT INTO `wildfire_loan`.`wk_productinfo` (`id`, `productNo`, `logoUrl`, `businessType`, `productType`, `productDetail`, `costMoney`, `dividedMoney`, `startDate`, `endDate`, `createDate`, `status`) VALUES ('20', '10001020', '', '0', '浦发银行', '信用卡产品', '125.00', '100.00', '2018-09-04 14:15:18', '2018-11-15 14:15:33', '2018-09-06 14:18:48', '0');
+
+更新wk_user_creditcard表数据
+    mysql_operate    delete from wk_user_creditcard where \ phone_no like '156265190%'
+    mysql_operate    INSERT INTO `wildfire_loan`.`wk_user_creditcard` (`id`, `customerId`, `name`, `phone_no`, `certId`, `bank_name`, `referral_code`, `card_status`, `bill_result`, `excelChannel`, `queryChannel`, `reward_amt`, `remark`, `entryTime`, `createTime`, `updatedTime`, `succeedTime`) VALUES ('1', '2222001', '丸一', '15626519001', '420222198501011101', '浦发银行', '', NULL, '', NULL, NULL, NULL, NULL, '2018-09-11 11:37:13', '2018-08-30 11:11:31', '2018-09-13 09:25:53', NULL);
+    mysql_operate    INSERT INTO `wildfire_loan`.`wk_user_creditcard` (`id`, `customerId`, `name`, `phone_no`, `certId`, `bank_name`, `referral_code`, `card_status`, `bill_result`, `excelChannel`, `queryChannel`, `reward_amt`, `remark`, `entryTime`, `createTime`, `updatedTime`, `succeedTime`) VALUES ('2', '2222002', '丸二', '15626519002', '420222198501011102', '浦发银行', '0001396069', NULL, '', NULL, NULL, NULL, NULL, '2018-09-12 14:51:58', '2018-08-30 20:50:37', '2018-09-13 09:26:34', NULL);
+    mysql_operate    INSERT INTO `wildfire_loan`.`wk_user_creditcard` (`id`, `customerId`, `name`, `phone_no`, `certId`, `bank_name`, `referral_code`, `card_status`, `bill_result`, `excelChannel`, `queryChannel`, `reward_amt`, `remark`, `entryTime`, `createTime`, `updatedTime`, `succeedTime`) VALUES ('3', '2222003', '丸三', '15626519003', '420222198501011103', '浦发银行', '0001396069', NULL, '', NULL, NULL, NULL, NULL, '2018-09-12 14:51:58', '2018-08-30 20:50:37', '2018-09-13 09:26:34', NULL);
+    mysql_operate    INSERT INTO `wildfire_loan`.`wk_user_creditcard` (`id`, `customerId`, `name`, `phone_no`, `certId`, `bank_name`, `referral_code`, `card_status`, `bill_result`, `excelChannel`, `queryChannel`, `reward_amt`, `remark`, `entryTime`, `createTime`, `updatedTime`, `succeedTime`) VALUES ('4', '2222004', '丸四', '15626519004', '420222198501011104', '浦发银行', '0001396069', NULL, '', NULL, NULL, NULL, NULL, '2018-09-12 14:51:58', '2018-08-30 20:50:37', '2018-09-13 09:26:34', NULL);
+    mysql_operate    INSERT INTO `wildfire_loan`.`wk_user_creditcard` (`id`, `customerId`, `name`, `phone_no`, `certId`, `bank_name`, `referral_code`, `card_status`, `bill_result`, `excelChannel`, `queryChannel`, `reward_amt`, `remark`, `entryTime`, `createTime`, `updatedTime`, `succeedTime`) VALUES ('5', '2222005', '丸五', '15626519005', '420222198501011105', '浦发银行', '0002396079', NULL, '', NULL, NULL, NULL, NULL, '2018-09-12 14:54:29', '2018-08-30 20:52:01', '2018-09-13 09:26:40', NULL);
+    mysql_operate    INSERT INTO `wildfire_loan`.`wk_user_creditcard` (`id`, `customerId`, `name`, `phone_no`, `certId`, `bank_name`, `referral_code`, `card_status`, `bill_result`, `excelChannel`, `queryChannel`, `reward_amt`, `remark`, `entryTime`, `createTime`, `updatedTime`, `succeedTime`) VALUES ('6', '2222006', '丸六', '15626519006', '420222198501011106', '浦发银行', '0002396079', NULL, '', NULL, NULL, NULL, NULL, '2018-09-12 14:57:27', '2018-08-30 20:53:03', '2018-09-13 09:26:47', NULL);
+    mysql_operate    INSERT INTO `wildfire_loan`.`wk_user_creditcard` (`id`, `customerId`, `name`, `phone_no`, `certId`, `bank_name`, `referral_code`, `card_status`, `bill_result`, `excelChannel`, `queryChannel`, `reward_amt`, `remark`, `entryTime`, `createTime`, `updatedTime`, `succeedTime`) VALUES ('7', '2222007', '丸七', '15626519007', '420222198501011107', '浦发银行', '0003422761', NULL, '', NULL, NULL, NULL, NULL, '2018-09-12 20:43:17', '2018-08-30 20:53:59', '2018-09-13 09:26:54', NULL);
+    mysql_operate    INSERT INTO `wildfire_loan`.`wk_user_creditcard` (`id`, `customerId`, `name`, `phone_no`, `certId`, `bank_name`, `referral_code`, `card_status`, `bill_result`, `excelChannel`, `queryChannel`, `reward_amt`, `remark`, `entryTime`, `createTime`, `updatedTime`, `succeedTime`) VALUES ('8', '2222008', '丸八', '15626519008', '420222198501011108', '浦发银行', '0004554948', NULL, '', NULL, NULL, NULL, NULL, '2018-09-12 20:43:17', '2018-08-30 20:54:59', '2018-09-13 09:19:34', NULL);
+    mysql_operate    INSERT INTO `wildfire_loan`.`wk_user_creditcard` (`id`, `customerId`, `name`, `phone_no`, `certId`, `bank_name`, `referral_code`, `card_status`, `bill_result`, `excelChannel`, `queryChannel`, `reward_amt`, `remark`, `entryTime`, `createTime`, `updatedTime`, `succeedTime`) VALUES ('9', '2222009', '丸九', '15626519009', '420222198501011109', '浦发银行', '0001396069', NULL, '', NULL, NULL, NULL, NULL, '2018-09-12 20:43:17', '2018-08-30 20:55:41', '2018-09-13 09:19:34', NULL);
+    mysql_operate    INSERT INTO `wildfire_loan`.`wk_user_creditcard` (`id`, `customerId`, `name`, `phone_no`, `certId`, `bank_name`, `referral_code`, `card_status`, `bill_result`, `excelChannel`, `queryChannel`, `reward_amt`, `remark`, `entryTime`, `createTime`, `updatedTime`, `succeedTime`) VALUES ('10', '2222010', '丸十', '15626519010', '420222198501011110', '浦发银行', '0004554948', NULL, '', NULL, NULL, NULL, NULL, '2018-09-12 20:43:17', '2018-08-30 20:55:41', '2018-09-13 09:19:34', NULL);
+    mysql_operate    INSERT INTO `wildfire_loan`.`wk_user_creditcard` (`id`, `customerId`, `name`, `phone_no`, `certId`, `bank_name`, `referral_code`, `card_status`, `bill_result`, `excelChannel`, `queryChannel`, `reward_amt`, `remark`, `entryTime`, `createTime`, `updatedTime`, `succeedTime`) VALUES ('11', '2222011', '丸十一', '15626519011', '420222198501011111', '浦发银行', '0005823355', NULL, '', NULL, NULL, NULL, NULL, '2018-09-12 20:43:17', '2018-08-30 20:55:41', '2018-09-13 09:19:34', NULL);
+    mysql_operate    INSERT INTO `wildfire_loan`.`wk_user_creditcard` (`id`, `customerId`, `name`, `phone_no`, `certId`, `bank_name`, `referral_code`, `card_status`, `bill_result`, `excelChannel`, `queryChannel`, `reward_amt`, `remark`, `entryTime`, `createTime`, `updatedTime`, `succeedTime`) VALUES ('12', '2222012', '丸十二', '15626519012', '420222198501011112', '浦发银行', '0005823355', NULL, '', NULL, NULL, NULL, NULL, '2018-09-12 20:43:17', '2018-08-30 20:55:41', '2018-09-13 09:19:34', NULL);
+    mysql_operate    INSERT INTO `wildfire_loan`.`wk_user_creditcard` (`id`, `customerId`, `name`, `phone_no`, `certId`, `bank_name`, `referral_code`, `card_status`, `bill_result`, `excelChannel`, `queryChannel`, `reward_amt`, `remark`, `entryTime`, `createTime`, `updatedTime`, `succeedTime`) VALUES ('13', '2222013', '丸十三', '15626519013', '420222198501011113', '浦发银行', '0011246786', NULL, '', NULL, NULL, NULL, NULL, '2018-09-12 20:43:17', '2018-08-30 20:55:41', '2018-09-13 09:19:34', NULL);
+    mysql_operate    INSERT INTO `wildfire_loan`.`wk_user_creditcard` (`id`, `customerId`, `name`, `phone_no`, `certId`, `bank_name`, `referral_code`, `card_status`, `bill_result`, `excelChannel`, `queryChannel`, `reward_amt`, `remark`, `entryTime`, `createTime`, `updatedTime`, `succeedTime`) VALUES ('14', '2222014', '丸十四', '15626519014', '420222198501011114', '浦发银行', '0011246786', NULL, '', NULL, NULL, NULL, NULL, '2018-09-12 20:43:17', '2018-08-30 20:55:41', '2018-09-13 09:19:34', NULL);
+    mysql_operate    INSERT INTO `wildfire_loan`.`wk_user_creditcard` (`id`, `customerId`, `name`, `phone_no`, `certId`, `bank_name`, `referral_code`, `card_status`, `bill_result`, `excelChannel`, `queryChannel`, `reward_amt`, `remark`, `entryTime`, `createTime`, `updatedTime`, `succeedTime`) VALUES ('15', '2222015', '丸十五', '15626519015', '420222198501011115', '浦发银行', '0010244283', NULL, '', NULL, NULL, NULL, NULL, '2018-09-12 20:43:17', '2018-08-30 20:55:41', '2018-09-13 09:19:34', NULL);
+    mysql_operate    INSERT INTO `wildfire_loan`.`wk_user_creditcard` (`id`, `customerId`, `name`, `phone_no`, `certId`, `bank_name`, `referral_code`, `card_status`, `bill_result`, `excelChannel`, `queryChannel`, `reward_amt`, `remark`, `entryTime`, `createTime`, `updatedTime`, `succeedTime`) VALUES ('16', '2222016', '丸十六', '15626519016', '420222198501011116', '浦发银行', '0015245746', NULL, '', NULL, NULL, NULL, NULL, '2018-09-12 20:43:17', '2018-08-30 20:55:41', '2018-09-13 09:19:34', NULL);
+    mysql_operate    INSERT INTO `wildfire_loan`.`wk_user_creditcard` (`id`, `customerId`, `name`, `phone_no`, `certId`, `bank_name`, `referral_code`, `card_status`, `bill_result`, `excelChannel`, `queryChannel`, `reward_amt`, `remark`, `entryTime`, `createTime`, `updatedTime`, `succeedTime`) VALUES ('17', '2222017', '丸十七', '15626519017', '420222198501011117', '浦发银行', '0010244283', NULL, '', NULL, NULL, NULL, NULL, '2018-09-12 20:43:17', '2018-08-30 20:55:41', '2018-09-13 09:19:34', NULL);
+
+菜单选择
+    [Arguments]    ${name}
+    Wait Until Keyword Succeeds    20    2    click element    jquery=ul li>a:contains('${name}'):eq(0)
+
+初始化记录流水表
+    mysql_operate    delete from \ wk_transaction_record WHERE productName ='浦发银行'
+    mysql_operate    delete from wk_transaction_flow where customerId like '22220%';

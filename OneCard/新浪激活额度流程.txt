@@ -1,0 +1,125 @@
+*** Settings ***
+Library           requests
+Library           json
+Library           Collections
+Library           ExcelLibrary
+Resource          公共关键字.txt
+Library           自写库/recordLoanData.py
+Library           自写库/mysqlOperate.py
+Library           自写库/posttest.py
+Resource          SINA配置数据.txt
+
+*** Test Cases ***
+删除用户数据
+    读取用户主要数据-SINA
+    删除用户所有数据    ${mobile}
+
+预授信额度
+    读取header公共参数-SINA
+    读取用户主要数据-SINA
+    读取测试数据    预授信额度    2
+    ${deviceId}    读取参数    2
+    ${faceScore}    读取参数    6
+    ${body}    Create Dictionary    memberId=${memberId}    deviceId=${deviceId}    userName=${name}    mobile=${mobile}    idCardNo=${idCard}
+    ...    faceScore=${faceScore}    tick=${fingerPrint}
+    post请求(requests无token)    ${url}${U}    ${body}
+    判断响应结果和状态
+
+上传身份证
+    获取token-SINA
+    Comment    读取测试数据    照片上传    2
+    Comment    ${attachPurpose}    读取参数    1
+    Comment    ${attachType}    读取参数    2
+    Comment    ${attachBase64}    读取参数    3
+    Comment    设置入参    attachPurpose=${attachPurpose}    attachType=${attachType}    attachBase64=${attachBase64}
+    Comment    发送post请求
+    Comment    打印请求返回结果
+    Comment    判断请求响应状态为200
+    Comment    判断返回status正确
+    Comment    读取测试数据    照片上传    3
+    Comment    ${attachPurpose}    读取参数    1
+    Comment    ${attachType}    读取参数    2
+    Comment    ${attachBase64}    读取参数    3
+    Comment    设置入参    attachPurpose=${attachPurpose}    attachType=${attachType}    attachBase64=${attachBase64}
+    Comment    发送post请求
+    Comment    打印请求返回结果
+    Comment    判断请求响应状态为200
+    Comment    判断返回status正确
+    Comment    读取测试数据    照片上传    4
+    Comment    ${attachPurpose}    读取参数    1
+    Comment    ${attachType}    读取参数    2
+    Comment    ${attachBase64}    读取参数    3
+    Comment    设置入参    attachPurpose=${attachPurpose}    attachType=${attachType}    attachBase64=${attachBase64}
+    Comment    发送post请求
+    Comment    打印请求返回结果
+    Comment    判断请求响应状态为200
+    Comment    判断返回status正确
+    Comment    Comment    读取用户主要数据-JY
+    Comment    Comment    ${dd}    mysql_test    select * from wk_account where accountName='${mobile}';
+    Comment    Comment    ${customerId}    Evaluate    int(${dd[0][4]})    #获取customerId
+    Comment    Comment    mysql_operate    UPDATE wk_attach \ SET attach_status='J1104' where customerId ='${customerId}'
+    读取测试数据    保存附件    2
+    ${attachJson}    读取参数    1
+    设置入参    attachJson=${attachJson}
+    发送post请求
+    打印请求返回结果
+    判断请求响应状态为200
+    判断返回status正确
+    读取测试数据    保存附件    3
+    ${attachJson}    读取参数    1
+    设置入参    attachJson=${attachJson}
+    发送post请求
+    打印请求返回结果
+    判断请求响应状态为200
+    判断返回status正确
+    读取测试数据    保存附件    4
+    ${attachJson}    读取参数    1
+    设置入参    attachJson=${attachJson}
+    发送post请求
+    打印请求返回结果
+    判断请求响应状态为200
+    判断返回status正确
+    验证attach表正确写入数据
+
+绑卡
+    获取token-SINA
+    获取验证码(token固定)    ${mobile}    4
+    读取测试数据    绑卡认证    2
+    ${type}    读取参数    4
+    设置入参    verifyCode=${code}    cardNo=${card}    phone=${mobile}    type=${type}    fingerPrint=${fingerPrint}
+    发送post请求
+    打印请求返回结果
+    判断请求响应状态为200
+    判断返回status正确
+    判断返回data参数正确
+    验证bindcard表正确写入数据
+
+提交个人信息
+    获取token-SINA
+    读取测试数据    登记借款人信息    2
+    读取用户主要数据-SINA
+    ${profession}    读取参数    1
+    ${education}    读取参数    2
+    ${marriage}    读取参数    3
+    Comment    ${email}    读取参数    4
+    ${industry}    读取参数    5
+    ${company}    读取参数    6
+    ${relative}    读取参数    7
+    ${relativeName}    读取参数    8
+    ${relativePhone}    读取参数    9
+    ${province}    读取参数    10
+    ${city}    读取参数    11
+    ${county}    读取参数    12
+    ${address}    读取参数    13
+    ${monthIncome}    读取参数    14
+    ${hasLoan}    读取参数    15
+    ${incomeSource}    读取参数    16
+    ${hisLoanType}    读取参数    17
+    ${tick}    读取参数    18
+    ${body}    Create Dictionary    monthIncome=${monthIncome}    profession=${profession}    education=${education}    marriage=${marriage}    email=${email}
+    ...    industry=${industry}    company=${company}    relative=${relative}    relativeName=${relativeName}    relativePhone=${relativePhone}    province=${province}
+    ...    city=${city}    county=${county}    address=${address}    hasLoan=${hasLoan}    incomeSource=${incomeSource}    hisLoanType=${hisLoanType}
+    ...    tick=${tick}
+    post请求(requests)    ${url}${U}    ${body}
+    判断响应结果和状态
+    验证customer_extend表正确写入数据

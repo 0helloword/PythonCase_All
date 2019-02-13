@@ -1,0 +1,142 @@
+*** Settings ***
+Default Tags      new
+Library           RequestsLibrary
+Library           requests
+Library           json
+Library           Collections
+Library           ExcelLibrary
+Resource          ../公共关键字.txt
+Library           ../自写库/recordLoanData.py
+Resource          ../YOUZU配置数据.txt
+Library           自写库/mysqltest.py
+
+*** Test Cases ***
+更新数据为游族
+    mysql_operate    UPDATE wk_account set channelCode='YOUZU' \ where accountName='15626513325';
+    mysql_operate    UPDATE wk_account set source='16' \ where accountName='15626513325';
+
+mobile为空
+    读取header公共参数-YZ
+    读取测试数据    注册    3
+    ${mobile}    Set Variable
+    ${password}    读取参数    2
+    ${verifyCode}    读取参数    3
+    ${referralCode}    读取参数    4
+    设置入参    mobile=${mobile}    password=${password}    verifyCode=${verifyCode}    referralCode=${referralCode}
+    发送post请求(无token)
+    打印请求返回结果
+    判断请求响应状态为200
+    判断返回status正确
+
+password为空
+    读取header公共参数-YZ
+    读取测试数据    注册    4
+    ${mobile}    读取参数    1
+    ${password}    Set Variable
+    ${verifyCode}    读取参数    3
+    ${referralCode}    读取参数    4
+    设置入参    mobile=${mobile}    password=${password}    verifyCode=${verifyCode}    referralCode=${referralCode}
+    发送post请求(无token)
+    打印请求返回结果
+    判断请求响应状态为200
+    判断返回status正确
+
+verifyCode为空
+    读取header公共参数-YZ
+    读取测试数据    注册    5
+    ${mobile}    读取参数    1
+    ${password}    读取参数    2
+    ${verifyCode}    Set Variable
+    ${referralCode}    读取参数    4
+    设置入参    mobile=${mobile}    password=${password}    verifyCode=${verifyCode}    referralCode=${referralCode}
+    发送post请求(无token)
+    打印请求返回结果
+    判断请求响应状态为200
+    判断返回status正确
+
+referralCode为空
+    Comment    读取header公共参数-YZ
+    Comment    读取测试数据    发送验证码    2
+    Comment    ${mobile}    Set Variable    13147002160
+    Comment    ${type}    Set Variable    1
+    Comment    设置入参    mobile=${mobile}    type=${type}
+    Comment    发送post请求(token固定)
+    Comment    判断请求响应状态为200
+    Comment    ${a}    Mysql Test    select * from wk_sms_log where mobile='${mobile}' ORDER BY sendTime DESC limit 1;
+    Comment    ${code}    Evaluate    int(${a[0][2]})
+    Comment    Set Global Variable    ${code}
+    Comment    读取测试数据    注册    6
+    Comment    ${mobile}    读取参数    1
+    Comment    ${password}    读取参数    2
+    Comment    ${referralCode}    Set Variable
+    Comment    设置入参    mobile=${mobile}    password=${password}    verifyCode=${code}    referralCode=${referralCode}
+    Comment    发送post请求(无token)
+    Comment    打印请求返回结果
+    Comment    判断请求响应状态为200
+    Comment    判断返回status正确
+    Comment    删除用户注册信息
+
+mobile参数长度为12位
+    读取header公共参数-YZ
+    读取测试数据    注册    7
+    ${mobile}    读取参数    1
+    ${password}    读取参数    2
+    ${verifyCode}    读取参数    3
+    ${referralCode}    读取参数    4
+    设置入参    mobile=${mobile}    password=${password}    verifyCode=${verifyCode}    referralCode=${referralCode}
+    发送post请求(无token)
+    打印请求返回结果
+    判断请求响应状态为200
+    判断返回status正确
+
+mobile参数长度为10位
+    读取header公共参数-YZ
+    读取测试数据    注册    8
+    ${mobile}    读取参数    1
+    ${password}    读取参数    2
+    ${verifyCode}    读取参数    3
+    ${referralCode}    读取参数    4
+    设置入参    mobile=${mobile}    password=${password}    verifyCode=${verifyCode}    referralCode=${referralCode}
+    发送post请求(无token)
+    打印请求返回结果
+    判断请求响应状态为200
+    判断返回status正确
+
+password参数少于6位
+    读取header公共参数-YZ
+    读取测试数据    注册    9
+    ${mobile}    读取参数    1
+    ${password}    读取参数    2
+    ${verifyCode}    读取参数    3
+    ${referralCode}    读取参数    4
+    设置入参    mobile=${mobile}    password=${password}    verifyCode=${verifyCode}    referralCode=${referralCode}
+    发送post请求(无token)
+    打印请求返回结果
+    判断请求响应状态为200
+    判断返回status正确
+
+password参数多于16位
+    读取header公共参数-YZ
+    读取测试数据    注册    10
+    ${mobile}    读取参数    1
+    ${password}    读取参数    2
+    ${verifyCode}    读取参数    3
+    ${referralCode}    读取参数    4
+    设置入参    mobile=${mobile}    password=${password}    verifyCode=${verifyCode}    referralCode=${referralCode}
+    发送post请求(无token)
+    打印请求返回结果
+    判断请求响应状态为200
+    判断返回status正确
+
+verifyCode参数错误
+    读取header公共参数-YZ
+    读取测试数据    注册    11
+    ${mobile}    读取参数    1
+    ${password}    读取参数    2
+    ${verifyCode}    读取参数    3
+    ${referralCode}    读取参数    4
+    设置入参    mobile=${mobile}    password=${password}    verifyCode=${verifyCode}    referralCode=${referralCode}
+    发送post请求(无token)
+    打印请求返回结果
+    判断请求响应状态为200
+    判断返回status正确

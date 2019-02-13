@@ -1,0 +1,31 @@
+*** Settings ***
+Library           ExcelLibrary
+Library           Selenium2Library
+Library           ../自写库/WriteExcel.py
+
+*** Keywords ***
+读取excel数据-oc
+    Open Excel    ${excelPath}
+    ${url-oc}    Read Cell Data By Name    Sheet1    A7
+    Set Global Variable    ${url-oc}
+    ${b}    Read Cell Data By Name    Sheet1    B7
+    ${loginname-oc}    Evaluate    int(${b})
+    Set Global Variable    ${loginname-oc}
+    ${password-oc}    Read Cell Data By Name    Sheet1    C7
+    Set Global Variable    ${password-oc}
+    ${c}    Read Cell Data By Name    Sheet1    D7
+    ${appid-oc}    Evaluate    int(${c})
+    Set Global Variable    ${appid-oc}
+    ${username-oc}    Read Cell Data By Name    Sheet1    E7
+    Set Global Variable    ${username-oc}
+    ${d}    Read Cell Data By Name    Sheet1    F7
+    ${cardId}    Evaluate    int(${d})
+    Set Global Variable    ${cardId}
+    ${newpassword-oc}    Read Cell Data By Name    Sheet1    G7
+    Set Global Variable    ${newpassword-oc}
+    ${mysql-user}    Read Cell Data By Name    Sheet1    A15
+    Set Global Variable    ${mysql-user}
+    ${mysql-pwd}    Read Cell Data By Name    Sheet1    B15
+    Set Global Variable    ${mysql-pwd}
+    ${mysql-db}    Read Cell Data By Name    Sheet1    C15
+    Set Global Variable    ${mysql-db}

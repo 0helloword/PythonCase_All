@@ -1,0 +1,125 @@
+*** Settings ***
+Library           Selenium2Library
+Library           ExcelLibrary
+Resource          oc-用例套件.txt
+
+*** Keywords ***
+文本输入
+    [Arguments]    ${name}    ${value}
+    Wait Until Page Contains Element    jquery=label:contains('${name}')+div input
+    Wait Until Element Is Visible    jquery=label:contains('${name}')+div input
+    input text    jquery=label:contains('${name}')+div input    ${value}
+
+按钮点击-OC
+    [Arguments]    ${name}
+    Sleep    1
+    Wait Until Page Contains Element    jquery=button:contains('${name}'):visible
+    Wait Until Element Is Visible    jquery=button:contains('${name}'):visible
+    click element    jquery=button:contains('${name}'):visible
+
+菜单选择-OC
+    [Arguments]    ${name}
+    Sleep    2
+    Wait Until Page Contains Element    jquery=ul li>a>i
+    Wait Until Element Is Visible    jquery=ul li>a>i
+    click element    jquery=ul li>a:contains('${name}'):eq(0)
+
+浏览器关闭
+    Close Browser
+
+文本输入-OC
+    [Arguments]    ${name}    ${value}
+    Sleep    1
+    Wait Until Page Contains Element    jquery=div:contains('${name}')
+    Wait Until Element Is Visible    jquery=div:contains('${name}')
+    inputText    jquery=div:contains('${name}')+div>textarea    ${value}
+
+下拉选择-OC
+    [Arguments]    ${name}    ${value}
+    Sleep    1
+    Wait Until Page Contains Element    jquery=div:contains('${name}')
+    Wait Until Element Is Visible    jquery=div:contains('${name}')
+    Select From List    jquery=div:contains('${name}')+div>select    ${value}
+
+用户登录-OC
+    [Documentation]    用户登录
+    Sleep    10
+    open browser    ${url-oc}    chrome
+    Maximize Browser Window
+    Input Text    id=username    ${loginname-oc}
+    Input Text    id=password    ${password-oc}
+    Click Button    id=loginButton
+    Sleep    2
+    Page Should Contain    首页
+    [Teardown]
+
+用户登录OC-带参数
+    [Arguments]    ${username}    ${password}
+    [Documentation]    用户登录
+    open browser    ${url-oc}    chrome
+    Maximize Browser Window
+    Input Text    id=username    ${username}
+    Input Text    id=password    ${password}
+    Click Button    id=loginButton
+    Sleep    2
+    [Teardown]
+
+判断页面跳转-OC
+    [Arguments]    ${name}
+    Wait Until Page Contains Element    jquery=div h1:contains('${name}')
+    Wait Until Element Is Visible    jquery=div h1:contains('${name}')
+    page Should Contain element    jquery=div h1:contains('${name}')
+
+勾选复选框
+    Sleep    2
+    click element    name=ids
+
+点击链接
+    [Arguments]    ${name}
+    Sleep    2
+    Wait Until Page Contains Element    jquery=div a:contains('${name}')
+    Wait Until Element Is Visible    jquery=div a:contains('${name}')
+    Click Link    jquery=div a:contains('${name}')
+
+读取客户信息数据-OC
+    Sleep    2
+    Wait Until Page Contains Element    jquery=div:contains('身份证号')
+    Wait Until Element Is Visible    jquery=div:contains('身份证号')
+    ${cardId}    Get Text    jquery=div:contains('身份证号')+div
+    Set Global Variable    ${cardId}
+    [Return]    ${cardId}
+
+文本框输入-OC
+    [Arguments]    ${name}    ${value}
+    Sleep    1
+    Wait Until Page Contains Element    jquery=div:contains('${name}')
+    Wait Until Element Is Visible    jquery=div:contains('${name}')
+    inputText    jquery=div:contains('${name}')+div>input    ${value}
+
+进行调单分配
+    Sleep    2
+    按钮点击-OC    调单分配
+    Sleep    2
+    Wait Until Page Contains Element    xpath=//div/div[2]/div/div[1]/h4
+    Wait Until Element Is Visible    xpath=//div/div[2]/div/div[1]/h4
+    ${content}    Get Text    xpath=//div/div[2]/div/div[1]/h4
+    Set Global Variable    ${content}
+    Run Keyword Unless    '${content}'=='成功信息提示'    点击按键两次    确定
+    Run Keyword If    '${content}'=='成功信息提示'    按钮点击-OC    确定
+    [Return]    ${content}
+
+点击按键两次
+    [Arguments]    ${name}
+    Sleep    1
+    Wait Until Page Contains Element    jquery=button:contains('${name}'):visible
+    Wait Until Element Is Visible    jquery=button:contains('${name}'):visible
+    click element    jquery=button:contains('${name}'):visible
+    Sleep    1
+    click element    jquery=button:contains('${name}'):visible
+
+继续审核操作
+    [Arguments]    ${value}
+    Sleep    2
+    Wait Until Page Contains Element    jquery=tbody td>a:contains('${value}')
+    Wait Until Element Is Visible    jquery=tbody td>a:contains('${value}')
+    Click Link    jquery=tbody tr:contains('${value}') a:contains('继续审核')

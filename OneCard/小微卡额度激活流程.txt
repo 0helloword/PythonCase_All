@@ -1,0 +1,168 @@
+*** Settings ***
+Library           requests
+Library           json
+Library           Collections
+Library           ExcelLibrary
+Resource          公共关键字.txt
+Library           自写库/recordLoanData.py
+Library           自写库/mysqlOperate.py
+Resource          公共关键字.txt
+Library           自写库/posttest.py
+Resource          XWK配置数据.txt
+
+*** Test Cases ***
+删除用户数据
+    读取用户主要数据-XWK
+    删除用户所有数据    ${mobile}
+
+注册
+    读取header公共参数-XWK
+    读取用户主要数据-XWK
+    读取测试数据    登录注册    2
+    设置入参    mobile=${mobile}    memberId=${memberId}    fingerPrint=${fingerPrint}
+    发送post请求(无token)
+    打印请求返回结果
+    判断请求响应状态为200
+    判断返回status正确
+    判断返回data参数正确
+    验证account表正确写入数据
+
+实名认证
+    获取token-XWK
+    读取测试数据    实名认证    2
+    post请求(实名认证)
+    判断响应结果和状态
+    验证customer表正确写入数据
+
+上传身份证
+    Comment    获取token(APP登录)-JY
+    Comment    读取测试数据    照片上传    2
+    Comment    ${attachPurpose}    读取参数    1
+    Comment    ${attachType}    读取参数    2
+    Comment    ${attachBase64}    读取参数    3
+    Comment    设置入参    attachPurpose=${attachPurpose}    attachType=${attachType}    attachBase64=${attachBase64}
+    Comment    发送post请求
+    Comment    打印请求返回结果
+    Comment    判断请求响应状态为200
+    Comment    判断返回status正确
+    Comment    读取测试数据    照片上传    3
+    Comment    ${attachPurpose}    读取参数    1
+    Comment    ${attachType}    读取参数    2
+    Comment    ${attachBase64}    读取参数    3
+    Comment    设置入参    attachPurpose=${attachPurpose}    attachType=${attachType}    attachBase64=${attachBase64}
+    Comment    发送post请求
+    Comment    打印请求返回结果
+    Comment    判断请求响应状态为200
+    Comment    判断返回status正确
+    Comment    读取测试数据    照片上传    4
+    Comment    ${attachPurpose}    读取参数    1
+    Comment    ${attachType}    读取参数    2
+    Comment    ${attachBase64}    读取参数    3
+    Comment    设置入参    attachPurpose=${attachPurpose}    attachType=${attachType}    attachBase64=${attachBase64}
+    Comment    发送post请求
+    Comment    打印请求返回结果
+    Comment    判断请求响应状态为200
+    Comment    判断返回status正确
+    Comment    Comment    读取用户主要数据-JY
+    Comment    Comment    ${dd}    mysql_test    select * from wk_account where accountName='${mobile}';
+    Comment    Comment    ${customerId}    Evaluate    int(${dd[0][4]})    #获取customerId
+    Comment    Comment    mysql_operate    UPDATE wk_attach \ SET attach_status='J1104' where customerId ='${customerId}'
+    获取token-XWK
+    读取测试数据    保存附件    2
+    ${attachJson}    读取参数    1
+    设置入参    attachJson=${attachJson}
+    发送post请求
+    打印请求返回结果
+    判断请求响应状态为200
+    判断返回status正确
+    读取测试数据    保存附件    3
+    ${attachJson}    读取参数    1
+    设置入参    attachJson=${attachJson}
+    发送post请求
+    打印请求返回结果
+    判断请求响应状态为200
+    判断返回status正确
+    读取测试数据    保存附件    4
+    ${attachJson}    读取参数    1
+    设置入参    attachJson=${attachJson}
+    发送post请求
+    打印请求返回结果
+    判断请求响应状态为200
+    判断返回status正确
+    验证attach表正确写入数据
+
+绑卡
+    获取token-XWK
+    获取验证码(token固定)    ${mobile}    4
+    读取测试数据    绑卡认证    2
+    ${type}    读取参数    4
+    设置入参    verifyCode=${code}    cardNo=${card}    phone=${mobile}    type=${type}    fingerPrint=${fingerPrint}
+    发送post请求
+    打印请求返回结果
+    判断请求响应状态为200
+    判断返回status正确
+    判断返回data参数正确
+    验证bindcard表正确写入数据
+
+人脸识别
+    Comment    获取token(APP登录)-JY
+    Comment    读取header公共参数-YJ
+    Comment    读取测试数据    hy.xlsx    人脸识别    2
+    Comment    ${type}    读取参数    1
+    Comment    ${renlianPhotos}    读取参数    2
+    Comment    设置入参    type=${type}    renlianPhotos=${renlianPhotos}
+    Comment    发送post请求
+    Comment    打印请求返回结果
+    Comment    判断请求响应状态为200
+    Comment    判断返回status正确
+    Comment    判断返回data参数正确
+    读取用户主要数据-XWK
+    ${cc}    mysql_test    select * from wk_account where accountName='${mobile}';
+    ${accountId}    Evaluate    int(${cc[0][0]})    #获取accountId
+    ${customerId}    Evaluate    int(${cc[0][4]})    #获取customerId
+    mysql_operate    INSERT INTO wk_auth_info (`accountId`, `customerId`, `proId`, `authInfo`, `authAccount`, `authStatus`,`authResult`,`source`,`isLast`,`authTime`,`createTime`) VALUES ( '${accountId}', '${customerId}', 'androidaff6a296454a7510913f4bf9d0cf77cc', 'face','${mobile}','J1501','打分提额成功','12','1','2018-1-19 15:10:14','2018-1-19 15:10:14');    #在授权进度表手动插入人脸识别成功数据
+
+提交个人信息
+    获取token-XWK
+    读取测试数据    JY个人信息    2
+    读取用户主要数据-XWK
+    ${profession}    读取参数    1
+    ${education}    读取参数    2
+    ${marriage}    读取参数    3
+    Comment    ${email}    读取参数    4
+    ${industry}    读取参数    5
+    ${company}    读取参数    6
+    ${relative}    读取参数    7
+    ${relativeName}    读取参数    8
+    ${relativePhone}    读取参数    9
+    ${province}    读取参数    10
+    ${city}    读取参数    11
+    ${county}    读取参数    12
+    ${address}    读取参数    13
+    ${monthIncome}    读取参数    14
+    ${hasLoan}    读取参数    15
+    ${incomeSource}    读取参数    16
+    ${hisLoanType}    读取参数    17
+    ${body}    Create Dictionary    monthIncome=${monthIncome}    profession=${profession}    education=${education}    marriage=${marriage}    email=${email}
+    ...    industry=${industry}    company=${company}    relative=${relative}    relativeName=${relativeName}    relativePhone=${relativePhone}    province=${province}
+    ...    city=${city}    county=${county}    address=${address}    hasLoan=${hasLoan}    incomeSource=${incomeSource}    hisLoanType=${hisLoanType}
+    post请求(requests)    ${url}${U}    ${body}
+    判断响应结果和状态
+    验证customer_extend表正确写入数据
+
+运营商认证
+    读取用户主要数据-XWK
+    ${cc}    mysql_test    select * from wk_account where accountName='${mobile}';
+    ${accountId}    Evaluate    int(${cc[0][0]})    #获取accountId
+    ${customerId}    Evaluate    int(${cc[0][4]})    #获取customerId
+    mysql_operate    INSERT INTO wk_auth_info (`accountId`, `customerId`, `proId`, `authInfo`, `authAccount`, `authStatus`,`authResult`,`source`,`isLast`,`authTime`,`createTime`) VALUES ( '${accountId}', '${customerId}', 'androidaff6a296454a7510913f4bf9d0cf77cc', 'operator','${mobile}','J1501','打分提额成功','12','1','2018-1-19 15:10:14','2018-1-19 15:10:14');    #在授权进度表手动插入运营商数据
+
+获取额度
+    获取token-XWK
+    读取测试数据    获取额度    2
+    设置入参    fingerPrint=${fingerPrint}
+    发送post请求
+    打印请求返回结果
+    判断请求响应状态为200
+    判断返回status正确
+    判断返回data参数正确

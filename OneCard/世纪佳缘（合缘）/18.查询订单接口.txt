@@ -1,0 +1,125 @@
+*** Settings ***
+Library           RequestsLibrary
+Library           requests
+Library           json
+Library           Collections
+Library           ExcelLibrary
+Resource          ../公共关键字.txt
+Library           ../自写库/recordLoanData.py
+Resource          ../JY配置数据.txt
+
+*** Test Cases ***
+入参正确
+    获取token(APP登录)-JY
+    Comment    读取用户主要数据-JY
+    获取工单表数据
+    读取测试数据    查询订单    2
+    ${mobile}    读取参数    1
+    ${memberId}    读取参数    2
+    Comment    ${orderNo}    读取参数    3
+    ${startDate}    Set Variable
+    ${endDate}    Set Variable
+    设置入参    mobile=${mobile}    memberId=${memberId}    orderNo=${app_id}    startDate=${startDate}    endDate=${endDate}
+    发送post请求
+    打印请求返回结果
+    判断请求响应状态为200
+    判断返回status正确
+    判断返回data参数正确
+
+mobile为空
+    获取token(APP登录)-JY
+    读取测试数据    查询订单    3
+    ${mobile}    Set Variable
+    ${memberId}    读取参数    2
+    ${orderNo}    读取参数    3
+    ${startDate}    读取参数    4
+    ${endDate}    读取参数    5
+    设置入参    mobile=${mobile}    memberId=${memberId}    orderNo=${orderNo}    startDate=${startDate}    endDate=${endDate}
+    发送post请求
+    打印请求返回结果
+    判断请求响应状态为200
+    判断返回status正确
+
+memberId为空
+    获取token(APP登录)-JY
+    读取测试数据    查询订单    4
+    ${mobile}    读取参数    1
+    ${memberId}    Set Variable
+    ${orderNo}    读取参数    3
+    ${startDate}    读取参数    4
+    ${endDate}    读取参数    5
+    设置入参    mobile=${mobile}    memberId=${memberId}    orderNo=${orderNo}    startDate=${startDate}    endDate=${endDate}
+    发送post请求
+    打印请求返回结果
+    判断请求响应状态为200
+    判断返回status正确
+
+orderNo为空
+    获取token(APP登录)-JY
+    读取测试数据    查询订单    5
+    ${mobile}    读取参数    1
+    ${memberId}    读取参数    2
+    ${orderNo}    Set Variable
+    ${startDate}    读取参数    4
+    ${endDate}    读取参数    5
+    设置入参    mobile=${mobile}    memberId=${memberId}    orderNo=${orderNo}    startDate=${startDate}    endDate=${endDate}
+    发送post请求
+    打印请求返回结果
+    判断请求响应状态为200
+    判断返回status正确
+
+mobile长度超过11位
+    获取token(APP登录)-JY
+    读取测试数据    查询订单    8
+    ${mobile}    读取参数    1
+    ${memberId}    读取参数    2
+    ${orderNo}    读取参数    3
+    ${startDate}    读取参数    4
+    ${endDate}    读取参数    5
+    设置入参    mobile=${mobile}    memberId=${memberId}    orderNo=${orderNo}    startDate=${startDate}    endDate=${endDate}
+    发送post请求
+    打印请求返回结果
+    判断请求响应状态为200
+    判断返回status正确
+
+memberId不与mobile不匹配
+    获取token(APP登录)-JY
+    读取测试数据    查询订单    9
+    ${mobile}    读取参数    1
+    ${memberId}    读取参数    2
+    ${orderNo}    读取参数    3
+    ${startDate}    读取参数    4
+    ${endDate}    读取参数    5
+    设置入参    mobile=${mobile}    memberId=${memberId}    orderNo=${orderNo}    startDate=${startDate}    endDate=${endDate}
+    发送post请求
+    打印请求返回结果
+    判断请求响应状态为200
+    判断返回status正确
+
+orderNo不存在
+    获取token(APP登录)-JY
+    读取测试数据    查询订单    10
+    ${mobile}    读取参数    1
+    ${memberId}    读取参数    2
+    ${orderNo}    读取参数    3
+    ${startDate}    读取参数    4
+    ${endDate}    读取参数    5
+    设置入参    mobile=${mobile}    memberId=${memberId}    orderNo=${orderNo}    startDate=${startDate}    endDate=${endDate}
+    发送post请求
+    打印请求返回结果
+    判断请求响应状态为200
+    判断返回status正确
+
+起始日期不匹配
+    获取token(APP登录)-JY
+    读取测试数据    查询订单    11
+    ${mobile}    读取参数    1
+    ${memberId}    读取参数    2
+    ${orderNo}    读取参数    3
+    ${startDate}    读取参数    4
+    ${endDate}    读取参数    5
+    设置入参    mobile=${mobile}    memberId=${memberId}    orderNo=${orderNo}    startDate=${startDate}    endDate=${endDate}
+    发送post请求
+    打印请求返回结果
+    判断请求响应状态为200
+    判断返回status正确

@@ -1,0 +1,122 @@
+*** Settings ***
+Library           RequestsLibrary
+Library           requests
+Library           json
+Library           Collections
+Library           ExcelLibrary
+Resource          ../公共关键字.txt
+Library           ../自写库/recordLoanData.py
+
+*** Test Cases ***
+入参正确
+    获取token-JY
+    读取header公共参数-YJ
+    读取测试数据    hy.xlsx    查询有效红包列表    2
+    ${product}    读取参数    1
+    ${lendingAmount}    读取参数    2
+    ${paymentAmount}    读取参数    3
+    ${rmType}    读取参数    4
+    ${rmTerm}    读取参数    5
+    ${appId}    读取参数    6
+    设置入参    product=${product}    lendingAmount=${lendingAmount}    paymentAmount=${paymentAmount}    rmType=${rmType}    rmTerm=${rmTerm}
+    发送post请求
+    打印请求返回结果
+    判断请求响应状态为200
+    判断返回status正确
+    判断返回data参数正确
+
+product为空
+    获取token-JY
+    读取header公共参数-YJ
+    读取测试数据    hy.xlsx    查询有效红包列表    3
+    ${product}    Set Variable
+    ${lendingAmount}    读取参数    2
+    ${paymentAmount}    读取参数    3
+    ${rmType}    读取参数    4
+    ${rmTerm}    读取参数    5
+    ${appId}    读取参数    6
+    设置入参    product=${product}    lendingAmount=${lendingAmount}    paymentAmount=${paymentAmount}    rmType=${rmType}    rmTerm=${rmTerm}
+    发送post请求
+    打印请求返回结果
+    判断请求响应状态为200
+    判断返回status正确
+
+lendingAmount为空
+    获取token-JY
+    读取header公共参数-YJ
+    读取测试数据    hy.xlsx    查询有效红包列表    4
+    ${product}    读取参数    1
+    ${lendingAmount}    Set Variable
+    ${paymentAmount}    读取参数    3
+    ${rmType}    读取参数    4
+    ${rmTerm}    读取参数    5
+    ${appId}    读取参数    6
+    设置入参    product=${product}    lendingAmount=${lendingAmount}    paymentAmount=${paymentAmount}    rmType=${rmType}    rmTerm=${rmTerm}
+    发送post请求
+    打印请求返回结果
+    判断请求响应状态为200
+    判断返回status正确
+
+paymentAmount为空
+    获取token-JY
+    读取header公共参数-YJ
+    读取测试数据    hy.xlsx    查询有效红包列表    5
+    ${product}    读取参数    1
+    ${lendingAmount}    读取参数    2
+    ${paymentAmount}    Set Variable
+    ${rmType}    读取参数    4
+    ${rmTerm}    读取参数    5
+    ${appId}    读取参数    6
+    设置入参    product=${product}    lendingAmount=${lendingAmount}    paymentAmount=${paymentAmount}    rmType=${rmType}    rmTerm=${rmTerm}
+    发送post请求
+    打印请求返回结果
+    判断请求响应状态为200
+    判断返回status正确
+
+rmType为空
+    获取token-JY
+    读取header公共参数-YJ
+    读取测试数据    hy.xlsx    查询有效红包列表    6
+    ${product}    读取参数    1
+    ${lendingAmount}    读取参数    2
+    ${paymentAmount}    读取参数    3
+    ${rmType}    Set Variable
+    ${rmTerm}    读取参数    5
+    ${appId}    读取参数    6
+    设置入参    product=${product}    lendingAmount=${lendingAmount}    paymentAmount=${paymentAmount}    rmType=${rmType}    rmTerm=${rmTerm}
+    发送post请求
+    打印请求返回结果
+    判断请求响应状态为200
+    判断返回status正确
+
+rmTerm为空
+    获取token-JY
+    读取header公共参数-YJ
+    读取测试数据    hy.xlsx    查询有效红包列表    7
+    ${product}    读取参数    1
+    ${lendingAmount}    读取参数    2
+    ${paymentAmount}    读取参数    3
+    ${rmType}    读取参数    4
+    ${rmTerm}    Set Variable
+    ${appId}    读取参数    6
+    设置入参    product=${product}    lendingAmount=${lendingAmount}    paymentAmount=${paymentAmount}    rmType=${rmType}    rmTerm=${rmTerm}
+    发送post请求
+    打印请求返回结果
+    判断请求响应状态为200
+    判断返回status正确
+
+appId为空
+    获取token-JY
+    读取header公共参数-YJ
+    读取测试数据    hy.xlsx    查询有效红包列表    8
+    ${product}    读取参数    1
+    ${lendingAmount}    读取参数    2
+    ${paymentAmount}    读取参数    3
+    ${rmType}    读取参数    4
+    ${rmTerm}    读取参数    5
+    ${appId}    Set Variable
+    设置入参    product=${product}    lendingAmount=${lendingAmount}    paymentAmount=${paymentAmount}    rmType=${rmType}    rmTerm=${rmTerm}    appId=${appId}
+    发送post请求
+    打印请求返回结果
+    判断请求响应状态为200
+    判断返回status正确

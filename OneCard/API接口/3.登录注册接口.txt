@@ -1,0 +1,118 @@
+*** Settings ***
+Library           RequestsLibrary
+Library           requests
+Library           json
+Library           Collections
+Library           ExcelLibrary
+Resource          ../公共关键字.txt
+Library           ../自写库/recordLoanData.py
+
+*** Test Cases ***
+入参正确
+    读取header公共参数-YJ
+    读取测试数据    hy.xlsx    登录注册    2
+    ${mobile}    读取参数    1
+    ${memberId}    读取参数    2
+    ${fingerPrint}    读取参数    3
+    设置入参    mobile=${mobile}    memberId=${memberId}    fingerPrint=${fingerPrint}
+    发送post请求(无token)
+    打印请求返回结果
+    判断请求响应状态为200
+    判断返回status正确
+    判断返回data参数正确
+
+mobile参数为空
+    读取header公共参数-YJ
+    读取测试数据    hy.xlsx    登录注册    3
+    ${mobile}    Set Variable
+    ${memberId}    读取参数    2
+    ${fingerPrint}    读取参数    3
+    设置入参    mobile=${mobile}    memberId=${memberId}    fingerPrint=${fingerPrint}
+    发送post请求(无token)
+    打印请求返回结果
+    判断请求响应状态为200
+    判断返回status正确
+
+memberId参数为空
+    读取header公共参数-YJ
+    读取测试数据    hy.xlsx    登录注册    4
+    ${mobile}    读取参数    1
+    ${memberId}    Set Variable
+    ${fingerPrint}    读取参数    3
+    设置入参    mobile=${mobile}    memberId=${memberId}    fingerPrint=${fingerPrint}
+    发送post请求(无token)
+    打印请求返回结果
+    判断请求响应状态为200
+    判断返回status正确
+
+fingerPrint参数为空
+    读取header公共参数-YJ
+    读取测试数据    hy.xlsx    登录注册    5
+    ${mobile}    读取参数    1
+    ${memberId}    读取参数    2
+    ${fingerPrint}    Set Variable
+    设置入参    mobile=${mobile}    memberId=${memberId}    fingerPrint=${fingerPrint}
+    发送post请求(无token)
+    打印请求返回结果
+    判断请求响应状态为200
+    判断返回status正确
+
+mobile为英文数字
+    读取header公共参数-YJ
+    读取测试数据    hy.xlsx    登录注册    6
+    ${mobile}    读取参数    1
+    ${memberId}    读取参数    2
+    ${fingerPrint}    读取参数    3
+    设置入参    mobile=${mobile}    memberId=${memberId}    fingerPrint=${fingerPrint}
+    发送post请求(无token)
+    打印请求返回结果
+    判断请求响应状态为200
+    判断返回status正确
+
+mobile为中文
+    读取header公共参数-YJ
+    读取测试数据    hy.xlsx    登录注册    7
+    ${mobile}    读取参数    1
+    ${memberId}    读取参数    2
+    ${fingerPrint}    读取参数    3
+    设置入参    mobile=${mobile}    memberId=${memberId}    fingerPrint=${fingerPrint}
+    发送post请求(无token)
+    打印请求返回结果
+    判断请求响应状态为200
+    判断返回status正确
+
+mobile长度错误
+    读取header公共参数-YJ
+    读取测试数据    hy.xlsx    登录注册    8
+    ${mobile}    读取参数    1
+    ${memberId}    读取参数    2
+    ${fingerPrint}    读取参数    3
+    设置入参    mobile=${mobile}    memberId=${memberId}    fingerPrint=${fingerPrint}
+    发送post请求(无token)
+    打印请求返回结果
+    判断请求响应状态为200
+    判断返回status正确
+
+memberId不匹配
+    读取header公共参数-YJ
+    读取测试数据    hy.xlsx    登录注册    9
+    ${mobile}    读取参数    1
+    ${memberId}    读取参数    2
+    ${fingerPrint}    读取参数    3
+    设置入参    mobile=${mobile}    memberId=${memberId}    fingerPrint=${fingerPrint}
+    发送post请求(无token)
+    打印请求返回结果
+    判断请求响应状态为200
+    判断返回status正确
+
+mobile不匹配
+    读取header公共参数-YJ
+    读取测试数据    hy.xlsx    登录注册    10
+    ${mobile}    读取参数    1
+    ${memberId}    读取参数    2
+    ${fingerPrint}    读取参数    3
+    设置入参    mobile=${mobile}    memberId=${memberId}    fingerPrint=${fingerPrint}
+    发送post请求(无token)
+    打印请求返回结果
+    判断请求响应状态为200
+    判断返回status正确

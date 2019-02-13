@@ -1,0 +1,97 @@
+*** Settings ***
+Library           Collections
+Library           RequestsLibrary
+Library           DatabaseLibrary
+Library           json
+
+*** Test Cases ***
+链接数据库
+    Connect To Database Using Custom Params    pymysql    database='quota_db',user='quota_db_rw',password='PJko_FnY_A6b',host='127.0.0.1',port=5567,charset='utf8'
+    ${a}    Set Variable    运单贷模型
+    @{result}    query    SELECT * FROM t_quota_model WHERE MODEL_NAME='${a}'
+    log    @{result[0]}[2]
+    log many    @{result}
+    @{b}    query    SELECT * FROM t_quota_model WHERE MODEL_NAME='批量'
+    @{c}    execute Sql String    SELECT * FROM t_quota_model WHERE MODEL_NAME='批量'    #不知道为什么不好使
+    Disconnect From Database
+
+webservice
+    Create Soap Client    http://ws.webxml.com.cn/WebServices/MobileCodeWS.asmx?wsdl
+    Set Port    MobileCodeWSSoap
+    ${a}    Create Wsdl Object    getMobileCodeInfo
+    Set Wsdl Object Attribute    ${a}    mobileCode    15010798176
+    Call Soap Method    getMobileCodeInfo    ${a}
+    ${retutn_xml}    Get Last Received
+    log    ${retutn_xml}
+
+get请求
+    Create Session    api    http://101.200.87.124:8080
+    ${data}    Catenate    SEPARATOR=&    uid=262    token=011403005155020062b1f4b33d3248059f15d3260110922f
+    ${addr}    Get Request    api    /mall/UserMessageUnRead?${data}
+    log    ${addr.content}    \    #对象内容，即接口返回报文的内容
+    log    ${addr.text}    \    #对象内容，文本形式展示
+    Should Be Equal As Strings    ${addr.status_code}    200    #对象状态，即接口返回状态值200/404等
+    Delete All Sessions
+
+json格式
+    Create Session    api    https://siteip.9fchaoneng.cn:8792
+    ${dicttype}    Create Dictionary    Content-Type=application/json;charset=UTF-8
+    ${d}    Set Variable    {"body": {"mobile":"13147002160","memberId":"12345678"}, "header": { "appId":"h52faf3acba7340c3d99b61ad585bf1551", "channelCode":"XWK","deviceType":"H5","format":"json","partnerId":"00000000006","sign":"C4A80D3699D96932D453E68DC4F633C7","signMethod":"MD5","timeStamp":"1523602601003" } }
+    ${addr}    Post Request    api    /api/account/saasLogin    data=${d}    headers=${dicttype}
+    Comment    log    ${addr.text}
+    Comment    Log    ${addr.content}
+    Comment    ${responsedata}    To Json    ${addr.content}
+    Comment    ${str}    Get From Dictionary    ${responsedata}    task_key
+    Comment    ${keys}    Get Dictionary Keys    ${responsedata}    #返回所有的keys值
+    Comment    ${items}    Get Dictionary Items    ${responsedata}    #打印所有的信息
+    Comment    ${values}    Get Dictionary Values    ${responsedata}    #返回所有的value值
+    log    ${addr.text}
+    Delete All Sessions
+
+找回用户名1
+    Create Session    api    http://123.56.122.244:3030
+    ${dicttype}    Create Dictionary    Content-Type=application/json;charset=UTF-8
+    ${dd}    Create Dictionary    idnum=420222198808281065    name=曹阳俊
+    ${addr}    Post Request    api    /ChsiRegister/rs/account/chsi/v1/futasks    data=${dd}    headers=${dicttype}
+    Comment    log    ${addr.text}
+    Comment    Log    ${addr.content}
+    Comment    ${responsedata}    To Json    ${addr.content}
+    Comment    ${str}    Get From Dictionary    ${responsedata}    task_key
+    Comment    ${keys}    Get Dictionary Keys    ${responsedata}    #返回所有的keys值
+    Comment    ${items}    Get Dictionary Items    ${responsedata}    #打印所有的信息
+    Comment    ${values}    Get Dictionary Values    ${responsedata}    #返回所有的value值
+    log    ${addr.json()['task_key']}
+    Delete All Sessions
+
+form格式11
+    Create Session    api    http://192.168.1.1:8080
+    ${header}    Create Dictionary    Content-Type=application/x-www-form-urlencoded
+    ${body}    Set Variable    recordList=[{"primaryKey":"by138","appId":"41127","colCompany":"1073605","colTime":"2017-07-22 15:23:36","contactPhone":"17030079814","contactName":"小六","relation":"F1009","phoneStatus":"1","recordMins":"6","phoneRecord":"了的空地上","colResult":"PF","specialMark":"CP1","promisePaymentTime":"2017-07-14","promisePaymentAmt":"33.3","colRecord":"dkls12凉快点烧"}]
+    ${addr}    Post Request    api    /cms/colRecord/data    data=${body}    headers=${header}
+    log    ${addr.text}
+
+form格式post请求方法二
+    Create Session    api    http://123.56.141.240:10380
+    ${dicttype}    Create Dictionary    Content-Type=application/x-www-form-urlencoded
+    ${d}    Set Variable    recordList=[{"primaryKey":"by138","appId":"41127","colCompany":"1073605","colTime":"2017-07-22 15:23:36","contactPhone":"17030079814","contactName":"小六","relation":"F1009","phoneStatus":"1","recordMins":"6","phoneRecord":"了的空地上","colResult":"PF","specialMark":"CP1","promisePaymentTime":"2017-07-14","promisePaymentAmt":"33.3","colRecord":"dkls12凉快点烧"}]
+    ${addr}    Post Request    api    /cms/colRecord/data!recordInfoCallBack.intf    data=${d}    headers=${dicttype}
+    log    ${addr.text}
+    log    ${addr.content}
+    Delete All Sessions
+
+form格式post请求方法一
+    Create Session    api    http://123.57.234.78:8790
+    ${header}    Create Dictionary    Content-Type=application/x-www-form-urlencoded    deviceType=H5    signMethod=MD5    sign=3C5B1B976E71BD1E823D0518F6582550    timeStamp=20170926 16:59:1
+    ...    partnerId=00000000006    format=json    channelCode=XWK    proid=h5ea85a6989c76993d121bbbd038051ea7
+    ${body}    Catenate    SEPARATOR=&    mobile=15626513325    memberId=123456
+    ${addr}    Post Request    api    /api/account/regist?${body}    headers=${header}
+    Should Be Equal As Strings    ${addr.status_code}    200
+    log    ${addr.text}
+
+json格式post请求
+    Create Session    api    https://siteip.9fchaoneng.cn:8792
+    ${dicttype}    Create Dictionary    Content-Type=application/json;charset=UTF-8
+    ${d}    Set Variable    {"body": {"mobile":"13147992160","memberId":"12345678"}, "header": { "appId":"h52faf3acba7340c3d99b61ad585bf1551", "channelCode":"XWK","deviceType":"H5","format":"json","partnerId":"00000000006","sign":"C4A80D3699D96932D453E68DC4F633C7","signMethod":"MD5","timeStamp":"1523602601003" } }
+    ${addr}    Post Request    api    /api/account/saasLogin    data=${d}    headers=${dicttype}
+    log    ${addr.text}
+    Delete All Sessions

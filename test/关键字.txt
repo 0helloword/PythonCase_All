@@ -1,0 +1,4 @@
+*** Keywords ***
+forJ
+    :FOR    ${j}    IN RANGE    1    3
+    \    log    ${j}

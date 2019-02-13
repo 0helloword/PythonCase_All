@@ -1,0 +1,214 @@
+*** Settings ***
+Library           requests
+Library           json
+Library           Collections
+Library           ExcelLibrary
+Library           RequestsLibrary
+Library           自写库/recordLoanData.py
+Library           自写库/updateToken.py
+Library           自写库/update_Prd_Appid.py
+Library           自写库/updatePrd.py
+Library           自写库/mysqltest.py
+Library           自写库/mysqlOperate.py
+Library           自写库/updateHeader.py
+Library           自写库/updateHeader_notoken.py
+Library           自写库/updateAppid.py
+Library           自写库/updatePlanId.py
+Library           自写库/updateSource.py
+Library           自写库/updateCode.py
+
+*** Keywords ***
+读取xwk公共参数-eip
+    @{dict}    listExcel    外联.xlsx    XWK    1    2    6
+    Set Global Variable    @{dict}
+    ${url}    Set Variable    @{dict}[0]
+    Set Global Variable    ${url}
+    ${appId}    Set Variable    @{dict}[1]
+    Set Global Variable    ${appId}
+    ${partnerId}    Set Variable    @{dict}[2]
+    Set Global Variable    ${partnerId}
+    ${channelCode}    Set Variable    @{dict}[3]
+    Set Global Variable    ${channelCode}
+    ${productId}    Set Variable    @{dict}[4]
+    Set Global Variable    ${productId}
+    ${fproductId}    Set Variable    @{dict}[5]
+    Set Global Variable    ${fproductId}
+
+读取sina公共参数-eip
+    @{dict}    listExcel    外联.xlsx    SINA    1    2    6
+    Set Global Variable    @{dict}
+    ${url}    Set Variable    @{dict}[0]
+    Set Global Variable    ${url}
+    ${appId}    Set Variable    @{dict}[1]
+    Set Global Variable    ${appId}
+    ${partnerId}    Set Variable    @{dict}[2]
+    Set Global Variable    ${partnerId}
+    ${channelCode}    Set Variable    @{dict}[3]
+    Set Global Variable    ${channelCode}
+    ${productId}    Set Variable    @{dict}[4]
+    Set Global Variable    ${productId}
+    ${fproductId}    Set Variable    @{dict}[5]
+    Set Global Variable    ${fproductId}
+
+读取youzu公共参数-eip
+    @{dict}    listExcel    外联.xlsx    YOUZU    1    2    7
+    Set Global Variable    @{dict}
+    ${url}    Set Variable    @{dict}[0]
+    Set Global Variable    ${url}
+    ${appId}    Set Variable    @{dict}[1]
+    Set Global Variable    ${appId}
+    ${partnerId}    Set Variable    @{dict}[2]
+    Set Global Variable    ${partnerId}
+    ${channelCode}    Set Variable    @{dict}[3]
+    Set Global Variable    ${channelCode}
+    ${productId}    Set Variable    @{dict}[4]
+    Set Global Variable    ${productId}
+    ${fproductId}    Set Variable    @{dict}[5]
+    Set Global Variable    ${fproductId}
+    ${source}    Set Variable    @{dict}[6]
+    Set Global Variable    ${source}
+
+获取token-xwk-eip
+    读取xwk公共参数-eip
+    读取测试数据-eip    2
+    发送post请求-eip
+    打印请求返回结果-eip
+    判断请求响应状态为200-eip
+    判断返回status正确-eip
+    ${token}    Set Variable    ${addr.json()['data']['token']}
+    Set Global Variable    ${token}
+
+获取token-sina-eip
+    读取sina公共参数-eip
+    读取测试数据-eip    26
+    发送post请求-eip
+    打印请求返回结果-eip
+    判断请求响应状态为200-eip
+    判断返回status正确-eip
+    ${token}    Set Variable    ${addr.json()['data']['token']}
+    Set Global Variable    ${token}
+
+获取token-youzu-eip
+    读取youzu公共参数-eip
+    读取测试数据-eip    32
+    发送post请求-eip
+    打印请求返回结果-eip
+    判断请求响应状态为200-eip
+    判断返回status正确-eip
+    ${token}    Set Variable    ${addr.json()['data']['token']}
+    Set Global Variable    ${token}
+
+读取测试数据-eip
+    [Arguments]    ${row}
+    @{dict2}    List Read Excel    外联.xlsx    用例    ${row}    2    3
+    ...    #获取每行从第二列开始的n个数据
+    ${U}    Set Variable    @{dict2}[${0}]    #获取接口地址
+    ${data}    Set Variable    @{dict2}[${1}]    #获取data
+    ${status}    Set Variable    @{dict2}[${2}]    #获取status值
+    Set Global Variable    ${U}
+    Set Global Variable    ${data}
+    Set Global Variable    ${status}
+
+发送post请求-eip
+    Create Session    api    ${url}
+    ${dicttype}    Create Dictionary    Content-Type=application/json;charset=UTF-8
+    ${addr}    Post Request    api    ${U}    data=${data}    headers=${dicttype}
+    Set Global Variable    ${addr}
+
+打印请求返回结果-eip
+    log    ${addr.text}
+
+判断请求响应状态为200-eip
+    Should Be Equal As Strings    ${addr.status_code}    200
+
+判断返回status正确-eip
+    Should Be Equal As Strings    ${addr.json()['status']}    ${status}
+
+更新header参数
+    ${data}    Update Header    ${data}    ${appId}    ${partnerId}    ${channelCode}    ${token}
+    Set Global Variable    ${data}
+
+更新header(无token)
+    ${data}    update_Header_notoken    ${data}    ${appId}    ${partnerId}    ${channelCode}
+    Set Global Variable    ${data}
+
+获取产品id
+    读取xwk公共参数-eip
+    读取测试数据-eip    11
+    发送post请求-eip
+    打印请求返回结果-eip
+    判断请求响应状态为200-eip
+    判断返回status正确-eip
+    ${token}    Set Variable    ${addr.json()['data']['token']}
+    Set Global Variable    ${token}
+
+更新productId,appid
+    ${loan_order}    mysql_test    select * from wk_loan_order where \ product_id='${productId}' and app_status='5' ORDER BY app_id DESC limit 1;
+    ${appid}    Evaluate    str(${loan_order[0][0]})
+    ${data}    update_Prd_Appid    ${data}    ${productId}    ${app_id}
+    Set Global Variable    ${data}
+
+获取对应产品appid-eip
+    ${loan_order}    mysql_operate    select * from wk_loan_order where \ product_id='${productId}' and app_status='5' ORDER BY app_id DESC limit 1;
+    ${app_id}    Evaluate    str(${loan_order[0][0]})
+    Set Global Variable    ${app_id}
+
+更新productId
+    ${data}    Update Prd    ${data}    ${productId}
+    Set Global Variable    ${data}
+
+删除工单
+    mysql_operate    delete from wk_loan_order where phone_no='15626513325';
+
+获取生成的appid-eip
+    ${appid_new}    Set Variable    ${addr.json()['data']['appId']}
+    Set Global Variable    ${appid_new}
+
+更新appId
+    ${loan_order}    mysql_test    select * from wk_loan_order where \ product_id='490' and app_status='5' ORDER BY app_id DESC limit 1;
+    ${app_id}    Evaluate    str(${loan_order[0][0]})
+    Set Global Variable    ${app_id}
+    ${data}    update Appid    ${data}    ${app_id}
+    Set Global Variable    ${data}
+
+更新planId
+    ${repay_plan}    mysql_test    select * from wk_loan_repay_plan ORDER BY plan_id DESC limit 1;
+    ${plan_id}    Evaluate    str(${repay_plan[0][0]})
+    Set Global Variable    ${plan_id}
+    ${data}    update PlanId    ${data}    ${plan_id}
+    Set Global Variable    ${data}
+
+更新fproductId
+    ${data}    Update Prd    ${data}    ${fproductId}
+    Set Global Variable    ${data}
+
+删除绑定的银行卡
+    mysql_operate    DELETE from wk_bindcard where cardPhone='15626513325' ORDER BY cardBindTime desc limit 1;
+
+更新source
+    ${data}    Update Source    ${data}    ${source}
+    Set Global Variable    ${data}
+
+更新验证码
+    Comment    读取youzu公共参数-eip
+    Comment    读取测试数据-eip    9
+    Comment    更新header(无token)
+    Comment    发送post请求-eip
+    Comment    打印请求返回结果-eip
+    Comment    判断请求响应状态为200-eip
+    Comment    ${a}    Mysql Test    select * from wk_sms_log where mobile='15626513325' ORDER BY sendTime DESC limit 1;
+    Comment    ${code}    Evaluate    int(${a[0][2]})
+    Comment    Set Global Variable    ${code}
+    ${data}    Update Code    ${data}    ${code}
+    Set Global Variable    ${data}
+
+获取验证码
+    读取youzu公共参数-eip
+    读取测试数据-eip    9
+    更新header(无token)
+    发送post请求-eip
+    打印请求返回结果-eip
+    判断请求响应状态为200-eip
+    ${a}    Mysql Test    select * from wk_sms_log where mobile='15626513325' ORDER BY sendTime DESC limit 1;
+    ${code}    Evaluate    int(${a[0][2]})
+    Set Global Variable    ${code}

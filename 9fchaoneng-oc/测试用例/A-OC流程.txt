@@ -1,0 +1,386 @@
+*** Settings ***
+Resource          ../元素操作/oc-通用关键字.txt
+Resource          ../元素操作/oc-页面元素.txt
+Resource          ../元素操作/配置文件.txt
+Library           ../自写库/WriteExcel.py
+Library           ../自写库/1.py
+
+*** Test Cases ***
+pos贷获取工单流程
+    [Tags]    pos
+    读取excel数据-oc
+    用户登录-OC
+    用户软电话
+    菜单选择-OC    人工审核
+    菜单选择-OC    初步审核（POS）
+    获取工单
+    判断页面包含    图片核实
+    人工审核-图片核实    信息和照片均一致
+    人工审核-证件核实    社保单位名称与申请表一致
+    人工审核-贷款信息核实
+    获取基础信息核实信息
+    Run Keyword If    '${shenhe}'=='ID5办公电话核查：'    人工审核-基础信息核实7    信息不足无法判断    信息已验证    名称一致，地址不一致    RES05
+    ...    占线/无人应答    信息不足无法判断    信息已确认
+    Run Keyword Unless    '${shenhe}'=='ID5办公电话核查：'    人工审核-基础信息核实4    信息不足无法判断    信息已验证    RES05    占线/无人应答
+    点击链接    确认
+    按钮点击-OC    提交
+    按钮点击-OC    确定
+    等待    2
+    判断提示信息
+    菜单选择-OC    专家审批
+    菜单选择-OC    初步审批（POS）
+    获取工单
+    判断页面包含    图片核实
+    专家审批流程
+    浏览器关闭
+    [Teardown]    Close Browser
+
+pos贷人工审核退回
+    [Tags]    pos
+    读取excel数据-oc
+    获取数据库pos贷工单    12
+    用户登录-OC
+    用户软电话
+    菜单选择-OC    人工审核
+    菜单选择-OC    审核分单（POS）
+    判断页面跳转-OC    人工审核分单
+    文本输入    工单编号    ${appid}
+    按钮点击-OC    查询
+    勾选复选框
+    选择审核人    ${username-oc}
+    进行调单分配
+    菜单选择-OC    初步审核（POS）
+    继续审核操作    ${appid}
+    判断页面包含    图片核实
+    按钮点击-OC    退回申请
+    下拉选择-OC    退回原因    授权委托书类
+    文本输入-OC    退回意见    人工审核退回
+    按钮点击-OC    提交
+    判断提示信息
+    浏览器关闭
+    [Teardown]    Close Browser
+
+pos贷专家审批拒绝
+    [Tags]    pos
+    读取excel数据-OC
+    获取数据库pos贷工单    14
+    用户登录-OC
+    用户软电话
+    菜单选择-OC    专家审批
+    菜单选择-OC    审批分单（POS）
+    判断页面跳转-OC    专家审批分单
+    文本输入    工单编号    ${appid}
+    按钮点击-OC    查询
+    勾选复选框
+    选择审核人    ${username-oc}
+    进行调单分配
+    菜单选择-OC    初步审批（POS）
+    继续审核操作    ${appid}
+    判断页面跳转-OC    信用专家审核
+    按钮点击-OC    拒绝申请
+    下拉选择-OC    拒绝原因大类    信用风险类
+    下拉选择-OC    拒绝原因小类    无还款能力
+    文本输入-OC    拒绝意见    专家审批拒绝
+    按钮点击-OC    提交
+    判断提示信息
+    浏览器关闭
+    [Teardown]    Close Browser
+
+pos贷专家审批退回
+    [Tags]    pos
+    读取excel数据-OC
+    获取数据库pos贷工单    14
+    用户登录-OC
+    用户软电话
+    菜单选择-OC    专家审批
+    菜单选择-OC    审批分单（POS）
+    判断页面跳转-OC    专家审批分单
+    文本输入    工单编号    ${appid}
+    按钮点击-OC    查询
+    勾选复选框
+    选择审核人    ${username-oc}
+    进行调单分配
+    菜单选择-OC    初步审批（POS）
+    继续审核操作    ${appid}
+    判断页面跳转-OC    信用专家审核
+    按钮点击-OC    退回申请
+    下拉选择-OC    退回原因    授权委托书类
+    文本输入-OC    退回意见    专家审批退回
+    按钮点击-OC    提交
+    判断提示信息
+    浏览器关闭
+    [Teardown]    Close Browser
+
+pos贷审核审批12-14-18
+    [Tags]    pos
+    读取excel数据-OC
+    获取数据库pos贷工单    12
+    用户登录-OC
+    用户软电话
+    菜单选择-OC    人工审核
+    菜单选择-OC    审核分单（POS）
+    判断页面跳转-OC    人工审核分单
+    文本输入    工单编号    ${appid}
+    按钮点击-OC    查询
+    勾选复选框
+    查询结果审核人    审核人    ${username-oc}
+    进行调单分配
+    菜单选择-OC    初步审核（POS）
+    继续审核操作    ${appid}
+    判断页面跳转-OC    人工初步审核
+    读取客户信息数据-OC    #获取工单的用户身份证信息
+    人工审核-图片核实    信息和照片均一致
+    人工审核-证件核实    社保单位名称与申请表一致
+    人工审核-贷款信息核实
+    获取基础信息核实信息
+    Run Keyword If    '${shenhe}'=='ID5办公电话核查：'    人工审核-基础信息核实7    信息不足无法判断    信息已验证    名称一致，地址不一致    RES05
+    ...    占线/无人应答    信息不足无法判断    信息已确认
+    Run Keyword Unless    '${shenhe}'=='ID5办公电话核查：'    人工审核-基础信息核实4    信息不足无法判断    信息已验证    RES05    占线/无人应答
+    点击链接    确认
+    按钮点击-OC    提交
+    按钮点击-OC    确定
+    等待    2
+    判断提示信息
+    菜单选择-OC    专家审批
+    菜单选择-OC    审批分单（POS）
+    判断页面跳转-OC    专家审批分单
+    文本输入    工单编号    ${appid}
+    按钮点击-OC    查询
+    勾选复选框
+    查询结果审核人    审批人    ${username-oc}
+    进行调单分配
+    菜单选择-OC    初步审批（POS）
+    继续审核操作    ${appid}
+    判断页面跳转-OC    信用专家审核
+    专家审批流程
+    浏览器关闭
+    [Teardown]    Close Browser
+
+pos贷审核审批12-18
+    [Tags]    pos
+    读取excel数据-OC
+    获取数据库pos贷工单    12
+    用户登录-OC
+    用户软电话
+    菜单选择-OC    人工审核
+    菜单选择-OC    审核分单（POS）
+    判断页面跳转-OC    人工审核分单
+    文本输入    工单编号    ${appid}
+    按钮点击-OC    查询
+    勾选复选框
+    查询结果审核人    审核人    ${username-oc}
+    进行调单分配
+    菜单选择-OC    初步审核（POS）
+    继续审核操作    ${appid}
+    判断页面跳转-OC    人工初步审核
+    读取客户信息数据-OC    #获取工单的用户身份证信息
+    人工审核-图片核实    信息一致，但NCIIC中无照片
+    人工审核-证件核实    社保单位名称与申请表一致
+    人工审核-贷款信息核实
+    获取基础信息核实信息
+    Run Keyword If    '${shenhe}'=='ID5办公电话核查：'    人工审核-基础信息核实7    信息不足无法判断    信息已验证    名称一致，地址不一致    RES05
+    ...    占线/无人应答    信息不足无法判断    信息已确认
+    Run Keyword Unless    '${shenhe}'=='ID5办公电话核查：'    人工审核-基础信息核实4    信息不足无法判断    信息已验证    RES05    占线/无人应答
+    点击链接    确认
+    按钮点击-OC    提交
+    按钮点击-OC    确定
+    等待    2
+    判断提示信息
+    浏览器关闭
+    [Teardown]    Close Browser
+
+cash贷获取工单流程
+    Comment    读取excel数据-OC
+    Comment    用户登录-OC
+    Comment    菜单选择-OC    人工审核
+    Comment    菜单选择-OC    初步审核（CASH）
+    Comment    获取工单
+    Comment    判断页面包含    图片核实
+    Comment    人工审核-图片核实    信息和照片均一致
+    Comment    人工审核-证件核实    社保单位名称与申请表一致
+    Comment    人工审核-贷款信息核实
+    Comment    人工审核-基础信息核实4    信息已验证    信息已验证    RES05    信息已验证
+    Comment    点击链接    确认
+    Comment    按钮点击-OC    提交
+    Comment    按钮点击-OC    确定
+    Comment    按钮点击-OC    确定
+    Comment    菜单选择-OC    专家审批
+    Comment    菜单选择-OC    初步审批（CASH）
+    Comment    获取工单
+    Comment    判断页面包含    图片核实
+    Comment    专家审批流程
+    Comment    浏览器关闭
+    [Teardown]    Close Browser
+
+cash贷人工审核退回
+    读取excel数据-OC
+    Comment    用户登录-OC
+    Comment    菜单选择-OC    人工审核
+    Comment    菜单选择-OC    审核分单（CASH）
+    Comment    判断页面跳转-OC    人工审核分单
+    Comment    文本输入    工单编号    ${app_id}
+    Comment    按钮点击-OC    查询
+    Comment    勾选复选框
+    Comment    选择审核人    ${username-oc}
+    Comment    进行调单分配
+    Comment    菜单选择-OC    初步审核（CASH）
+    Comment    继续审核操作    ${app_id}
+    Comment    判断页面跳转-OC    人工初步审核
+    Comment    按钮点击-OC    退回申请
+    Comment    下拉选择-OC    退回原因    授权委托书类
+    Comment    文本输入-OC    退回意见    人工审核退回
+    Comment    按钮点击-OC    提交
+    Comment    按钮点击-OC    确定
+    Comment    浏览器关闭
+    [Teardown]    Close Browser
+
+cash贷专家审批退回
+    Comment    读取excel数据-OC
+    Comment    用户登录-OC
+    Comment    菜单选择-OC    人工审核
+    Comment    菜单选择-OC    审核分单（CASH）
+    Comment    判断页面跳转-OC    人工审核分单
+    Comment    文本输入    工单编号    ${app_id}
+    Comment    按钮点击-OC    查询
+    Comment    勾选复选框
+    Comment    选择审核人    ${username-oc}
+    Comment    进行调单分配
+    Comment    菜单选择-OC    初步审核（CASH）
+    Comment    继续审核操作    ${app_id}
+    Comment    判断页面跳转-OC    人工初步审核
+    Comment    人工审核-图片核实    信息和照片均一致
+    Comment    人工审核-证件核实    社保单位名称与申请表一致
+    Comment    人工审核-贷款信息核实
+    Comment    人工审核-基础信息核实4    信息已验证    信息已验证    RES05    信息已验证
+    Comment    点击链接    确认
+    Comment    按钮点击-OC    提交
+    Comment    按钮点击-OC    确定
+    Comment    按钮点击-OC    确定
+    Comment    菜单选择-OC    专家审批
+    Comment    菜单选择-OC    审批分单（CASH）
+    Comment    判断页面跳转-OC    专家审批分单
+    Comment    文本输入    工单编号    ${appid-oc}
+    Comment    按钮点击-OC    查询
+    Comment    勾选复选框
+    Comment    选择审核人    ${username-oc}
+    Comment    进行调单分配
+    Comment    菜单选择-OC    初步审批（CASH）
+    Comment    继续审核操作
+    Comment    判断页面跳转-OC    信用专家审核
+    Comment    按钮点击-OC    退回申请
+    Comment    下拉选择-OC    退回原因    授权委托书类
+    Comment    文本输入-OC    退回意见    专家审批退回
+    Comment    按钮点击-OC    提交
+    Comment    按钮点击-OC    确定
+    Comment    浏览器关闭
+    [Teardown]    Close Browser
+
+cash贷专家审批拒绝
+    Comment    读取excel数据-OC
+    Comment    用户登录-OC
+    Comment    菜单选择-OC    人工审核
+    Comment    菜单选择-OC    审核分单（CASH）
+    Comment    判断页面跳转-OC    人工审核分单
+    Comment    文本输入    工单编号    ${app_id}
+    Comment    按钮点击-OC    查询
+    Comment    勾选复选框
+    Comment    选择审核人    ${username-oc}
+    Comment    进行调单分配
+    Comment    菜单选择-OC    初步审核（CASH）
+    Comment    继续审核操作    ${app_id}
+    Comment    判断页面跳转-OC    人工初步审核
+    Comment    人工审核-图片核实    信息和照片均一致
+    Comment    人工审核-证件核实    社保单位名称与申请表一致
+    Comment    人工审核-贷款信息核实
+    Comment    人工审核-基础信息核实4    信息已验证    信息已验证    RES05    信息已验证
+    Comment    点击链接    确认
+    Comment    按钮点击-OC    提交
+    Comment    按钮点击-OC    确定
+    Comment    按钮点击-OC    确定
+    Comment    菜单选择-OC    专家审批
+    Comment    菜单选择-OC    审批分单（CASH）
+    Comment    判断页面跳转-OC    专家审批分单
+    Comment    文本输入    工单编号    ${appid-oc}
+    Comment    按钮点击-OC    查询
+    Comment    勾选复选框
+    Comment    选择审核人    ${username-oc}
+    Comment    进行调单分配
+    Comment    菜单选择-OC    初步审批（CASH）
+    Comment    继续审核操作
+    Comment    判断页面跳转-OC    信用专家审核
+    Comment    按钮点击-OC    拒绝申请
+    Comment    下拉选择-OC    拒绝原因大类    信用风险类
+    Comment    下拉选择-OC    拒绝原因小类    无还款能力
+    Comment    文本输入-OC    拒绝意见    专家审批拒绝
+    Comment    按钮点击-OC    提交
+    Comment    按钮点击-OC    确定
+    Comment    浏览器关闭
+    [Teardown]    Close Browser
+
+cash贷12-14-20
+    Comment    读取excel数据-OC
+    Comment    用户登录-OC
+    Comment    菜单选择-OC    人工审核
+    Comment    菜单选择-OC    审核分单（CASH）
+    Comment    判断页面跳转-OC    人工审核分单
+    Comment    文本输入    工单编号    ${appid-oc}
+    Comment    按钮点击-OC    查询
+    Comment    勾选复选框
+    Comment    选择审核人    ${username-oc}
+    Comment    进行调单分配
+    Comment    菜单选择-OC    初步审核（CASH）
+    Comment    继续审核操作    ${appid-oc}
+    Comment    判断页面跳转-OC    人工初步审核
+    Comment    人工审核-图片核实    信息和照片均一致
+    Comment    人工审核-证件核实    社保单位名称与申请表一致
+    Comment    人工审核-贷款信息核实
+    Comment    人工审核-基础信息核实4    信息已验证    信息已验证    RES05    信息已验证
+    Comment    点击链接    确认
+    Comment    按钮点击-OC    提交
+    Comment    按钮点击-OC    确定
+    Comment    按钮点击-OC    确定
+    Comment    菜单选择-OC    专家审批
+    Comment    菜单选择-OC    审批分单（CASH）
+    Comment    判断页面跳转-OC    专家审批分单
+    Comment    文本输入    工单编号    ${appid-oc}
+    Comment    按钮点击-OC    查询
+    Comment    勾选复选框
+    Comment    选择审核人    ${username-oc}
+    Comment    进行调单分配
+    Comment    菜单选择-OC    初步审批（CASH）
+    Comment    继续审核操作    ${appid-oc}
+    Comment    判断页面跳转-OC    信用专家审核
+    Comment    专家审批流程
+    Comment    浏览器关闭
+    [Teardown]    Close Browser
+
+判断是否有软电话功能
+    open browser    http://192.168.78.243:8080/initLogin    chrome
+    Maximize Browser Window
+    Input Text    id=username    998866
+    Input Text    id=password    cyj123
+    Click Button    id=loginButton
+    Sleep    2
+    Page Should Contain    首页
+    sleep    2
+    ${a}    Run Keyword And Return Status    Page Should Contain    电话用户登录
+    log    ${a}
+    Run Keyword If    '${a}'=='False'    log    无电话功能
+    Run Keyword Unless    '${a}'=='False'    click element    jquery=button[i='close']
+    [Teardown]
+
+111
+    open browser    https://www.lagou.com/    chrome
+    sleep    3
+    click element    jquery=div ul li>a:contains('深圳站')
+    sleep    3
+    click element    jquery=div \ li>a:contains('登录')
+    sleep    3
+    input text    css=input.input.input_white    123
+    sleep    3
+    input text    jquery=input[placeholder='请输入密码']    123
+    sleep    3
+    click element    css=input.btn.btn_green.btn_active.btn_block.btn_lg
+    sleep    3
+    Close browser
+    [Teardown]    close browser

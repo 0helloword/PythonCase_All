@@ -1,0 +1,405 @@
+*** Settings ***
+Library           Selenium2Library
+Resource          配置文件.txt
+Library           ../自写库/mysqltest1.py
+Library           DateTime
+Library           ../自写库/create_cust_name.py
+Library           ../自写库/create_email_code.py
+Library           ../自写库/create_phone_number.py
+Library           ../自写库/create_id_card.py
+Library           ../自写库/create_login_name.py
+Library           AutoItLibrary
+
+*** Keywords ***
+生成测试数据-OC
+    ${aa}    mysql_test    select SCORE from fk_rk_score_fico_record where APP_ID='${appid-oc}';    #打分卡
+    ${score}    Evaluate    "".join(${aa[0]})
+    Set Global Variable    ${score}
+    ${bb}    mysql_test    select score from fk_tp_br_score_record \ \ where app_id ='${appId-oc}' ORDER BY record_date DESC LIMIT 1;    #百融评分
+    Run Keyword If    ${bb}!='null'    ${scorebr}    Evaluate    "".join(${bb[0]})
+    Run Keyword Unless    ${bb}!='null'    ${scorebr}    Evaluate    '588'
+    Comment    ${score-br}    Evaluate    "".join(${bb[0]})
+    Set Global Variable    ${scorebr}
+    ${cc}    mysql_test    select mobile_match from fk_tp_geo_mobile_record where \ cus_carid= '${cardId}';    #三维验证
+    ${mobile_match}    Evaluate    "".join(${cc[0]})
+    Set Global Variable    ${mobile_match}    \    #在网时长
+    ${dd}    mysql_test    select mobile_usetime from fk_tp_geo_mobile_record where \ cus_carid= '${cardId}';
+    ${mobile_usetime}    Evaluate    "".join(${dd[0]})
+    Set Global Variable    ${mobile_usetime}
+    ${ee}    mysql_test    select mobile_status from fk_tp_geo_mobile_record where \ cus_carid= '${cardId}';    #在网状态
+    ${mobile_status}    Evaluate    "".join(${ee[0]})
+    Set Global Variable    ${mobile_status}
+    Comment    Run Keyword Unless    ${score}!='null'    ${score}    Evaluate    '499'
+    Comment    Run Keyword If    ${score}!='null'    log    ${score}
+    Run Keyword Unless    ${score-br}!='null'    ${score-br}    Evaluate    '588'
+    Run Keyword If    ${score-br}!='null'    log    ${score-br}
+    Comment    log    ${score}
+
+赋值
+    ${scorebr}    Evaluate    "".join(${bb[0]})
+
+文本输入-OC
+    [Arguments]    ${name}    ${value}
+    Wait Until Keyword Succeeds    10    2    inputText    jquery=div:contains('${name}')+div>textarea    ${value}
+
+文本输入
+    [Arguments]    ${name}    ${value}
+    Wait Until Keyword Succeeds    10    2    input text    jquery=label:contains('${name}')+div input    ${value}
+
+文本框输入-OC
+    [Arguments]    ${name}    ${value}
+    Wait Until Keyword Succeeds    10    2    inputText    jquery=div:contains('${name}')+div>input    ${value}
+
+下拉选择-OC
+    [Arguments]    ${name}    ${value}
+    Wait Until Keyword Succeeds    10    2    Select From List    jquery=div:contains('${name}')+div>select    ${value}
+
+打开浏览器
+    open browser    ${url-oc}    chrome
+    Maximize Browser Window
+
+用户登录-OC
+    [Documentation]    用户登录
+    open browser    ${url-oc}    chrome
+    Maximize Browser Window
+    Input Text    id=username    ${loginname-oc}
+    Input Text    id=password    ${password-oc}
+    Click Button    id=loginButton
+    Sleep    2
+    Page Should Contain    首页
+    [Teardown]
+
+用户登录OC-带参数
+    [Arguments]    ${username}    ${password}
+    [Documentation]    用户登录
+    Input Text    id=username    ${username}
+    Input Text    id=password    ${password}
+    Click Button    id=loginButton
+    Sleep    2
+    [Teardown]
+
+工单状态列表选择
+    [Arguments]    ${appstate}
+    Sleep    2
+    Select From List    id=appState    ${appstate}
+    Sleep    2
+    Click Button    css=button.btn.btn-primary
+    Sleep    2
+    Comment    ${a}    mysql_test    select count(*) from ln_app where APP_STATE=${statenum};
+    Comment    ${num}    Evaluate    str(${a[0][0]})
+    Comment    Run Keyword If    ${num}>0    Element Should Contain    jquery=table tbody>tr td:contains('${appstate}')    ${appstate}
+    Comment    Run Keyword Unless    ${num}>0    log    记录为0
+
+贷款类型列表选择
+    [Arguments]    ${num}    ${loanType}
+    Wait Until Keyword Succeeds    10    2    Select From List By Index    id=loanType    ${num}
+    Wait Until Keyword Succeeds    10    2    Click Button    css=button.btn.btn-primary
+    Wait Until Keyword Succeeds    10    2    Element Should Contain    jquery=table tbody>tr td:contains('${loanType}')    ${loanType}
+
+下拉框
+    [Arguments]    ${name}    ${value}
+    Wait Until Keyword Succeeds    10    2    Select From List By Label    jquery=label:contains('${name}')+div>select    ${value}
+
+判断页面跳转-OC
+    [Arguments]    ${name}
+    Wait Until Keyword Succeeds    60    2    page Should Contain element    jquery=div h1:contains('${name}')
+
+获取页面下拉框个数
+    ${a}    Set Variable    $('select').length
+
+菜单选择-OC
+    [Arguments]    ${name}
+    Wait Until Keyword Succeeds    20    2    click element    jquery=ul li>a:contains('${name}'):eq(0)
+
+按钮点击-OC
+    [Arguments]    ${name}
+    Wait Until Keyword Succeeds    10    2    click element    jquery=button:contains('${name}'):visible
+
+勾选复选框
+    Wait Until Keyword Succeeds    10    2    click element    name=ids
+
+选择审核人
+    [Arguments]    ${name}
+    Wait Until Keyword Succeeds    10    2    Select From List    id=executorId    ${name}
+
+点击链接
+    [Arguments]    ${name}
+    Sleep    1
+    Click Link    jquery=div a:contains('${name}')
+
+读取excel二次评分数据OC
+    Open Excel    G:\\pythonCase\\9fchaoneng-sa\\OCTEST.xls
+    ${nciic1}    Read Cell Data By Name    Sheet2    B3
+    Set Global Variable    ${nciic1}
+    ${b}    Read Cell Data By Name    Sheet1    B3
+    ${loginname-oc}    Evaluate    int(${b})
+    Set Global Variable    ${loginname-oc}
+    ${password-oc}    Read Cell Data By Name    Sheet1    C3
+    Set Global Variable    ${password-oc}
+    ${c}    Read Cell Data By Name    Sheet1    D3
+    ${appid-oc}    Evaluate    int(${c})
+    Set Global Variable    ${appid-oc}
+    ${username-oc}    Read Cell Data By Name    Sheet1    E3
+    Set Global Variable    ${username-oc}
+
+读取客户信息数据-OC
+    Sleep    2
+    ${cardId}    Get Text    jquery=div:contains('身份证号')+div
+    Set Global Variable    ${cardId}
+    [Return]    ${cardId}
+
+判断结果页面包含链接
+    [Arguments]    ${name}
+    Wait Until Keyword Succeeds    10    2    Page Should Contain Link    ${name}
+
+判断结果页面包含
+    [Arguments]    ${value}
+    Wait Until Keyword Succeeds    10    2    Element Should Contain    jquery=table tbody>tr td:contains('${value}')    ${value}
+
+进行调单分配
+    Wait Until Keyword Succeeds    10    2    按钮点击-OC    调单分配
+    Wait Until Keyword Succeeds    10    2    Wait Until Element Is Visible    xpath=//div/div[2]/div/div[1]/h4
+    ${content}    Get Text    xpath=//div/div[2]/div/div[1]/h4
+    Set Global Variable    ${content}
+    Run Keyword Unless    '${content}'=='成功信息提示'    点击按键两次    确定
+    Run Keyword If    '${content}'=='成功信息提示'    按钮点击-OC    确定
+    [Return]    ${content}
+
+点击按键两次
+    [Arguments]    ${name}
+    Sleep    2
+    Wait Until Page Contains Element    jquery=button:contains('${name}'):visible
+    Wait Until Element Is Visible    jquery=button:contains('${name}'):visible
+    click element    jquery=button:contains('${name}'):visible
+    Sleep    2
+    click element    jquery=button:contains('${name}'):visible
+
+输入页码
+    [Arguments]    ${value}
+    Wait Until Keyword Succeeds    10    2    input text    id=pageInput    ${value}
+
+继续审核操作
+    [Arguments]    ${value}
+    Wait Until Keyword Succeeds    10    2    Click Link    jquery=tbody tr:contains('${value}') a:contains('继续审核')
+
+判断页面包含
+    [Arguments]    ${value}
+    Wait Until Keyword Succeeds    10    2    Page Should Contain    ${value}
+
+浏览器关闭
+    Close Browser
+
+表格列表选择-OC
+    [Arguments]    ${id}    ${value}
+    Wait Until Keyword Succeeds    10    2    Select From List    jquery=td>select[id=${id}]    ${value}
+
+表格文本输入-OC
+    [Arguments]    ${id}    ${value}
+    Wait Until Keyword Succeeds    10    2    input text    jquery=td>input[id=${id}]    ${value}
+
+表格文本框输入-OC
+    [Arguments]    ${id}    ${value}
+    Wait Until Keyword Succeeds    10    2    input text    jquery=td>textarea[id=${id}]    ${value}
+
+点击按键
+    [Arguments]    ${name}
+    Wait Until Keyword Succeeds    10    2    Click Link    jquery=td a:contains('${name}'):eq(0)
+
+密码输入-OC
+    [Arguments]    ${id}    ${value}
+    Wait Until Keyword Succeeds    10    2    input text    jquery=div>input[id=${id}]    ${value}
+
+密码写入excel
+    [Arguments]    ${row}    ${col}    ${value}
+    Sleep    2
+    Write_Excel    Sheet1    ${row}    ${col}    ${value}
+
+验证记录条数3
+    [Arguments]    ${value}
+    Sleep    2
+    Wait Until Page Contains Element    xpath=/html/body/div[2]/div[2]/div[2]/div[3]/div/div/div[2]/a[1]
+    Wait Until Element Is Visible    xpath=/html/body/div[2]/div[2]/div[2]/div[3]/div/div/div[2]/a[1]
+    ${nextpage}    Get Text    xpath=/html/body/div[2]/div[2]/div[2]/div[3]/div/div/div[2]/a[1]    #获取第一个链接的字符
+    Run Keyword If    '${nextpage}'=='下一页'    Click Link    最后一页    #如果第一个链接为下一页则表示查询结果不止一页
+    Run Keyword Unless    '${nextpage}'=='下一页'    log    仅有一页    #如果第一个链接不为下一页则表示查询结果为0或者仅有一页
+    Sleep    3
+    ${pages}    Get Element Attribute    pageInput@value    #获取总页数
+    ${s1}    Get Text    xpath=//table/tbody/tr/td
+    ${trnum}    Get Matching Xpath Count    xpath=//table/tbody/tr    #获取最后一页的记录条数
+    Run Keyword If    '${s1}'=='没有数据' and '${trnum}'=='1'    num赋值    0
+    Run Keyword Unless    '${s1}'=='没有数据' and '${trnum}'=='1'    num赋值    (${pages}-1)*20+${trnum}    #num为查询结果记录总条数
+    查询数据库工单条数    ${value}
+    Run Keyword If    ${sql-num}==${num}    log    成功
+    Run Keyword Unless    ${sql-num}==${num}    Fail
+
+验证记录条数1
+    Sleep    2
+    ${maxPageNo}    Get Element Attribute    maxPageNo@value    #获取总页数
+    input text    id=pageInput    ${maxPageNo}
+    click element    xpath=//div[2]/div/div/div[2]/a
+    Sleep    2
+    ${trnum}    Get Matching Xpath Count    xpath=//div/table/tbody/tr    #获取最后一页的记录条数
+    ${totoa_num}    Evaluate    (${maxPageNO}-1)*20+${trnum}    #num为查询结果记录总条数
+    Set Global Variable    ${totoa_num}
+
+验证记录条数
+    [Arguments]    ${value}
+    Sleep    2
+    ${maxPageNo}    Get Element Attribute    maxPageNo@value    #获取总页数
+    Run Keyword If    ${maxPageNo}>1    Click Link    最后一页
+    Run Keyword Unless    ${maxPageNo}>1    log    仅一页或无数据
+    Sleep    1
+    ${trnum}    Get Matching Xpath Count    xpath=//table/tbody/tr    #获取最后一页的记录条数
+    Run Keyword If    ${maxPageNo}==0    num赋值    0
+    Run Keyword Unless    ${maxPageNo}==0    num赋值    (${maxPageNo}-1)*20+${trnum}    #num为查询结果记录总条数
+    查询数据库工单条数    ${value}
+    Run Keyword If    ${sql-num}==${num}    log    成功
+    Run Keyword Unless    ${sql-num}==${num}    Fail
+
+查询数据库工单条数
+    [Arguments]    ${value}
+    ${a}    mysql_test    select count(*) from ln_app where APP_STATE=${value};    ${mysql-user}    ${mysql-pwd}    ${mysql-db}
+    ${sql-num}    Evaluate    int(${a[0][0]})
+    Set Global Variable    ${sql-num}
+
+num赋值
+    [Arguments]    ${value}
+    ${num}    Evaluate    ${value}
+    Set Global Variable    ${num}
+
+获取数据库pos贷工单
+    [Arguments]    ${appstate}
+    ${a}    mysql_test    select ID from ln_app where APP_STATE='${appstate}' and LOAN_TYPE='POS' order by ID DESC limit 1;    ${mysql-user}    ${mysql-pwd}    ${mysql-db}
+    ${appid}    Evaluate    str(${a[0][0]})
+    Set Global Variable    ${appid}
+
+获取工单信息
+    [Arguments]    ${appstate}
+    ${a}    mysql_test    select ID,BUS_APPID,FIRM_NAME,SHOP_NAME,PRODUCT_SERIES_NAME,CUSTOMER_NAME,CARD_ID,CREATEDBY,WO_BUILD_TIME,MOBILE from ln_app where APP_STATE='${appstate}' and LOAN_TYPE='POS' order by ID DESC limit 1;    ${mysql-user}    ${mysql-pwd}    ${mysql-db}
+    ${appid-q}    Evaluate    str(${a[0][0]})
+    Set Global Variable    ${appid-q}
+    ${busid-q}    Evaluate    str(${a[0][1]})
+    Set Global Variable    ${busid-q}
+    ${firmname-q}    Set Variable    ${a[0][2]}
+    Set Global Variable    ${firmname-q}
+    ${shopname-q}    Set Variable    ${a[0][3]}
+    Set Global Variable    ${shopname-q}
+    ${series-q}    Set Variable    ${a[0][4]}
+    Set Global Variable    ${series-q}
+    ${customername-q}    Set Variable    ${a[0][5]}
+    Set Global Variable    ${customername-q}
+    ${cardid-q}    Set Variable    ${a[0][6]}
+    Set Global Variable    ${cardid-q}
+    ${createby-q}    Set Variable    ${a[0][7]}
+    Set Global Variable    ${createby-q}
+    ${buildtime-q}    Set Variable    ${a[0][8]}
+    Set Global Variable    ${buildtime-q}
+    ${mobile-q}    Evaluate    str(${a[0][9]})
+    Set Global Variable    ${mobile-q}
+
+获取当天日期
+    ${t}    Get Current Date
+    ${today}    Set Variable    ${t[0:10]}
+    Set Global Variable    ${today}
+
+还款信息查看
+    Wait Until Keyword Succeeds    10    2    Click Link    xpath=//table/tbody/tr/td[16]/a
+    Comment
+    Comment    Wait Until Page Contains Element    jquery=tbody td[16]>a:contains('查看')
+    Comment    Wait Until Element Is Visible    jquery=tbody td[16]>a:contains('查看')
+    Comment    Click Link    jquery=tbody td[16]>a:contains('查看')
+
+审核记录查看
+    Wait Until Keyword Succeeds    10    2    Click Link    xpath=//table/tbody/tr/td[17]/a
+    Comment    Wait Until Page Contains Element    jquery=tbody td[17]>a:contains('查看')
+    Comment    Wait Until Element Is Visible    jquery=tbody td[17]>a:contains('查看')
+    Comment    Click Link    jquery=tbody td[17]>a:contains('查看')
+
+提示判断
+    [Arguments]    ${text}
+    Wait Until Page Contains Element    jquery=div[id='errorMsg']:contains('${text}')
+    Wait Until Element Is Visible    jquery=div[id='errorMsg']:contains('${text}')
+    page Should Contain element    jquery=div[id='errorMsg']:contains('${text}')
+
+判断页面跳转1-OC
+    [Arguments]    ${name}
+    Wait Until Keyword Succeeds    60    2    page Should Contain element    jquery=div h3:contains('${name}')
+
+等待
+    [Arguments]    ${second}
+    Sleep    ${second}
+
+获取数据库pos贷工单11
+    [Arguments]    ${appstate}
+    ${a}    mysql_test    select ID from ln_app where APP_STATE='${appstate}' and LOAN_TYPE='POS' order by ID DESC;    ${mysql-user}    ${mysql-pwd}    ${mysql-db}
+    查询数据库工单条数    18
+    : FOR    ${i}    IN RANGE    0    ${sql-num}-1    1
+    \    Set Global Variable    ${a[${i}][0]}
+    \    log    ${a[${i}][0]}
+    Comment    ${appid2}    Evaluate    str(${a[1][0]})
+    Comment    Set Global Variable    ${appid[i]}
+
+判断提示信息
+    Sleep    2
+    ${prompt}    Get Text    xpath=//div/div[2]/div/div[1]/h4
+    Run Keyword Unless    '${prompt}'=='成功信息提示'    Fail
+    Run Keyword If    '${prompt}'=='成功信息提示'    按钮点击-OC    确定
+
+判断数据库待审核工单数量和界面一致
+    [Arguments]    ${type}    ${state}
+    ${num2}    mysql_test    SELECT DISTINCT COUNT(app.ID ) FROM ln_app app \ LEFT OUTER JOIN ln_app_allot allot ON allot.APP_ID = app.ID \ LEFT OUTER JOIN user_info u ON allot.FOLLOW_USER = u.user_id \ WHERE 1 = 1 \ and app.LOAN_TYPE in (${type}) \ and app.APP_STATE = ${state} \ and (allot.ALLOT_TYPE is null or allot.ALLOT_TYPE= '01') \ and (allot.APP_ID is null or allot.APP_ID ='' or allot.APP_ID='null') \ ORDER BY app.WO_BUILD_TIME ASC    ${mysql-user}    ${mysql-pwd}    ${mysql-db}
+    ${num2}    Evaluate    str(${num2[0][0]})
+    ${num1}    get text    id=unAssignAppCount    #获取界面待审核工单数量(POS)
+    Should Be Equal    ${num1}    ${num2}    msg=界面显示的待审核工单数量和数据库查询到的数量不一致    values=True
+
+判断数据库查询（用户名称）和界面是否一致
+    ${num2}    mysql_test    select \ count(*) from oc_user_info where USER_NAME like 'c%' and status!='del';    ${mysql-user}    ${mysql-pwd}    ${mysql-db}
+    ${num2}    Evaluate    str(${num2[0][0]})
+    ${num1}    Get Text    xpath=/div/div/div[2]/text()[2]
+    log    ${num1}
+    Element Should contain    ${num1}    共${num2}条
+
+勾选权限编码
+    Sleep    2
+    Click Element    xpath=//*[@id="1418"]/i    #展开工单查询下级菜单
+    Sleep    1
+    Click Element    xpath=//*[@id="1436"]/a/i[1]    #勾选二次评分
+    Sleep    1
+    Click Element    xpath=//*[@id="1437"]/a/i[1]    #勾选还款信息查询
+
+获取表格单元格值
+    [Arguments]    ${row}    ${col}
+    Sleep    2
+    ${text}    Get Table Cell    jquery=div>table    ${row}    ${col}
+    Set Global Variable    ${text}
+
+生成测试数据
+    ${newuser_loginName}    Get Login Name    #登录名
+    Set Global Variable    ${newuser_loginName}
+    ${newuser_cardId}    Get Id Card    #身份证号码
+    Set Global Variable    ${newuser_cardId}
+    ${newuser_name}    Get Chinese Name    #用户名
+    Set Global Variable    ${newuser_name}
+    ${newuser_email}    Get Email Code    #用户邮箱
+    Set Global Variable    ${newuser_email}
+    ${newuser_phoneNumber}    Get Phone Number    #手机号码
+    Set Global Variable    ${newuser_phoneNumber}
+    ${newrole_no}    Get Login Name    #角色编码
+    Set Global Variable    ${newrole_no}
+    ${newrole_name}    Evaluate    str('test_${newrole_no}')    #角色名称
+    Set Global Variable    ${newrole_name}
+
+下拉滚动栏
+    Sleep    2
+    send    {tab}
+    send    {tab}
+
+修改权限编码
+    Sleep    2
+    Comment    Click Element    xpath=//*[@id="1418"]/i    #展开工单查询下级菜单
+    Comment    Sleep    1
+    Click Element    xpath=//*[@id="1438"]/a/i[1]    #勾选审核记录
+
+a
+    Page Should Contain    软电话用户登录
+    ${aa}    Set Variable    1

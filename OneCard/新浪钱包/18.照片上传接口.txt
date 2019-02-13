@@ -1,0 +1,120 @@
+*** Settings ***
+Library           RequestsLibrary
+Library           requests
+Library           json
+Library           Collections
+Library           ExcelLibrary
+Resource          ../公共关键字.txt
+Library           ../自写库/recordLoanData.py
+Resource          ../SINA配置数据.txt
+
+*** Test Cases ***
+入参正确(attachPurpose为J1201)
+    获取token-SINA
+    读取测试数据    照片上传    2
+    ${attachPurpose}    读取参数    1
+    ${attachType}    读取参数    2
+    ${attachBase64}    读取参数    3
+    设置入参    attachPurpose=${attachPurpose}    attachType=${attachType}    attachBase64=${attachBase64}
+    发送post请求
+    打印请求返回结果
+    判断请求响应状态为200
+    判断返回status正确
+    判断返回data参数正确
+
+入参正确(attachPurpose为J1202)
+    获取token-SINA
+    读取测试数据    照片上传    3
+    ${attachPurpose}    读取参数    1
+    ${attachType}    读取参数    2
+    ${attachBase64}    读取参数    3
+    设置入参    attachPurpose=${attachPurpose}    attachType=${attachType}    attachBase64=${attachBase64}
+    发送post请求
+    打印请求返回结果
+    判断请求响应状态为200
+    判断返回status正确
+    判断返回data参数正确
+
+attachPurpose参数为空
+    获取token-SINA
+    读取测试数据    照片上传    7
+    ${attachPurpose}    Set Variable
+    ${attachType}    读取参数    2
+    ${attachBase64}    读取参数    3
+    设置入参    attachPurpose=${attachPurpose}    attachType=${attachType}    attachBase64=${attachBase64}
+    发送post请求
+    打印请求返回结果
+    判断请求响应状态为200
+    判断返回status正确
+
+attachType为空(attachPurpose为J1201)
+    获取token-SINA
+    读取测试数据    照片上传    8
+    ${attachPurpose}    读取参数    1
+    ${attachType}    Set Variable
+    ${attachBase64}    读取参数    3
+    设置入参    attachPurpose=${attachPurpose}    attachType=${attachType}    attachBase64=${attachBase64}
+    发送post请求
+    打印请求返回结果
+    判断请求响应状态为200
+    判断返回status正确
+
+attachType为空(attachPurpose为J1202)
+    获取token-SINA
+    读取测试数据    照片上传    9
+    ${attachPurpose}    读取参数    1
+    ${attachType}    Set Variable
+    ${attachBase64}    读取参数    3
+    设置入参    attachPurpose=${attachPurpose}    attachType=${attachType}    attachBase64=${attachBase64}
+    发送post请求
+    打印请求返回结果
+    判断请求响应状态为200
+    判断返回status正确
+
+attachType为空(attachPurpose为J1205)
+    获取token-SINA
+    读取测试数据    照片上传    10
+    ${attachPurpose}    读取参数    1
+    ${attachType}    Set Variable
+    ${attachBase64}    读取参数    3
+    设置入参    attachPurpose=${attachPurpose}    attachType=${attachType}    attachBase64=${attachBase64}
+    发送post请求
+    打印请求返回结果
+    判断请求响应状态为200
+    判断返回status正确
+
+attachBase64为空(attachPurpose为J1201)
+    获取token-SINA
+    读取测试数据    照片上传    11
+    ${attachPurpose}    读取参数    1
+    ${attachType}    读取参数    2
+    ${attachBase64}    Set Variable
+    设置入参    attachPurpose=${attachPurpose}    attachType=${attachType}    attachBase64=${attachBase64}
+    发送post请求
+    打印请求返回结果
+    判断请求响应状态为200
+    判断返回status正确
+
+attachBase64为空(attachPurpose为J1202)
+    获取token-SINA
+    读取测试数据    照片上传    12
+    ${attachPurpose}    读取参数    1
+    ${attachType}    读取参数    2
+    ${attachBase64}    Set Variable
+    设置入参    attachPurpose=${attachPurpose}    attachType=${attachType}    attachBase64=${attachBase64}
+    发送post请求
+    打印请求返回结果
+    判断请求响应状态为200
+    判断返回status正确
+
+attachBase64为空(attachPurpose为J1205)
+    获取token-SINA
+    读取测试数据    照片上传    13
+    ${attachPurpose}    读取参数    1
+    ${attachType}    读取参数    2
+    ${attachBase64}    Set Variable
+    设置入参    attachPurpose=${attachPurpose}    attachType=${attachType}    attachBase64=${attachBase64}
+    发送post请求
+    打印请求返回结果
+    判断请求响应状态为200
+    判断返回status正确

@@ -1,0 +1,218 @@
+*** Settings ***
+Library           ExcelLibrary
+Library           RequestsLibrary
+Library           requests
+Library           Collections
+Library           自写库/recordLoanData.py
+Library           自写库/mysqltest.py
+Library           自写库/dif.py
+Library           自写库/mysqlOperate.py
+Library           自写库/posttest.py
+
+*** Keywords ***
+读取测试数据
+    [Arguments]    ${sheet}    ${row}
+    ${ex-col}    getExcelColumnCount    onecard.xlsx    ${sheet}    #获取excel数据列
+    ${n}    Evaluate    ${ex-col}-1    #获取excel中数据列数
+    ${i}    Evaluate    ${n}-2    #获取status下标
+    ${j}    Evaluate    ${n}-1    #获取dataparam下标
+    @{dict}    List Read Excel    onecard.xlsx    ${sheet}    ${row}    2    ${n}
+    ...    #获取每行从第二列开始的n个数据
+    ${U}    Set Variable    @{dict}[${0}]    #获取接口地址
+    ${Sta}    Set Variable    @{dict}[${i}]    #获取status值
+    ${dataparam}    Set Variable    @{dict}[${j}]    #获取dataparam值
+    Set Global Variable    ${U}
+    Set Global Variable    @{dict}
+    Set Global Variable    ${Sta}
+    Set Global Variable    ${dataparam}
+
+读取参数
+    [Arguments]    ${i}
+    ${p}    Set Variable    @{dict}[${i}]
+    [Return]    ${p}
+
+设置入参
+    [Arguments]    @{params}
+    ${param}    Catenate    SEPARATOR=&    @{params}
+    Set Global Variable    ${param}
+
+判断返回status正确
+    Should Be Equal As Strings    ${addr.json()['status']}    ${Sta}
+
+判断返回data参数正确
+    ${data}    Set Variable    ${addr.json()['data']}
+    ${keys}    Get Dictionary Keys    ${data}
+    ${dd}    dif    ${dataparam}.encode('utf-8')    ${keys}.encode('utf-8')    #判断返回data中参数与excel中预期参数
+    ${d}    Get Length    ${dd}
+    Should Be Equal As Strings    ${d}    0
+
+发送post请求(无token)
+    Create Session    api    ${url}
+    ${header1}    Create Dictionary    Content-Type=${Content-Type}    proid=${proid}    partnerId=${partnerId}    format=${format}    signMethod=${signMethod}
+    ...    timeStamp=${timeStamp}    sign=${sign}    deviceType=${deviceType}    channelCode=${channelCode}
+    ${addr}    Post Request    api    ${U}?${param}    headers=${header1}
+    Set Global Variable    ${addr}
+
+发送post请求
+    Create Session    api    ${url}
+    ${header}    Create Dictionary    token=${token}    Content-Type=${Content-Type}    proid=${proid}    partnerId=${partnerId}    format=${format}
+    ...    signMethod=${signMethod}    timeStamp=${timeStamp}    sign=${sign}    deviceType=${deviceType}    channelCode=${channelCode}
+    ${addr}    Post Request    api    ${U}?${param}    headers=${header}
+    Set Global Variable    ${addr}
+    [Return]    ${addr}
+
+打印请求返回结果
+    log    ${addr.text}
+
+获取验证码(token固定)
+    [Arguments]    ${mobile}    ${type}
+    读取测试数据    发送验证码    2
+    ${mobile}    Set Variable    ${mobile}
+    ${type}    Set Variable    ${type}
+    设置入参    mobile=${mobile}    type=${type}
+    发送post请求(token固定)
+    判断请求响应状态为200
+    ${a}    Mysql Test    select * from wk_sms_log where mobile='${mobile}' \ ORDER BY sendTime DESC limit 1;
+    ${code}    Evaluate    int(${a[0][2]})
+    Set Global Variable    ${code}
+
+插入交易密码记录
+    Comment    ${date}    Evaluate    time.strftime("%Y-%m-%d %H:%M:%S")    time
+    Comment    ${id}    Mysql Test    select * from wk_customer where certId='420222198808281065';
+    Comment    ${customerId}    Evaluate    int(${id[0][0]})
+
+删除用户所有数据
+    [Arguments]    ${mobile}
+    ${cc}    mysql_test    select * from wk_account where accountName='${mobile}';
+    ${customerId}    Evaluate    int(${cc[0][4]})    #获取customerId
+    mysql_operate    delete from wk_account where accountName='${mobile}';    #注册登录表
+    mysql_operate    delete from wk_customer where customerId=${customerId};    #实名用户，交易密码表
+    mysql_operate    delete from wk_bindcard where customerId=${customerId};    #绑卡表
+    mysql_operate    delete from wk_card_info where customerId=${customerId};    #万卡虚拟卡号表
+    mysql_operate    delete from wk_customer_extend where customerId=${customerId};    #用户拓展表
+    mysql_operate    delete from wk_attach where customerId=${customerId};    #身份证表
+    mysql_operate    delete from wk_auth_info where customerId=${customerId};    #授信进度表
+    mysql_operate    delete from wk_customer_quota where customerId=${customerId};    #用户额度表
+    mysql_operate    delete from wk_customer_sub_quota where customerId=${customerId};    #用户子额度表
+    mysql_operate    delete from wk_face_identity where customerId=${customerId};    #人脸识别表
+    mysql_operate    delete from wk_preset_credit_record where mobile=${mobile};    #预授信记录表
+
+发送post请求(token固定)
+    Create Session    api    ${url}
+    ${header}    Create Dictionary    token=65a8841b9f5f4dd49e0c1fc608c2648f    Content-Type=${Content-Type}    proId=${proid}    partnerId=${partnerId}    format=${format}
+    ...    signMethod=${signMethod}    timeStamp=${timeStamp}    sign=${sign}    deviceType=${deviceType}    channelCode=${channelCode}
+    ${addr}    Post Request    api    ${U}?${param}    headers=${header}
+    Set Global Variable    ${addr}
+    [Return]    ${addr}
+
+post请求(requests)
+    [Arguments]    ${url-t}    ${body-t}
+    ${header-t}    Create Dictionary    token=${token}    Content-Type=${Content-Type}    proid=${proid}    partnerId=${partnerId}    format=${format}
+    ...    signMethod=${signMethod}    timeStamp=${timeStamp}    sign=${sign}    deviceType=${deviceType}    channelCode=${channelCode}
+    ${addr}    posttest    ${url-t}    ${header-t}    ${body-t}
+    Set Global Variable    ${addr}
+
+获取工单表数据
+    ${loan_order}    mysql_test    select * from wk_loan_order ORDER BY app_id DESC limit 1;
+    ${app_id}    Evaluate    str(${loan_order[0][0]})
+    ${customer_id}    Evaluate    str(${loan_order[0][3]})
+    Set Global Variable    ${app_id}
+    Set Global Variable    ${customer_id}
+
+获取对应产品appid
+    [Arguments]    ${productid}
+    ${loan_order}    mysql_test    select * from wk_loan_order where \ product_id='${productid}' and app_status='5' ORDER BY app_id DESC limit 1;
+    ${app_id}    Evaluate    str(${loan_order[0][0]})
+    Set Global Variable    ${app_id}
+
+创建临时工单
+    获取token-JY
+    读取测试数据    保存临时工单    2
+    ${period}    读取参数    1
+    ${amtTotal}    读取参数    2
+    ${repayType}    读取参数    3
+    ${productId}    读取参数    4
+    ${goodsCode}    读取参数    5
+    ${goodsName}    读取参数    6
+    ${purposeCode}    读取参数    7
+    ${purposeName}    读取参数    8
+    设置入参    period=${period}    amtTotal=${amtTotal}    repayType=${repayType}    productId=${productId}    goodsCode=${goodsCode}    goodsName=${goodsName}
+    ...    purposeName=${purposeName}
+    发送post请求
+    打印请求返回结果
+    判断请求响应状态为200
+    判断返回status正确
+    判断返回data参数正确
+
+post请求(实名认证)
+    ${body-t}    Create Dictionary    idCardNo=${idCard}    realName=${name}
+    ${header-t}    Create Dictionary    token=${token}    Content-Type=${Content-Type}    proid=${proid}    partnerId=${partnerId}    format=${format}
+    ...    signMethod=${signMethod}    timeStamp=${timeStamp}    sign=${sign}    deviceType=${deviceType}    channelCode=${channelCode}
+    ${addr}    posttest    ${url}${U}    ${header-t}    ${body-t}
+    Set Global Variable    ${addr}
+
+判断响应结果和状态
+    Should Be Equal As Strings    ${addr[1]}    200
+    Should Be Equal As Strings    ${addr[2]}    ${Sta}
+
+获取planid
+    ${repay_plan}    mysql_test    select * from wk_loan_repay_plan ORDER BY plan_id DESC limit 1;
+    ${plan_id}    Evaluate    str(${repay_plan[0][0]})
+    Set Global Variable    ${plan_id}
+
+post请求(requests无token)
+    [Arguments]    ${url-t}    ${body-t}
+    ${header-t}    Create Dictionary    Content-Type=${Content-Type}    partnerId=${partnerId}    format=${format}    signMethod=${signMethod}    timeStamp=${timeStamp}
+    ...    sign=${sign}    deviceType=${deviceType}    channelCode=${channelCode}    proid=${proid}
+    ${addr}    posttest    ${url-t}    ${header-t}    ${body-t}
+    Set Global Variable    ${addr}
+
+删除绑卡记录
+    mysql_operate    delete from \ wk_bindcard where cardPhone='${newphone}' and cardNo='${newbankcard}';
+
+判断请求响应状态为200
+    Should Be Equal As Strings    ${addr.status_code}    200
+
+验证account表正确写入数据
+    ${count}    mysql_test    select count(*) from wk_account where accountName='${mobile}';
+    ${sql-num}    Evaluate    int(${count[0][0]})
+    Run Keyword If    '${sql-num}'=='1'    log    成功
+    Run Keyword Unless    '${sql-num}'=='1'    Fail
+
+验证attach表正确写入数据
+    ${count}    mysql_test    select count(*) from wk_attach WHERE customerid =( SELECT customerId FROM wk_customer WHERE certId = '420222199003091023');
+    ${sql-num}    Evaluate    int(${count[0][0]})
+    Run Keyword If    '${sql-num}'=='3'    log    成功
+    Run Keyword Unless    '${sql-num}'=='3'    Fail
+
+验证customer表正确写入数据
+    ${count}    mysql_test    select count(*) from wk_customer where certId='${idCard}';
+    ${sql-num}    Evaluate    int(${count[0][0]})
+    Run Keyword If    '${sql-num}'=='1'    log    成功
+    Run Keyword Unless    '${sql-num}'=='1'    Fail
+
+验证bindcard表正确写入数据
+    ${count}    mysql_test    select count(*) from wk_bindcard where cardPhone='${mobile}';
+    ${sql-num}    Evaluate    int(${count[0][0]})
+    Run Keyword If    '${sql-num}'=='1'    log    成功
+    Run Keyword Unless    '${sql-num}'=='1'    Fail
+
+验证customer_extend表正确写入数据
+    ${count}    mysql_test    select count(*) from wk_customer_extend WHERE customerid =( SELECT customerId FROM wk_customer WHERE certId = '420222199003091023');
+    ${sql-num}    Evaluate    int(${count[0][0]})
+    Run Keyword If    '${sql-num}'=='1'    log    成功
+    Run Keyword Unless    '${sql-num}'=='1'    Fail
+
+判断响应结果
+    Should Be Equal As Strings    ${addr[1]}    200
+
+删除工单
+    mysql_operate    delete from wk_loan_order where phone_no='15626513325';
+
+获取用户customerId
+    ${wk_account}    mysql_test    select * from wk_account where accountName='15626513325';;
+    ${customer_id}    Evaluate    str(${wk_account[0][4]})
+    Set Global Variable    ${customer_id}
+
+删除用户注册信息
+    mysql_operate    delete from wk_account where accountName='${mobile}';

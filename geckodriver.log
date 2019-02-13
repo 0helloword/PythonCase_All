@@ -1,0 +1,19 @@
+1495615638587	geckodriver	INFO	Listening on 127.0.0.1:55029
+1495615640586	mozprofile::profile	INFO	Using profile path D:\Users\test\AppData\Local\Temp\rust_mozprofile.mvLfM9IS5ckv
+1495615640605	geckodriver::marionette	INFO	Starting browser D:\Program Files (x86)\Mozilla Firefox\firefox.exe with args []
+1495615640628	geckodriver::marionette	INFO	Connecting to Marionette on localhost:55036
+*** LOG addons.manager: Application has been upgraded
+*** LOG addons.xpi: startup
+*** LOG addons.xpi: checkForChanges
+*** LOG addons.xpi-utils: Opening database
+*** LOG addons.xpi-utils: Creating database schema
+*** LOG addons.xpi: New add-on {972ce4c6-7e08-4474-a285-3208198ce6fd} installed in app-global
+*** LOG addons.xpi: Updating database with changes to installed add-ons
+*** LOG addons.xpi-utils: Updating add-on states
+*** LOG addons.xpi-utils: Writing add-ons list
+*** LOG addons.manager: shutdown
+*** LOG addons.xpi: shutdown
+*** LOG addons.xpi-utils: shutdown
+*** LOG addons.xpi-utils: Database closed
+thread '<unnamed>' panicked at 'called `Result::unwrap()` on an `Err` value: Error { repr: Os { code: 10054, message: "远程主机强迫关闭了一个现有的连接。" } }', src\libcore\result.rs:860
+note: Run with `RUST_BACKTRACE=1` for a backtrace.

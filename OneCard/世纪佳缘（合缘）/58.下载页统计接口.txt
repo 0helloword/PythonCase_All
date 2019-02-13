@@ -1,0 +1,81 @@
+*** Settings ***
+Library           RequestsLibrary
+Library           requests
+Library           json
+Library           Collections
+Library           ExcelLibrary
+Resource          ../公共关键字.txt
+Library           ../自写库/recordLoanData.py
+Resource          ../JY配置数据.txt
+
+*** Test Cases ***
+入参正确
+    获取token(APP登录)-JY
+    读取header公共参数-JY
+    读取测试数据    下载页统计接口    2
+    ${type}    读取参数    1
+    ${source}    读取参数    2
+    ${viewsTime}    读取参数    3
+    ${targetType}    读取参数    4
+    设置入参    type=${type}    source=${source}    viewsTime=${viewsTime}    targetType=${targetType}
+    发送post请求
+    打印请求返回结果
+    判断请求响应状态为200
+    判断返回status正确
+    判断返回data参数正确
+
+type为空
+    获取token(APP登录)-JY
+    读取header公共参数-JY
+    读取测试数据    下载页统计接口    3
+    ${type}    Set Variable
+    ${source}    读取参数    2
+    ${viewsTime}    读取参数    3
+    ${targetType}    读取参数    4
+    设置入参    type=${type}    source=${source}    viewsTime=${viewsTime}    targetType=${targetType}
+    发送post请求
+    打印请求返回结果
+    判断请求响应状态为200
+    判断返回status正确
+
+source为空
+    获取token(APP登录)-JY
+    读取header公共参数-JY
+    读取测试数据    下载页统计接口    4
+    ${type}    读取参数    1
+    ${source}    Set Variable
+    ${viewsTime}    读取参数    3
+    ${targetType}    读取参数    4
+    设置入参    type=${type}    source=${source}    viewsTime=${viewsTime}    targetType=${targetType}
+    发送post请求
+    打印请求返回结果
+    判断请求响应状态为200
+    判断返回status正确
+
+viewsTime为空
+    获取token(APP登录)-JY
+    读取header公共参数-JY
+    读取测试数据    下载页统计接口    5
+    ${type}    读取参数    1
+    ${source}    读取参数    2
+    ${viewsTime}    Set Variable
+    ${targetType}    读取参数    4
+    设置入参    type=${type}    source=${source}    viewsTime=${viewsTime}    targetType=${targetType}
+    发送post请求
+    打印请求返回结果
+    判断请求响应状态为200
+    判断返回status正确
+
+targetType为空
+    获取token(APP登录)-JY
+    读取header公共参数-JY
+    读取测试数据    下载页统计接口    6
+    ${type}    读取参数    1
+    ${source}    读取参数    2
+    ${viewsTime}    读取参数    3
+    ${targetType}    Set Variable
+    设置入参    type=${type}    source=${source}    viewsTime=${viewsTime}    targetType=${targetType}
+    发送post请求
+    打印请求返回结果
+    判断请求响应状态为200
+    判断返回status正确

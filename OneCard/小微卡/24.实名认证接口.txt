@@ -1,0 +1,88 @@
+*** Settings ***
+Library           RequestsLibrary
+Library           requests
+Library           json
+Library           Collections
+Library           ExcelLibrary
+Resource          ../公共关键字.txt
+Library           ../自写库/recordLoanData.py
+Resource          ../XWK配置数据.txt
+
+*** Test Cases ***
+入参正确
+    获取token-XWK
+    读取测试数据    实名认证    2
+    ${idCardNo}    读取参数    1
+    ${realName}    读取参数    2
+    设置入参    idCardNo=${idCardNo}    realName=${realName}
+    发送post请求
+    打印请求返回结果
+    判断请求响应状态为200
+    判断返回status正确
+    判断返回data参数正确
+
+idCardNo参数为空
+    获取token-XWK
+    读取测试数据    实名认证    3
+    ${idCardNo}    Set Variable
+    ${realName}    读取参数    2
+    设置入参    idCardNo=${idCardNo}    realName=${realName}
+    发送post请求
+    打印请求返回结果
+    判断请求响应状态为200
+    判断返回status正确
+
+realName参数为空
+    获取token-XWK
+    读取测试数据    实名认证    4
+    ${idCardNo}    读取参数    1
+    ${realName}    Set Variable
+    设置入参    idCardNo=${idCardNo}    realName=${realName}
+    发送post请求
+    打印请求返回结果
+    判断请求响应状态为200
+    判断返回status正确
+
+idCardNo类型错误
+    获取token-XWK
+    读取测试数据    实名认证    5
+    ${idCardNo}    读取参数    1
+    ${realName}    读取参数    2
+    设置入参    idCardNo=${idCardNo}    realName=${realName}
+    发送post请求
+    打印请求返回结果
+    判断请求响应状态为200
+    判断返回status正确
+
+realName类型错误
+    获取token-XWK
+    读取测试数据    实名认证    6
+    ${idCardNo}    读取参数    1
+    ${realName}    读取参数    2
+    设置入参    idCardNo=${idCardNo}    realName=${realName}
+    发送post请求
+    打印请求返回结果
+    判断请求响应状态为200
+    判断返回status正确
+
+idCardNo长度大于18位
+    获取token-XWK
+    读取测试数据    实名认证    7
+    ${idCardNo}    读取参数    1
+    ${realName}    读取参数    2
+    设置入参    idCardNo=${idCardNo}    realName=${realName}
+    发送post请求
+    打印请求返回结果
+    判断请求响应状态为200
+    判断返回status正确
+
+idCardNo长度少于18位
+    获取token-XWK
+    读取测试数据    实名认证    8
+    ${idCardNo}    读取参数    1
+    ${realName}    读取参数    2
+    设置入参    idCardNo=${idCardNo}    realName=${realName}
+    发送post请求
+    打印请求返回结果
+    判断请求响应状态为200
+    判断返回status正确

@@ -1,0 +1,572 @@
+*** Settings ***
+Library           requests
+Library           json
+Library           Collections
+Library           ExcelLibrary
+Library           RequestsLibrary
+Resource          ../公共关键字-外联.txt
+Library           ../自写库/updateToken.py
+
+*** Test Cases ***
+更新数据为YOUZU
+    mysql_operate    UPDATE wk_account set channelCode='YOUZU' where accountName='15626513325';
+    mysql_operate    UPDATE wk_account set source='16' \ where accountName='15626513325';
+
+3.2登录接口
+    读取youzu公共参数-eip
+    读取测试数据-eip    32
+    更新header(无token)
+    发送post请求-eip
+    打印请求返回结果-eip
+    判断请求响应状态为200-eip
+    判断返回status正确-eip
+
+3.14个人信息接口
+    获取token-youzu-eip
+    读取youzu公共参数-eip
+    读取测试数据-eip    3
+    更新header参数
+    发送post请求-eip
+    打印请求返回结果-eip
+    判断请求响应状态为200-eip
+    判断返回status正确-eip
+
+3.16保存附件（图片）
+    获取token-youzu-eip
+    读取youzu公共参数-eip
+    读取测试数据-eip    4
+    更新header参数
+    发送post请求-eip
+    打印请求返回结果-eip
+    判断请求响应状态为200-eip
+    判断返回status正确-eip
+
+3.15OCR图片上传接口
+    获取token-youzu-eip
+    读取youzu公共参数-eip
+    读取测试数据-eip    5
+    更新header参数
+    发送post请求-eip
+    打印请求返回结果-eip
+    判断请求响应状态为200-eip
+    判断返回status正确-eip
+
+3.20额度查询接口
+    获取token-youzu-eip
+    读取youzu公共参数-eip
+    读取测试数据-eip    6
+    更新header参数
+    发送post请求-eip
+    打印请求返回结果-eip
+    判断请求响应状态为200-eip
+    判断返回status正确-eip
+
+3.7同步额度状态接口
+    获取token-youzu-eip
+    读取youzu公共参数-eip
+    读取测试数据-eip    7
+    更新header参数
+    发送post请求-eip
+    打印请求返回结果-eip
+    判断请求响应状态为200-eip
+    判断返回status正确-eip
+
+3.47查看支持绑卡的银行列表
+    获取token-youzu-eip
+    读取youzu公共参数-eip
+    读取测试数据-eip    8
+    更新header参数
+    发送post请求-eip
+    打印请求返回结果-eip
+    判断请求响应状态为200-eip
+    判断返回status正确-eip
+
+3.45发送验证码接口
+    读取youzu公共参数-eip
+    读取测试数据-eip    9
+    更新header(无token)
+    发送post请求-eip
+    打印请求返回结果-eip
+    判断请求响应状态为200-eip
+    判断返回status正确-eip
+
+3.46校验验证码接口
+    读取youzu公共参数-eip
+    读取测试数据-eip    10
+    更新header(无token)
+    发送post请求-eip
+    打印请求返回结果-eip
+    判断请求响应状态为200-eip
+    判断返回status正确-eip
+
+3.10绑卡认证接口
+    [Tags]    A
+    Comment    获取验证码
+    Comment    获取token-youzu-eip
+    Comment    Comment    读取youzu公共参数-eip
+    Comment    读取测试数据-eip    11
+    Comment    更新header参数
+    Comment    更新验证码
+    Comment    发送post请求-eip
+    Comment    打印请求返回结果-eip
+    Comment    判断请求响应状态为200-eip
+    Comment    判断返回status正确-eip
+
+3.11银行卡变更接口
+    读取youzu公共参数-eip
+    读取测试数据-eip    12
+    更新header(无token)
+    发送post请求-eip
+    打印请求返回结果-eip
+    判断请求响应状态为200-eip
+    判断返回status正确-eip
+
+3.33合同查询接口
+    获取token-youzu-eip
+    读取youzu公共参数-eip
+    读取测试数据-eip    13
+    更新header参数
+    更新productId,appid
+    发送post请求-eip
+    打印请求返回结果-eip
+    判断请求响应状态为200-eip
+    判断返回status正确-eip
+
+3.34打开合同文件接口
+    获取token-youzu-eip
+    读取youzu公共参数-eip
+    读取测试数据-eip    14
+    更新header参数
+    更新productId,appid
+    发送post请求-eip
+    打印请求返回结果-eip
+    判断请求响应状态为200-eip
+    判断返回status正确-eip
+
+3.15借款初始化参数接口
+    获取token-youzu-eip
+    读取youzu公共参数-eip
+    读取测试数据-eip    15
+    更新header参数
+    更新productId
+    发送post请求-eip
+    打印请求返回结果-eip
+    判断请求响应状态为200-eip
+    判断返回status正确-eip
+
+3.28息费分离还款计划试算接口
+    [Tags]
+    获取token-youzu-eip
+    读取youzu公共参数-eip
+    读取测试数据-eip    16
+    更新header参数
+    更新productId
+    发送post请求-eip
+    打印请求返回结果-eip
+    判断请求响应状态为200-eip
+    判断返回status正确-eip
+
+3.29费用详情接口
+    获取token-youzu-eip
+    读取youzu公共参数-eip
+    读取测试数据-eip    17
+    更新header参数
+    更新fproductId
+    发送post请求-eip
+    打印请求返回结果-eip
+    判断请求响应状态为200-eip
+    判断返回status正确-eip
+
+3.30息费分离确认借款
+    [Tags]    A
+    Comment    获取token-youzu-eip
+    Comment    读取youzu公共参数-eip
+    Comment    读取测试数据-eip    18
+    Comment    更新header参数
+    Comment    更新productId
+    Comment    发送post请求-eip
+    Comment    打印请求返回结果-eip
+    Comment    判断请求响应状态为200-eip
+    Comment    判断返回status正确-eip
+    Comment    获取生成的appid-eip
+    Comment    删除工单
+
+3.31借款记录查询接口
+    获取token-youzu-eip
+    读取youzu公共参数-eip
+    读取测试数据-eip    19
+    更新header参数
+    发送post请求-eip
+    打印请求返回结果-eip
+    判断请求响应状态为200-eip
+    判断返回status正确-eip
+
+3.32账单详情接口
+    获取token-youzu-eip
+    读取youzu公共参数-eip
+    读取测试数据-eip    20
+    更新header参数
+    更新appId
+    发送post请求-eip
+    打印请求返回结果-eip
+    判断请求响应状态为200-eip
+    判断返回status正确-eip
+
+3.12 运营商授权链接接口
+    获取token-youzu-eip
+    读取youzu公共参数-eip
+    读取测试数据-eip    21
+    更新header参数
+    发送post请求-eip
+    打印请求返回结果-eip
+    判断请求响应状态为200-eip
+    判断返回status正确-eip
+
+3.19申请获取额度接口
+    [Tags]    A
+    获取token-youzu-eip
+    读取youzu公共参数-eip
+    读取测试数据-eip    22
+    更新header参数
+    发送post请求-eip
+    打印请求返回结果-eip
+    判断请求响应状态为200-eip
+    判断返回status正确-eip
+
+3.9实名认证接口
+    获取token-youzu-eip
+    读取youzu公共参数-eip
+    读取测试数据-eip    23
+    更新header参数
+    发送post请求-eip
+    打印请求返回结果-eip
+    判断请求响应状态为200-eip
+    判断返回status正确-eip
+
+3.25 运营商相关信息获取接口
+    获取token-youzu-eip
+    读取youzu公共参数-eip
+    读取测试数据-eip    24
+    更新header参数
+    发送post请求-eip
+    打印请求返回结果-eip
+    判断请求响应状态为200-eip
+    判断返回status正确-eip
+
+3.51数据字典接口
+    获取token-youzu-eip
+    读取youzu公共参数-eip
+    读取测试数据-eip    25
+    更新header参数
+    发送post请求-eip
+    打印请求返回结果-eip
+    判断请求响应状态为200-eip
+    判断返回status正确-eip
+
+3.3修改登录密码接口
+    获取token-youzu-eip
+    读取youzu公共参数-eip
+    读取测试数据-eip    33
+    更新header参数
+    发送post请求-eip
+    打印请求返回结果-eip
+    判断请求响应状态为200-eip
+    判断返回status正确-eip
+    读取测试数据-eip    34
+    更新header参数
+    发送post请求-eip
+    打印请求返回结果-eip
+    判断请求响应状态为200-eip
+    判断返回status正确-eip
+
+3.4忘记(重置)登录密码接口
+    获取token-youzu-eip
+    读取youzu公共参数-eip
+    读取测试数据-eip    35
+    更新header参数
+    发送post请求-eip
+    打印请求返回结果-eip
+    判断请求响应状态为200-eip
+    判断返回status正确-eip
+
+3.5退出登录接口
+    获取token-youzu-eip
+    读取youzu公共参数-eip
+    读取测试数据-eip    36
+    更新header参数
+    发送post请求-eip
+    打印请求返回结果-eip
+    判断请求响应状态为200-eip
+    判断返回status正确-eip
+
+3.6用户授信流程列表查询接口
+    获取token-youzu-eip
+    读取youzu公共参数-eip
+    读取测试数据-eip    37
+    更新header参数
+    发送post请求-eip
+    打印请求返回结果-eip
+    判断请求响应状态为200-eip
+    判断返回status正确-eip
+
+3.7下一个待处理授信流程节点查询
+    获取token-youzu-eip
+    读取youzu公共参数-eip
+    读取测试数据-eip    38
+    更新header参数
+    发送post请求-eip
+    打印请求返回结果-eip
+    判断请求响应状态为200-eip
+    判断返回status正确-eip
+
+3.21邀请好友奖励查询
+    获取token-youzu-eip
+    读取youzu公共参数-eip
+    读取测试数据-eip    39
+    更新header参数
+    发送post请求-eip
+    打印请求返回结果-eip
+    判断请求响应状态为200-eip
+    判断返回status正确-eip
+
+3.22邀请好友记录查询
+    获取token-youzu-eip
+    读取youzu公共参数-eip
+    读取测试数据-eip    40
+    更新header参数
+    发送post请求-eip
+    打印请求返回结果-eip
+    判断请求响应状态为200-eip
+    判断返回status正确-eip
+
+3.23游戏礼包查询列表
+    获取token-youzu-eip
+    读取youzu公共参数-eip
+    读取测试数据-eip    41
+    更新header参数
+    发送post请求-eip
+    打印请求返回结果-eip
+    判断请求响应状态为200-eip
+    判断返回status正确-eip
+
+3.24游戏礼包领取接口
+    获取token-youzu-eip
+    读取youzu公共参数-eip
+    读取测试数据-eip    42
+    更新header参数
+    发送post请求-eip
+    打印请求返回结果-eip
+    判断请求响应状态为200-eip
+    判断返回status正确-eip
+
+3.27保存游戏详情查看下载记录
+    获取token-youzu-eip
+    读取youzu公共参数-eip
+    读取测试数据-eip    43
+    更新header参数
+    发送post请求-eip
+    打印请求返回结果-eip
+    判断请求响应状态为200-eip
+    判断返回status正确-eip
+
+3.35查询用户全部的红包信息列表
+    获取token-youzu-eip
+    读取youzu公共参数-eip
+    读取测试数据-eip    44
+    更新header参数
+    发送post请求-eip
+    打印请求返回结果-eip
+    判断请求响应状态为200-eip
+    判断返回status正确-eip
+
+3.36仅还本期查询接口
+    获取token-youzu-eip
+    读取youzu公共参数-eip
+    读取测试数据-eip    28
+    更新header参数
+    更新PlanId
+    发送post请求-eip
+    打印请求返回结果-eip
+    判断请求响应状态为200-eip
+    判断返回status正确-eip
+
+3.39个人提现接口
+    获取token-youzu-eip
+    读取youzu公共参数-eip
+    读取测试数据-eip    45
+    更新header参数
+    发送post请求-eip
+    打印请求返回结果-eip
+    判断请求响应状态为200-eip
+    判断返回status正确-eip
+
+3.40提现列表接口
+    获取token-youzu-eip
+    读取youzu公共参数-eip
+    读取测试数据-eip    46
+    更新header参数
+    发送post请求-eip
+    打印请求返回结果-eip
+    判断请求响应状态为200-eip
+    Comment    判断返回status正确-eip
+
+3.41提现记录接口
+    获取token-youzu-eip
+    读取youzu公共参数-eip
+    读取测试数据-eip    47
+    更新header参数
+    发送post请求-eip
+    打印请求返回结果-eip
+    判断请求响应状态为200-eip
+    判断返回status正确-eip
+
+3.42设置交易密码
+    获取token-youzu-eip
+    读取youzu公共参数-eip
+    读取测试数据-eip    48
+    更新header参数
+    发送post请求-eip
+    打印请求返回结果-eip
+    判断请求响应状态为200-eip
+    判断返回status正确-eip
+
+3.43修改交易密码接口
+    Comment    获取token-youzu-eip
+    Comment    读取youzu公共参数-eip
+    Comment    读取测试数据-eip    49
+    Comment    更新header参数
+    Comment    发送post请求-eip
+    Comment    打印请求返回结果-eip
+    Comment    判断请求响应状态为200-eip
+    Comment    判断返回status正确-eip
+    Comment    读取测试数据-eip    50
+    Comment    更新header参数
+    Comment    发送post请求-eip
+    Comment    打印请求返回结果-eip
+    Comment    判断请求响应状态为200-eip
+    Comment    判断返回status正确-eip
+
+3.44查询绑定银行卡列表接口
+    获取token-youzu-eip
+    读取youzu公共参数-eip
+    读取测试数据-eip    51
+    更新header参数
+    发送post请求-eip
+    打印请求返回结果-eip
+    判断请求响应状态为200-eip
+    Comment    判断返回status正确-eip
+
+3.48系统公告列表信息接口
+    获取token-youzu-eip
+    读取youzu公共参数-eip
+    读取测试数据-eip    52
+    更新header参数
+    发送post请求-eip
+    打印请求返回结果-eip
+    判断请求响应状态为200-eip
+    判断返回status正确-eip
+
+3.49游戏礼包可领取节点列表接口
+    获取token-youzu-eip
+    读取youzu公共参数-eip
+    读取测试数据-eip    53
+    更新header参数
+    发送post请求-eip
+    打印请求返回结果-eip
+    判断请求响应状态为200-eip
+    判断返回status正确-eip
+
+3.50我的礼包接口
+    获取token-youzu-eip
+    读取youzu公共参数-eip
+    读取测试数据-eip    54
+    更新header参数
+    发送post请求-eip
+    打印请求返回结果-eip
+    判断请求响应状态为200-eip
+    判断返回status正确-eip
+
+3.52广告列表
+    获取token-youzu-eip
+    读取youzu公共参数-eip
+    读取测试数据-eip    55
+    更新header参数
+    发送post请求-eip
+    打印请求返回结果-eip
+    判断请求响应状态为200-eip
+    判断返回status正确-eip
+
+3.53用户信息接口
+    获取token-youzu-eip
+    读取youzu公共参数-eip
+    读取测试数据-eip    56
+    更新header参数
+    发送post请求-eip
+    打印请求返回结果-eip
+    判断请求响应状态为200-eip
+    判断返回status正确-eip
+
+3.54授权进度查看接口
+    获取token-youzu-eip
+    读取youzu公共参数-eip
+    读取测试数据-eip    57
+    更新header参数
+    更新source
+    发送post请求-eip
+    打印请求返回结果-eip
+    判断请求响应状态为200-eip
+    判断返回status正确-eip
+
+3.55申请工单后的状态接口
+    获取token-youzu-eip
+    读取youzu公共参数-eip
+    读取测试数据-eip    58
+    更新header参数
+    更新source
+    发送post请求-eip
+    打印请求返回结果-eip
+    判断请求响应状态为200-eip
+    判断返回status正确-eip
+
+3.56忘记(重置)交易密码接口
+    获取token-youzu-eip
+    读取youzu公共参数-eip
+    读取测试数据-eip    59
+    更新header参数
+    更新source
+    发送post请求-eip
+    打印请求返回结果-eip
+    判断请求响应状态为200-eip
+    判断返回status正确-eip
+
+3.25游戏列表接口
+    获取token-youzu-eip
+    读取youzu公共参数-eip
+    读取测试数据-eip    60
+    更新header参数
+    更新source
+    发送post请求-eip
+    打印请求返回结果-eip
+    判断请求响应状态为200-eip
+    判断返回status正确-eip
+
+3.26游戏详情接口
+    获取token-youzu-eip
+    读取youzu公共参数-eip
+    读取测试数据-eip    61
+    更新header参数
+    更新source
+    发送post请求-eip
+    打印请求返回结果-eip
+    判断请求响应状态为200-eip
+    判断返回status正确-eip
+
+3.57获取app版本更新信息
+    获取token-youzu-eip
+    读取youzu公共参数-eip
+    读取测试数据-eip    62
+    更新header参数
+    发送post请求-eip
+    打印请求返回结果-eip
+    判断请求响应状态为200-eip
+    判断返回status正确-eip

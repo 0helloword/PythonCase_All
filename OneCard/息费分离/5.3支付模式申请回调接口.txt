@@ -1,0 +1,30 @@
+*** Settings ***
+Library           RequestsLibrary
+Library           requests
+Library           json
+Library           Collections
+Library           ExcelLibrary
+Resource          ../公共关键字.txt
+Library           ../自写库/recordLoanData.py
+
+*** Test Cases ***
+入参正确-406
+    获取token-JY
+    读取header公共参数-YJ
+    读取测试数据    hy.xlsx    X额度确认借款    2
+    ${amtTotal}    读取参数    1
+    ${period}    读取参数    2
+    ${textInfo}    读取参数    3
+    ${productId}    读取参数    4
+    ${fingerPrint}    读取参数    5
+    ${feeAmt}    读取参数    6
+    ${payMode}    读取参数    7
+    ${goodsCode}    读取参数    8
+    ${payType}    读取参数    9
+    设置入参    amtTotal=${amtTotal}    period=${period}    textInfo=${textInfo}    productId=${productId}    fingerPrint=${fingerPrint}    feeAmt=${feeAmt}
+    ...    payMode=${payMode}    goodsCode=${goodsCode}    payType=${payType}
+    发送post请求
+    打印请求返回结果
+    判断请求响应状态为200
+    判断返回status正确
+    判断返回data参数正确

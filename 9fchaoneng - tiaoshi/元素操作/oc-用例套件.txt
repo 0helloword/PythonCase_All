@@ -1,0 +1,122 @@
+*** Settings ***
+Resource          oc-通用关键字.txt
+
+*** Keywords ***
+用户软电话
+    Wait Until Page Contains Element    jquery=div[i='title']
+    Wait Until Element Is Visible    jquery=div[i='title']
+    ${title}    Get Text    jquery=div[i='title']
+    Run Keyword If    '${title}'=='软电话用户登录'    click element    jquery=button[i='close']
+    Run Keyword Unless    '${title}'=='软电话用户登录'    log    NOT TITLE
+
+查询条件审核人
+    [Arguments]    ${name}    ${choose}
+    Wait Until Page Contains Element    jquery=label:contains('${name}')
+    Wait Until Element Is Visible    jquery=label:contains('${name}')
+    Select From List By Label    jquery=label:contains('${name}')+div select[id='executorUserId']    ${choose}
+
+查询结果审核人
+    [Arguments]    ${name}    ${choose}
+    Wait Until Page Contains Element    jquery=label:contains('${name}')
+    Wait Until Element Is Visible    jquery=label:contains('${name}')
+    Select From List By Label    jquery=label:contains('${name}')+div select[id='executorId']    ${choose}
+
+人工审核-图片核实
+    [Arguments]    ${NCIIC人工检查}
+    下拉选择-OC    NCIIC人工检查    ${NCIIC人工检查}
+    下拉选择-OC    NCIIC照片比对    照片一致
+    文本输入-OC    审核备注信息    test
+    点击链接    下一步
+
+人工审核-证件核实
+    [Arguments]    ${申请人社保信息核实}
+    下拉选择-OC    申请人社保信息核实    ${申请人社保信息核实}
+    下拉选择-OC    学信网信息核查    学信网一致
+    下拉选择-OC    门店照片比对    照片一致
+    下拉选择-OC    销售照片比对    照片一致
+    点击链接    下一步
+
+人工审核-贷款信息核实
+    点击链接    下一步
+
+人工审核-基础信息核实4
+    [Arguments]    ${申请人办公电话核实}    ${申请人手机电话核实}    ${主观判断结果}    ${申请人家庭成员电话核实}
+    人工审核-申请人办公电话核实    ${申请人办公电话核实}
+    人工审核-申请人手机电话核实    ${申请人手机电话核实}
+    人工审核-主观判断结果    ${主观判断结果}
+    人工审核-申请人家庭成员电话核实    ${申请人家庭成员电话核实}
+
+人工审核-基础信息核实7
+    [Arguments]    ${申请人办公电话核实}    ${申请人手机电话核实}    ${ID5办公电话核查}    ${主观判断结果}    ${申请人其他联系人的手机电话核实}    ${申请人家庭成员电话核实}
+    ...    ${申请人家庭座机电话核实}
+    人工审核-申请人办公电话核实    ${申请人办公电话核实}
+    人工审核-申请人手机电话核实    ${申请人手机电话核实}
+    人工审核-ID5办公电话核查    ${ID5办公电话核查}
+    人工审核-主观判断结果    ${主观判断结果}
+    人工审核-申请人其他联系人的手机电话核实    ${申请人其他联系人的手机电话核实}
+    人工审核-申请人家庭成员电话核实    ${申请人家庭成员电话核实}
+    人工审核-申请人家庭座机电话核实    ${申请人家庭座机电话核实}
+
+人工审核-申请人办公电话核实
+    [Arguments]    ${申请人办公电话核实}
+    下拉选择-OC    申请人办公电话核实    ${申请人办公电话核实}
+    Run Keyword Unless    '${申请人办公电话核实}'=='信息验证失败'    log    信息验证失败
+    Run Keyword If    '${申请人办公电话核实}'=='信息验证失败'    Select From List By Index    name=MCRE020401
+
+人工审核-申请人手机电话核实
+    [Arguments]    ${申请人手机电话核实}
+    下拉选择-OC    申请人手机电话核实    ${申请人手机电话核实}
+    Run Keyword Unless    '${申请人手机电话核实}'=='信息验证失败'    log    信息验证失败
+    Run Keyword If    '${申请人手机电话核实}'=='信息验证失败'    Select From List By Index    name=MCRE030301    2
+
+人工审核-ID5办公电话核查
+    [Arguments]    ${ID5办公电话核查}
+    Sleep    2
+    Select From List    name=MCRG05    ${ID5办公电话核查}
+
+人工审核-主观判断结果
+    [Arguments]    ${主观判断结果}
+    Sleep    2
+    Select From List    name=MCRG07    ${主观判断结果}
+
+人工审核-申请人其他联系人的手机电话核实
+    [Arguments]    ${申请人其他联系人的手机电话核实}
+    下拉选择-OC    申请人其他联系人的手机电话核实    ${申请人其他联系人的手机电话核实}
+    Run Keyword Unless    '${申请人其他联系人的手机电话核实}'=='信息验证失败'    log    信息验证失败
+    Run Keyword If    '${申请人其他联系人的手机电话核实}'=='信息验证失败'    Select From List By Index    name=MCRH060301    4
+
+人工审核-申请人家庭成员电话核实
+    [Arguments]    ${申请人家庭成员电话核实}
+    下拉选择-OC    申请人家庭成员电话核实    ${申请人家庭成员电话核实}
+    Run Keyword Unless    '${申请人家庭成员电话核实}'=='信息验证失败'    log    信息验证失败
+    Run Keyword If    '${申请人家庭成员电话核实}'=='信息验证失败'    Select From List By Index    name=MCRH070301    3
+
+人工审核-申请人家庭座机电话核实
+    [Arguments]    ${申请人家庭座机电话核实}
+    Sleep    2
+    Select From List    name=MCRM05    ${申请人家庭座机电话核实}
+
+专家审批流程
+    点击链接    下一步
+    点击链接    下一步
+    点击链接    下一步
+    点击链接    提交
+    文本输入-OC    备注信息    test
+    按钮点击-OC    提交
+    按钮点击-OC    确定
+
+获取工单
+    Sleep    2
+    Wait Until Page Contains Element    id=autoGetLnApp
+    Wait Until Element Is Visible    id=autoGetLnApp
+    Click Element    id=autoGetLnApp
+
+获取基础信息核实信息
+    Sleep    2
+    Wait Until Page Contains Element    xpath=//*[@id="verify_baseInfoForm"]/div/div[1]/div/div[3]/div[1]
+    Wait Until Element Is Visible    xpath=//*[@id="verify_baseInfoForm"]/div/div[1]/div/div[3]/div[1]
+    ${shenhe}    Get Text    xpath=//*[@id="verify_baseInfoForm"]//div/div[1]/div/div[3]/div[1]
+    Set Global Variable    ${shenhe}
+    Comment    Run Keyword Unless    '${shenhe}'=='ID5办公电话核查:'    ${value1}
+    Comment    Run Keyword If    '${shenhe}'=='ID5办公电话核查:'    ${value2}
+    Sleep    2

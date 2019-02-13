@@ -1,0 +1,82 @@
+*** Settings ***
+Library           RequestsLibrary
+Library           requests
+Library           json
+Library           Collections
+Library           ExcelLibrary
+Resource          ../公共关键字.txt
+Library           ../自写库/recordLoanData.py
+Resource          ../XWK配置数据.txt
+
+*** Test Cases ***
+入参正确(attachPurpose为J1201)
+    获取token-XWK
+    读取测试数据    OCR照片上传    2
+    ${attachPurpose}    读取参数    1
+    ${attachBase64}    读取参数    2
+    ${status}    读取参数    3
+    设置入参    attachPurpose=${attachPurpose}    attachBase64=${attachBase64}    status=${status}
+    发送post请求
+    打印请求返回结果
+    判断请求响应状态为200
+    判断返回status正确
+
+入参正确(attachPurpose为J1202)
+    获取token-XWK
+    读取测试数据    OCR照片上传    3
+    ${attachPurpose}    读取参数    1
+    ${attachBase64}    读取参数    2
+    ${status}    读取参数    3
+    设置入参    attachPurpose=${attachPurpose}    attachBase64=${attachBase64}    status=${status}
+    发送post请求
+    打印请求返回结果
+    判断请求响应状态为200
+    判断返回status正确
+
+入参正确(attachPurpose为J1205)
+    获取token-XWK
+    读取测试数据    OCR照片上传    4
+    ${attachPurpose}    读取参数    1
+    ${attachBase64}    读取参数    2
+    ${status}    读取参数    3
+    设置入参    attachPurpose=${attachPurpose}    attachBase64=${attachBase64}    status=${status}
+    发送post请求
+    打印请求返回结果
+    判断请求响应状态为200
+    判断返回status正确
+
+attachPurpose为空
+    获取token-XWK
+    读取测试数据    OCR照片上传    5
+    ${attachPurpose}    Set Variable
+    ${attachBase64}    读取参数    2
+    ${status}    读取参数    3
+    设置入参    attachPurpose=${attachPurpose}    attachBase64=${attachBase64}    status=${status}
+    发送post请求
+    打印请求返回结果
+    判断请求响应状态为200
+    判断返回status正确
+
+attachBase64为空
+    获取token-XWK
+    读取测试数据    OCR照片上传    6
+    ${attachPurpose}    读取参数    1
+    ${attachBase64}    Set Variable
+    ${status}    读取参数    3
+    设置入参    attachPurpose=${attachPurpose}    attachBase64=${attachBase64}    status=${status}
+    发送post请求
+    打印请求返回结果
+    判断请求响应状态为200
+    判断返回status正确
+
+status为空
+    获取token-XWK
+    读取测试数据    OCR照片上传    7
+    ${attachPurpose}    读取参数    1
+    ${attachBase64}    读取参数    2
+    ${status}    Set Variable
+    设置入参    attachPurpose=${attachPurpose}    attachBase64=${attachBase64}    status=${status}
+    发送post请求
+    打印请求返回结果
+    判断请求响应状态为200
+    判断返回status正确

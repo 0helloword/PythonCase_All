@@ -1,0 +1,103 @@
+*** Settings ***
+Library           ExcelLibrary
+Library           RequestsLibrary
+Library           requests
+Library           Collections
+Library           自写库/recordLoanData.py
+Library           自写库/mysqltest.py
+Library           自写库/dif.py
+Library           自写库/mysqlOperate.py
+Library           自写库/posttest.py
+Resource          公共关键字.txt
+Library           自写库/mysqltest.py
+
+*** Keywords ***
+读取用户主要数据-YZ
+    @{info}    listExcel    onecard.xlsx    游族    20    2    9
+    ${name}    Set Variable    @{info}[0]
+    Set Global Variable    ${name}
+    ${mobile}    Set Variable    @{info}[1]
+    Set Global Variable    ${mobile}
+    ${idCard}    Set Variable    @{info}[2]
+    Set Global Variable    ${idCard}
+    ${card}    Set Variable    @{info}[3]
+    Set Global Variable    ${card}
+    ${loginpwd}    Set Variable    @{info}[4]
+    Set Global Variable    ${loginpwd}
+    ${tradepwd}    Set Variable    @{info}[5]
+    Set Global Variable    ${tradepwd}
+    ${email}    Set Variable    @{info}[6]
+    Set Global Variable    ${email}
+    ${fingerPrint}    Set Variable    @{info}[7]
+    Set Global Variable    ${fingerPrint}
+    ${memberId}    Set Variable    @{info}[8]
+    Set Global Variable    ${memberId}
+
+获取验证码-YZ
+    [Arguments]    ${type}
+    读取测试数据    发送验证码    2
+    ${mobile}    Set Variable    15626513325
+    ${type}    Set Variable    ${type}
+    设置入参    mobile=${mobile}    type=${type}
+    发送post请求
+    判断请求响应状态为200
+    ${a}    Mysql Test    select * from wk_sms_log where mobile='15626513325' \ ORDER BY sendTime DESC limit 1;
+    ${code}    Evaluate    int(${a[0][2]})
+    Set Global Variable    ${code}
+
+获取token(APP登录)-YZ
+    读取header公共参数-YZ
+    读取用户主要数据-YZ
+    读取测试数据    合缘APP登录    2
+    设置入参    mobile=${mobile}    password=${loginpwd}    fingerPrint=${fingerPrint}
+    发送post请求(无token)
+    打印请求返回结果
+    ${token}    Set Variable    ${addr.json()['data']['token']}
+    Set Global Variable    ${token}
+
+读取header公共参数-YZ
+    @{dict}    listExcel    onecard.xlsx    游族    1    2    10
+    Set Global Variable    @{dict}
+    ${url}    Set Variable    @{dict}[0]
+    Set Global Variable    ${url}
+    ${Content-Type}    Set Variable    @{dict}[1]
+    Set Global Variable    ${Content-Type}
+    ${proid}    Set Variable    @{dict}[2]
+    Set Global Variable    ${proid}
+    ${partnerId}    Set Variable    @{dict}[3]
+    Set Global Variable    ${partnerId}
+    ${format}    Set Variable    @{dict}[4]
+    Set Global Variable    ${format}
+    ${signMethod}    Set Variable    @{dict}[5]
+    Set Global Variable    ${signMethod}
+    ${timeStamp}    Set Variable    @{dict}[6]
+    Set Global Variable    ${timeStamp}
+    ${sign}    Set Variable    @{dict}[7]
+    Set Global Variable    ${sign}
+    ${deviceType}    Set Variable    @{dict}[8]
+    Set Global Variable    ${deviceType}
+    ${channelCode}    Set Variable    @{dict}[9]
+    Set Global Variable    ${channelCode}
+
+获取产品ID-YZ
+    @{ProId}    listExcel    onecard.xlsx    游族    31    2    4
+    ${MProId}    Set Variable    @{ProId}[0]
+    Set Global Variable    ${MProId}
+    ${FProId}    Set Variable    @{ProId}[1]
+    Set Global Variable    ${FProId}
+    ${productId}    Set Variable    @{ProId}[2]
+    Set Global Variable    ${productId}
+    ${source}    Set Variable    @{ProId}[3]
+    Set Global Variable    ${source}
+
+获取验证码2-YZ
+    [Arguments]    ${type}
+    读取测试数据    发送验证码    2
+    ${mobile}    Set Variable    15626513325
+    ${type}    Set Variable    ${type}
+    设置入参    mobile=${mobile}    type=${type}
+    发送post请求(无token)
+    判断请求响应状态为200
+    ${a}    Mysql Test    select * from wk_sms_log where mobile='15626513325' \ ORDER BY sendTime DESC limit 1;
+    ${code}    Evaluate    int(${a[0][2]})
+    Set Global Variable    ${code}

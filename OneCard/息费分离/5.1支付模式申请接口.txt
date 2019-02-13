@@ -1,0 +1,235 @@
+*** Settings ***
+Library           RequestsLibrary
+Library           requests
+Library           json
+Library           Collections
+Library           ExcelLibrary
+Resource          ../公共关键字.txt
+Library           ../自写库/recordLoanData.py
+
+*** Test Cases ***
+入参正确-406
+    获取token-JY
+    读取header公共参数-YJ
+    读取测试数据    hy.xlsx    X支付模式申请    2
+    ${amtTotal}    读取参数    1
+    ${period}    读取参数    2
+    ${textInfo}    读取参数    3
+    ${productId}    读取参数    4
+    ${fingerPrint}    读取参数    5
+    ${feeAmt}    读取参数    6
+    设置入参    amtTotal=${amtTotal}    period=${period}    textInfo=${textInfo}    productId=${productId}    fingerPrint=${fingerPrint}    feeAmt=${feeAmt}
+    发送post请求
+    打印请求返回结果
+    判断请求响应状态为200
+    判断返回status正确
+    判断返回data参数正确
+
+入参正确-409
+    获取token-JY
+    读取header公共参数-YJ
+    读取测试数据    hy.xlsx    X支付模式申请    3
+    ${amtTotal}    读取参数    1
+    ${period}    读取参数    2
+    ${textInfo}    读取参数    3
+    ${productId}    读取参数    4
+    ${fingerPrint}    读取参数    5
+    ${feeAmt}    读取参数    6
+    设置入参    amtTotal=${amtTotal}    period=${period}    textInfo=${textInfo}    productId=${productId}    fingerPrint=${fingerPrint}    feeAmt=${feeAmt}
+    发送post请求
+    打印请求返回结果
+    判断请求响应状态为200
+    判断返回status正确
+    判断返回data参数正确
+
+amtTotal为空
+    获取token-JY
+    读取header公共参数-YJ
+    读取测试数据    hy.xlsx    X支付模式申请    4
+    ${amtTotal}    Set Variable
+    ${period}    读取参数    2
+    ${textInfo}    读取参数    3
+    ${productId}    读取参数    4
+    ${fingerPrint}    读取参数    5
+    ${feeAmt}    读取参数    6
+    设置入参    amtTotal=${amtTotal}    period=${period}    textInfo=${textInfo}    productId=${productId}    fingerPrint=${fingerPrint}    feeAmt=${feeAmt}
+    发送post请求
+    打印请求返回结果
+    判断请求响应状态为200
+    判断返回status正确
+
+period为空
+    获取token-JY
+    读取header公共参数-YJ
+    读取测试数据    hy.xlsx    X支付模式申请    5
+    ${amtTotal}    读取参数    1
+    ${period}    Set Variable
+    ${textInfo}    读取参数    3
+    ${productId}    读取参数    4
+    ${fingerPrint}    读取参数    5
+    ${feeAmt}    读取参数    6
+    设置入参    amtTotal=${amtTotal}    period=${period}    textInfo=${textInfo}    productId=${productId}    fingerPrint=${fingerPrint}    feeAmt=${feeAmt}
+    发送post请求
+    打印请求返回结果
+    判断请求响应状态为200
+    判断返回status正确
+
+textInfo为空
+    获取token-JY
+    读取header公共参数-YJ
+    读取测试数据    hy.xlsx    X支付模式申请    6
+    ${amtTotal}    读取参数    1
+    ${period}    读取参数    2
+    ${textInfo}    Set Variable
+    ${productId}    读取参数    4
+    ${fingerPrint}    读取参数    5
+    ${feeAmt}    读取参数    6
+    设置入参    amtTotal=${amtTotal}    period=${period}    textInfo=${textInfo}    productId=${productId}    fingerPrint=${fingerPrint}    feeAmt=${feeAmt}
+    发送post请求
+    打印请求返回结果
+    判断请求响应状态为200
+    判断返回status正确
+
+productId为空
+    获取token-JY
+    读取header公共参数-YJ
+    读取测试数据    hy.xlsx    X支付模式申请    7
+    ${amtTotal}    读取参数    1
+    ${period}    读取参数    2
+    ${textInfo}    读取参数    3
+    ${productId}    Set Variable
+    ${fingerPrint}    读取参数    5
+    ${feeAmt}    读取参数    6
+    设置入参    amtTotal=${amtTotal}    period=${period}    textInfo=${textInfo}    productId=${productId}    fingerPrint=${fingerPrint}    feeAmt=${feeAmt}
+    发送post请求
+    打印请求返回结果
+    判断请求响应状态为200
+    判断返回status正确
+
+fingerPrint为空
+    获取token-JY
+    读取header公共参数-YJ
+    读取测试数据    hy.xlsx    X支付模式申请    8
+    ${amtTotal}    读取参数    1
+    ${period}    读取参数    2
+    ${textInfo}    读取参数    3
+    ${productId}    读取参数    4
+    ${fingerPrint}    Set Variable
+    ${feeAmt}    读取参数    6
+    设置入参    amtTotal=${amtTotal}    period=${period}    textInfo=${textInfo}    productId=${productId}    fingerPrint=${fingerPrint}    feeAmt=${feeAmt}
+    发送post请求
+    打印请求返回结果
+    判断请求响应状态为200
+    判断返回status正确
+
+feeAmt为空
+    获取token-JY
+    读取header公共参数-YJ
+    读取测试数据    hy.xlsx    X支付模式申请    9
+    ${amtTotal}    读取参数    1
+    ${period}    读取参数    2
+    ${textInfo}    读取参数    3
+    ${productId}    读取参数    4
+    ${fingerPrint}    读取参数    5
+    ${feeAmt}    Set Variable
+    设置入参    amtTotal=${amtTotal}    period=${period}    textInfo=${textInfo}    productId=${productId}    fingerPrint=${fingerPrint}    feeAmt=${feeAmt}
+    发送post请求
+    打印请求返回结果
+    判断请求响应状态为200
+    判断返回status正确
+
+amtTotal类型错误
+    获取token-JY
+    读取header公共参数-YJ
+    读取测试数据    hy.xlsx    X支付模式申请    10
+    ${amtTotal}    读取参数    1
+    ${period}    读取参数    2
+    ${textInfo}    读取参数    3
+    ${productId}    读取参数    4
+    ${fingerPrint}    读取参数    5
+    ${feeAmt}    读取参数    6
+    设置入参    amtTotal=${amtTotal}    period=${period}    textInfo=${textInfo}    productId=${productId}    fingerPrint=${fingerPrint}    feeAmt=${feeAmt}
+    发送post请求
+    打印请求返回结果
+    判断请求响应状态为200
+    判断返回status正确
+
+period类型错误
+    获取token-JY
+    读取header公共参数-YJ
+    读取测试数据    hy.xlsx    X支付模式申请    11
+    ${amtTotal}    读取参数    1
+    ${period}    读取参数    2
+    ${textInfo}    读取参数    3
+    ${productId}    读取参数    4
+    ${fingerPrint}    读取参数    5
+    ${feeAmt}    读取参数    6
+    设置入参    amtTotal=${amtTotal}    period=${period}    textInfo=${textInfo}    productId=${productId}    fingerPrint=${fingerPrint}    feeAmt=${feeAmt}
+    发送post请求
+    打印请求返回结果
+    判断请求响应状态为200
+    判断返回status正确
+
+textInfo不存在
+    获取token-JY
+    读取header公共参数-YJ
+    读取测试数据    hy.xlsx    X支付模式申请    12
+    ${amtTotal}    读取参数    1
+    ${period}    读取参数    2
+    ${textInfo}    读取参数    3
+    ${productId}    读取参数    4
+    ${fingerPrint}    读取参数    5
+    ${feeAmt}    读取参数    6
+    设置入参    amtTotal=${amtTotal}    period=${period}    textInfo=${textInfo}    productId=${productId}    fingerPrint=${fingerPrint}    feeAmt=${feeAmt}
+    发送post请求
+    打印请求返回结果
+    判断请求响应状态为200
+    判断返回status正确
+
+productId不存在
+    获取token-JY
+    读取header公共参数-YJ
+    读取测试数据    hy.xlsx    X支付模式申请    13
+    ${amtTotal}    读取参数    1
+    ${period}    读取参数    2
+    ${textInfo}    读取参数    3
+    ${productId}    读取参数    4
+    ${fingerPrint}    读取参数    5
+    ${feeAmt}    读取参数    6
+    设置入参    amtTotal=${amtTotal}    period=${period}    textInfo=${textInfo}    productId=${productId}    fingerPrint=${fingerPrint}    feeAmt=${feeAmt}
+    发送post请求
+    打印请求返回结果
+    判断请求响应状态为200
+    判断返回status正确
+
+amtTotal金额小于500
+    获取token-JY
+    读取header公共参数-YJ
+    读取测试数据    hy.xlsx    X支付模式申请    14
+    ${amtTotal}    读取参数    1
+    ${period}    读取参数    2
+    ${textInfo}    读取参数    3
+    ${productId}    读取参数    4
+    ${fingerPrint}    读取参数    5
+    ${feeAmt}    读取参数    6
+    设置入参    amtTotal=${amtTotal}    period=${period}    textInfo=${textInfo}    productId=${productId}    fingerPrint=${fingerPrint}    feeAmt=${feeAmt}
+    发送post请求
+    打印请求返回结果
+    判断请求响应状态为200
+    判断返回status正确
+
+amtTotal不为100倍数
+    获取token-JY
+    读取header公共参数-YJ
+    读取测试数据    hy.xlsx    X支付模式申请    15
+    ${amtTotal}    读取参数    1
+    ${period}    读取参数    2
+    ${textInfo}    读取参数    3
+    ${productId}    读取参数    4
+    ${fingerPrint}    读取参数    5
+    ${feeAmt}    读取参数    6
+    设置入参    amtTotal=${amtTotal}    period=${period}    textInfo=${textInfo}    productId=${productId}    fingerPrint=${fingerPrint}    feeAmt=${feeAmt}
+    发送post请求
+    打印请求返回结果
+    判断请求响应状态为200
+    判断返回status正确

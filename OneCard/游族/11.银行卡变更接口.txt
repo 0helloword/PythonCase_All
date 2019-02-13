@@ -1,0 +1,49 @@
+*** Settings ***
+Library           RequestsLibrary
+Library           requests
+Library           json
+Library           Collections
+Library           ExcelLibrary
+Resource          ../公共关键字.txt
+Library           ../自写库/recordLoanData.py
+Resource          ../YOUZU配置数据.txt
+
+*** Test Cases ***
+入参正确
+    Comment    获取token(APP登录)-YZ
+    Comment    获取验证码-YZ    4
+    Comment    读取测试数据    银行卡变更    2
+    Comment    ${newbankcard}    读取参数    1
+    Comment    ${newphone}    读取参数    2
+    Comment    ${verifyCode}    读取参数    3
+    Comment    设置入参    newbankcard=${newbankcard}    newphone=${newphone}    verifyCode=${verifyCode}
+    Comment    发送post请求
+    Comment    打印请求返回结果
+    Comment    判断请求响应状态为200
+    Comment    判断返回status正确
+    Comment    判断返回data参数正确
+    Comment    删除绑卡记录
+
+newbankcard为空
+    获取token(APP登录)-YZ
+    读取测试数据    银行卡变更    3
+    ${newbankcard}    Set Variable
+    ${newphone}    读取参数    2
+    ${verifyCode}    读取参数    3
+    设置入参    newbankcard=${newbankcard}    newphone=${newphone}    verifyCode=${verifyCode}
+    发送post请求
+    打印请求返回结果
+    判断请求响应状态为200
+    判断返回status正确
+
+newphone为空
+    获取token(APP登录)-YZ
+    读取测试数据    银行卡变更    4
+    ${newbankcard}    读取参数    1
+    ${newphone}    Set Variable
+    ${verifyCode}    读取参数    3
+    设置入参    newbankcard=${newbankcard}    newphone=${newphone}    verifyCode=${verifyCode}
+    发送post请求
+    打印请求返回结果
+    判断请求响应状态为200
+    判断返回status正确

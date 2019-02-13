@@ -1,0 +1,54 @@
+*** Settings ***
+Library           RequestsLibrary
+Library           requests
+Library           json
+Library           Collections
+Library           ExcelLibrary
+Resource          ../公共关键字.txt
+Library           ../自写库/recordLoanData.py
+Resource          ../XWK配置数据.txt
+
+*** Test Cases ***
+appStatus为信审拒绝
+    获取token-XWK
+    读取测试数据    同步额度状态    6
+    ${appStatus}    读取参数    1
+    ${memberId}    读取参数    2
+    设置入参    appStatus=${appStatus}    memberId=${memberId}
+    发送post请求
+    打印请求返回结果
+    判断请求响应状态为200
+    判断返回status正确
+
+appStatus为信审通过
+    获取token-XWK
+    读取测试数据    同步额度状态    7
+    ${appStatus}    读取参数    1
+    ${memberId}    读取参数    2
+    设置入参    appStatus=${appStatus}    memberId=${memberId}
+    发送post请求
+    打印请求返回结果
+    判断请求响应状态为200
+    判断返回status正确
+
+appStatus为空
+    获取token-XWK
+    读取测试数据    同步额度状态    8
+    ${appStatus}    Set Variable
+    ${memberId}    读取参数    2
+    设置入参    appStatus=${appStatus}    memberId=${memberId}
+    发送post请求
+    打印请求返回结果
+    判断请求响应状态为200
+    判断返回status正确
+
+memberId为空
+    获取token-XWK
+    读取测试数据    同步额度状态    9
+    ${appStatus}    读取参数    1
+    ${memberId}    Set Variable
+    设置入参    appStatus=${appStatus}    memberId=${memberId}
+    发送post请求
+    打印请求返回结果
+    判断请求响应状态为200
+    判断返回status正确

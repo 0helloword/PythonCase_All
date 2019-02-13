@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<robot generated="20170522 17:52:22.360" generator="Robot 2.8.7 (Python 2.7.13 on win32)">
+<errors>
+<msg timestamp="20170522 17:52:22.559" level="ERROR">Unexpected error: UnicodeDecodeError: 'ascii' codec can't decode byte 0xd7 in position 85: ordinal not in range(128)
+Traceback (most recent call last):
+  File "F:\Python27\lib\site-packages\robot\run.py", line 407, in main
+    result = suite.run(settings)
+  File "F:\Python27\lib\site-packages\robot\running\model.py", line 198, in run
+    self.visit(runner)
+  File "F:\Python27\lib\site-packages\robot\model\testsuite.py", line 152, in visit
+    visitor.visit_suite(self)
+  File "F:\Python27\lib\site-packages\robot\model\visitor.py", line 18, in visit_suite
+    if self.start_suite(suite) is not False:
+  File "F:\Python27\lib\site-packages\robot\running\runner.py", line 72, in start_suite
+    ns.handle_imports()
+  File "F:\Python27\lib\site-packages\robot\running\namespace.py", line 61, in handle_imports
+    self._handle_imports(self._imports)
+  File "F:\Python27\lib\site-packages\robot\running\namespace.py", line 77, in _handle_imports
+    self._import(item)
+  File "F:\Python27\lib\site-packages\robot\running\namespace.py", line 85, in _import
+    action(import_setting)
+  File "F:\Python27\lib\site-packages\robot\running\namespace.py", line 99, in _import_resource
+    self._handle_imports(resource.setting_table.imports)
+  File "F:\Python27\lib\site-packages\robot\running\namespace.py", line 77, in _handle_imports
+    self._import(item)
+  File "F:\Python27\lib\site-packages\robot\running\namespace.py", line 85, in _import
+    action(import_setting)
+  File "F:\Python27\lib\site-packages\robot\running\namespace.py", line 132, in _import_library
+    import_setting.alias, self.variables)
+  File "F:\Python27\lib\site-packages\robot\running\importer.py", line 36, in import_library
+    lib = TestLibrary(name, args, variables, create_handlers=False)
+  File "F:\Python27\lib\site-packages\robot\running\testlibraries.py", line 41, in TestLibrary
+    libcode = importer.import_class_or_module(name)
+  File "F:\Python27\lib\site-packages\robot\utils\importer.py", line 64, in import_class_or_module
+    self._raise_import_failed(name, err)
+  File "F:\Python27\lib\site-packages\robot\utils\importer.py", line 99, in _raise_import_failed
+    raise DataError('\n'.join(msg))</msg>
+</errors>
+</robot>

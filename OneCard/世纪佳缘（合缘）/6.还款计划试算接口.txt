@@ -1,0 +1,141 @@
+*** Settings ***
+Library           RequestsLibrary
+Library           requests
+Library           json
+Library           Collections
+Library           ExcelLibrary
+Resource          ../公共关键字.txt
+Library           ../自写库/recordLoanData.py
+
+*** Test Cases ***
+入参正确-384
+    获取token-JY
+    读取header公共参数-YJ
+    读取测试数据    hy.xlsx    还款计划试算    2
+    ${period}    读取参数    1
+    ${amtTotal}    读取参数    2
+    ${productId}    读取参数    3
+    设置入参    period=${period}    amtTotal=${amtTotal}    productId=${productId}
+    发送post请求
+    打印请求返回结果
+    判断请求响应状态为200
+    判断返回status正确
+    判断返回data参数正确
+
+入参正确-397
+    获取token-JY
+    读取header公共参数-YJ
+    读取测试数据    hy.xlsx    还款计划试算    3
+    ${period}    读取参数    1
+    ${amtTotal}    读取参数    2
+    ${productId}    读取参数    3
+    设置入参    period=${period}    amtTotal=${amtTotal}    productId=${productId}
+    发送post请求
+    打印请求返回结果
+    判断请求响应状态为200
+    判断返回status正确
+    判断返回data参数正确
+
+period为空
+    获取token-JY
+    读取header公共参数-YJ
+    读取测试数据    hy.xlsx    还款计划试算    4
+    ${period}    Set Variable
+    ${amtTotal}    读取参数    2
+    ${productId}    读取参数    3
+    设置入参    period=${period}    amtTotal=${amtTotal}    productId=${productId}
+    发送post请求
+    打印请求返回结果
+    判断请求响应状态为200
+    判断返回status正确
+
+period不存在
+    获取token-JY
+    读取header公共参数-YJ
+    读取测试数据    hy.xlsx    还款计划试算    5
+    ${period}    读取参数    1
+    ${amtTotal}    读取参数    2
+    ${productId}    读取参数    3
+    设置入参    period=${period}    amtTotal=${amtTotal}    productId=${productId}
+    发送post请求
+    打印请求返回结果
+    判断请求响应状态为200
+    判断返回status正确
+
+amtTotal为空
+    获取token-JY
+    读取header公共参数-YJ
+    读取测试数据    hy.xlsx    还款计划试算    6
+    ${period}    读取参数    1
+    ${amtTotal}    Set Variable
+    ${productId}    读取参数    3
+    设置入参    period=${period}    amtTotal=${amtTotal}    productId=${productId}
+    发送post请求
+    打印请求返回结果
+    判断请求响应状态为200
+    判断返回status正确
+
+amtTotal不为100的整数倍
+    获取token-JY
+    读取header公共参数-YJ
+    读取测试数据    hy.xlsx    还款计划试算    7
+    ${period}    读取参数    1
+    ${amtTotal}    读取参数    2
+    ${productId}    读取参数    3
+    设置入参    period=${period}    amtTotal=${amtTotal}    productId=${productId}
+    发送post请求
+    打印请求返回结果
+    判断请求响应状态为200
+    判断返回status正确
+
+amtTotal为0
+    获取token-JY
+    读取header公共参数-YJ
+    读取测试数据    hy.xlsx    还款计划试算    8
+    ${period}    读取参数    1
+    ${amtTotal}    读取参数    2
+    ${productId}    读取参数    3
+    设置入参    period=${period}    amtTotal=${amtTotal}    productId=${productId}
+    发送post请求
+    打印请求返回结果
+    判断请求响应状态为200
+    判断返回status正确
+
+amtTotal为-500
+    获取token-JY
+    读取header公共参数-YJ
+    读取测试数据    hy.xlsx    还款计划试算    9
+    ${period}    读取参数    1
+    ${amtTotal}    读取参数    2
+    ${productId}    读取参数    3
+    设置入参    period=${period}    amtTotal=${amtTotal}    productId=${productId}
+    发送post请求
+    打印请求返回结果
+    判断请求响应状态为200
+    判断返回status正确
+
+productId为空
+    获取token-JY
+    读取header公共参数-YJ
+    读取测试数据    hy.xlsx    还款计划试算    10
+    ${period}    读取参数    1
+    ${amtTotal}    读取参数    2
+    ${productId}    Set Variable
+    设置入参    period=${period}    amtTotal=${amtTotal}    productId=${productId}
+    发送post请求
+    打印请求返回结果
+    判断请求响应状态为200
+    判断返回status正确
+
+productId不存在
+    获取token-JY
+    读取header公共参数-YJ
+    读取测试数据    hy.xlsx    还款计划试算    11
+    ${period}    读取参数    1
+    ${amtTotal}    读取参数    2
+    ${productId}    读取参数    3
+    设置入参    period=${period}    amtTotal=${amtTotal}    productId=${productId}
+    发送post请求
+    打印请求返回结果
+    判断请求响应状态为200
+    判断返回status正确

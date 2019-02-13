@@ -1,0 +1,129 @@
+*** Settings ***
+Library           Selenium2Library
+Resource          sa-用例套件.txt
+Library           ../自写库/create_bank_card.py
+Library           ../自写库/create_cust_name.py
+Library           ../自写库/create_email_code.py
+Library           ../自写库/create_id_card.py
+Library           ../自写库/create_phone_number.py
+Library           ../自写库/create_qq_number.py
+Library           ExcelLibrary
+Library           ../自写库/create_wechat_code.py
+Library           ../自写库/kill.py
+
+*** Keywords ***
+打开地址
+    [Arguments]    ${url}
+    关闭浏览器
+    Open Browser    ${url}    chrome
+    Maximize Browser Window
+
+按钮点击
+    [Arguments]    ${name}
+    Wait Until Keyword Succeeds    60    2    click element    jquery=button:contains('${name}'):visible
+
+菜单选择
+    [Arguments]    ${name}
+    Wait Until Keyword Succeeds    10    2    click element    jquery=ul>li>a:contains('${name}'):eq(0)
+
+下拉框选择
+    [Arguments]    ${name}    ${choose}
+    Wait Until Keyword Succeeds    10    2    Select From List By Label    jquery=div:contains('${name}')+div>select    ${choose}
+
+提交数据
+    [Arguments]    ${name}
+    Wait Until Keyword Succeeds    60    2    click element    jquery=div>a:contains('${name}')
+
+选择时间
+    [Arguments]    ${name}    ${time}
+    Wait Until Keyword Succeeds    10    2    Execute Javascript    jQuery("div:contains('${name}')+div input").val('${time}')
+    [Teardown]
+
+单选点击
+    [Arguments]    ${name}    ${value}
+    Wait Until Keyword Succeeds    10    2    Wait Until Page Contains Element    jquery=div>span>input[name='${name}']
+    Wait Until Keyword Succeeds    10    2    Select Radio Button    ${name}    ${value}
+
+选择下拉框内容
+    [Arguments]    ${name}    ${value}
+    Wait Until Keyword Succeeds    10    2    Select From List By Label    jquery=select[name='${name}']    ${value}
+
+关闭浏览器
+    Close All Browsers
+
+读取页面数据
+    [Arguments]    ${name}
+    ${value}    Get Value    jquery=div:contains('${name}')+div input
+    Set Global Variable    ${value}
+    [Return]    ${value}
+
+生成测试数据
+    ${custname}    Get Chinese Name    #客户姓名
+    Set Global Variable    ${custname}
+    ${idcard}    Get Id Card    #客户身份证号码
+    Set Global Variable    ${idcard}
+    ${phoneno}    Get Phone Number    #客户手机号码
+    Set Global Variable    ${phoneno}
+    ${bankno}    Get Bank No    #客户银行卡号
+    Set Global Variable    ${bankno}
+    ${emailno}    Get Email Code    #客户邮箱号码
+    Set Global Variable    ${emailno}
+    ${wechatno}    Get Wechat Code    #客户微信号码
+    Set Global Variable    ${wechatno}
+    ${qqno}    Get Qq Code    #客户qq号码
+    Set Global Variable    ${qqno}
+    ${livephone}    Get Phone Number    #客户居住电话
+    Set Global Variable    ${livephone}
+    ${unitPhone}    Get Phone Number    #客户单位电话
+    Set Global Variable    ${unitPhone}
+    ${contractName}    Get Chinese Name    #家庭联系人姓名
+    Set Global Variable    ${contractName}
+    ${contractPhone}    Get Phone Number    #家庭联系人电话
+    Set Global Variable    ${contractPhone}
+    ${contactWeixin}    Get Wechat Code    #家庭联系人微信
+    Set Global Variable    ${contactWeixin}
+    ${contactQq}    Get Qq Code    #家庭联系人QQ
+    Set Global Variable    ${contactQq}
+    ${contractName1}    Get Chinese Name    #非家庭联系人姓名
+    Set Global Variable    ${contractName1}
+    ${contractPhone1}    Get Phone Number    #非家庭联系人电话
+    Set Global Variable    ${contractPhone1}
+    ${contactWeixin1}    Get Wechat Code    #非家庭联系人微信
+    Set Global Variable    ${contactWeixin1}
+    ${contactQq1}    Get Qq Code    #非家庭联系人QQ
+    Set Global Variable    ${contactQq1}
+    ${accName}    Get Chinese Name    #陪同人姓名
+    Set Global Variable    ${accName}
+    ${accMobile}    Get Phone Number    #陪同人电话
+    Set Global Variable    ${accMobile}
+    ${assistWeixin}    Get Wechat Code    #陪同人微信
+    Set Global Variable    ${assistWeixin}
+    ${assistQq}    Get Qq Code    #陪同人QQ
+    Set Global Variable    ${assistQq}
+    ${parterName}    Get Chinese Name    #配偶姓名
+    Set Global Variable    ${parterName}
+    ${mateMobel}    Get Phone Number    #配偶电话
+    Set Global Variable    ${mateMobel}
+    ${parteWeixin}    Get Wechat Code    #配偶微信
+    Set Global Variable    ${parteWeixin}
+    ${parteQq}    Get Qq Code    #配偶QQ
+    Set Global Variable    ${parteQq}
+
+读取客户信息数据
+    [Arguments]    ${name}
+    Sleep    2
+    ${app_id}    Get Text    jquery=div:contains('${name}')+div
+    Set Global Variable    ${app_id}
+    [Return]    ${app_id}
+
+文本输入
+    [Arguments]    ${id}    ${value}
+    Wait Until Keyword Succeeds    10    2    input text    id=${id}    ${value}
+
+文本框输入
+    [Arguments]    ${name}    ${value}
+    Wait Until Keyword Succeeds    10    2    input text    jquery=div:contains('${name}')+div>input    ${value}
+
+点击链接
+    [Arguments]    ${name}
+    Wait Until Keyword Succeeds    60    2    click element    jquery=a:contains('${name}'):visible

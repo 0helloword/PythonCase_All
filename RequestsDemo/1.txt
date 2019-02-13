@@ -1,0 +1,29 @@
+*** Settings ***
+Library           ExcelLibrary
+Library           Selenium2Library
+
+*** Keywords ***
+读取excel数据
+    Open Excel    ${excelPath}
+    ${balance}    Read Cell Data By Name    Sheet1    A1
+    Set Global Variable    ${balance}
+    ${card_num}    Read Cell Data By Name    Sheet1    B1567
+    Set Global Variable    ${card_num}
+    ${credit_limit}    Read Cell Data By Name    Sheet1    B1571
+    Set Global Variable    ${credit_limit}
+    ${full_card_num}    Read Cell Data By Name    Sheet1    B1573
+    Set Global Variable    ${full_card_num}
+    ${name_on_card}    Read Cell Data By Name    Sheet1    B1574
+    Set Global Variable    ${name_on_card}
+    ${cash_limit}    Read Cell Data By Name    Sheet1    B1570
+    Set Global Variable    ${cash_limit}
+
+获取验证码
+    open browser    file:///G:/base64topic.html    chrome
+    Sleep    3
+    input text    id=mytextarea    ${pic}
+    sleep    2
+    click element    xpath=/html/body/input
+    Sleep    10
+    ${captch}    Set Variable    困雕
+    Set Global Variable    ${captch}

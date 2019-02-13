@@ -1,0 +1,120 @@
+*** Settings ***
+Library           RequestsLibrary
+Library           requests
+Library           json
+Library           Collections
+Library           ExcelLibrary
+Resource          ../公共关键字.txt
+Library           ../自写库/recordLoanData.py
+Resource          ../YOUZU配置数据.txt
+
+*** Test Cases ***
+参数均正确-取现金
+    获取token(APP登录)-YZ
+    获取产品ID-YZ
+    读取测试数据    X费用详情    2
+    ${period}    读取参数    1
+    ${amtTotal}    读取参数    2
+    ${productId}    Set Variable    ${productId}
+    设置入参    period=${period}    amtTotal=${amtTotal}    productId=${productId}
+    发送post请求
+    打印请求返回结果
+    判断请求响应状态为200
+    判断返回status正确
+    判断返回data参数正确
+
+period为空
+    获取token(APP登录)-YZ
+    读取测试数据    X费用详情    4
+    ${period}    Set Variable
+    ${amtTotal}    读取参数    2
+    ${productId}    读取参数    3
+    设置入参    period=${period}    amtTotal=${amtTotal}    productId=${productId}
+    发送post请求
+    打印请求返回结果
+    判断请求响应状态为200
+    判断返回status正确
+
+period不存在
+    获取token(APP登录)-YZ
+    读取测试数据    X费用详情    5
+    ${period}    读取参数    1
+    ${amtTotal}    读取参数    2
+    ${productId}    读取参数    3
+    设置入参    period=${period}    amtTotal=${amtTotal}    productId=${productId}
+    发送post请求
+    打印请求返回结果
+    判断请求响应状态为200
+    判断返回status正确
+
+amtTotal为空
+    获取token(APP登录)-YZ
+    读取测试数据    X费用详情    6
+    ${period}    读取参数    1
+    ${amtTotal}    Set Variable
+    ${productId}    读取参数    3
+    设置入参    period=${period}    amtTotal=${amtTotal}    productId=${productId}
+    发送post请求
+    打印请求返回结果
+    判断请求响应状态为200
+    判断返回status正确
+
+amtTotal不为100的整数倍
+    获取token(APP登录)-YZ
+    读取测试数据    X费用详情    7
+    ${period}    读取参数    1
+    ${amtTotal}    读取参数    2
+    ${productId}    读取参数    3
+    设置入参    period=${period}    amtTotal=${amtTotal}    productId=${productId}
+    发送post请求
+    打印请求返回结果
+    判断请求响应状态为200
+    判断返回status正确
+
+amtTotal为0
+    获取token(APP登录)-YZ
+    读取测试数据    X费用详情    8
+    ${period}    读取参数    1
+    ${amtTotal}    读取参数    2
+    ${productId}    读取参数    3
+    设置入参    period=${period}    amtTotal=${amtTotal}    productId=${productId}
+    发送post请求
+    打印请求返回结果
+    判断请求响应状态为200
+    判断返回status正确
+
+amtTotal为-500
+    获取token(APP登录)-YZ
+    读取测试数据    X费用详情    9
+    ${period}    读取参数    1
+    ${amtTotal}    读取参数    2
+    ${productId}    读取参数    3
+    设置入参    period=${period}    amtTotal=${amtTotal}    productId=${productId}
+    发送post请求
+    打印请求返回结果
+    判断请求响应状态为200
+    判断返回status正确
+
+productId为空
+    获取token(APP登录)-YZ
+    读取测试数据    X费用详情    10
+    ${period}    读取参数    1
+    ${amtTotal}    读取参数    2
+    ${productId}    Set Variable
+    设置入参    period=${period}    amtTotal=${amtTotal}    productId=${productId}
+    发送post请求
+    打印请求返回结果
+    判断请求响应状态为200
+    判断返回status正确
+
+productId不存在
+    获取token(APP登录)-YZ
+    读取测试数据    X费用详情    11
+    ${period}    读取参数    1
+    ${amtTotal}    读取参数    2
+    ${productId}    读取参数    3
+    设置入参    period=${period}    amtTotal=${amtTotal}    productId=${productId}
+    发送post请求
+    打印请求返回结果
+    判断请求响应状态为200
+    判断返回status正确

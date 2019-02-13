@@ -1,0 +1,80 @@
+*** Settings ***
+Library           RequestsLibrary
+Library           Collections
+Library           requests
+Library           json
+Resource          1.txt
+
+*** Test Cases ***
+找回用户名任务创建
+    Create Session    api    http://123.56.122.244:3030
+    ${dicttype}    Create Dictionary    Content-Type=application/json;charset=UTF-8
+    ${dd}    Create Dictionary    idnum=420222198808281065    name=曹阳俊
+    ${addr}    Post Request    api    /ChsiRegister/rs/account/chsi/v1/futasks    data=${dd}    headers=${dicttype}
+    ${task_key}    Set Variable    ${addr.json()['task_key']}
+    Set Global Variable    ${task_key}
+    ${pic}    Set Variable    ${addr.json()['pic']}
+    Set Global Variable    ${pic}
+    Delete All Sessions
+
+找回用户名任务提交
+    获取验证码
+    Create Session    api    http://123.56.122.244:3030
+    ${dicttype}    Create Dictionary    Content-Type=application/json;charset=UTF-8
+    ${dd}    Create Dictionary    captch=${captch}
+    ${addr}    Post Request    api    //rs/account/chsi/v1/futasks/ChsiRegister/${task_key}/submit    data=${dd}    headers=${dicttype}
+    log    ${addr.text}    #${addr.json()['task_key']}
+    Delete All Sessions
+
+3
+    log    ${task_key}
+
+创建任务
+    Create Session    api    http://123.56.122.244:8068
+    ${dicttype}    Create Dictionary    Content-Type=application/json;charset=UTF-8
+    ${dd}    Create Dictionary    idnum=420222198808281065    name=曹阳俊
+    ${addr}    Post Request    api    /ChsiRegister/rs/account/chsi/v1/futasks    data=${dd}    headers=${dicttype}
+    ${task_key}    Set Variable    ${addr.json()['task_key']}
+    Set Global Variable    ${task_key}
+    ${pic}    Set Variable    ${addr.json()['pic']}
+    Set Global Variable    ${pic}
+    Delete All Sessions
+
+创建任务-网银
+    Create Session    api    http://123.56.122.244:8068
+    ${dicttype}    Create Dictionary    Content-Type=application/json;charset=UTF-8    channel_id=92fd940e608a562da0e7a5a669e40d43
+    ${dd}    Create Dictionary    user_id=9f1202    bank=BOC    account=6217850100000978885    token=101121    login_target=DEBITCARD
+    ...    login_type=DEBITCARDNO    service_supplier_no=CRAWLER
+    ${param}    Create Dictionary    params=${dd}
+    ${a}    Catenate    SEPARATOR=&    sysSourceId=    sourceUserId=123
+    ${addr}    Post Request    api    /rs/v3/CRED/tasks?${a}    data=${param}    headers=${dicttype}
+    log    ${addr.text}
+    ${status}    Set Variable    ${addr.json()['task_key']}
+    ${task_key}    Set Variable    ${addr.json()['task_key']}
+    Comment    Set Global Variable    ${task_key}
+    Delete All Sessions
+
+个人信息接口
+    Create Session    api    http://123.56.122.244:8068
+    ${dicttype}    Create Dictionary    Content-Type=application/json;charset=UTF-8    appId=    token=
+    ${dd}    Create Dictionary    user_id=9f1202    bank=BOC    account=6217850100000978885    token=101121    login_target=DEBITCARD
+    ...    login_type=DEBITCARDNO    service_supplier_no=CRAWLER
+    ${param}    Create Dictionary    params=${dd}
+    ${a}    Catenate    SEPARATOR=&    sysSourceId=    sourceUserId=123
+    ${addr}    Post Request    api    /rs/v3/CRED/tasks?${a}    data=${param}    headers=${dicttype}
+    log    ${addr.text}
+    ${status}    Set Variable    ${addr.json()['task_key']}
+    ${task_key}    Set Variable    ${addr.json()['task_key']}
+    Comment    Set Global Variable    ${task_key}
+    Delete All Sessions
+
+123
+    Create Session    api    http://123.57.234.78:8200
+    ${header}    Create Dictionary    Content-Type=application/x-www-form-urlencoded    token=1314030079db0100bc7b9787aab346d4a549affe25df07c9    deviceType=H5    appId=h556b7d5c7ds487a8efjx771d2c01eh5    partnerId=1076
+    ...    format=from    signMethod=MD5    timeStamp=20170926 16:59:1    sign=779EED6EBD799574AB6B7CD928441A40    proid=h556b7d5c7ds487a8efjx771d2c01eh5
+    ${param}    Catenate    SEPARATOR=&    certId=421222199001016819    realName=张三
+    ${addr}    Post Request    api    /registNewTest?${param}    headers=${header}
+    Should Be Equal As Strings    ${addr.status_code}    200
+    log    ${addr.text}
+    ${token}    Set Variable    ${addr.json()['data']}
+    Set Global Variable    ${token}

@@ -1,0 +1,175 @@
+*** Settings ***
+Library           RequestsLibrary
+Library           requests
+Library           json
+Library           Collections
+Library           ExcelLibrary
+Resource          ../公共关键字.txt
+Library           ../自写库/recordLoanData.py
+Resource          ../SINA配置数据.txt
+
+*** Test Cases ***
+入参正确
+    读取header公共参数-SINA
+    读取测试数据    预授信额度    2
+    ${memberId}    读取参数    1
+    ${deviceId}    读取参数    2
+    ${userName}    读取参数    3
+    ${mobile}    读取参数    4
+    ${idCardNo}    读取参数    5
+    ${faceScore}    读取参数    6
+    ${tick}    读取参数    7
+    ${body}    Create Dictionary    memberId=${memberId}    deviceId=${deviceId}    userName=${userName}    mobile=${mobile}    idCardNo=${idCardNo}
+    ...    faceScore=${faceScore}    tick=${tick}
+    post请求(requests无token)    ${url}${U}    ${body}
+    判断响应结果和状态
+
+memberId参数为空
+    读取header公共参数-SINA
+    读取测试数据    预授信额度    3
+    ${memberId}    Set Variable
+    ${deviceId}    读取参数    2
+    ${userName}    读取参数    3
+    ${mobile}    读取参数    4
+    ${idCardNo}    读取参数    5
+    ${faceScore}    读取参数    6
+    ${tick}    读取参数    7
+    ${body}    Create Dictionary    memberId=${memberId}    deviceId=${deviceId}    userName=${userName}    mobile=${mobile}    idCardNo=${idCardNo}
+    ...    faceScore=${faceScore}    tick=${tick}
+    post请求(requests无token)    ${url}${U}    ${body}
+    判断响应结果和状态
+
+deviceId参数为空
+    读取header公共参数-SINA
+    读取测试数据    预授信额度    4
+    ${memberId}    读取参数    1
+    ${deviceId}    Set Variable
+    ${userName}    读取参数    3
+    ${mobile}    读取参数    4
+    ${idCardNo}    读取参数    5
+    ${faceScore}    读取参数    6
+    ${tick}    读取参数    7
+    ${body}    Create Dictionary    memberId=${memberId}    deviceId=${deviceId}    userName=${userName}    mobile=${mobile}    idCardNo=${idCardNo}
+    ...    faceScore=${faceScore}    tick=${tick}
+    post请求(requests无token)    ${url}${U}    ${body}
+    判断响应结果和状态
+
+userName为空
+    读取header公共参数-SINA
+    读取测试数据    预授信额度    5
+    ${memberId}    读取参数    1
+    ${deviceId}    读取参数    2
+    ${userName}    Set Variable
+    ${mobile}    读取参数    4
+    ${idCardNo}    读取参数    5
+    ${faceScore}    读取参数    6
+    ${tick}    读取参数    7
+    ${body}    Create Dictionary    memberId=${memberId}    deviceId=${deviceId}    userName=${userName}    mobile=${mobile}    idCardNo=${idCardNo}
+    ...    faceScore=${faceScore}    tick=${tick}
+    post请求(requests无token)    ${url}${U}    ${body}
+    判断响应结果和状态
+
+mobile为空
+    读取header公共参数-SINA
+    读取测试数据    预授信额度    6
+    ${memberId}    读取参数    1
+    ${deviceId}    读取参数    2
+    ${userName}    读取参数    3
+    ${mobile}    Set Variable
+    ${idCardNo}    读取参数    5
+    ${faceScore}    读取参数    6
+    ${tick}    读取参数    7
+    ${body}    Create Dictionary    memberId=${memberId}    deviceId=${deviceId}    userName=${userName}    mobile=${mobile}    idCardNo=${idCardNo}
+    ...    faceScore=${faceScore}    tick=${tick}
+    post请求(requests无token)    ${url}${U}    ${body}
+    判断响应结果和状态
+
+idCardNo为空
+    读取header公共参数-SINA
+    读取测试数据    预授信额度    7
+    ${memberId}    读取参数    1
+    ${deviceId}    读取参数    2
+    ${userName}    读取参数    3
+    ${mobile}    读取参数    4
+    ${idCardNo}    Set Variable
+    ${faceScore}    读取参数    6
+    ${tick}    读取参数    7
+    ${body}    Create Dictionary    memberId=${memberId}    deviceId=${deviceId}    userName=${userName}    mobile=${mobile}    idCardNo=${idCardNo}
+    ...    faceScore=${faceScore}    tick=${tick}
+    post请求(requests无token)    ${url}${U}    ${body}
+    判断响应结果和状态
+
+faceScore为空
+    读取header公共参数-SINA
+    读取测试数据    预授信额度    8
+    ${memberId}    读取参数    1
+    ${deviceId}    读取参数    2
+    ${userName}    读取参数    3
+    ${mobile}    读取参数    4
+    ${idCardNo}    读取参数    5
+    ${faceScore}    Set Variable
+    ${tick}    读取参数    7
+    ${body}    Create Dictionary    memberId=${memberId}    deviceId=${deviceId}    userName=${userName}    mobile=${mobile}    idCardNo=${idCardNo}
+    ...    faceScore=${faceScore}    tick=${tick}
+    post请求(requests无token)    ${url}${U}    ${body}
+    判断响应结果和状态
+
+tick参数为空
+    读取header公共参数-SINA
+    读取测试数据    预授信额度    9
+    ${memberId}    读取参数    1
+    ${deviceId}    读取参数    2
+    ${userName}    读取参数    3
+    ${mobile}    读取参数    4
+    ${idCardNo}    读取参数    5
+    ${faceScore}    读取参数    6
+    ${tick}    Set Variable
+    ${body}    Create Dictionary    memberId=${memberId}    deviceId=${deviceId}    userName=${userName}    mobile=${mobile}    idCardNo=${idCardNo}
+    ...    faceScore=${faceScore}    tick=${tick}
+    post请求(requests无token)    ${url}${U}    ${body}
+    判断响应结果和状态
+
+mobile为英文数字
+    读取header公共参数-SINA
+    读取测试数据    预授信额度    10
+    ${memberId}    读取参数    1
+    ${deviceId}    读取参数    2
+    ${userName}    读取参数    3
+    ${mobile}    读取参数    4
+    ${idCardNo}    读取参数    5
+    ${faceScore}    读取参数    6
+    ${tick}    读取参数    7
+    ${body}    Create Dictionary    memberId=${memberId}    deviceId=${deviceId}    userName=${userName}    mobile=${mobile}    idCardNo=${idCardNo}
+    ...    faceScore=${faceScore}    tick=${tick}
+    post请求(requests无token)    ${url}${U}    ${body}
+    判断响应结果和状态
+
+mobile为中文
+    读取header公共参数-SINA
+    读取测试数据    预授信额度    11
+    ${memberId}    读取参数    1
+    ${deviceId}    读取参数    2
+    ${userName}    读取参数    3
+    ${mobile}    读取参数    4
+    ${idCardNo}    读取参数    5
+    ${faceScore}    读取参数    6
+    ${tick}    读取参数    7
+    ${body}    Create Dictionary    memberId=${memberId}    deviceId=${deviceId}    userName=${userName}    mobile=${mobile}    idCardNo=${idCardNo}
+    ...    faceScore=${faceScore}    tick=${tick}
+    post请求(requests无token)    ${url}${U}    ${body}
+    判断响应结果和状态
+
+mobile长度错误
+    读取header公共参数-SINA
+    读取测试数据    预授信额度    12
+    ${memberId}    读取参数    1
+    ${deviceId}    读取参数    2
+    ${userName}    读取参数    3
+    ${mobile}    读取参数    4
+    ${idCardNo}    读取参数    5
+    ${faceScore}    读取参数    6
+    ${tick}    读取参数    7
+    ${body}    Create Dictionary    memberId=${memberId}    deviceId=${deviceId}    userName=${userName}    mobile=${mobile}    idCardNo=${idCardNo}
+    ...    faceScore=${faceScore}    tick=${tick}
+    post请求(requests无token)    ${url}${U}    ${body}
+    判断响应结果和状态

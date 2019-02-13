@@ -1,0 +1,299 @@
+*** Settings ***
+Resource          通用关键字.txt
+
+*** Keywords ***
+用户登录
+    打开地址    ${url}
+    文本输入    username    ${username}
+    文本输入    password    ${password}
+    按钮点击    登录
+
+判断主页
+    [Arguments]    ${text}
+    Sleep    2
+    Page should contain    ${text}    ${text}
+
+判断页面跳转
+    [Arguments]    ${name}
+    Sleep    2
+    Wait Until Keyword Succeeds    60    2    page Should Contain element    jquery=div>div:contains('${name}')
+
+判断选择
+    [Arguments]    ${name}    ${choose}
+    Wait Until Keyword Succeeds    10    2    Select From List By Label    jquery=div:contains('${name}')+div>select    ${choose}
+
+判断货物
+    [Arguments]    ${text}    ${name}
+    Wait Until Page Contains Element    jquery=tr>td:eq(0)>div>select:contains('${text}')
+    Wait Until Element Is Visible    jquery=tr>td:eq(0)>div>select:contains('${text}')
+    Should Contain    jquery=tr>td:eq(0)>div>select:contains('${text}')    ${name}
+
+判断商品
+    [Arguments]    ${text}    ${name}
+    Wait Until Page Contains Element    jquery=tr>td:eq(1)>div>select:contains('${text}')
+    Wait Until Element Is Visible    jquery=tr>td:eq(1)>div>select:contains('${text}')
+    Should Contain    jquery=tr>td:eq(1)>div>select:contains('${text}')    ${name}
+
+货物商品判断
+    Run Keyword Unless    '${cargoTypeName}'=='手机'    商品品牌输入    ${commodityName}
+    Run Keyword Unless    '${cargoTypeName}'=='手机'    商品型号输入    ${commodityType}
+    Run Keyword If    '${cargoTypeName}'=='手机'    品牌选择    请选择    ${commodityName}
+    Run Keyword If    '${cargoTypeName}'=='手机'    型号选择    请选择    ${commodityType}
+
+判断商品余额
+    ${value1}    Get Value    jquery=label:contains('商品总价格(元)：')+div input
+    ${value2}    Get Value    jquery=label:contains('自付金额(元)')+div input
+    ${value3}    Get Value    jquery=label:contains('商品余额(元)：')+div input
+    ${value4}    Evaluate    int(${value1})-int(${value2})
+    Run Keyword If    ${value3} == ${value4}    log    计算余额正确
+    ...    ELSE IF    ${value3} > 500    Page Should Contain    计算余额
+    ...    ELSE    Page Should Contain    计算余额
+
+判断流程跳转
+    [Arguments]    ${name}
+    Wait Until Keyword Succeeds    90    2    page Should Contain element    jquery=div:contains('${name}')
+
+判断填写信息
+    [Arguments]    ${name}    ${id}    ${error}
+    Wait Until Page Contains Element    jquery=span[id='${id}']:contains('${error}')
+    Wait Until Element Is Visible    jquery=span[id='${id}']:contains('${error}')
+    page Should Contain element    jquery=span[id='${id}']:contains('${error}')
+
+清空输入参数
+    Wait Until Page Contains Element    jquery=label:contains('${name}')+div input
+    Wait Until Element Is Visible    jquery=label:contains('${name}')+div input
+    Clear Element Text    jquery=label:contains('${name}')+div input
+
+判断下拉选择
+    [Arguments]    ${text}    ${name}
+    Wait Until Page Contains Element    jquery=label:contains('${text}')+div select
+    Wait Until Element Is Visible    jquery=label:contains('${text}')+div select
+    Should Contain    jquery=label:contains('${text}')+div select option:contains('${name}')    ${name}
+
+图片查看
+    [Arguments]    ${name}    ${text}
+    Wait Until Page Contains Element    jquery=#next
+    Wait Until Element Is Visible    jquery=#next
+    Should Contain    jquery=div:contains('${name}')+div span:contains('${text}')    ${text}
+
+提示判断
+    [Arguments]    ${text}
+    Wait Until Page Contains Element    jquery=div[id='errorMsg']:contains('${text}')
+    Wait Until Element Is Visible    jquery=div[id='errorMsg']:contains('${text}')
+    page Should Contain element    jquery=div[id='errorMsg']:contains('${text}')
+
+身份证图片为空
+    sleep    2
+    Wait Until Page Contains Element    jquery=#next
+    Wait Until Element Is Visible    jquery=#next
+    Choose File    jquery=div span:contains('上传') input:visible:eq(1)    E:\\asd\\2.jpg
+    sleep    2
+    Wait Until Page Contains Element    jquery=#next
+    Wait Until Element Is Visible    jquery=#next
+    Choose File    jquery=div span:contains('上传') input:visible:eq(2)    E:\\asd\\3.jpg
+    sleep    2
+    Wait Until Page Contains Element    jquery=#next
+    Wait Until Element Is Visible    jquery=#next
+    Choose File    jquery=div span:contains('上传') input:visible:eq(3)    E:\\asd\\4.jpg
+    sleep    2
+    按钮点击    下一步
+
+银行卡图片为空
+    sleep    2
+    Wait Until Page Contains Element    jquery=#next
+    Wait Until Element Is Visible    jquery=#next
+    Choose File    jquery=div span:contains('上传') input:visible:eq(0)    E:\\asd\\2.jpg
+    sleep    2
+    Wait Until Page Contains Element    jquery=#next
+    Wait Until Element Is Visible    jquery=#next
+    Choose File    jquery=div span:contains('上传') input:visible:eq(2)    E:\\asd\\3.jpg
+    sleep    2
+    Wait Until Page Contains Element    jquery=#next
+    Wait Until Element Is Visible    jquery=#next
+    Choose File    jquery=div span:contains('上传') input:visible:eq(3)    E:\\asd\\4.jpg
+    sleep    2
+    按钮点击    下一步
+
+销售与用户合影图片为空
+    sleep    2
+    Wait Until Page Contains Element    jquery=#next
+    Wait Until Element Is Visible    jquery=#next
+    Choose File    jquery=div span:contains('上传') input:visible:eq(0)    E:\\asd\\2.jpg
+    sleep    2
+    Wait Until Page Contains Element    jquery=#next
+    Wait Until Element Is Visible    jquery=#next
+    Choose File    jquery=div span:contains('上传') input:visible:eq(1)    E:\\asd\\3.jpg
+    sleep    2
+    Wait Until Page Contains Element    jquery=#next
+    Wait Until Element Is Visible    jquery=#next
+    Choose File    jquery=div span:contains('上传') input:visible:eq(3)    E:\\asd\\4.jpg
+    sleep    2
+    按钮点击    下一步
+
+授权委托书图片为空
+    sleep    2
+    Wait Until Page Contains Element    jquery=#next
+    Wait Until Element Is Visible    jquery=#next
+    Choose File    jquery=div span:contains('上传') input:visible:eq(0)    E:\\asd\\2.jpg
+    sleep    2
+    Wait Until Page Contains Element    jquery=#next
+    Wait Until Element Is Visible    jquery=#next
+    Choose File    jquery=div span:contains('上传') input:visible:eq(1)    E:\\asd\\4.jpg
+    sleep    2
+    Wait Until Page Contains Element    jquery=#next
+    Wait Until Element Is Visible    jquery=#next
+    Choose File    jquery=div span:contains('上传') input:visible:eq(2)    E:\\asd\\3.jpg
+    sleep    2
+    按钮点击    下一步
+
+选择联系人关系
+    [Arguments]    ${id}    ${name}
+    Wait Until Page Contains Element    jquery=select[name='${id}']
+    Wait Until Element Is Visible    jquery=select[name='${id}']
+    Should Contain    jquery=select[name='${id}'] option:contains('${name}')    ${name}
+
+提示信息
+    [Arguments]    ${id}    ${text}
+    Wait Until Page Contains Element    jquery=div[id='${id}']:contains('${text}')
+    Wait Until Element Is Visible    jquery=div[id='${id}']:contains('${text}')
+    page Should Contain element    jquery=div[id='${id}']:contains('${text}')
+
+数据提交
+    [Arguments]    ${name}
+    Wait Until Keyword Succeeds    10    2    page Should Contain element    jquery=span:contains('${name}')
+
+婚姻状况选择
+    Run Keyword Unless    '${marry}'=='未婚'    文本框输入    配偶姓名    ${parterName}
+    Run Keyword Unless    '${marry}'=='未婚'    文本框输入    配偶联系电话    ${mateMobel}
+    Run Keyword Unless    '${marry}'=='未婚'    文本框输入    配偶微信号：    ${parteWeixin}
+    Run Keyword Unless    '${marry}'=='未婚'    文本框输入    配偶QQ号：    ${parteQq}
+    Run Keyword If    '${marry}'=='未婚'    log    未婚
+
+选择
+    Run Keyword Unless    '${addreRegist}'=='相同'    省市区    liveProv    ${liveProv}
+    Run Keyword Unless    '${addreRegist}'=='相同'    省市区    liveCity    ${liveCity}
+    Run Keyword Unless    '${addreRegist}'=='相同'    省市区    liveTown    ${liveTown}
+    Run Keyword Unless    '${addreRegist}'=='相同'    乡街小房    乡镇    liveZhen    南山短
+    Run Keyword Unless    '${addreRegist}'=='相同'    乡街小房    街道/路    liveStr    据华盛顿
+    Run Keyword Unless    '${addreRegist}'=='相同'    乡街小房    小区/楼盘    liveRidge    欧式递送
+    Run Keyword Unless    '${addreRegist}'=='相同'    乡街小房    栋/单元/房号    liveHome    1558
+    Run Keyword If    '${addreRegist}'=='相同'    log    相同
+
+陪同人申请选择
+    Run Keyword Unless    '${accApply}'=='0'    文本框输入    陪同人员姓名    ${accName}
+    Run Keyword Unless    '${accApply}'=='0'    文本框输入    手机号码    ${accMobile}
+    Run Keyword Unless    '${accApply}'=='0'    文本框输入    陪同人微信号：    ${assistWeixin}
+    Run Keyword Unless    '${accApply}'=='0'    文本框输入    陪同人QQ：    ${assistQq}
+    Run Keyword If    '${accApply}'=='0'    log    否
+
+浏览器关闭
+    Close Browser
+
+判断结果页面包含
+    [Arguments]    ${value}
+    Sleep    2
+    Element Should Contain    jquery=table tbody>tr td:contains('${value}')    ${value}
+
+进行操作
+    [Arguments]    ${value1}    ${value2}
+    Sleep    2
+    Wait Until Page Contains Element    jquery=tbody td:contains('${value1}')
+    Wait Until Element Is Visible    jquery=tbody td:contains('${value1}')
+    Click Link    jquery=tbody tr:contains('${value1}') a:contains('${value2}')
+
+点击链接
+    [Arguments]    ${name}
+    Wait Until Keyword Succeeds    60    2    click element    jquery=a:contains('${name}'):visible
+
+切换页面
+    [Arguments]    ${name}
+    Sleep    2
+    Wait Until Page Contains Element    jquery=div li>a:contains('${name}')
+    Wait Until Element Is Visible    jquery=div li>a:contains('${name}')
+    Click Link    jquery=div li>a:contains('${name}')
+
+输入页码
+    [Arguments]    ${value}
+    Sleep    2
+    Wait Until Page Contains Element    id=pageInput
+    Wait Until Element Is Visible    id=pageInput
+    input text    id=pageInput    ${value}
+
+省市区
+    [Arguments]    ${name}    ${choose}
+    Sleep    1
+    Wait Until Page Contains Element    jquery=div>div>select[name='${name}']
+    Wait Until Element Is Visible    jquery=div>div>select[name='${name}']
+    Select From List By Index    jquery=div>div>select[name='${name}']    ${choose}
+    Comment    Select From List By Label    jquery=div>div>select[name='${name}']    ${choose}
+
+联系人信息
+    [Arguments]    ${name}    ${value}
+    Wait Until Page Contains Element    jquery=input[name='${name}']
+    Wait Until Element Is Visible    jquery=input[name='${name}']
+    input text    jquery=input[name='${name}']    ${value}
+
+乡街小房
+    [Arguments]    ${one}    ${name}    ${value}
+    Wait Until Page Contains Element    jquery=label:contains('${one}')+div input[name=${name}]
+    Wait Until Element Is Visible    jquery=label:contains('${one}')+div input[name=${name}]
+    input text    jquery=label:contains('${one}')+div input[name=${name}]    ${value}
+
+品牌选择
+    [Arguments]    ${name}    ${value}
+    Wait Until Page Contains Element    jquery=tr>td:eq(2)>div>select:contains('${name}')
+    Wait Until Element Is Visible    jquery=tr>td:eq(2)>div>select:contains('${name}')
+    Select From List By Label    jquery=tr>td:eq(2)>div>select:contains('${name}')    ${value}
+
+型号选择
+    [Arguments]    ${name}    ${value}
+    Wait Until Page Contains Element    jquery=tr>td:eq(3)>div>select:contains('${name}')
+    Wait Until Element Is Visible    jquery=tr>td:eq(3)>div>select:contains('${name}')
+    Select From List By Label    jquery=tr>td:eq(3)>div>select:contains('${name}')    ${value}
+
+商品价格
+    [Arguments]    ${nub}
+    Wait Until Keyword Succeeds    10    2    input text    name=goodsReqs[0].commodityPrice    ${nub}
+
+选择期数
+    [Arguments]    ${num}
+    Wait Until Page Contains Element    jquery=tr td input[data-periods='${num}']
+    Wait Until Element Is Visible    jquery=tr td input[data-periods='${num}']
+    click element    jquery=tr td input[data-periods='${num}']
+
+计算余额
+    Wait Until Page Contains Element    jquery=div[id=cal_modal] div:contains('无可选分期')
+    Wait Until Element Is Visible    jquery=div[id=cal_modal] div:contains('无可选分期')
+    page Should Contain element    jquery=div[id=cal_modal] div:contains('无可选分期')
+
+商品品牌输入
+    [Arguments]    ${nub}
+    Wait Until Page Contains Element    jquery=tr>td:eq(2)>div>select+input
+    Wait Until Element Is Visible    jquery=tr>td:eq(2)>div>select+input
+    input text    jquery=tr>td:eq(2)>div>select+input    ${nub}
+
+商品型号输入
+    [Arguments]    ${nub}
+    Wait Until Page Contains Element    jquery=tr>td:eq(3)>div>select+input
+    Wait Until Element Is Visible    jquery=tr>td:eq(3)>div>select+input
+    input text    jquery=tr>td:eq(3)>div>select+input    ${nub}
+
+等待
+    [Arguments]    ${num}
+    Sleep    ${num}
+
+居住地址选择
+    省市区    liveProv    ${liveProv}
+    省市区    liveCity    ${liveCity}
+    省市区    liveTown    ${liveTown}
+    乡街小房    乡镇    liveZhen    南山短
+    乡街小房    街道/路    liveStr    据华盛顿
+    乡街小房    小区/楼盘    liveRidge    欧式递送
+    乡街小房    栋/单元/房号    liveHome    1558
+
+用户登录-带参数
+    [Arguments]    ${username}    ${password}
+    打开地址    ${url}
+    文本输入    username    ${username}
+    文本输入    password    ${password}
+    按钮点击    登录

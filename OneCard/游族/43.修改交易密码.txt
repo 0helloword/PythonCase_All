@@ -1,0 +1,54 @@
+*** Settings ***
+Library           RequestsLibrary
+Library           requests
+Library           json
+Library           Collections
+Library           ExcelLibrary
+Resource          ../公共关键字.txt
+Library           ../自写库/recordLoanData.py
+Resource          ../YOUZU配置数据.txt
+
+*** Test Cases ***
+newPwd参数为空
+    获取token(APP登录)-YZ
+    读取测试数据    修改交易密码    4
+    ${newPwd}    Set Variable
+    ${oldPwd}    读取参数    2
+    设置入参    newPwd=${newPwd}    oldPwd=${oldPwd}
+    发送post请求
+    打印请求返回结果
+    判断请求响应状态为200
+    判断返回status正确
+
+oldPwd参数为空
+    获取token(APP登录)-YZ
+    读取测试数据    修改交易密码    5
+    ${newPwd}    读取参数    1
+    ${oldPwd}    Set Variable
+    设置入参    newPwd=${newPwd}    oldPwd=${oldPwd}
+    发送post请求
+    打印请求返回结果
+    判断请求响应状态为200
+    判断返回status正确
+
+newPwd参数超过6位
+    获取token(APP登录)-YZ
+    读取测试数据    修改交易密码    6
+    ${newPwd}    读取参数    1
+    ${oldPwd}    读取参数    2
+    设置入参    newPwd=${newPwd}    oldPwd=${oldPwd}
+    发送post请求
+    打印请求返回结果
+    判断请求响应状态为200
+    判断返回status正确
+
+oldPwd参数超过6位
+    获取token(APP登录)-YZ
+    读取测试数据    修改交易密码    7
+    ${newPwd}    读取参数    1
+    ${oldPwd}    读取参数    2
+    设置入参    newPwd=${newPwd}    oldPwd=${oldPwd}
+    发送post请求
+    打印请求返回结果
+    判断请求响应状态为200
+    判断返回status正确

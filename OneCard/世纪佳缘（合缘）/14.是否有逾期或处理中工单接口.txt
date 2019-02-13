@@ -1,0 +1,52 @@
+*** Settings ***
+Library           RequestsLibrary
+Library           requests
+Library           json
+Library           Collections
+Library           ExcelLibrary
+Resource          ../公共关键字.txt
+Library           ../自写库/recordLoanData.py
+Resource          ../JY配置数据.txt
+
+*** Test Cases ***
+入参正确-384
+    获取token(APP登录)-JY
+    读取测试数据    是否有逾期或处理中工单    2
+    ${productId}    读取参数    1
+    设置入参    productId=${productId}
+    发送post请求
+    打印请求返回结果
+    判断请求响应状态为200
+    判断返回status正确
+    判断返回data参数正确
+
+入参正确-397
+    获取token(APP登录)-JY
+    读取测试数据    是否有逾期或处理中工单    3
+    ${productId}    读取参数    1
+    设置入参    productId=${productId}
+    发送post请求
+    打印请求返回结果
+    判断请求响应状态为200
+    判断返回status正确
+    判断返回data参数正确
+
+productId为空
+    获取token(APP登录)-JY
+    读取测试数据    是否有逾期或处理中工单    4
+    ${productId}    Set Variable
+    设置入参    productId=${productId}
+    发送post请求
+    打印请求返回结果
+    判断请求响应状态为200
+    判断返回status正确
+
+productId不存在
+    获取token(APP登录)-JY
+    读取测试数据    是否有逾期或处理中工单    5
+    ${productId}    读取参数    1
+    设置入参    productId=${productId}
+    发送post请求
+    打印请求返回结果
+    判断请求响应状态为200
+    判断返回status正确

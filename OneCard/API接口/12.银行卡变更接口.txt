@@ -1,0 +1,47 @@
+*** Settings ***
+Library           RequestsLibrary
+Library           requests
+Library           json
+Library           Collections
+Library           ExcelLibrary
+Resource          ../公共关键字.txt
+Library           ../自写库/recordLoanData.py
+
+*** Test Cases ***
+入参正确
+    获取token-JY
+    获取验证码-JY    4
+    读取测试数据    银行卡变更    2
+    ${newbankcard}    读取参数    1
+    ${newphone}    读取参数    2
+    ${verifyCode}    读取参数    3
+    设置入参    newbankcard=${newbankcard}    newphone=${newphone}    verifyCode=${verifyCode}
+    发送post请求
+    打印请求返回结果
+    判断请求响应状态为200
+    判断返回status正确
+    判断返回data参数正确
+
+newbankcard为空
+    获取token-JY
+    读取测试数据    银行卡变更    3
+    ${newbankcard}    Set Variable
+    ${newphone}    读取参数    2
+    ${verifyCode}    读取参数    3
+    设置入参    newbankcard=${newbankcard}    newphone=${newphone}    verifyCode=${verifyCode}
+    发送post请求
+    打印请求返回结果
+    判断请求响应状态为200
+    判断返回status正确
+
+newphone为空
+    获取token-JY
+    读取测试数据    银行卡变更    4
+    ${newbankcard}    读取参数    1
+    ${newphone}    Set Variable
+    ${verifyCode}    读取参数    3
+    设置入参    newbankcard=${newbankcard}    newphone=${newphone}    verifyCode=${verifyCode}
+    发送post请求
+    打印请求返回结果
+    判断请求响应状态为200
+    判断返回status正确

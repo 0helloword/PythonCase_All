@@ -1,0 +1,64 @@
+*** Settings ***
+Default Tags      new
+Library           RequestsLibrary
+Library           requests
+Library           json
+Library           Collections
+Library           ExcelLibrary
+Resource          ../公共关键字.txt
+Library           ../自写库/recordLoanData.py
+Resource          ../YOUZU配置数据.txt
+
+*** Test Cases ***
+入参正确
+    获取token(APP登录)-YZ
+    读取测试数据    保存游戏详情查看下载记录    2
+    获取用户customerId
+    ${gameId}    读取参数    2
+    ${gameName}    读取参数    3
+    ${operateType}    读取参数    4
+    设置入参    gameId=${gameId}    gameName=${gameName}    operateType=${operateType}
+    发送post请求
+    打印请求返回结果
+    判断请求响应状态为200
+    判断返回status正确
+    判断返回data参数正确
+
+gameId为空
+    获取token(APP登录)-YZ
+    读取测试数据    保存游戏详情查看下载记录    3
+    获取用户customerId
+    ${gameId}    Set Variable
+    ${gameName}    读取参数    3
+    ${operateType}    读取参数    4
+    设置入参    gameId=${gameId}    gameName=${gameName}    operateType=${operateType}
+    发送post请求
+    打印请求返回结果
+    判断请求响应状态为200
+    判断返回status正确
+
+gameName为空
+    获取token(APP登录)-YZ
+    读取测试数据    保存游戏详情查看下载记录    4
+    获取用户customerId
+    ${gameId}    读取参数    2
+    ${gameName}    Set Variable
+    ${operateType}    读取参数    4
+    设置入参    gameId=${gameId}    gameName=${gameName}    operateType=${operateType}
+    发送post请求
+    打印请求返回结果
+    判断请求响应状态为200
+    判断返回status正确
+
+operateType为空
+    获取token(APP登录)-YZ
+    读取测试数据    保存游戏详情查看下载记录    5
+    获取用户customerId
+    ${gameId}    读取参数    2
+    ${gameName}    读取参数    3
+    ${operateType}    Set Variable
+    设置入参    gameId=${gameId}    gameName=${gameName}    operateType=${operateType}
+    发送post请求
+    打印请求返回结果
+    判断请求响应状态为200
+    判断返回status正确

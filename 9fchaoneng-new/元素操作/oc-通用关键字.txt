@@ -1,0 +1,77 @@
+*** Settings ***
+Library           Selenium2Library
+Library           ExcelLibrary
+Resource          oc-用例套件.txt
+
+*** Keywords ***
+文本输入
+    [Arguments]    ${name}    ${value}
+    Wait Until Keyword Succeeds    10    2    input text    jquery=label:contains('${name}')+div input    ${value}
+
+按钮点击-OC
+    [Arguments]    ${name}
+    Sleep    2
+    click element    jquery=button:contains('${name}'):visible
+
+菜单选择-OC
+    [Arguments]    ${name}
+    Wait Until Keyword Succeeds    10    2    click element    jquery=ul li>a:contains('${name}'):eq(0)
+
+浏览器关闭
+    Close Browser
+
+文本输入-OC
+    [Arguments]    ${name}    ${value}
+    Wait Until Keyword Succeeds    10    2    inputText    jquery=div:contains('${name}')+div>textarea    ${value}
+
+下拉选择-OC
+    [Arguments]    ${name}    ${value}
+    Wait Until Keyword Succeeds    10    2    Select From List    jquery=div:contains('${name}')+div>select    ${value}
+
+用户登录-OC
+    [Documentation]    用户登录
+    Sleep    10
+    open browser    ${url-oc}    chrome
+    Maximize Browser Window
+    Input Text    id=username    ${loginname-oc}
+    Input Text    id=password    ${password-oc}
+    Wait Until Keyword Succeeds    10    2    Click Button    id=loginButton
+    Wait Until Keyword Succeeds    10    2    Page Should Contain    首页
+    [Teardown]
+
+判断页面跳转-OC
+    [Arguments]    ${name}
+    Wait Until Keyword Succeeds    10    2    page Should Contain element    jquery=div h1:contains('${name}')
+
+勾选复选框
+    Wait Until Keyword Succeeds    10    2    click element    name=ids
+
+点击链接
+    [Arguments]    ${name}
+    Wait Until Keyword Succeeds    10    2    Click Link    jquery=div a:contains('${name}')
+
+读取客户信息数据-OC
+    Wait Until Keyword Succeeds    10    2    Wait Until Element Is Visible    jquery=div:contains('身份证号')
+    ${cardId}    Get Text    jquery=div:contains('身份证号')+div
+    Set Global Variable    ${cardId}
+    [Return]    ${cardId}
+
+进行调单分配
+    Wait Until Keyword Succeeds    10    2    按钮点击-OC    调单分配
+    Wait Until Keyword Succeeds    10    2    Wait Until Element Is Visible    xpath=//div/div[2]/div/div[1]/h4
+    ${content}    Get Text    xpath=//div/div[2]/div/div[1]/h4
+    Set Global Variable    ${content}
+    Run Keyword Unless    '${content}'=='成功信息提示'    点击按键两次    确定
+    Run Keyword If    '${content}'=='成功信息提示'    按钮点击-OC    确定
+    [Return]    ${content}
+
+点击按键两次
+    [Arguments]    ${name}
+    Sleep    2
+    click element    jquery=button:contains('${name}'):visible
+    Sleep    2    2
+    click element    jquery=button:contains('${name}'):visible
+
+继续审核操作
+    [Arguments]    ${value}
+    Wait Until Keyword Succeeds    10    2    Click Link    jquery=tbody tr:contains('${value}') a:contains('继续审核')

@@ -1,0 +1,12 @@
+*** Settings ***
+Resource          ../元素操作/通用关键字.txt
+Library           ../自写库/mysqltest.py
+Library           sys
+Library           random
+
+*** Test Cases ***
+调试2
+    ${a}    Evaluate    random.randint(0,100)    random,sys
+
+调试3
+    获取当天日期

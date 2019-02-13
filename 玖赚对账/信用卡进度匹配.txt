@@ -1,0 +1,170 @@
+*** Settings ***
+Library           自写库/mysqlOperate.py
+Library           自写库/mysqltest.py
+
+*** Test Cases ***
+手动-无邀请码(apply_date)
+    mysql_operate    delete from wk_user_creditcard where id='101';    #ID=101
+    mysql_operate    delete from wk_card_progress_data_log where id='1';    #ID=1
+    mysql_operate    INSERT INTO `wildfire_loan`.`wk_user_creditcard` (`id`, `customerId`, `name`, `phone_no`, `certId`, `bank_name`, `referral_code`, `card_status`, `bill_result`, `excelChannel`, `queryChannel`, `reward_amt`, `remark`, `entryTime`, `createTime`, `updatedTime`, `succeedTime`) VALUES ('101', '2222001', '丸一', '15626519001', '420222198501011101', '民生银行', NULL, NULL, NULL, NULL, NULL, NULL, NULL, '0000-00-00 00:00:00', '2018-01-01 14:54:05', '2018-10-31 14:54:05', NULL);
+    mysql_operate    INSERT INTO `wildfire_loan`.`wk_card_progress_data_log` (`id`, `customer_id`, `task_id`, `id_card`, `apply_name`, `bank_code`, `apply_no`, `apply_date`, `apply_channel`, `apply_region`, `card_name`, `card_type`, `card_no`, `card_status_mapping`, `card_status`, `refuse_reason`, `update_time`, `msg`, `deputy_card_holder`, `deputy_card_status`, `record_time`, `request_json`, `response_json`, `response_status`, `match_status`, `match_time`, `source`) VALUES ('1', '2222001', '34753230-e2f9-11e8-b64c-00163e0edc97', '420222198501011101', 'null', 'CMBC', '40002018272400126', '2018-01-01 00:00:00', '个人网银', '深圳', '华润通普卡', 'null', '**** **** **** 6350', '审核成功', '已开户', 'null', '2018-10-10 00:00:00', 'null', NULL, NULL, '2018-11-08 09:54:47', '{\"taskId\":\"34753230-e2f9-11e8-b64c-00163e0edc97\"}', '{\"data\":{\"card_progress\":[{\"apply_channel\":\"个人网银\",\"id_card\":\"420624198011082610\",\"card_no\":\"**** **** **** 6350\",\"card_status_mapping\":\"审核成功\",\"card_name\":\"华润通普卡\",\"apply_region\":\"深圳\",\"card_status\":\"已开户\",\"update_time\":\"2018-10-10 00:00:00\",\"apply_no\":\"40002018272400126\",\"apply_date\":\"2018-09-29 00:00:00\"},{\"apply_channel\":\"个人网银\",\"id_card\":\"420624198011082610\",\"card_no\":\"**** **** **** 4497\",\"card_status_mapping\":\"审核成功\",\"card_name\":\"华润通普卡\",\"apply_region\":\"深圳\",\"card_status\":\"已开户\",\"update_time\":\"2018-10-10 00:00:00\",\"apply_no\":\"40002018272400126\",\"apply_date\":\"2018-09-29 00:00:00\"}],\"bank_code\":\"ICBC\"},\"msg\":\"成功\",\"code\":0}', '0', '0', NULL, NULL);
+    sleep    125
+    ${user_creditcard}    mysql_test    select * from wk_user_creditcard where id='101';
+    ${card_status}    Evaluate    str(${user_creditcard[0][7]})
+    ${bill_result}    Set Variable    ${user_creditcard[0][8]}
+    ${queryChannel}    Set Variable    ${user_creditcard[0][10]}
+    Should Be Equal As Strings    ${card_status}    1
+    Should Be Equal As Strings    ${bill_result}    已匹配
+    Should Be Equal As Strings    ${queryChannel}    Y
+    ${card_progress_data_log}    mysql_test    select * from wk_card_progress_data_log where id='1';
+    ${match_status}    Evaluate    str(${card_progress_data_log[0][24]})
+    Should Be Equal As Strings    ${match_status}    1
+
+手动-有邀请码(apply_date)
+    mysql_operate    delete from wk_user_creditcard where id='102';    #ID=102
+    mysql_operate    delete from wk_card_progress_data_log where id='2';    #ID=2
+    mysql_operate    INSERT INTO `wildfire_loan`.`wk_user_creditcard` (`id`, `customerId`, `name`, `phone_no`, `certId`, `bank_name`, `referral_code`, `card_status`, `bill_result`, `excelChannel`, `queryChannel`, `reward_amt`, `remark`, `entryTime`, `createTime`, `updatedTime`, `succeedTime`) VALUES ('102', '2222002', '丸二', '15626519002', '420222198501011102', '民生银行', '0001396069', NULL, NULL, NULL, NULL, NULL, NULL, '0000-00-00 00:00:00', '2018-01-01 14:54:05', '2018-10-31 14:54:05', NULL);
+    mysql_operate    INSERT INTO `wildfire_loan`.`wk_card_progress_data_log` (`id`, `customer_id`, `task_id`, `id_card`, `apply_name`, `bank_code`, `apply_no`, `apply_date`, `apply_channel`, `apply_region`, `card_name`, `card_type`, `card_no`, `card_status_mapping`, `card_status`, `refuse_reason`, `update_time`, `msg`, `deputy_card_holder`, `deputy_card_status`, `record_time`, `request_json`, `response_json`, `response_status`, `match_status`, `match_time`, `source`) VALUES ('2', '2222002', '34753230-e2f9-11e8-b64c-00163e0edc97', '420222198501011102', 'null', 'CMBC', '40002018272400126', '2018-01-01 00:00:00', '个人网银', '深圳', '华润通普卡', 'null', '**** **** **** 6350', '审核成功', '已开户', 'null', '2018-10-10 00:00:00', 'null', NULL, NULL, '2018-11-08 09:54:47', '{\"taskId\":\"34753230-e2f9-11e8-b64c-00163e0edc97\"}', '{\"data\":{\"card_progress\":[{\"apply_channel\":\"个人网银\",\"id_card\":\"420624198011082610\",\"card_no\":\"**** **** **** 6350\",\"card_status_mapping\":\"审核成功\",\"card_name\":\"华润通普卡\",\"apply_region\":\"深圳\",\"card_status\":\"已开户\",\"update_time\":\"2018-10-10 00:00:00\",\"apply_no\":\"40002018272400126\",\"apply_date\":\"2018-09-29 00:00:00\"},{\"apply_channel\":\"个人网银\",\"id_card\":\"420624198011082610\",\"card_no\":\"**** **** **** 4497\",\"card_status_mapping\":\"审核成功\",\"card_name\":\"华润通普卡\",\"apply_region\":\"深圳\",\"card_status\":\"已开户\",\"update_time\":\"2018-10-10 00:00:00\",\"apply_no\":\"40002018272400126\",\"apply_date\":\"2018-09-29 00:00:00\"}],\"bank_code\":\"ICBC\"},\"msg\":\"成功\",\"code\":0}', '0', '0', NULL, NULL);
+    sleep    125
+    ${user_creditcard}    mysql_test    select * from wk_user_creditcard where id='102';
+    ${card_status}    Evaluate    str(${user_creditcard[0][7]})
+    ${bill_result}    Set Variable    ${user_creditcard[0][8]}
+    ${queryChannel}    Set Variable    ${user_creditcard[0][10]}
+    Should Be Equal As Strings    ${card_status}    1
+    Should Be Equal As Strings    ${bill_result}    已匹配
+    Should Be Equal As Strings    ${queryChannel}    Y
+    ${card_progress_data_log}    mysql_test    select * from wk_card_progress_data_log where id='2';
+    ${match_status}    Evaluate    str(${card_progress_data_log[0][24]})
+    Should Be Equal As Strings    ${match_status}    1
+
+自动-无邀请码(apply_date)
+    mysql_operate    delete from wk_user_creditcard where id='101';    #ID=101
+    mysql_operate    delete from wk_card_progress_data_log where id='1';    #ID=1
+    mysql_operate    INSERT INTO `wildfire_loan`.`wk_user_creditcard` (`id`, `customerId`, `name`, `phone_no`, `certId`, `bank_name`, `referral_code`, `card_status`, `bill_result`, `excelChannel`, `queryChannel`, `reward_amt`, `remark`, `entryTime`, `createTime`, `updatedTime`, `succeedTime`) VALUES ('101', '2222001', '丸一', '15626519001', '420222198501011101', '民生银行', NULL, NULL, NULL, NULL, NULL, NULL, NULL, '0000-00-00 00:00:00', '2018-01-01 14:54:05', '2018-10-31 14:54:05', NULL);
+    mysql_operate    INSERT INTO `wildfire_loan`.`wk_card_progress_data_log` (`id`, `customer_id`, `task_id`, `id_card`, `apply_name`, `bank_code`, `apply_no`, `apply_date`, `apply_channel`, `apply_region`, `card_name`, `card_type`, `card_no`, `card_status_mapping`, `card_status`, `refuse_reason`, `update_time`, `msg`, `deputy_card_holder`, `deputy_card_status`, `record_time`, `request_json`, `response_json`, `response_status`, `match_status`, `match_time`, `source`) VALUES ('1', '2222001', '34753230-e2f9-11e8-b64c-00163e0edc97', '420222198501011101', 'null', 'CMBC', '40002018272400126', '2018-01-01 00:00:00', '个人网银', '深圳', '华润通普卡', 'null', '**** **** **** 6350', '审核成功', '已开户', 'null', '2018-10-10 00:00:00', 'null', NULL, NULL, '2018-11-08 09:54:47', '{\"taskId\":\"34753230-e2f9-11e8-b64c-00163e0edc97\"}', '{\"data\":{\"card_progress\":[{\"apply_channel\":\"个人网银\",\"id_card\":\"420624198011082610\",\"card_no\":\"**** **** **** 6350\",\"card_status_mapping\":\"审核成功\",\"card_name\":\"华润通普卡\",\"apply_region\":\"深圳\",\"card_status\":\"已开户\",\"update_time\":\"2018-10-10 00:00:00\",\"apply_no\":\"40002018272400126\",\"apply_date\":\"2018-09-29 00:00:00\"},{\"apply_channel\":\"个人网银\",\"id_card\":\"420624198011082610\",\"card_no\":\"**** **** **** 4497\",\"card_status_mapping\":\"审核成功\",\"card_name\":\"华润通普卡\",\"apply_region\":\"深圳\",\"card_status\":\"已开户\",\"update_time\":\"2018-10-10 00:00:00\",\"apply_no\":\"40002018272400126\",\"apply_date\":\"2018-09-29 00:00:00\"}],\"bank_code\":\"ICBC\"},\"msg\":\"成功\",\"code\":0}', '0', '0', NULL, 'auto');
+    sleep    125
+    ${user_creditcard}    mysql_test    select * from wk_user_creditcard where id='101';
+    ${card_status}    Evaluate    str(${user_creditcard[0][7]})
+    ${bill_result}    Set Variable    ${user_creditcard[0][8]}
+    ${queryChannel}    Set Variable    ${user_creditcard[0][10]}
+    Should Be Equal As Strings    ${card_status}    1
+    Should Be Equal As Strings    ${bill_result}    已匹配
+    Should Be Equal As Strings    ${queryChannel}    auto
+    ${card_progress_data_log}    mysql_test    select * from wk_card_progress_data_log where id='1';
+    ${match_status}    Evaluate    str(${card_progress_data_log[0][24]})
+    Should Be Equal As Strings    ${match_status}    1
+
+自动-有邀请码(apply_date)
+    mysql_operate    delete from wk_user_creditcard where id='102';    #ID=102
+    mysql_operate    delete from wk_card_progress_data_log where id='2';    #ID=2
+    mysql_operate    INSERT INTO `wildfire_loan`.`wk_user_creditcard` (`id`, `customerId`, `name`, `phone_no`, `certId`, `bank_name`, `referral_code`, `card_status`, `bill_result`, `excelChannel`, `queryChannel`, `reward_amt`, `remark`, `entryTime`, `createTime`, `updatedTime`, `succeedTime`) VALUES ('102', '2222002', '丸二', '15626519002', '420222198501011102', '民生银行', '0001396069', NULL, NULL, NULL, NULL, NULL, NULL, '0000-00-00 00:00:00', '2018-01-01 14:54:05', '2018-10-31 14:54:05', NULL);
+    mysql_operate    INSERT INTO `wildfire_loan`.`wk_card_progress_data_log` (`id`, `customer_id`, `task_id`, `id_card`, `apply_name`, `bank_code`, `apply_no`, `apply_date`, `apply_channel`, `apply_region`, `card_name`, `card_type`, `card_no`, `card_status_mapping`, `card_status`, `refuse_reason`, `update_time`, `msg`, `deputy_card_holder`, `deputy_card_status`, `record_time`, `request_json`, `response_json`, `response_status`, `match_status`, `match_time`, `source`) VALUES ('2', '2222002', '34753230-e2f9-11e8-b64c-00163e0edc97', '420222198501011102', 'null', 'CMBC', '40002018272400126', '2018-01-01 00:00:00', '个人网银', '深圳', '华润通普卡', 'null', '**** **** **** 6350', '审核成功', '已开户', 'null', '2018-10-10 00:00:00', 'null', NULL, NULL, '2018-11-08 09:54:47', '{\"taskId\":\"34753230-e2f9-11e8-b64c-00163e0edc97\"}', '{\"data\":{\"card_progress\":[{\"apply_channel\":\"个人网银\",\"id_card\":\"420624198011082610\",\"card_no\":\"**** **** **** 6350\",\"card_status_mapping\":\"审核成功\",\"card_name\":\"华润通普卡\",\"apply_region\":\"深圳\",\"card_status\":\"已开户\",\"update_time\":\"2018-10-10 00:00:00\",\"apply_no\":\"40002018272400126\",\"apply_date\":\"2018-09-29 00:00:00\"},{\"apply_channel\":\"个人网银\",\"id_card\":\"420624198011082610\",\"card_no\":\"**** **** **** 4497\",\"card_status_mapping\":\"审核成功\",\"card_name\":\"华润通普卡\",\"apply_region\":\"深圳\",\"card_status\":\"已开户\",\"update_time\":\"2018-10-10 00:00:00\",\"apply_no\":\"40002018272400126\",\"apply_date\":\"2018-09-29 00:00:00\"}],\"bank_code\":\"ICBC\"},\"msg\":\"成功\",\"code\":0}', '0', '0', NULL, 'auto');
+    sleep    125
+    ${user_creditcard}    mysql_test    select * from wk_user_creditcard where id='102';
+    ${card_status}    Evaluate    str(${user_creditcard[0][7]})
+    ${bill_result}    Set Variable    ${user_creditcard[0][8]}
+    ${queryChannel}    Set Variable    ${user_creditcard[0][10]}
+    Should Be Equal As Strings    ${card_status}    1
+    Should Be Equal As Strings    ${bill_result}    已匹配
+    Should Be Equal As Strings    ${queryChannel}    auto
+    ${card_progress_data_log}    mysql_test    select * from wk_card_progress_data_log where id='2';
+    ${match_status}    Evaluate    str(${card_progress_data_log[0][24]})
+    Should Be Equal As Strings    ${match_status}    1
+
+申请表存在两条相同记录匹配成功时间最新的记录
+    mysql_operate    delete from wk_user_creditcard where id='101';
+    mysql_operate    delete from wk_user_creditcard where id='102';
+    mysql_operate    delete from wk_card_progress_data_log where id='1';
+    mysql_operate    INSERT INTO `wildfire_loan`.`wk_user_creditcard` (`id`, `customerId`, `name`, `phone_no`, `certId`, `bank_name`, `referral_code`, `card_status`, `bill_result`, `excelChannel`, `queryChannel`, `reward_amt`, `remark`, `entryTime`, `createTime`, `updatedTime`, `succeedTime`) VALUES ('101', '2222001', '丸一', '15626519001', '420222198501011101', '民生银行', NULL, NULL, NULL, NULL, NULL, NULL, NULL, '0000-00-00 00:00:00', '2018-01-01 14:54:05', '2018-10-31 14:54:05', NULL);
+    mysql_operate    INSERT INTO `wildfire_loan`.`wk_user_creditcard` (`id`, `customerId`, `name`, `phone_no`, `certId`, `bank_name`, `referral_code`, `card_status`, `bill_result`, `excelChannel`, `queryChannel`, `reward_amt`, `remark`, `entryTime`, `createTime`, `updatedTime`, `succeedTime`) VALUES ('102', '2222001', '丸一', '15626519001', '420222198501011101', '民生银行', NULL, NULL, NULL, NULL, NULL, NULL, NULL, '0000-00-00 00:00:00', '2018-01-01 15:54:05', '2018-10-31 14:54:05', NULL);
+    mysql_operate    INSERT INTO `wildfire_loan`.`wk_card_progress_data_log` (`id`, `customer_id`, `task_id`, `id_card`, `apply_name`, `bank_code`, `apply_no`, `apply_date`, `apply_channel`, `apply_region`, `card_name`, `card_type`, `card_no`, `card_status_mapping`, `card_status`, `refuse_reason`, `update_time`, `msg`, `deputy_card_holder`, `deputy_card_status`, `record_time`, `request_json`, `response_json`, `response_status`, `match_status`, `match_time`, `source`) VALUES ('1', '2222001', '34753230-e2f9-11e8-b64c-00163e0edc97', '420222198501011101', 'null', 'CMBC', '40002018272400126', '2018-01-01 00:00:00', '个人网银', '深圳', '华润通普卡', 'null', '**** **** **** 6350', '审核成功', '已开户', 'null', '2018-10-10 00:00:00', 'null', NULL, NULL, '2018-11-08 09:54:47', '{\"taskId\":\"34753230-e2f9-11e8-b64c-00163e0edc97\"}', '{\"data\":{\"card_progress\":[{\"apply_channel\":\"个人网银\",\"id_card\":\"420624198011082610\",\"card_no\":\"**** **** **** 6350\",\"card_status_mapping\":\"审核成功\",\"card_name\":\"华润通普卡\",\"apply_region\":\"深圳\",\"card_status\":\"已开户\",\"update_time\":\"2018-10-10 00:00:00\",\"apply_no\":\"40002018272400126\",\"apply_date\":\"2018-09-29 00:00:00\"},{\"apply_channel\":\"个人网银\",\"id_card\":\"420624198011082610\",\"card_no\":\"**** **** **** 4497\",\"card_status_mapping\":\"审核成功\",\"card_name\":\"华润通普卡\",\"apply_region\":\"深圳\",\"card_status\":\"已开户\",\"update_time\":\"2018-10-10 00:00:00\",\"apply_no\":\"40002018272400126\",\"apply_date\":\"2018-09-29 00:00:00\"}],\"bank_code\":\"ICBC\"},\"msg\":\"成功\",\"code\":0}', '0', '0', NULL, NULL);
+    sleep    125
+    ${user_creditcard}    mysql_test    select * from wk_user_creditcard where id='102';    #更新时间最新的那条
+    ${card_status}    Evaluate    str(${user_creditcard[0][7]})
+    ${bill_result}    Set Variable    ${user_creditcard[0][8]}
+    ${queryChannel}    Set Variable    ${user_creditcard[0][10]}
+    Should Be Equal As Strings    ${card_status}    1
+    Should Be Equal As Strings    ${bill_result}    已匹配
+    Should Be Equal As Strings    ${queryChannel}    Y
+    ${card_progress_data_log}    mysql_test    select * from wk_card_progress_data_log where id='1';
+    ${match_status}    Evaluate    str(${card_progress_data_log[0][24]})
+    Should Be Equal As Strings    ${match_status}    1
+
+申请表存在两条不同银行成功匹配对应银行的记录
+    Comment    mysql_operate    delete from wk_user_creditcard where id='101';
+    Comment    mysql_operate    delete from wk_user_creditcard where id='102';
+    Comment    mysql_operate    delete from wk_card_progress_data_log where id='1';
+    Comment    mysql_operate    INSERT INTO `wildfire_loan`.`wk_user_creditcard` (`id`, `customerId`, `name`, `phone_no`, `certId`, `bank_name`, `referral_code`, `card_status`, `bill_result`, `excelChannel`, `queryChannel`, `reward_amt`, `remark`, `entryTime`, `createTime`, `updatedTime`, `succeedTime`) VALUES ('101', '2222001', '丸一', '15626519001', '420222198501011101', '民生银行', NULL, NULL, NULL, NULL, NULL, NULL, NULL, '0000-00-00 00:00:00', '2018-01-01 14:54:05', '2018-10-31 14:54:05', NULL);
+    Comment    mysql_operate    INSERT INTO `wildfire_loan`.`wk_user_creditcard` (`id`, `customerId`, `name`, `phone_no`, `certId`, `bank_name`, `referral_code`, `card_status`, `bill_result`, `excelChannel`, `queryChannel`, `reward_amt`, `remark`, `entryTime`, `createTime`, `updatedTime`, `succeedTime`) VALUES ('102', '2222001', '丸一', '15626519001', '420222198501011101', '光大银行', NULL, NULL, NULL, NULL, NULL, NULL, NULL, '0000-00-00 00:00:00', '2018-01-01 15:54:05', '2018-10-31 14:54:05', NULL);
+    Comment    mysql_operate    INSERT INTO `wildfire_loan`.`wk_card_progress_data_log` (`id`, `customer_id`, `task_id`, `id_card`, `apply_name`, `bank_code`, `apply_no`, `apply_date`, `apply_channel`, `apply_region`, `card_name`, `card_type`, `card_no`, `card_status_mapping`, `card_status`, `refuse_reason`, `update_time`, `msg`, `deputy_card_holder`, `deputy_card_status`, `record_time`, `request_json`, `response_json`, `response_status`, `match_status`, `match_time`, `source`) VALUES ('1', '2222001', '34753230-e2f9-11e8-b64c-00163e0edc97', '420222198501011101', 'null', 'CMBC', '40002018272400126', '2018-01-01 00:00:00', '个人网银', '深圳', '华润通普卡', 'null', '**** **** **** 6350', '审核成功', '已开户', 'null', '2018-10-10 00:00:00', 'null', NULL, NULL, '2018-11-08 09:54:47', '{\"taskId\":\"34753230-e2f9-11e8-b64c-00163e0edc97\"}', '{\"data\":{\"card_progress\":[{\"apply_channel\":\"个人网银\",\"id_card\":\"420624198011082610\",\"card_no\":\"**** **** **** 6350\",\"card_status_mapping\":\"审核成功\",\"card_name\":\"华润通普卡\",\"apply_region\":\"深圳\",\"card_status\":\"已开户\",\"update_time\":\"2018-10-10 00:00:00\",\"apply_no\":\"40002018272400126\",\"apply_date\":\"2018-09-29 00:00:00\"},{\"apply_channel\":\"个人网银\",\"id_card\":\"420624198011082610\",\"card_no\":\"**** **** **** 4497\",\"card_status_mapping\":\"审核成功\",\"card_name\":\"华润通普卡\",\"apply_region\":\"深圳\",\"card_status\":\"已开户\",\"update_time\":\"2018-10-10 00:00:00\",\"apply_no\":\"40002018272400126\",\"apply_date\":\"2018-09-29 00:00:00\"}],\"bank_code\":\"ICBC\"},\"msg\":\"成功\",\"code\":0}', '0', '0', NULL, NULL);
+    Comment    sleep    125
+    ${user_creditcard}    mysql_test    select * from wk_user_creditcard where id='101';
+    ${card_status}    Evaluate    str(${user_creditcard[0][7]})
+    ${bill_result}    Set Variable    ${user_creditcard[0][8]}
+    ${queryChannel}    Set Variable    ${user_creditcard[0][10]}
+    Should Be Equal As Strings    ${card_status}    1
+    Should Be Equal As Strings    ${bill_result}    已匹配
+    Should Be Equal As Strings    ${queryChannel}    Y
+    ${user_creditcard}    mysql_test    select * from wk_user_creditcard where id='102';
+    ${card_status}    Evaluate    str(${user_creditcard[0][7]})
+    ${bill_result}    Set Variable    ${user_creditcard[0][8]}
+    ${queryChannel}    Set Variable    ${user_creditcard[0][10]}
+    Should Be Equal As Strings    ${card_status}    None
+    Should Be Equal As Strings    ${bill_result}    None
+    Should Be Equal As Strings    ${queryChannel}    None
+    ${card_progress_data_log}    mysql_test    select * from wk_card_progress_data_log where id='1';
+    ${match_status}    Evaluate    str(${card_progress_data_log[0][24]})
+    Should Be Equal As Strings    ${match_status}    1
+
+申请表存在两条相同记录一条已匹配成功，另外一条不会再匹配
+    mysql_operate    delete from wk_user_creditcard where id='101';
+    mysql_operate    delete from wk_user_creditcard where id='102';
+    mysql_operate    delete from wk_card_progress_data_log where id='1';
+    mysql_operate    INSERT INTO `wildfire_loan`.`wk_user_creditcard` (`id`, `customerId`, `name`, `phone_no`, `certId`, `bank_name`, `referral_code`, `card_status`, `bill_result`, `excelChannel`, `queryChannel`, `reward_amt`, `remark`, `entryTime`, `createTime`, `updatedTime`, `succeedTime`) VALUES ('101', '2222001', '丸一', '15626519001', '420222198501011101', '民生银行', NULL, '1', '已匹配', NULL, 'Y', NULL, NULL, '0000-00-00 00:00:00', '2018-01-01 14:54:05', '2018-10-31 14:54:05', NULL);
+    mysql_operate    INSERT INTO `wildfire_loan`.`wk_user_creditcard` (`id`, `customerId`, `name`, `phone_no`, `certId`, `bank_name`, `referral_code`, `card_status`, `bill_result`, `excelChannel`, `queryChannel`, `reward_amt`, `remark`, `entryTime`, `createTime`, `updatedTime`, `succeedTime`) VALUES ('102', '2222001', '丸一', '15626519001', '420222198501011101', '民生银行', NULL, NULL, NULL, NULL, NULL, NULL, NULL, '0000-00-00 00:00:00', '2018-01-01 15:54:05', '2018-10-31 14:54:05', NULL);
+    mysql_operate    INSERT INTO `wildfire_loan`.`wk_card_progress_data_log` (`id`, `customer_id`, `task_id`, `id_card`, `apply_name`, `bank_code`, `apply_no`, `apply_date`, `apply_channel`, `apply_region`, `card_name`, `card_type`, `card_no`, `card_status_mapping`, `card_status`, `refuse_reason`, `update_time`, `msg`, `deputy_card_holder`, `deputy_card_status`, `record_time`, `request_json`, `response_json`, `response_status`, `match_status`, `match_time`, `source`) VALUES ('1', '2222001', '34753230-e2f9-11e8-b64c-00163e0edc97', '420222198501011101', 'null', 'CMBC', '40002018272400126', '2018-01-01 00:00:00', '个人网银', '深圳', '华润通普卡', 'null', '**** **** **** 6350', '审核成功', '已开户', 'null', '2018-10-10 00:00:00', 'null', NULL, NULL, '2018-11-08 09:54:47', '{\"taskId\":\"34753230-e2f9-11e8-b64c-00163e0edc97\"}', '{\"data\":{\"card_progress\":[{\"apply_channel\":\"个人网银\",\"id_card\":\"420624198011082610\",\"card_no\":\"**** **** **** 6350\",\"card_status_mapping\":\"审核成功\",\"card_name\":\"华润通普卡\",\"apply_region\":\"深圳\",\"card_status\":\"已开户\",\"update_time\":\"2018-10-10 00:00:00\",\"apply_no\":\"40002018272400126\",\"apply_date\":\"2018-09-29 00:00:00\"},{\"apply_channel\":\"个人网银\",\"id_card\":\"420624198011082610\",\"card_no\":\"**** **** **** 4497\",\"card_status_mapping\":\"审核成功\",\"card_name\":\"华润通普卡\",\"apply_region\":\"深圳\",\"card_status\":\"已开户\",\"update_time\":\"2018-10-10 00:00:00\",\"apply_no\":\"40002018272400126\",\"apply_date\":\"2018-09-29 00:00:00\"}],\"bank_code\":\"ICBC\"},\"msg\":\"成功\",\"code\":0}', '0', '0', NULL, 'auto');
+    sleep    125
+    ${user_creditcard}    mysql_test    select * from wk_user_creditcard where id='102';    #更新时间最新的那条
+    ${card_status}    Evaluate    str(${user_creditcard[0][7]})
+    ${bill_result}    Set Variable    ${user_creditcard[0][8]}
+    ${queryChannel}    Set Variable    ${user_creditcard[0][10]}
+    Should Be Equal As Strings    ${card_status}    None
+    Should Be Equal As Strings    ${bill_result}    None
+    Should Be Equal As Strings    ${queryChannel}    None
+    ${card_progress_data_log}    mysql_test    select * from wk_card_progress_data_log where id='1';
+    ${match_status}    Evaluate    str(${card_progress_data_log[0][24]})
+    Should Be Equal As Strings    ${match_status}    1
+
+update_time在7天内匹配成功
+    mysql_operate    delete from wk_user_creditcard where id='101';
+    mysql_operate    delete from wk_card_progress_data_log where id='1';
+    mysql_operate    INSERT INTO `wildfire_loan`.`wk_user_creditcard` (`id`, `customerId`, `name`, `phone_no`, `certId`, `bank_name`, `referral_code`, `card_status`, `bill_result`, `excelChannel`, `queryChannel`, `reward_amt`, `remark`, `entryTime`, `createTime`, `updatedTime`, `succeedTime`) VALUES ('101', '2222001', '丸一', '15626519001', '420222198501011101', '光大银行', NULL, NULL, NULL, NULL, NULL, NULL, NULL, '0000-00-00 00:00:00', '2018-01-01 14:54:05', '2018-10-31 14:54:05', NULL);    #2018-01-01
+    mysql_operate    INSERT INTO `wildfire_loan`.`wk_card_progress_data_log` (`id`, `customer_id`, `task_id`, `id_card`, `apply_name`, `bank_code`, `apply_no`, `apply_date`, `apply_channel`, `apply_region`, `card_name`, `card_type`, `card_no`, `card_status_mapping`, `card_status`, `refuse_reason`, `update_time`, `msg`, `deputy_card_holder`, `deputy_card_status`, `record_time`, `request_json`, `response_json`, `response_status`, `match_status`, `match_time`, `source`) VALUES ('1', '2222001', '34753230-e2f9-11e8-b64c-00163e0edc97', '420222198501011101', 'null', 'CEB', '40002018272400126', NULL, '个人网银', '深圳', '华润通普卡', 'null', '**** **** **** 6350', '审核成功', '已开户', 'null', '2018-01-08 00:00:00', 'null', NULL, NULL, '2018-11-08 09:54:47', '{\"taskId\":\"34753230-e2f9-11e8-b64c-00163e0edc97\"}', '{\"data\":{\"card_progress\":[{\"apply_channel\":\"个人网银\",\"id_card\":\"420624198011082610\",\"card_no\":\"**** **** **** 6350\",\"card_status_mapping\":\"审核成功\",\"card_name\":\"华润通普卡\",\"apply_region\":\"深圳\",\"card_status\":\"已开户\",\"update_time\":\"2018-10-10 00:00:00\",\"apply_no\":\"40002018272400126\",\"apply_date\":\"2018-09-29 00:00:00\"},{\"apply_channel\":\"个人网银\",\"id_card\":\"420624198011082610\",\"card_no\":\"**** **** **** 4497\",\"card_status_mapping\":\"审核成功\",\"card_name\":\"华润通普卡\",\"apply_region\":\"深圳\",\"card_status\":\"已开户\",\"update_time\":\"2018-10-10 00:00:00\",\"apply_no\":\"40002018272400126\",\"apply_date\":\"2018-09-29 00:00:00\"}],\"bank_code\":\"ICBC\"},\"msg\":\"成功\",\"code\":0}', '0', '0', NULL, NULL);    #2018-01-08
+    sleep    125
+    ${user_creditcard}    mysql_test    select * from wk_user_creditcard where id='101';
+    ${card_status}    Evaluate    str(${user_creditcard[0][7]})
+    ${bill_result}    Set Variable    ${user_creditcard[0][8]}
+    ${queryChannel}    Set Variable    ${user_creditcard[0][10]}
+    Should Be Equal As Strings    ${card_status}    1
+    Should Be Equal As Strings    ${bill_result}    已匹配
+    Should Be Equal As Strings    ${queryChannel}    Y
+    ${card_progress_data_log}    mysql_test    select * from wk_card_progress_data_log where id='1';
+    ${match_status}    Evaluate    str(${card_progress_data_log[0][24]})
+    Should Be Equal As Strings    ${match_status}    1
+
+update_time在7天外匹配失败
+    mysql_operate    delete from wk_user_creditcard where id='101';
+    mysql_operate    delete from wk_card_progress_data_log where id='1';
+    mysql_operate    INSERT INTO `wildfire_loan`.`wk_user_creditcard` (`id`, `customerId`, `name`, `phone_no`, `certId`, `bank_name`, `referral_code`, `card_status`, `bill_result`, `excelChannel`, `queryChannel`, `reward_amt`, `remark`, `entryTime`, `createTime`, `updatedTime`, `succeedTime`) VALUES ('101', '2222001', '丸一', '15626519001', '420222198501011101', '光大银行', NULL, NULL, NULL, NULL, NULL, NULL, NULL, '0000-00-00 00:00:00', '2018-01-01 14:54:05', '2018-10-31 14:54:05', NULL);    #2018-01-01
+    mysql_operate    INSERT INTO `wildfire_loan`.`wk_card_progress_data_log` (`id`, `customer_id`, `task_id`, `id_card`, `apply_name`, `bank_code`, `apply_no`, `apply_date`, `apply_channel`, `apply_region`, `card_name`, `card_type`, `card_no`, `card_status_mapping`, `card_status`, `refuse_reason`, `update_time`, `msg`, `deputy_card_holder`, `deputy_card_status`, `record_time`, `request_json`, `response_json`, `response_status`, `match_status`, `match_time`, `source`) VALUES ('1', '2222001', '34753230-e2f9-11e8-b64c-00163e0edc97', '420222198501011101', 'null', 'CEB', '40002018272400126', NULL, '个人网银', '深圳', '华润通普卡', 'null', '**** **** **** 6350', '审核成功', '已开户', 'null', '2018-01-09 00:00:00', 'null', NULL, NULL, '2018-11-08 09:54:47', '{\"taskId\":\"34753230-e2f9-11e8-b64c-00163e0edc97\"}', '{\"data\":{\"card_progress\":[{\"apply_channel\":\"个人网银\",\"id_card\":\"420624198011082610\",\"card_no\":\"**** **** **** 6350\",\"card_status_mapping\":\"审核成功\",\"card_name\":\"华润通普卡\",\"apply_region\":\"深圳\",\"card_status\":\"已开户\",\"update_time\":\"2018-10-10 00:00:00\",\"apply_no\":\"40002018272400126\",\"apply_date\":\"2018-09-29 00:00:00\"},{\"apply_channel\":\"个人网银\",\"id_card\":\"420624198011082610\",\"card_no\":\"**** **** **** 4497\",\"card_status_mapping\":\"审核成功\",\"card_name\":\"华润通普卡\",\"apply_region\":\"深圳\",\"card_status\":\"已开户\",\"update_time\":\"2018-10-10 00:00:00\",\"apply_no\":\"40002018272400126\",\"apply_date\":\"2018-09-29 00:00:00\"}],\"bank_code\":\"ICBC\"},\"msg\":\"成功\",\"code\":0}', '0', '0', NULL, NULL);    #2018-01-09
+    sleep    125
+    ${user_creditcard}    mysql_test    select * from wk_user_creditcard where id='101';
+    ${card_status}    Evaluate    str(${user_creditcard[0][7]})
+    ${bill_result}    Set Variable    ${user_creditcard[0][8]}
+    ${queryChannel}    Set Variable    ${user_creditcard[0][10]}
+    Should Be Equal As Strings    ${card_status}    None
+    Should Be Equal As Strings    ${bill_result}    None
+    Should Be Equal As Strings    ${queryChannel}    None
+    ${card_progress_data_log}    mysql_test    select * from wk_card_progress_data_log where id='1';
+    ${match_status}    Evaluate    str(${card_progress_data_log[0][24]})
+    Should Be Equal As Strings    ${match_status}    2

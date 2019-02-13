@@ -1,0 +1,134 @@
+*** Settings ***
+Library           ExcelLibrary
+Library           RequestsLibrary
+Library           requests
+Library           Collections
+Library           自写库/recordLoanData.py
+Library           自写库/mysqltest.py
+Library           自写库/dif.py
+Library           自写库/test.py
+
+*** Keywords ***
+读取公共参数
+    @{dict}    listExcel    hy.xlsx    头文件    1    2    11
+    ${url}    Set Variable    @{dict}[0]
+    Set Global Variable    ${url}
+    ${Content-Type}    Set Variable    @{dict}[1]
+    Set Global Variable    ${Content-Type}
+    ${appId}    Set Variable    @{dict}[2]
+    Set Global Variable    ${appId}
+    ${partnerId}    Set Variable    @{dict}[3]
+    Set Global Variable    ${partnerId}
+    ${format}    Set Variable    @{dict}[4]
+    Set Global Variable    ${format}
+    ${signMethod}    Set Variable    @{dict}[5]
+    Set Global Variable    ${signMethod}
+    ${timeStamp}    Set Variable    @{dict}[6]
+    Set Global Variable    ${timeStamp}
+    ${sign}    Set Variable    @{dict}[7]
+    Set Global Variable    ${sign}
+    ${deviceType}    Set Variable    @{dict}[8]
+    Set Global Variable    ${deviceType}
+    ${channelCode}    Set Variable    @{dict}[9]
+    Set Global Variable    ${channelCode}
+    ${proid}    Set Variable    @{dict}[10]
+    Set Global Variable    ${proid}
+
+读取测试数据
+    [Arguments]    ${excelPath}    ${sheet}    ${row}
+    ${ex-col}    getExcelColumnCount    ${excelPath}    ${sheet}    #获取excel数据列
+    ${n}    Evaluate    ${ex-col}-1    #获取excel中数据列数
+    ${i}    Evaluate    ${n}-2    #获取status下标
+    ${j}    Evaluate    ${n}-1    #获取dataparam下标
+    @{dict}    List Read Excel    ${excelPath}    ${sheet}    ${row}    2    ${n}
+    ...    #获取每行从第二列开始的n个数据
+    ${U}    Set Variable    @{dict}[${0}]    #获取接口地址
+    ${status}    Set Variable    @{dict}[${i}]    #获取status值
+    ${dataparam}    Set Variable    @{dict}[${j}]    #获取dataparam值
+    Set Global Variable    ${U}
+    Set Global Variable    @{dict}
+    Set Global Variable    ${status}
+    Set Global Variable    ${dataparam}
+
+读取参数
+    [Arguments]    ${i}
+    ${p}    Set Variable    @{dict}[${i}]
+    [Return]    ${p}
+
+设置入参
+    [Arguments]    @{params}
+    ${param}    Catenate    SEPARATOR=&    @{params}
+    Set Global Variable    ${param}
+
+读取接口地址
+    [Arguments]    ${excelPath}    ${sheet}
+    @{u}    List Read Excel    ${excelPath}    ${sheet}    1    1    1
+    ${uu}    Set Variable    @{u}[${0}]
+    Set Global Variable    ${uu}
+    Comment    ${c}    getExcelColumnCount    ${excelPath}    ${sheet}
+    Comment    ${param-col}    Evaluate    ${c}-2
+    Comment    Set Global Variable    ${param-col}
+    Set Global Variable    ${excelPath}
+    Set Global Variable    ${sheet}
+    [Return]    ${uu}
+
+判断返回status正确
+    Should Be Equal As Strings    ${addr.json()['status']}    ${status}
+
+判断返回data参数正确
+    ${data}    Set Variable    ${addr.json()['data']}
+    ${keys}    Get Dictionary Keys    ${data}
+    ${dd}    dif    ${dataparam}.encode('utf-8')    ${keys}.encode('utf-8')    #判断返回data中参数与excel中预期参数
+    ${d}    Get Length    ${dd}
+    Should Be Equal As Strings    ${d}    0
+
+判断请求响应状态为200
+    Should Be Equal As Strings    ${addr.status_code}    200
+
+发送post请求(无token)
+    Create Session    api    ${url}
+    ${header1}    Create Dictionary    Content-Type=${Content-Type}    appId=${appId}    partnerId=${partnerId}    format=${format}    signMethod=${signMethod}
+    ...    timeStamp=${timeStamp}    sign=${sign}    deviceType=${deviceType}    channelCode=${channelCode}    proid=${proid}
+    ${addr}    Post Request    api    ${U}?${param}    headers=${header1}
+    Set Global Variable    ${addr}
+
+发送post请求
+    Create Session    api    ${url}
+    ${header}    Create Dictionary    token=${token}    Content-Type=${Content-Type}    appId=${appId}    partnerId=${partnerId}    format=${format}
+    ...    signMethod=${signMethod}    timeStamp=${timeStamp}    sign=${sign}    deviceType=${deviceType}    channelCode=${channelCode}    proid=${proid}
+    ${addr}    Post Request    api    ${U}?${param}    headers=${header}
+    Set Global Variable    ${addr}
+    [Return]    ${addr}
+
+获取token
+    读取公共参数
+    读取测试数据    hy.xlsx    登录注册    2
+    ${mobile}    读取参数    1
+    ${memberId}    读取参数    2
+    ${fingerPrint}    读取参数    3
+    设置入参    mobile=${mobile}    memberId=${memberId}    fingerPrint=${fingerPrint}
+    发送post请求(无token)
+    ${token}    Set Variable    ${addr.json()['data']['token']}
+    Set Global Variable    ${token}
+
+打印请求返回结果
+    log    ${addr.text}
+
+获取验证码
+    [Arguments]    ${type}
+    读取测试数据    hy.xlsx    发送验证码    2
+    ${mobile}    Set Variable    15626513325
+    ${type}    Set Variable    ${type}
+    设置入参    mobile=${mobile}    type=${type}
+    发送post请求
+    判断请求响应状态为200
+    ${a}    Mysql Test    select * from wk_sms_log where mobile='15626513325' \ ORDER BY sendTime DESC limit 1;
+    ${code}    Evaluate    int(${a[0][2]})
+    Set Global Variable    ${code}
+
+插入交易密码记录
+    Comment    ${date}    Evaluate    time.strftime("%Y-%m-%d %H:%M:%S")    time
+    Comment    ${id}    Mysql Test    select * from wk_customer where certId='420222198808281065';
+    Comment    ${customerId}    Evaluate    int(${id[0][0]})
+    Comment    Mysql Test    UPDATE wk_tradepwd_log set createTime='2018-01-03 10:55:14' where customerId='114743848' and status =0 and proId='ad51b7d5c65a7xjs89x97c3454545cad' and type=3;
+    ${a}    Test

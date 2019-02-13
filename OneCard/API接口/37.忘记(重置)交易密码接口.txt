@@ -1,0 +1,125 @@
+*** Settings ***
+Library           RequestsLibrary
+Library           requests
+Library           json
+Library           Collections
+Library           ExcelLibrary
+Resource          ../公共关键字.txt
+Library           ../自写库/recordLoanData.py
+
+*** Test Cases ***
+入参正确
+    获取token-JY
+    获取验证码-JY    3
+    读取header公共参数-YJ
+    读取测试数据    hy.xlsx    忘记交易密码    2
+    ${newPwd}    读取参数    1
+    ${verifyCode}    Set Variable    ${code}
+    ${cardNo}    读取参数    3
+    ${certId}    读取参数    4
+    设置入参    newPwd=${newPwd}    verifyCode=${verifyCode}    cardNo=${cardNo}    certId=${certId}
+    发送post请求
+    打印请求返回结果
+    判断请求响应状态为200
+    判断返回status正确
+    判断返回data参数正确
+
+newPwd为空
+    获取token-JY
+    读取header公共参数-YJ
+    读取测试数据    hy.xlsx    忘记交易密码    3
+    ${newPwd}    Set Variable
+    ${verifyCode}    Set Variable    123456
+    ${cardNo}    读取参数    3
+    ${certId}    读取参数    4
+    设置入参    newPwd=${newPwd}    verifyCode=${verifyCode}    cardNo=${cardNo}    certId=${certId}
+    发送post请求
+    打印请求返回结果
+    判断请求响应状态为200
+    判断返回status正确
+
+verifyCode为空
+    获取token-JY
+    读取header公共参数-YJ
+    读取测试数据    hy.xlsx    忘记交易密码    4
+    ${newPwd}    读取参数    1
+    ${verifyCode}    Set Variable
+    ${cardNo}    读取参数    3
+    ${certId}    读取参数    4
+    设置入参    newPwd=${newPwd}    verifyCode=${verifyCode}    cardNo=${cardNo}    certId=${certId}
+    发送post请求
+    打印请求返回结果
+    判断请求响应状态为200
+    判断返回status正确
+
+cardNo为空
+    获取token-JY
+    读取header公共参数-YJ
+    读取测试数据    hy.xlsx    忘记交易密码    5
+    ${newPwd}    读取参数    1
+    ${verifyCode}    Set Variable    123456
+    ${cardNo}    Set Variable
+    ${certId}    读取参数    4
+    设置入参    newPwd=${newPwd}    verifyCode=${verifyCode}    cardNo=${cardNo}    certId=${certId}
+    发送post请求
+    打印请求返回结果
+    判断请求响应状态为200
+    判断返回status正确
+
+certId为空
+    获取token-JY
+    读取header公共参数-YJ
+    读取测试数据    hy.xlsx    忘记交易密码    6
+    ${newPwd}    读取参数    1
+    ${verifyCode}    Set Variable    123456
+    ${cardNo}    读取参数    3
+    ${certId}    Set Variable
+    设置入参    newPwd=${newPwd}    verifyCode=${verifyCode}    cardNo=${cardNo}    certId=${certId}
+    发送post请求
+    打印请求返回结果
+    判断请求响应状态为200
+    判断返回status正确
+
+verifyCode错误
+    获取token-JY
+    读取header公共参数-YJ
+    读取测试数据    hy.xlsx    忘记交易密码    7
+    ${newPwd}    读取参数    1
+    ${verifyCode}    读取参数    2
+    ${cardNo}    读取参数    3
+    ${certId}    读取参数    4
+    设置入参    newPwd=${newPwd}    verifyCode=${verifyCode}    cardNo=${cardNo}    certId=${certId}
+    发送post请求
+    打印请求返回结果
+    判断请求响应状态为200
+    判断返回status正确
+
+cardNo超过定义长度
+    获取token-JY
+    获取验证码-JY    3
+    读取header公共参数-YJ
+    读取测试数据    hy.xlsx    忘记交易密码    8
+    ${newPwd}    读取参数    1
+    ${verifyCode}    Set Variable    ${code}
+    ${cardNo}    读取参数    3
+    ${certId}    读取参数    4
+    设置入参    newPwd=${newPwd}    verifyCode=${verifyCode}    cardNo=${cardNo}    certId=${certId}
+    发送post请求
+    打印请求返回结果
+    判断请求响应状态为200
+    判断返回status正确
+
+certId超过定义长度
+    获取token-JY
+    获取验证码-JY    3
+    读取header公共参数-YJ
+    读取测试数据    hy.xlsx    忘记交易密码    9
+    ${newPwd}    读取参数    1
+    ${verifyCode}    Set Variable    ${code}
+    ${cardNo}    读取参数    3
+    ${certId}    读取参数    4
+    设置入参    newPwd=${newPwd}    verifyCode=${verifyCode}    cardNo=${cardNo}    certId=${certId}
+    发送post请求
+    打印请求返回结果
+    判断请求响应状态为200
+    判断返回status正确

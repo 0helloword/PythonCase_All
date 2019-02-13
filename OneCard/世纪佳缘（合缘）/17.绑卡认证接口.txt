@@ -1,0 +1,152 @@
+*** Settings ***
+Library           RequestsLibrary
+Library           requests
+Library           json
+Library           Collections
+Library           ExcelLibrary
+Resource          ../公共关键字.txt
+Library           ../自写库/recordLoanData.py
+Resource          ../JY配置数据.txt
+
+*** Test Cases ***
+入参正确类型为1现金
+    获取token(APP登录)-JY
+    获取验证码-JY    4
+    读取测试数据    绑卡认证    2
+    ${verifyCode}    Set Variable    ${code}
+    ${cardNo}    读取参数    2
+    ${phone}    读取参数    3
+    ${type}    读取参数    4
+    ${fingerPrint}    读取参数    5
+    设置入参    verifyCode=${verifyCode}    cardNo=${cardNo}    phone=${phone}    type=${type}    fingerPrint=${fingerPrint}
+    发送post请求
+    打印请求返回结果
+    判断请求响应状态为200
+    判断返回status正确
+    判断返回data参数正确
+
+verifyCode参数为空(类型为1现金)
+    获取token(APP登录)-JY
+    读取测试数据    绑卡认证    3
+    ${verifyCode}    Set Variable
+    ${cardNo}    读取参数    2
+    ${phone}    读取参数    3
+    ${type}    读取参数    4
+    ${fingerPrint}    读取参数    5
+    设置入参    verifyCode=${verifyCode}    cardNo=${cardNo}    phone=${phone}    type=${type}    fingerPrint=${fingerPrint}
+    发送post请求
+    打印请求返回结果
+    判断请求响应状态为200
+    判断返回status正确
+
+verifyCode参数为失效验证码(类型为1现金)
+    获取token(APP登录)-JY
+    读取测试数据    绑卡认证    4
+    ${verifyCode}    读取参数    1
+    ${cardNo}    读取参数    2
+    ${phone}    读取参数    3
+    ${type}    读取参数    4
+    ${fingerPrint}    读取参数    5
+    设置入参    verifyCode=${verifyCode}    cardNo=${cardNo}    phone=${phone}    type=${type}    fingerPrint=${fingerPrint}
+    发送post请求
+    打印请求返回结果
+    判断请求响应状态为200
+    判断返回status正确
+
+verifyCode参数为错误验证码(类型为1现金)
+    获取token(APP登录)-JY
+    读取测试数据    绑卡认证    5
+    ${verifyCode}    读取参数    1
+    ${cardNo}    读取参数    2
+    ${phone}    读取参数    3
+    ${type}    读取参数    4
+    ${fingerPrint}    读取参数    5
+    设置入参    verifyCode=${verifyCode}    cardNo=${cardNo}    phone=${phone}    type=${type}    fingerPrint=${fingerPrint}
+    发送post请求
+    打印请求返回结果
+    判断请求响应状态为200
+    判断返回status正确
+
+verifyCode长度错误(类型为1现金)
+    获取token(APP登录)-JY
+    读取测试数据    绑卡认证    6
+    ${verifyCode}    读取参数    1
+    ${cardNo}    读取参数    2
+    ${phone}    读取参数    3
+    ${type}    读取参数    4
+    ${fingerPrint}    读取参数    5
+    设置入参    verifyCode=${verifyCode}    cardNo=${cardNo}    phone=${phone}    type=${type}    fingerPrint=${fingerPrint}
+    发送post请求
+    打印请求返回结果
+    判断请求响应状态为200
+    判断返回status正确
+
+cardNo参数为空(类型为1现金)
+    获取token(APP登录)-JY
+    读取测试数据    绑卡认证    7
+    ${verifyCode}    读取参数    1
+    ${cardNo}    Set Variable
+    ${phone}    读取参数    3
+    ${type}    读取参数    4
+    ${fingerPrint}    读取参数    5
+    设置入参    verifyCode=${verifyCode}    cardNo=${cardNo}    phone=${phone}    type=${type}    fingerPrint=${fingerPrint}
+    发送post请求
+    打印请求返回结果
+    判断请求响应状态为200
+    判断返回status正确
+
+phone参数为空(类型为1现金)
+    获取token(APP登录)-JY
+    读取测试数据    绑卡认证    11
+    ${verifyCode}    读取参数    1
+    ${cardNo}    读取参数    2
+    ${phone}    Set Variable
+    ${type}    读取参数    4
+    ${fingerPrint}    读取参数    5
+    设置入参    verifyCode=${verifyCode}    cardNo=${cardNo}    phone=${phone}    type=${type}    fingerPrint=${fingerPrint}
+    发送post请求
+    打印请求返回结果
+    判断请求响应状态为200
+    判断返回status正确
+
+phone参数为中文(类型为1现金)
+    获取token(APP登录)-JY
+    读取测试数据    绑卡认证    13
+    ${verifyCode}    读取参数    1
+    ${cardNo}    读取参数    2
+    ${phone}    读取参数    3
+    ${type}    读取参数    4
+    ${fingerPrint}    读取参数    5
+    设置入参    verifyCode=${verifyCode}    cardNo=${cardNo}    phone=${phone}    type=${type}    fingerPrint=${fingerPrint}
+    发送post请求
+    打印请求返回结果
+    判断请求响应状态为200
+    判断返回status正确
+
+phone长度错误(类型为1现金)
+    获取token(APP登录)-JY
+    读取测试数据    绑卡认证    14
+    ${verifyCode}    读取参数    1
+    ${cardNo}    读取参数    2
+    ${phone}    读取参数    3
+    ${type}    读取参数    4
+    ${fingerPrint}    读取参数    5
+    设置入参    verifyCode=${verifyCode}    cardNo=${cardNo}    phone=${phone}    type=${type}    fingerPrint=${fingerPrint}
+    发送post请求
+    打印请求返回结果
+    判断请求响应状态为200
+    判断返回status正确
+
+fingerPrint参数为空
+    获取token(APP登录)-JY
+    读取测试数据    绑卡认证    17
+    ${verifyCode}    读取参数    1
+    ${cardNo}    读取参数    2
+    ${phone}    读取参数    3
+    ${type}    读取参数    4
+    ${fingerPrint}    Set Variable
+    设置入参    verifyCode=${verifyCode}    cardNo=${cardNo}    phone=${phone}    type=${type}    fingerPrint=${fingerPrint}
+    发送post请求
+    打印请求返回结果
+    判断请求响应状态为200
+    判断返回status正确

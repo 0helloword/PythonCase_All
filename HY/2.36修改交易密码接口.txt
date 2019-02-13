@@ -1,0 +1,23 @@
+*** Settings ***
+Library           RequestsLibrary
+Library           requests
+Library           json
+Library           Collections
+Library           ExcelLibrary
+Resource          公共关键字.txt
+Library           自写库/recordLoanData.py
+
+*** Test Cases ***
+入参正确
+    Comment    插入交易密码记录
+    Comment    获取token
+    Comment    读取公共参数
+    Comment    读取测试数据    hy.xlsx    修改交易密码    2
+    Comment    ${newPwd}    读取参数    1
+    Comment    ${oldPwd}    读取参数    2
+    Comment    设置入参    newPwd=${newPwd}    oldPwd=${oldPwd}
+    Comment    发送post请求
+    Comment    打印请求返回结果
+    Comment    判断请求响应状态为200
+    Comment    判断返回status正确
+    Comment    判断返回data参数正确

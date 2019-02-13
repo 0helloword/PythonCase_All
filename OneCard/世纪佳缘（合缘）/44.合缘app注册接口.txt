@@ -1,0 +1,130 @@
+*** Settings ***
+Library           RequestsLibrary
+Library           requests
+Library           json
+Library           Collections
+Library           ExcelLibrary
+Resource          ../公共关键字.txt
+Library           ../自写库/recordLoanData.py
+Resource          ../JY配置数据.txt
+
+*** Test Cases ***
+更新数据为合缘
+    mysql_operate    UPDATE wk_account set channelCode='JY' where accountName='15626513325';
+
+mobile为空
+    获取token(APP登录)-JY
+    读取测试数据    合缘APP注册    3
+    ${mobile}    Set Variable
+    ${password}    读取参数    2
+    ${verifyCode}    读取参数    3
+    ${fingerPrint}    读取参数    4
+    设置入参    mobile=${mobile}    password=${password}    verifyCode=${verifyCode}    fingerPrint=${fingerPrint}
+    发送post请求(无token)
+    打印请求返回结果
+    判断请求响应状态为200
+    判断返回status正确
+
+password为空
+    获取token(APP登录)-JY
+    读取测试数据    合缘APP注册    4
+    ${mobile}    读取参数    1
+    ${password}    Set Variable
+    ${verifyCode}    读取参数    3
+    ${fingerPrint}    读取参数    4
+    设置入参    mobile=${mobile}    password=${password}    verifyCode=${verifyCode}    fingerPrint=${fingerPrint}
+    发送post请求(无token)
+    打印请求返回结果
+    判断请求响应状态为200
+    判断返回status正确
+
+verifyCode为空
+    获取token(APP登录)-JY
+    读取测试数据    合缘APP注册    5
+    ${mobile}    读取参数    1
+    ${password}    读取参数    2
+    ${verifyCode}    Set Variable
+    ${fingerPrint}    读取参数    4
+    设置入参    mobile=${mobile}    password=${password}    verifyCode=${verifyCode}    fingerPrint=${fingerPrint}
+    发送post请求(无token)
+    打印请求返回结果
+    判断请求响应状态为200
+    判断返回status正确
+
+fingerPrint参数为空
+    获取token(APP登录)-JY
+    读取测试数据    合缘APP注册    6
+    ${mobile}    读取参数    1
+    ${password}    读取参数    2
+    ${verifyCode}    读取参数    3
+    ${fingerPrint}    Set Variable
+    设置入参    mobile=${mobile}    password=${password}    verifyCode=${verifyCode}    fingerPrint=${fingerPrint}
+    发送post请求(无token)
+    打印请求返回结果
+    判断请求响应状态为200
+    判断返回status正确
+
+mobile参数长度为12位
+    获取token(APP登录)-JY
+    读取测试数据    合缘APP注册    7
+    ${mobile}    读取参数    1
+    ${password}    读取参数    2
+    ${verifyCode}    读取参数    3
+    ${fingerPrint}    读取参数    4
+    设置入参    mobile=${mobile}    password=${password}    verifyCode=${verifyCode}    fingerPrint=${fingerPrint}
+    发送post请求(无token)
+    打印请求返回结果
+    判断请求响应状态为200
+    判断返回status正确
+
+mobile参数长度为10位
+    获取token(APP登录)-JY
+    读取测试数据    合缘APP注册    8
+    ${mobile}    读取参数    1
+    ${password}    读取参数    2
+    ${verifyCode}    读取参数    3
+    ${fingerPrint}    读取参数    4
+    设置入参    mobile=${mobile}    password=${password}    verifyCode=${verifyCode}    fingerPrint=${fingerPrint}
+    发送post请求(无token)
+    打印请求返回结果
+    判断请求响应状态为200
+    判断返回status正确
+
+password参数少于6位
+    获取token(APP登录)-JY
+    读取测试数据    合缘APP注册    9
+    ${mobile}    读取参数    1
+    ${password}    读取参数    2
+    ${verifyCode}    读取参数    3
+    ${fingerPrint}    读取参数    4
+    设置入参    mobile=${mobile}    password=${password}    verifyCode=${verifyCode}    fingerPrint=${fingerPrint}
+    发送post请求(无token)
+    打印请求返回结果
+    判断请求响应状态为200
+    判断返回status正确
+
+password参数多于16位
+    获取token(APP登录)-JY
+    读取测试数据    合缘APP注册    10
+    ${mobile}    读取参数    1
+    ${password}    读取参数    2
+    ${verifyCode}    读取参数    3
+    ${fingerPrint}    读取参数    4
+    设置入参    mobile=${mobile}    password=${password}    verifyCode=${verifyCode}    fingerPrint=${fingerPrint}
+    发送post请求(无token)
+    打印请求返回结果
+    判断请求响应状态为200
+    判断返回status正确
+
+verifyCode参数错误
+    获取token(APP登录)-JY
+    读取测试数据    合缘APP注册    11
+    ${mobile}    读取参数    1
+    ${password}    读取参数    2
+    ${verifyCode}    读取参数    3
+    ${fingerPrint}    读取参数    4
+    设置入参    mobile=${mobile}    password=${password}    verifyCode=${verifyCode}    fingerPrint=${fingerPrint}
+    发送post请求(无token)
+    打印请求返回结果
+    判断请求响应状态为200
+    判断返回status正确

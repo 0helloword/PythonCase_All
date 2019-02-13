@@ -1,0 +1,273 @@
+*** Settings ***
+Library           RequestsLibrary
+Library           requests
+Library           json
+Library           Collections
+Library           ExcelLibrary
+Resource          ../公共关键字.txt
+Library           ../自写库/recordLoanData.py
+Resource          ../SINA配置数据.txt
+
+*** Test Cases ***
+入参正确
+    获取token-SINA
+    获取产品ID-SINA
+    读取测试数据    息费分离确认借款    3
+    ${amtTotal}    读取参数    1
+    ${period}    读取参数    2
+    ${textInfo}    读取参数    3
+    ${productId}    Set Variable    ${MProId}
+    ${fingerPrint}    读取参数    5
+    ${feeAmt}    Set Variable    74.85
+    ${payMode}    读取参数    7
+    ${goodsCode}    读取参数    8
+    ${payType}    读取参数    9
+    设置入参    amtTotal=${amtTotal}    period=${period}    textInfo=${textInfo}    productId=${productId}    fingerPrint=${fingerPrint}    feeAmt=${feeAmt}
+    ...    payMode=${payMode}    goodsCode=${goodsCode}    payType=${payType}
+    发送post请求
+    打印请求返回结果
+    判断请求响应状态为200
+    判断返回status正确
+    判断返回data参数正确
+    删除工单
+
+amtTotal为空
+    获取token-SINA
+    获取产品ID-SINA
+    读取测试数据    息费分离确认借款    4
+    ${amtTotal}    Set Variable
+    ${period}    读取参数    2
+    ${textInfo}    读取参数    3
+    ${productId}    Set Variable    ${MProId}
+    ${fingerPrint}    读取参数    5
+    ${feeAmt}    Set Variable    74.85
+    ${payMode}    读取参数    7
+    ${goodsCode}    读取参数    8
+    ${payType}    读取参数    9
+    设置入参    amtTotal=${amtTotal}    period=${period}    textInfo=${textInfo}    productId=${productId}    fingerPrint=${fingerPrint}    feeAmt=${feeAmt}
+    ...    payMode=${payMode}    goodsCode=${goodsCode}    payType=${payType}
+    发送post请求
+    打印请求返回结果
+    判断请求响应状态为200
+    Comment    判断返回status正确
+
+period为空
+    获取token-SINA
+    获取产品ID-SINA
+    读取测试数据    息费分离确认借款    5
+    ${amtTotal}    读取参数    1
+    ${period}    Set Variable
+    ${textInfo}    读取参数    3
+    ${productId}    Set Variable    ${MProId}
+    ${fingerPrint}    读取参数    5
+    ${feeAmt}    Set Variable    74.85
+    ${payMode}    读取参数    7
+    ${goodsCode}    读取参数    8
+    ${payType}    读取参数    9
+    设置入参    amtTotal=${amtTotal}    period=${period}    textInfo=${textInfo}    productId=${productId}    fingerPrint=${fingerPrint}    feeAmt=${feeAmt}
+    ...    payMode=${payMode}    goodsCode=${goodsCode}    payType=${payType}
+    发送post请求
+    打印请求返回结果
+    判断请求响应状态为200
+    Comment    判断返回status正确
+
+textInfo为空
+    获取token-SINA
+    获取产品ID-SINA
+    读取测试数据    息费分离确认借款    6
+    ${amtTotal}    读取参数    1
+    ${period}    读取参数    2
+    ${textInfo}    Set Variable
+    ${productId}    Set Variable    ${MProId}
+    ${fingerPrint}    读取参数    5
+    ${feeAmt}    Set Variable    74.85
+    ${payMode}    读取参数    7
+    ${goodsCode}    读取参数    8
+    ${payType}    读取参数    9
+    设置入参    amtTotal=${amtTotal}    period=${period}    textInfo=${textInfo}    productId=${productId}    fingerPrint=${fingerPrint}    feeAmt=${feeAmt}
+    ...    payMode=${payMode}    goodsCode=${goodsCode}    payType=${payType}
+    发送post请求
+    打印请求返回结果
+    判断请求响应状态为200
+    Comment    判断返回status正确
+
+productId为空
+    获取token-SINA
+    获取产品ID-SINA
+    读取测试数据    息费分离确认借款    7
+    ${amtTotal}    读取参数    1
+    ${period}    读取参数    2
+    ${textInfo}    读取参数    3
+    ${productId}    Set Variable
+    ${fingerPrint}    读取参数    5
+    ${feeAmt}    Set Variable    74.85
+    ${payMode}    读取参数    7
+    ${goodsCode}    读取参数    8
+    ${payType}    读取参数    9
+    设置入参    amtTotal=${amtTotal}    period=${period}    textInfo=${textInfo}    productId=${productId}    fingerPrint=${fingerPrint}    feeAmt=${feeAmt}
+    ...    payMode=${payMode}    goodsCode=${goodsCode}    payType=${payType}
+    发送post请求
+    打印请求返回结果
+    判断请求响应状态为200
+    Comment    判断返回status正确
+
+fingerPrint为空
+    获取token-SINA
+    获取产品ID-SINA
+    读取测试数据    息费分离确认借款    8
+    ${amtTotal}    读取参数    1
+    ${period}    读取参数    2
+    ${textInfo}    读取参数    3
+    ${productId}    Set Variable    ${MProId}
+    ${fingerPrint}    Set Variable
+    ${feeAmt}    Set Variable    74.85
+    ${payMode}    读取参数    7
+    ${goodsCode}    读取参数    8
+    ${payType}    读取参数    9
+    设置入参    amtTotal=${amtTotal}    period=${period}    textInfo=${textInfo}    productId=${productId}    fingerPrint=${fingerPrint}    feeAmt=${feeAmt}
+    ...    payMode=${payMode}    goodsCode=${goodsCode}    payType=${payType}
+    发送post请求
+    打印请求返回结果
+    删除工单
+    判断请求响应状态为200
+    判断返回status正确
+
+feeAmt为空
+    获取token-SINA
+    获取产品ID-SINA
+    读取测试数据    息费分离确认借款    9
+    ${amtTotal}    读取参数    1
+    ${period}    读取参数    2
+    ${textInfo}    读取参数    3
+    ${productId}    Set Variable    ${MProId}
+    ${fingerPrint}    读取参数    5
+    ${feeAmt}    Set Variable
+    ${payMode}    读取参数    7
+    ${goodsCode}    读取参数    8
+    ${payType}    读取参数    9
+    设置入参    amtTotal=${amtTotal}    period=${period}    textInfo=${textInfo}    productId=${productId}    fingerPrint=${fingerPrint}    feeAmt=${feeAmt}
+    ...    payMode=${payMode}    goodsCode=${goodsCode}    payType=${payType}
+    发送post请求
+    打印请求返回结果
+    判断请求响应状态为200
+    Comment    判断返回status正确
+
+payMode为空
+    获取token-SINA
+    获取产品ID-SINA
+    读取测试数据    息费分离确认借款    10
+    ${amtTotal}    读取参数    1
+    ${period}    读取参数    2
+    ${textInfo}    读取参数    3
+    ${productId}    Set Variable    ${MProId}
+    ${fingerPrint}    读取参数    5
+    ${feeAmt}    Set Variable    74.85
+    ${payMode}    Set Variable
+    ${goodsCode}    读取参数    8
+    ${payType}    读取参数    9
+    设置入参    amtTotal=${amtTotal}    period=${period}    textInfo=${textInfo}    productId=${productId}    fingerPrint=${fingerPrint}    feeAmt=${feeAmt}
+    ...    payMode=${payMode}    goodsCode=${goodsCode}    payType=${payType}
+    发送post请求
+    打印请求返回结果
+    判断请求响应状态为200
+    Comment    判断返回status正确
+
+amtTotal类型错误
+    获取token-SINA
+    获取产品ID-SINA
+    读取测试数据    息费分离确认借款    13
+    ${amtTotal}    读取参数    1
+    ${period}    读取参数    2
+    ${textInfo}    读取参数    3
+    ${productId}    Set Variable    ${MProId}
+    ${fingerPrint}    读取参数    5
+    ${feeAmt}    Set Variable    74.85
+    ${payMode}    读取参数    7
+    ${goodsCode}    读取参数    8
+    ${payType}    读取参数    9
+    设置入参    amtTotal=${amtTotal}    period=${period}    textInfo=${textInfo}    productId=${productId}    fingerPrint=${fingerPrint}    feeAmt=${feeAmt}
+    ...    payMode=${payMode}    goodsCode=${goodsCode}    payType=${payType}
+    发送post请求
+    打印请求返回结果
+    判断请求响应状态为200
+    Comment    判断返回status正确
+
+period类型错误
+    获取token-SINA
+    获取产品ID-SINA
+    读取测试数据    息费分离确认借款    14
+    ${amtTotal}    读取参数    1
+    ${period}    读取参数    2
+    ${textInfo}    读取参数    3
+    ${productId}    Set Variable    ${MProId}
+    ${fingerPrint}    读取参数    5
+    ${feeAmt}    Set Variable    74.85
+    ${payMode}    读取参数    7
+    ${goodsCode}    读取参数    8
+    ${payType}    读取参数    9
+    设置入参    amtTotal=${amtTotal}    period=${period}    textInfo=${textInfo}    productId=${productId}    fingerPrint=${fingerPrint}    feeAmt=${feeAmt}
+    ...    payMode=${payMode}    goodsCode=${goodsCode}    payType=${payType}
+    发送post请求
+    打印请求返回结果
+    判断请求响应状态为200
+    Comment    判断返回status正确
+
+productId不存在
+    获取token-SINA
+    获取产品ID-SINA
+    读取测试数据    息费分离确认借款    16
+    ${amtTotal}    读取参数    1
+    ${period}    读取参数    2
+    ${textInfo}    读取参数    3
+    ${productId}    读取参数    4
+    ${fingerPrint}    读取参数    5
+    ${feeAmt}    Set Variable    74.85
+    ${payMode}    读取参数    7
+    ${goodsCode}    读取参数    8
+    ${payType}    读取参数    9
+    设置入参    amtTotal=${amtTotal}    period=${period}    textInfo=${textInfo}    productId=${productId}    fingerPrint=${fingerPrint}    feeAmt=${feeAmt}
+    ...    payMode=${payMode}    goodsCode=${goodsCode}    payType=${payType}
+    发送post请求
+    打印请求返回结果
+    判断请求响应状态为200
+    Comment    判断返回status正确
+
+amtTotal金额小于500
+    获取token-SINA
+    获取产品ID-SINA
+    读取测试数据    息费分离确认借款    17
+    ${amtTotal}    读取参数    1
+    ${period}    读取参数    2
+    ${textInfo}    读取参数    3
+    ${productId}    Set Variable    ${MProId}
+    ${fingerPrint}    读取参数    5
+    ${feeAmt}    Set Variable    74.85
+    ${payMode}    读取参数    7
+    ${goodsCode}    读取参数    8
+    ${payType}    读取参数    9
+    设置入参    amtTotal=${amtTotal}    period=${period}    textInfo=${textInfo}    productId=${productId}    fingerPrint=${fingerPrint}    feeAmt=${feeAmt}
+    ...    payMode=${payMode}    goodsCode=${goodsCode}    payType=${payType}
+    发送post请求
+    打印请求返回结果
+    判断请求响应状态为200
+    Comment    判断返回status正确
+
+amtTotal不为100倍数
+    获取token-SINA
+    获取产品ID-SINA
+    读取测试数据    息费分离确认借款    18
+    ${amtTotal}    读取参数    1
+    ${period}    读取参数    2
+    ${textInfo}    读取参数    3
+    ${productId}    Set Variable    ${MProId}
+    ${fingerPrint}    读取参数    5
+    ${feeAmt}    Set Variable    74.85
+    ${payMode}    读取参数    7
+    ${goodsCode}    读取参数    8
+    ${payType}    读取参数    9
+    设置入参    amtTotal=${amtTotal}    period=${period}    textInfo=${textInfo}    productId=${productId}    fingerPrint=${fingerPrint}    feeAmt=${feeAmt}
+    ...    payMode=${payMode}    goodsCode=${goodsCode}    payType=${payType}
+    发送post请求
+    打印请求返回结果
+    判断请求响应状态为200
+    Comment    判断返回status正确

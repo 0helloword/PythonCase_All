@@ -1,0 +1,1009 @@
+*** Settings ***
+Library           RequestsLibrary
+Library           requests
+Library           json
+Library           Collections
+Library           ExcelLibrary
+Resource          ../公共关键字.txt
+Library           ../自写库/recordLoanData.py
+Resource          ../JY配置数据.txt
+
+*** Test Cases ***
+入参正确(education为B0301)
+    获取token(APP登录)-JY
+    读取测试数据    个人信息    2
+    ${profession}    读取参数    1
+    ${education}    读取参数    2
+    ${marriage}    读取参数    3
+    ${email}    读取参数    4
+    ${industry}    读取参数    5
+    ${company}    读取参数    6
+    ${relative}    读取参数    7
+    ${relativeName}    读取参数    8
+    ${relativePhone}    读取参数    9
+    ${province}    读取参数    10
+    ${city}    读取参数    11
+    ${county}    读取参数    12
+    ${address}    读取参数    13
+    ${monthIncome}    读取参数    14
+    ${hasLoan}    读取参数    15
+    ${incomeSource}    读取参数    16
+    ${hisLoanType}    读取参数    17
+    ${fingerPrint}    读取参数    18
+    ${body}    Create Dictionary    monthIncome=${monthIncome}    profession=${profession}    education=${education}    marriage=${marriage}    email=${email}
+    ...    industry=${industry}    company=${company}    relative=${relative}    relativeName=${relativeName}    relativePhone=${relativePhone}    province=${province}
+    ...    city=${city}    county=${county}    address=${address}    hasLoan=${hasLoan}    incomeSource=${incomeSource}    hisLoanType=${hisLoanType}
+    ...    fingerPrint=${fingerPrint}
+    post请求(requests)    ${url}${U}    ${body}
+    判断响应结果和状态
+
+入参正确(education为B0302)
+    获取token(APP登录)-JY
+    读取测试数据    个人信息    3
+    ${profession}    读取参数    1
+    ${education}    读取参数    2
+    ${marriage}    读取参数    3
+    ${email}    读取参数    4
+    ${industry}    读取参数    5
+    ${company}    读取参数    6
+    ${relative}    读取参数    7
+    ${relativeName}    读取参数    8
+    ${relativePhone}    读取参数    9
+    ${province}    读取参数    10
+    ${city}    读取参数    11
+    ${county}    读取参数    12
+    ${address}    读取参数    13
+    ${monthIncome}    读取参数    14
+    ${hasLoan}    读取参数    15
+    ${incomeSource}    读取参数    16
+    ${hisLoanType}    读取参数    17
+    ${fingerPrint}    读取参数    18
+    ${body}    Create Dictionary    monthIncome=${monthIncome}    profession=${profession}    education=${education}    marriage=${marriage}    email=${email}
+    ...    industry=${industry}    company=${company}    relative=${relative}    relativeName=${relativeName}    relativePhone=${relativePhone}    province=${province}
+    ...    city=${city}    county=${county}    address=${address}    hasLoan=${hasLoan}    incomeSource=${incomeSource}    hisLoanType=${hisLoanType}
+    ...    fingerPrint=${fingerPrint}
+    post请求(requests)    ${url}${U}    ${body}
+    判断响应结果和状态
+
+入参正确(education为B0303)
+    获取token(APP登录)-JY
+    读取测试数据    个人信息    4
+    ${profession}    读取参数    1
+    ${education}    读取参数    2
+    ${marriage}    读取参数    3
+    ${email}    读取参数    4
+    ${industry}    读取参数    5
+    ${company}    读取参数    6
+    ${relative}    读取参数    7
+    ${relativeName}    读取参数    8
+    ${relativePhone}    读取参数    9
+    ${province}    读取参数    10
+    ${city}    读取参数    11
+    ${county}    读取参数    12
+    ${address}    读取参数    13
+    ${monthIncome}    读取参数    14
+    ${hasLoan}    读取参数    15
+    ${incomeSource}    读取参数    16
+    ${hisLoanType}    读取参数    17
+    ${fingerPrint}    读取参数    18
+    ${body}    Create Dictionary    monthIncome=${monthIncome}    profession=${profession}    education=${education}    marriage=${marriage}    email=${email}
+    ...    industry=${industry}    company=${company}    relative=${relative}    relativeName=${relativeName}    relativePhone=${relativePhone}    province=${province}
+    ...    city=${city}    county=${county}    address=${address}    hasLoan=${hasLoan}    incomeSource=${incomeSource}    hisLoanType=${hisLoanType}
+    ...    fingerPrint=${fingerPrint}
+    post请求(requests)    ${url}${U}    ${body}
+    判断响应结果和状态
+
+入参正确(education为B0304)
+    获取token(APP登录)-JY
+    读取测试数据    个人信息    5
+    ${profession}    读取参数    1
+    ${education}    读取参数    2
+    ${marriage}    读取参数    3
+    ${email}    读取参数    4
+    ${industry}    读取参数    5
+    ${company}    读取参数    6
+    ${relative}    读取参数    7
+    ${relativeName}    读取参数    8
+    ${relativePhone}    读取参数    9
+    ${province}    读取参数    10
+    ${city}    读取参数    11
+    ${county}    读取参数    12
+    ${address}    读取参数    13
+    ${monthIncome}    读取参数    14
+    ${hasLoan}    读取参数    15
+    ${incomeSource}    读取参数    16
+    ${hisLoanType}    读取参数    17
+    ${fingerPrint}    读取参数    18
+    ${body}    Create Dictionary    monthIncome=${monthIncome}    profession=${profession}    education=${education}    marriage=${marriage}    email=${email}
+    ...    industry=${industry}    company=${company}    relative=${relative}    relativeName=${relativeName}    relativePhone=${relativePhone}    province=${province}
+    ...    city=${city}    county=${county}    address=${address}    hasLoan=${hasLoan}    incomeSource=${incomeSource}    hisLoanType=${hisLoanType}
+    ...    fingerPrint=${fingerPrint}
+    post请求(requests)    ${url}${U}    ${body}
+    判断响应结果和状态
+
+入参正确(education为B0305)
+    获取token(APP登录)-JY
+    读取测试数据    个人信息    6
+    ${profession}    读取参数    1
+    ${education}    读取参数    2
+    ${marriage}    读取参数    3
+    ${email}    读取参数    4
+    ${industry}    读取参数    5
+    ${company}    读取参数    6
+    ${relative}    读取参数    7
+    ${relativeName}    读取参数    8
+    ${relativePhone}    读取参数    9
+    ${province}    读取参数    10
+    ${city}    读取参数    11
+    ${county}    读取参数    12
+    ${address}    读取参数    13
+    ${monthIncome}    读取参数    14
+    ${hasLoan}    读取参数    15
+    ${incomeSource}    读取参数    16
+    ${hisLoanType}    读取参数    17
+    ${fingerPrint}    读取参数    18
+    ${body}    Create Dictionary    monthIncome=${monthIncome}    profession=${profession}    education=${education}    marriage=${marriage}    email=${email}
+    ...    industry=${industry}    company=${company}    relative=${relative}    relativeName=${relativeName}    relativePhone=${relativePhone}    province=${province}
+    ...    city=${city}    county=${county}    address=${address}    hasLoan=${hasLoan}    incomeSource=${incomeSource}    hisLoanType=${hisLoanType}
+    ...    fingerPrint=${fingerPrint}
+    post请求(requests)    ${url}${U}    ${body}
+    判断响应结果和状态
+
+入参正确(education为B0306)
+    获取token(APP登录)-JY
+    读取测试数据    个人信息    7
+    ${profession}    读取参数    1
+    ${education}    读取参数    2
+    ${marriage}    读取参数    3
+    ${email}    读取参数    4
+    ${industry}    读取参数    5
+    ${company}    读取参数    6
+    ${relative}    读取参数    7
+    ${relativeName}    读取参数    8
+    ${relativePhone}    读取参数    9
+    ${province}    读取参数    10
+    ${city}    读取参数    11
+    ${county}    读取参数    12
+    ${address}    读取参数    13
+    ${monthIncome}    读取参数    14
+    ${hasLoan}    读取参数    15
+    ${incomeSource}    读取参数    16
+    ${hisLoanType}    读取参数    17
+    ${fingerPrint}    读取参数    18
+    ${body}    Create Dictionary    monthIncome=${monthIncome}    profession=${profession}    education=${education}    marriage=${marriage}    email=${email}
+    ...    industry=${industry}    company=${company}    relative=${relative}    relativeName=${relativeName}    relativePhone=${relativePhone}    province=${province}
+    ...    city=${city}    county=${county}    address=${address}    hasLoan=${hasLoan}    incomeSource=${incomeSource}    hisLoanType=${hisLoanType}
+    ...    fingerPrint=${fingerPrint}
+    post请求(requests)    ${url}${U}    ${body}
+    判断响应结果和状态
+
+入参正确(education为B0307)
+    获取token(APP登录)-JY
+    读取测试数据    个人信息    8
+    ${profession}    读取参数    1
+    ${education}    读取参数    2
+    ${marriage}    读取参数    3
+    ${email}    读取参数    4
+    ${industry}    读取参数    5
+    ${company}    读取参数    6
+    ${relative}    读取参数    7
+    ${relativeName}    读取参数    8
+    ${relativePhone}    读取参数    9
+    ${province}    读取参数    10
+    ${city}    读取参数    11
+    ${county}    读取参数    12
+    ${address}    读取参数    13
+    ${monthIncome}    读取参数    14
+    ${hasLoan}    读取参数    15
+    ${incomeSource}    读取参数    16
+    ${hisLoanType}    读取参数    17
+    ${fingerPrint}    读取参数    18
+    ${body}    Create Dictionary    monthIncome=${monthIncome}    profession=${profession}    education=${education}    marriage=${marriage}    email=${email}
+    ...    industry=${industry}    company=${company}    relative=${relative}    relativeName=${relativeName}    relativePhone=${relativePhone}    province=${province}
+    ...    city=${city}    county=${county}    address=${address}    hasLoan=${hasLoan}    incomeSource=${incomeSource}    hisLoanType=${hisLoanType}
+    ...    fingerPrint=${fingerPrint}
+    post请求(requests)    ${url}${U}    ${body}
+    判断响应结果和状态
+
+入参正确(marriage为B0502)
+    获取token(APP登录)-JY
+    读取测试数据    个人信息    9
+    ${profession}    读取参数    1
+    ${education}    读取参数    2
+    ${marriage}    读取参数    3
+    ${email}    读取参数    4
+    ${industry}    读取参数    5
+    ${company}    读取参数    6
+    ${relative}    读取参数    7
+    ${relativeName}    读取参数    8
+    ${relativePhone}    读取参数    9
+    ${province}    读取参数    10
+    ${city}    读取参数    11
+    ${county}    读取参数    12
+    ${address}    读取参数    13
+    ${monthIncome}    读取参数    14
+    ${hasLoan}    读取参数    15
+    ${incomeSource}    读取参数    16
+    ${hisLoanType}    读取参数    17
+    ${fingerPrint}    读取参数    18
+    ${body}    Create Dictionary    monthIncome=${monthIncome}    profession=${profession}    education=${education}    marriage=${marriage}    email=${email}
+    ...    industry=${industry}    company=${company}    relative=${relative}    relativeName=${relativeName}    relativePhone=${relativePhone}    province=${province}
+    ...    city=${city}    county=${county}    address=${address}    hasLoan=${hasLoan}    incomeSource=${incomeSource}    hisLoanType=${hisLoanType}
+    ...    fingerPrint=${fingerPrint}
+    post请求(requests)    ${url}${U}    ${body}
+    判断响应结果和状态
+
+入参正确(marriage为B0503)
+    获取token(APP登录)-JY
+    读取测试数据    个人信息    10
+    ${profession}    读取参数    1
+    ${education}    读取参数    2
+    ${marriage}    读取参数    3
+    ${email}    读取参数    4
+    ${industry}    读取参数    5
+    ${company}    读取参数    6
+    ${relative}    读取参数    7
+    ${relativeName}    读取参数    8
+    ${relativePhone}    读取参数    9
+    ${province}    读取参数    10
+    ${city}    读取参数    11
+    ${county}    读取参数    12
+    ${address}    读取参数    13
+    ${monthIncome}    读取参数    14
+    ${hasLoan}    读取参数    15
+    ${incomeSource}    读取参数    16
+    ${hisLoanType}    读取参数    17
+    ${fingerPrint}    读取参数    18
+    ${body}    Create Dictionary    monthIncome=${monthIncome}    profession=${profession}    education=${education}    marriage=${marriage}    email=${email}
+    ...    industry=${industry}    company=${company}    relative=${relative}    relativeName=${relativeName}    relativePhone=${relativePhone}    province=${province}
+    ...    city=${city}    county=${county}    address=${address}    hasLoan=${hasLoan}    incomeSource=${incomeSource}    hisLoanType=${hisLoanType}
+    ...    fingerPrint=${fingerPrint}
+    post请求(requests)    ${url}${U}    ${body}
+    判断响应结果和状态
+
+入参正确(marriage为B0504)
+    获取token(APP登录)-JY
+    读取测试数据    个人信息    11
+    ${profession}    读取参数    1
+    ${education}    读取参数    2
+    ${marriage}    读取参数    3
+    ${email}    读取参数    4
+    ${industry}    读取参数    5
+    ${company}    读取参数    6
+    ${relative}    读取参数    7
+    ${relativeName}    读取参数    8
+    ${relativePhone}    读取参数    9
+    ${province}    读取参数    10
+    ${city}    读取参数    11
+    ${county}    读取参数    12
+    ${address}    读取参数    13
+    ${monthIncome}    读取参数    14
+    ${hasLoan}    读取参数    15
+    ${incomeSource}    读取参数    16
+    ${hisLoanType}    读取参数    17
+    ${fingerPrint}    读取参数    18
+    ${body}    Create Dictionary    monthIncome=${monthIncome}    profession=${profession}    education=${education}    marriage=${marriage}    email=${email}
+    ...    industry=${industry}    company=${company}    relative=${relative}    relativeName=${relativeName}    relativePhone=${relativePhone}    province=${province}
+    ...    city=${city}    county=${county}    address=${address}    hasLoan=${hasLoan}    incomeSource=${incomeSource}    hisLoanType=${hisLoanType}
+    ...    fingerPrint=${fingerPrint}
+    post请求(requests)    ${url}${U}    ${body}
+    判断响应结果和状态
+
+入参正确(marriage为B0505)
+    获取token(APP登录)-JY
+    读取测试数据    个人信息    12
+    ${profession}    读取参数    1
+    ${education}    读取参数    2
+    ${marriage}    读取参数    3
+    ${email}    读取参数    4
+    ${industry}    读取参数    5
+    ${company}    读取参数    6
+    ${relative}    读取参数    7
+    ${relativeName}    读取参数    8
+    ${relativePhone}    读取参数    9
+    ${province}    读取参数    10
+    ${city}    读取参数    11
+    ${county}    读取参数    12
+    ${address}    读取参数    13
+    ${monthIncome}    读取参数    14
+    ${hasLoan}    读取参数    15
+    ${incomeSource}    读取参数    16
+    ${hisLoanType}    读取参数    17
+    ${fingerPrint}    读取参数    18
+    ${body}    Create Dictionary    monthIncome=${monthIncome}    profession=${profession}    education=${education}    marriage=${marriage}    email=${email}
+    ...    industry=${industry}    company=${company}    relative=${relative}    relativeName=${relativeName}    relativePhone=${relativePhone}    province=${province}
+    ...    city=${city}    county=${county}    address=${address}    hasLoan=${hasLoan}    incomeSource=${incomeSource}    hisLoanType=${hisLoanType}
+    ...    fingerPrint=${fingerPrint}
+    post请求(requests)    ${url}${U}    ${body}
+    判断响应结果和状态
+
+入参正确(marriage为B0506)
+    获取token(APP登录)-JY
+    读取测试数据    个人信息    13
+    ${profession}    读取参数    1
+    ${education}    读取参数    2
+    ${marriage}    读取参数    3
+    ${email}    读取参数    4
+    ${industry}    读取参数    5
+    ${company}    读取参数    6
+    ${relative}    读取参数    7
+    ${relativeName}    读取参数    8
+    ${relativePhone}    读取参数    9
+    ${province}    读取参数    10
+    ${city}    读取参数    11
+    ${county}    读取参数    12
+    ${address}    读取参数    13
+    ${monthIncome}    读取参数    14
+    ${hasLoan}    读取参数    15
+    ${incomeSource}    读取参数    16
+    ${hisLoanType}    读取参数    17
+    ${fingerPrint}    读取参数    18
+    ${body}    Create Dictionary    monthIncome=${monthIncome}    profession=${profession}    education=${education}    marriage=${marriage}    email=${email}
+    ...    industry=${industry}    company=${company}    relative=${relative}    relativeName=${relativeName}    relativePhone=${relativePhone}    province=${province}
+    ...    city=${city}    county=${county}    address=${address}    hasLoan=${hasLoan}    incomeSource=${incomeSource}    hisLoanType=${hisLoanType}
+    ...    fingerPrint=${fingerPrint}
+    post请求(requests)    ${url}${U}    ${body}
+    判断响应结果和状态
+
+入参正确(relative为1324)
+    获取token(APP登录)-JY
+    读取测试数据    个人信息    14
+    ${profession}    读取参数    1
+    ${education}    读取参数    2
+    ${marriage}    读取参数    3
+    ${email}    读取参数    4
+    ${industry}    读取参数    5
+    ${company}    读取参数    6
+    ${relative}    读取参数    7
+    ${relativeName}    读取参数    8
+    ${relativePhone}    读取参数    9
+    ${province}    读取参数    10
+    ${city}    读取参数    11
+    ${county}    读取参数    12
+    ${address}    读取参数    13
+    ${monthIncome}    读取参数    14
+    ${hasLoan}    读取参数    15
+    ${incomeSource}    读取参数    16
+    ${hisLoanType}    读取参数    17
+    ${fingerPrint}    读取参数    18
+    ${body}    Create Dictionary    monthIncome=${monthIncome}    profession=${profession}    education=${education}    marriage=${marriage}    email=${email}
+    ...    industry=${industry}    company=${company}    relative=${relative}    relativeName=${relativeName}    relativePhone=${relativePhone}    province=${province}
+    ...    city=${city}    county=${county}    address=${address}    hasLoan=${hasLoan}    incomeSource=${incomeSource}    hisLoanType=${hisLoanType}
+    ...    fingerPrint=${fingerPrint}
+    post请求(requests)    ${url}${U}    ${body}
+    判断响应结果和状态
+
+入参正确(relative为1325)
+    获取token(APP登录)-JY
+    读取测试数据    个人信息    15
+    ${profession}    读取参数    1
+    ${education}    读取参数    2
+    ${marriage}    读取参数    3
+    ${email}    读取参数    4
+    ${industry}    读取参数    5
+    ${company}    读取参数    6
+    ${relative}    读取参数    7
+    ${relativeName}    读取参数    8
+    ${relativePhone}    读取参数    9
+    ${province}    读取参数    10
+    ${city}    读取参数    11
+    ${county}    读取参数    12
+    ${address}    读取参数    13
+    ${monthIncome}    读取参数    14
+    ${hasLoan}    读取参数    15
+    ${incomeSource}    读取参数    16
+    ${hisLoanType}    读取参数    17
+    ${fingerPrint}    读取参数    18
+    ${body}    Create Dictionary    monthIncome=${monthIncome}    profession=${profession}    education=${education}    marriage=${marriage}    email=${email}
+    ...    industry=${industry}    company=${company}    relative=${relative}    relativeName=${relativeName}    relativePhone=${relativePhone}    province=${province}
+    ...    city=${city}    county=${county}    address=${address}    hasLoan=${hasLoan}    incomeSource=${incomeSource}    hisLoanType=${hisLoanType}
+    ...    fingerPrint=${fingerPrint}
+    post请求(requests)    ${url}${U}    ${body}
+    判断响应结果和状态
+
+入参正确(relative为1326)
+    获取token(APP登录)-JY
+    读取测试数据    个人信息    16
+    ${profession}    读取参数    1
+    ${education}    读取参数    2
+    ${marriage}    读取参数    3
+    ${email}    读取参数    4
+    ${industry}    读取参数    5
+    ${company}    读取参数    6
+    ${relative}    读取参数    7
+    ${relativeName}    读取参数    8
+    ${relativePhone}    读取参数    9
+    ${province}    读取参数    10
+    ${city}    读取参数    11
+    ${county}    读取参数    12
+    ${address}    读取参数    13
+    ${monthIncome}    读取参数    14
+    ${hasLoan}    读取参数    15
+    ${incomeSource}    读取参数    16
+    ${hisLoanType}    读取参数    17
+    ${fingerPrint}    读取参数    18
+    ${body}    Create Dictionary    monthIncome=${monthIncome}    profession=${profession}    education=${education}    marriage=${marriage}    email=${email}
+    ...    industry=${industry}    company=${company}    relative=${relative}    relativeName=${relativeName}    relativePhone=${relativePhone}    province=${province}
+    ...    city=${city}    county=${county}    address=${address}    hasLoan=${hasLoan}    incomeSource=${incomeSource}    hisLoanType=${hisLoanType}
+    ...    fingerPrint=${fingerPrint}
+    post请求(requests)    ${url}${U}    ${body}
+    判断响应结果和状态
+
+profession参数为空
+    获取token(APP登录)-JY
+    读取测试数据    个人信息    17
+    ${profession}    Set Variable
+    ${education}    读取参数    2
+    ${marriage}    读取参数    3
+    ${email}    读取参数    4
+    ${industry}    读取参数    5
+    ${company}    读取参数    6
+    ${relative}    读取参数    7
+    ${relativeName}    读取参数    8
+    ${relativePhone}    读取参数    9
+    ${province}    读取参数    10
+    ${city}    读取参数    11
+    ${county}    读取参数    12
+    ${address}    读取参数    13
+    ${monthIncome}    读取参数    14
+    ${hasLoan}    读取参数    15
+    ${incomeSource}    读取参数    16
+    ${hisLoanType}    读取参数    17
+    ${fingerPrint}    读取参数    18
+    设置入参    profession=${profession}    education=${education}    marriage=${marriage}    email=${email}    industry=${industry}    company=${company}
+    ...    relative=${relative}    relativeName=${relativeName}    relativePhone=${relativePhone}    province=${province}    city=${city}    county=${county}
+    ...    address=${address}    monthIncome=${monthIncome}    hasLoan=${hasLoan}    incomeSource=${incomeSource}    hisLoanType=${hisLoanType}    fingerPrint=${fingerPrint}
+    发送post请求
+    打印请求返回结果
+    判断请求响应状态为200
+    判断返回status正确
+
+education参数为空
+    获取token(APP登录)-JY
+    读取测试数据    个人信息    18
+    ${profession}    读取参数    1
+    ${education}    Set Variable
+    ${marriage}    读取参数    3
+    ${email}    读取参数    4
+    ${industry}    读取参数    5
+    ${company}    读取参数    6
+    ${relative}    读取参数    7
+    ${relativeName}    读取参数    8
+    ${relativePhone}    读取参数    9
+    ${province}    读取参数    10
+    ${city}    读取参数    11
+    ${county}    读取参数    12
+    ${address}    读取参数    13
+    ${monthIncome}    读取参数    14
+    ${hasLoan}    读取参数    15
+    ${incomeSource}    读取参数    16
+    ${hisLoanType}    读取参数    17
+    ${fingerPrint}    读取参数    18
+    设置入参    profession=${profession}    education=${education}    marriage=${marriage}    email=${email}    industry=${industry}    company=${company}
+    ...    relative=${relative}    relativeName=${relativeName}    relativePhone=${relativePhone}    province=${province}    city=${city}    county=${county}
+    ...    address=${address}    monthIncome=${monthIncome}    hasLoan=${hasLoan}    incomeSource=${incomeSource}    hisLoanType=${hisLoanType}    fingerPrint=${fingerPrint}
+    发送post请求
+    打印请求返回结果
+    判断请求响应状态为200
+    判断返回status正确
+
+marriage参数为空
+    获取token(APP登录)-JY
+    读取测试数据    个人信息    19
+    ${profession}    读取参数    1
+    ${education}    读取参数    2
+    ${marriage}    Set Variable
+    ${email}    读取参数    4
+    ${industry}    读取参数    5
+    ${company}    读取参数    6
+    ${relative}    读取参数    7
+    ${relativeName}    读取参数    8
+    ${relativePhone}    读取参数    9
+    ${province}    读取参数    10
+    ${city}    读取参数    11
+    ${county}    读取参数    12
+    ${address}    读取参数    13
+    ${monthIncome}    读取参数    14
+    ${hasLoan}    读取参数    15
+    ${incomeSource}    读取参数    16
+    ${hisLoanType}    读取参数    17
+    ${fingerPrint}    读取参数    18
+    设置入参    profession=${profession}    education=${education}    marriage=${marriage}    email=${email}    industry=${industry}    company=${company}
+    ...    relative=${relative}    relativeName=${relativeName}    relativePhone=${relativePhone}    province=${province}    city=${city}    county=${county}
+    ...    address=${address}    monthIncome=${monthIncome}    hasLoan=${hasLoan}    incomeSource=${incomeSource}    hisLoanType=${hisLoanType}    fingerPrint=${fingerPrint}
+    发送post请求
+    打印请求返回结果
+    判断请求响应状态为200
+    判断返回status正确
+
+email参数为空
+    获取token(APP登录)-JY
+    读取测试数据    个人信息    20
+    ${profession}    读取参数    1
+    ${education}    读取参数    2
+    ${marriage}    读取参数    3
+    ${email}    Set Variable
+    ${industry}    读取参数    5
+    ${company}    读取参数    6
+    ${relative}    读取参数    7
+    ${relativeName}    读取参数    8
+    ${relativePhone}    读取参数    9
+    ${province}    读取参数    10
+    ${city}    读取参数    11
+    ${county}    读取参数    12
+    ${address}    读取参数    13
+    ${monthIncome}    读取参数    14
+    ${hasLoan}    读取参数    15
+    ${incomeSource}    读取参数    16
+    ${hisLoanType}    读取参数    17
+    ${fingerPrint}    读取参数    18
+    设置入参    profession=${profession}    education=${education}    marriage=${marriage}    email=${email}    industry=${industry}    company=${company}
+    ...    relative=${relative}    relativeName=${relativeName}    relativePhone=${relativePhone}    province=${province}    city=${city}    county=${county}
+    ...    address=${address}    monthIncome=${monthIncome}    hasLoan=${hasLoan}    incomeSource=${incomeSource}    hisLoanType=${hisLoanType}    fingerPrint=${fingerPrint}
+    发送post请求
+    打印请求返回结果
+    判断请求响应状态为200
+    判断返回status正确
+
+industry参数为空
+    获取token(APP登录)-JY
+    读取测试数据    个人信息    21
+    ${profession}    读取参数    1
+    ${education}    读取参数    2
+    ${marriage}    读取参数    3
+    ${email}    读取参数    4
+    ${industry}    Set Variable
+    ${company}    读取参数    6
+    ${relative}    读取参数    7
+    ${relativeName}    读取参数    8
+    ${relativePhone}    读取参数    9
+    ${province}    读取参数    10
+    ${city}    读取参数    11
+    ${county}    读取参数    12
+    ${address}    读取参数    13
+    ${monthIncome}    读取参数    14
+    ${hasLoan}    读取参数    15
+    ${incomeSource}    读取参数    16
+    ${hisLoanType}    读取参数    17
+    ${fingerPrint}    读取参数    18
+    设置入参    profession=${profession}    education=${education}    marriage=${marriage}    email=${email}    industry=${industry}    company=${company}
+    ...    relative=${relative}    relativeName=${relativeName}    relativePhone=${relativePhone}    province=${province}    city=${city}    county=${county}
+    ...    address=${address}    monthIncome=${monthIncome}    hasLoan=${hasLoan}    incomeSource=${incomeSource}    hisLoanType=${hisLoanType}    fingerPrint=${fingerPrint}
+    发送post请求
+    打印请求返回结果
+    判断请求响应状态为200
+    判断返回status正确
+
+company参数为空
+    获取token(APP登录)-JY
+    读取测试数据    个人信息    22
+    ${profession}    读取参数    1
+    ${education}    读取参数    2
+    ${marriage}    读取参数    3
+    ${email}    读取参数    4
+    ${industry}    读取参数    5
+    ${company}    Set Variable
+    ${relative}    读取参数    7
+    ${relativeName}    读取参数    8
+    ${relativePhone}    读取参数    9
+    ${province}    读取参数    10
+    ${city}    读取参数    11
+    ${county}    读取参数    12
+    ${address}    读取参数    13
+    ${monthIncome}    读取参数    14
+    ${hasLoan}    读取参数    15
+    ${incomeSource}    读取参数    16
+    ${hisLoanType}    读取参数    17
+    ${fingerPrint}    读取参数    18
+    设置入参    profession=${profession}    education=${education}    marriage=${marriage}    email=${email}    industry=${industry}    company=${company}
+    ...    relative=${relative}    relativeName=${relativeName}    relativePhone=${relativePhone}    province=${province}    city=${city}    county=${county}
+    ...    address=${address}    monthIncome=${monthIncome}    hasLoan=${hasLoan}    incomeSource=${incomeSource}    hisLoanType=${hisLoanType}    fingerPrint=${fingerPrint}
+    发送post请求
+    打印请求返回结果
+    判断请求响应状态为200
+    判断返回status正确
+
+relative参数为空
+    获取token(APP登录)-JY
+    读取测试数据    个人信息    23
+    ${profession}    读取参数    1
+    ${education}    读取参数    2
+    ${marriage}    读取参数    3
+    ${email}    读取参数    4
+    ${industry}    读取参数    5
+    ${company}    读取参数    6
+    ${relative}    Set Variable
+    ${relativeName}    读取参数    8
+    ${relativePhone}    读取参数    9
+    ${province}    读取参数    10
+    ${city}    读取参数    11
+    ${county}    读取参数    12
+    ${address}    读取参数    13
+    ${monthIncome}    读取参数    14
+    ${hasLoan}    读取参数    15
+    ${incomeSource}    读取参数    16
+    ${hisLoanType}    读取参数    17
+    ${fingerPrint}    读取参数    18
+    设置入参    profession=${profession}    education=${education}    marriage=${marriage}    email=${email}    industry=${industry}    company=${company}
+    ...    relative=${relative}    relativeName=${relativeName}    relativePhone=${relativePhone}    province=${province}    city=${city}    county=${county}
+    ...    address=${address}    monthIncome=${monthIncome}    hasLoan=${hasLoan}    incomeSource=${incomeSource}    hisLoanType=${hisLoanType}    fingerPrint=${fingerPrint}
+    发送post请求
+    打印请求返回结果
+    判断请求响应状态为200
+    判断返回status正确
+
+relativeName参数为空
+    获取token(APP登录)-JY
+    读取测试数据    个人信息    24
+    ${profession}    读取参数    1
+    ${education}    读取参数    2
+    ${marriage}    读取参数    3
+    ${email}    读取参数    4
+    ${industry}    读取参数    5
+    ${company}    读取参数    6
+    ${relative}    读取参数    7
+    ${relativeName}    Set Variable
+    ${relativePhone}    读取参数    9
+    ${province}    读取参数    10
+    ${city}    读取参数    11
+    ${county}    读取参数    12
+    ${address}    读取参数    13
+    ${monthIncome}    读取参数    14
+    ${hasLoan}    读取参数    15
+    ${incomeSource}    读取参数    16
+    ${hisLoanType}    读取参数    17
+    ${fingerPrint}    读取参数    18
+    设置入参    profession=${profession}    education=${education}    marriage=${marriage}    email=${email}    industry=${industry}    company=${company}
+    ...    relative=${relative}    relativeName=${relativeName}    relativePhone=${relativePhone}    province=${province}    city=${city}    county=${county}
+    ...    address=${address}    monthIncome=${monthIncome}    hasLoan=${hasLoan}    incomeSource=${incomeSource}    hisLoanType=${hisLoanType}    fingerPrint=${fingerPrint}
+    发送post请求
+    打印请求返回结果
+    判断请求响应状态为200
+    判断返回status正确
+
+relativePhone参数为空
+    获取token(APP登录)-JY
+    读取测试数据    个人信息    25
+    ${profession}    读取参数    1
+    ${education}    读取参数    2
+    ${marriage}    读取参数    3
+    ${email}    读取参数    4
+    ${industry}    读取参数    5
+    ${company}    读取参数    6
+    ${relative}    读取参数    7
+    ${relativeName}    读取参数    8
+    ${relativePhone}    Set Variable
+    ${province}    读取参数    10
+    ${city}    读取参数    11
+    ${county}    读取参数    12
+    ${address}    读取参数    13
+    ${monthIncome}    读取参数    14
+    ${hasLoan}    读取参数    15
+    ${incomeSource}    读取参数    16
+    ${hisLoanType}    读取参数    17
+    ${fingerPrint}    读取参数    18
+    设置入参    profession=${profession}    education=${education}    marriage=${marriage}    email=${email}    industry=${industry}    company=${company}
+    ...    relative=${relative}    relativeName=${relativeName}    relativePhone=${relativePhone}    province=${province}    city=${city}    county=${county}
+    ...    address=${address}    monthIncome=${monthIncome}    hasLoan=${hasLoan}    incomeSource=${incomeSource}    hisLoanType=${hisLoanType}    fingerPrint=${fingerPrint}
+    发送post请求
+    打印请求返回结果
+    判断请求响应状态为200
+    判断返回status正确
+
+province参数为空
+    获取token(APP登录)-JY
+    读取测试数据    个人信息    26
+    ${profession}    读取参数    1
+    ${education}    读取参数    2
+    ${marriage}    读取参数    3
+    ${email}    读取参数    4
+    ${industry}    读取参数    5
+    ${company}    读取参数    6
+    ${relative}    读取参数    7
+    ${relativeName}    读取参数    8
+    ${relativePhone}    读取参数    9
+    ${province}    Set Variable
+    ${city}    读取参数    11
+    ${county}    读取参数    12
+    ${address}    读取参数    13
+    ${monthIncome}    读取参数    14
+    ${hasLoan}    读取参数    15
+    ${incomeSource}    读取参数    16
+    ${hisLoanType}    读取参数    17
+    ${fingerPrint}    读取参数    18
+    设置入参    profession=${profession}    education=${education}    marriage=${marriage}    email=${email}    industry=${industry}    company=${company}
+    ...    relative=${relative}    relativeName=${relativeName}    relativePhone=${relativePhone}    province=${province}    city=${city}    county=${county}
+    ...    address=${address}    monthIncome=${monthIncome}    hasLoan=${hasLoan}    incomeSource=${incomeSource}    hisLoanType=${hisLoanType}    fingerPrint=${fingerPrint}
+    发送post请求
+    打印请求返回结果
+    判断请求响应状态为200
+    判断返回status正确
+
+city参数为空
+    获取token(APP登录)-JY
+    读取测试数据    个人信息    27
+    ${profession}    读取参数    1
+    ${education}    读取参数    2
+    ${marriage}    读取参数    3
+    ${email}    读取参数    4
+    ${industry}    读取参数    5
+    ${company}    读取参数    6
+    ${relative}    读取参数    7
+    ${relativeName}    读取参数    8
+    ${relativePhone}    读取参数    9
+    ${province}    读取参数    10
+    ${city}    Set Variable
+    ${county}    读取参数    12
+    ${address}    读取参数    13
+    ${monthIncome}    读取参数    14
+    ${hasLoan}    读取参数    15
+    ${incomeSource}    读取参数    16
+    ${hisLoanType}    读取参数    17
+    ${fingerPrint}    读取参数    18
+    设置入参    profession=${profession}    education=${education}    marriage=${marriage}    email=${email}    industry=${industry}    company=${company}
+    ...    relative=${relative}    relativeName=${relativeName}    relativePhone=${relativePhone}    province=${province}    city=${city}    county=${county}
+    ...    address=${address}    monthIncome=${monthIncome}    hasLoan=${hasLoan}    incomeSource=${incomeSource}    hisLoanType=${hisLoanType}    fingerPrint=${fingerPrint}
+    发送post请求
+    打印请求返回结果
+    判断请求响应状态为200
+    判断返回status正确
+
+county参数为空
+    获取token(APP登录)-JY
+    读取测试数据    个人信息    28
+    ${profession}    读取参数    1
+    ${education}    读取参数    2
+    ${marriage}    读取参数    3
+    ${email}    读取参数    4
+    ${industry}    读取参数    5
+    ${company}    读取参数    6
+    ${relative}    读取参数    7
+    ${relativeName}    读取参数    8
+    ${relativePhone}    读取参数    9
+    ${province}    读取参数    10
+    ${city}    读取参数    11
+    ${county}    Set Variable
+    ${address}    读取参数    13
+    ${monthIncome}    读取参数    14
+    ${hasLoan}    读取参数    15
+    ${incomeSource}    读取参数    16
+    ${hisLoanType}    读取参数    17
+    ${fingerPrint}    读取参数    18
+    设置入参    profession=${profession}    education=${education}    marriage=${marriage}    email=${email}    industry=${industry}    company=${company}
+    ...    relative=${relative}    relativeName=${relativeName}    relativePhone=${relativePhone}    province=${province}    city=${city}    county=${county}
+    ...    address=${address}    monthIncome=${monthIncome}    hasLoan=${hasLoan}    incomeSource=${incomeSource}    hisLoanType=${hisLoanType}    fingerPrint=${fingerPrint}
+    发送post请求
+    打印请求返回结果
+    判断请求响应状态为200
+    判断返回status正确
+
+address参数为空
+    获取token(APP登录)-JY
+    读取测试数据    个人信息    29
+    ${profession}    读取参数    1
+    ${education}    读取参数    2
+    ${marriage}    读取参数    3
+    ${email}    读取参数    4
+    ${industry}    读取参数    5
+    ${company}    读取参数    6
+    ${relative}    读取参数    7
+    ${relativeName}    读取参数    8
+    ${relativePhone}    读取参数    9
+    ${province}    读取参数    10
+    ${city}    读取参数    11
+    ${county}    读取参数    12
+    ${address}    Set Variable
+    ${monthIncome}    读取参数    14
+    ${hasLoan}    读取参数    15
+    ${incomeSource}    读取参数    16
+    ${hisLoanType}    读取参数    17
+    ${fingerPrint}    读取参数    18
+    设置入参    profession=${profession}    education=${education}    marriage=${marriage}    email=${email}    industry=${industry}    company=${company}
+    ...    relative=${relative}    relativeName=${relativeName}    relativePhone=${relativePhone}    province=${province}    city=${city}    county=${county}
+    ...    address=${address}    monthIncome=${monthIncome}    hasLoan=${hasLoan}    incomeSource=${incomeSource}    hisLoanType=${hisLoanType}    fingerPrint=${fingerPrint}
+    发送post请求
+    打印请求返回结果
+    判断请求响应状态为200
+    判断返回status正确
+
+monthIncome参数为空
+    获取token(APP登录)-JY
+    读取测试数据    个人信息    30
+    ${profession}    读取参数    1
+    ${education}    读取参数    2
+    ${marriage}    读取参数    3
+    ${email}    读取参数    4
+    ${industry}    读取参数    5
+    ${company}    读取参数    6
+    ${relative}    读取参数    7
+    ${relativeName}    读取参数    8
+    ${relativePhone}    读取参数    9
+    ${province}    读取参数    10
+    ${city}    读取参数    11
+    ${county}    读取参数    12
+    ${address}    读取参数    13
+    ${monthIncome}    Set Variable
+    ${hasLoan}    读取参数    15
+    ${incomeSource}    读取参数    16
+    ${hisLoanType}    读取参数    17
+    ${fingerPrint}    读取参数    18
+    设置入参    profession=${profession}    education=${education}    marriage=${marriage}    email=${email}    industry=${industry}    company=${company}
+    ...    relative=${relative}    relativeName=${relativeName}    relativePhone=${relativePhone}    province=${province}    city=${city}    county=${county}
+    ...    address=${address}    monthIncome=${monthIncome}    hasLoan=${hasLoan}    incomeSource=${incomeSource}    hisLoanType=${hisLoanType}    fingerPrint=${fingerPrint}
+    发送post请求
+    打印请求返回结果
+    判断请求响应状态为200
+    判断返回status正确
+
+incomeSource参数为空
+    获取token(APP登录)-JY
+    读取测试数据    个人信息    31
+    ${profession}    读取参数    1
+    ${education}    读取参数    2
+    ${marriage}    读取参数    3
+    ${email}    读取参数    4
+    ${industry}    读取参数    5
+    ${company}    读取参数    6
+    ${relative}    读取参数    7
+    ${relativeName}    读取参数    8
+    ${relativePhone}    读取参数    9
+    ${province}    读取参数    10
+    ${city}    读取参数    11
+    ${county}    读取参数    12
+    ${address}    读取参数    13
+    ${monthIncome}    读取参数    14
+    ${hasLoan}    Set Variable
+    ${incomeSource}    读取参数    16
+    ${hisLoanType}    读取参数    17
+    ${fingerPrint}    读取参数    18
+    设置入参    profession=${profession}    education=${education}    marriage=${marriage}    email=${email}    industry=${industry}    company=${company}
+    ...    relative=${relative}    relativeName=${relativeName}    relativePhone=${relativePhone}    province=${province}    city=${city}    county=${county}
+    ...    address=${address}    monthIncome=${monthIncome}    hasLoan=${hasLoan}    incomeSource=${incomeSource}    hisLoanType=${hisLoanType}    fingerPrint=${fingerPrint}
+    发送post请求
+    打印请求返回结果
+    判断请求响应状态为200
+    判断返回status正确
+
+hasLoan参数为空
+    获取token(APP登录)-JY
+    读取测试数据    个人信息    32
+    ${profession}    读取参数    1
+    ${education}    读取参数    2
+    ${marriage}    读取参数    3
+    ${email}    读取参数    4
+    ${industry}    读取参数    5
+    ${company}    读取参数    6
+    ${relative}    读取参数    7
+    ${relativeName}    读取参数    8
+    ${relativePhone}    读取参数    9
+    ${province}    读取参数    10
+    ${city}    读取参数    11
+    ${county}    读取参数    12
+    ${address}    读取参数    13
+    ${monthIncome}    读取参数    14
+    ${hasLoan}    Set Variable
+    ${incomeSource}    读取参数    16
+    ${hisLoanType}    读取参数    17
+    ${fingerPrint}    读取参数    18
+    设置入参    profession=${profession}    education=${education}    marriage=${marriage}    email=${email}    industry=${industry}    company=${company}
+    ...    relative=${relative}    relativeName=${relativeName}    relativePhone=${relativePhone}    province=${province}    city=${city}    county=${county}
+    ...    address=${address}    monthIncome=${monthIncome}    hasLoan=${hasLoan}    incomeSource=${incomeSource}    hisLoanType=${hisLoanType}    fingerPrint=${fingerPrint}
+    发送post请求
+    打印请求返回结果
+    判断请求响应状态为200
+    判断返回status正确
+
+hisLoanType参数为空
+    获取token(APP登录)-JY
+    读取测试数据    个人信息    33
+    ${profession}    读取参数    1
+    ${education}    读取参数    2
+    ${marriage}    读取参数    3
+    ${email}    读取参数    4
+    ${industry}    读取参数    5
+    ${company}    读取参数    6
+    ${relative}    读取参数    7
+    ${relativeName}    读取参数    8
+    ${relativePhone}    读取参数    9
+    ${province}    读取参数    10
+    ${city}    读取参数    11
+    ${county}    读取参数    12
+    ${address}    读取参数    13
+    ${monthIncome}    读取参数    14
+    ${hasLoan}    读取参数    15
+    ${incomeSource}    读取参数    16
+    ${hisLoanType}    Set Variable
+    ${fingerPrint}    读取参数    18
+    ${body}    Create Dictionary    monthIncome=${monthIncome}    profession=${profession}    education=${education}    marriage=${marriage}    email=${email}
+    ...    industry=${industry}    company=${company}    relative=${relative}    relativeName=${relativeName}    relativePhone=${relativePhone}    province=${province}
+    ...    city=${city}    county=${county}    address=${address}    hasLoan=${hasLoan}    incomeSource=${incomeSource}    hisLoanType=${hisLoanType}
+    ...    fingerPrint=${fingerPrint}
+    post请求(requests)    ${url}${U}    ${body}
+    判断响应结果和状态
+
+fingerPrint参数为空
+    获取token(APP登录)-JY
+    读取测试数据    个人信息    34
+    ${profession}    读取参数    1
+    ${education}    读取参数    2
+    ${marriage}    读取参数    3
+    ${email}    读取参数    4
+    ${industry}    读取参数    5
+    ${company}    读取参数    6
+    ${relative}    读取参数    7
+    ${relativeName}    读取参数    8
+    ${relativePhone}    读取参数    9
+    ${province}    读取参数    10
+    ${city}    读取参数    11
+    ${county}    读取参数    12
+    ${address}    读取参数    13
+    ${monthIncome}    读取参数    14
+    ${hasLoan}    读取参数    15
+    ${incomeSource}    读取参数    16
+    ${hisLoanType}    读取参数    17
+    ${fingerPrint}    Set Variable
+    设置入参    profession=${profession}    education=${education}    marriage=${marriage}    email=${email}    industry=${industry}    company=${company}
+    ...    relative=${relative}    relativeName=${relativeName}    relativePhone=${relativePhone}    province=${province}    city=${city}    county=${county}
+    ...    address=${address}    monthIncome=${monthIncome}    hasLoan=${hasLoan}    incomeSource=${incomeSource}    hisLoanType=${hisLoanType}    fingerPrint=${fingerPrint}
+    发送post请求
+    打印请求返回结果
+    判断请求响应状态为200
+    判断返回status正确
+
+relativePhone长度小于11
+    获取token(APP登录)-JY
+    读取测试数据    个人信息    35
+    ${profession}    读取参数    1
+    ${education}    读取参数    2
+    ${marriage}    读取参数    3
+    ${email}    读取参数    4
+    ${industry}    读取参数    5
+    ${company}    读取参数    6
+    ${relative}    读取参数    7
+    ${relativeName}    读取参数    8
+    ${relativePhone}    读取参数    9
+    ${province}    读取参数    10
+    ${city}    读取参数    11
+    ${county}    读取参数    12
+    ${address}    读取参数    13
+    ${monthIncome}    读取参数    14
+    ${hasLoan}    读取参数    15
+    ${incomeSource}    读取参数    16
+    ${hisLoanType}    读取参数    17
+    ${fingerPrint}    读取参数    18
+    设置入参    profession=${profession}    education=${education}    marriage=${marriage}    email=${email}    industry=${industry}    company=${company}
+    ...    relative=${relative}    relativeName=${relativeName}    relativePhone=${relativePhone}    province=${province}    city=${city}    county=${county}
+    ...    address=${address}    monthIncome=${monthIncome}    hasLoan=${hasLoan}    incomeSource=${incomeSource}    hisLoanType=${hisLoanType}    fingerPrint=${fingerPrint}
+    发送post请求
+    打印请求返回结果
+    判断请求响应状态为200
+    判断返回status正确
+
+relativePhone长度大于11
+    获取token(APP登录)-JY
+    读取测试数据    个人信息    36
+    ${profession}    读取参数    1
+    ${education}    读取参数    2
+    ${marriage}    读取参数    3
+    ${email}    读取参数    4
+    ${industry}    读取参数    5
+    ${company}    读取参数    6
+    ${relative}    读取参数    7
+    ${relativeName}    读取参数    8
+    ${relativePhone}    读取参数    9
+    ${province}    读取参数    10
+    ${city}    读取参数    11
+    ${county}    读取参数    12
+    ${address}    读取参数    13
+    ${monthIncome}    读取参数    14
+    ${hasLoan}    读取参数    15
+    ${incomeSource}    读取参数    16
+    ${hisLoanType}    读取参数    17
+    ${fingerPrint}    读取参数    18
+    设置入参    profession=${profession}    education=${education}    marriage=${marriage}    email=${email}    industry=${industry}    company=${company}
+    ...    relative=${relative}    relativeName=${relativeName}    relativePhone=${relativePhone}    province=${province}    city=${city}    county=${county}
+    ...    address=${address}    monthIncome=${monthIncome}    hasLoan=${hasLoan}    incomeSource=${incomeSource}    hisLoanType=${hisLoanType}    fingerPrint=${fingerPrint}
+    发送post请求
+    打印请求返回结果
+    判断请求响应状态为200
+    判断返回status正确

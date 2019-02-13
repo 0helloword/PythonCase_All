@@ -1,0 +1,32 @@
+*** Settings ***
+Library           RequestsLibrary
+Library           requests
+Library           json
+Library           Collections
+Library           ExcelLibrary
+Resource          ../公共关键字.txt
+Library           ../自写库/recordLoanData.py
+Resource          ../XWK配置数据.txt
+
+*** Test Cases ***
+imgfile为空
+    获取token-XWK
+    读取测试数据    人脸识别    3
+    ${type}    读取参数    1
+    ${renlianPhotos}    Set Variable
+    设置入参    type=${type}    ${renlianPhotos}
+    发送post请求
+    打印请求返回结果
+    判断请求响应状态为200
+    判断返回status正确
+
+type为空
+    获取token-XWK
+    读取测试数据    人脸识别    4
+    ${type}    Set Variable
+    ${renlianPhotos}    读取参数    2
+    设置入参    type=${type}    ${renlianPhotos}
+    发送post请求
+    打印请求返回结果
+    判断请求响应状态为200
+    判断返回status正确

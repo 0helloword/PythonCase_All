@@ -1,0 +1,30 @@
+1495020418968	geckodriver	INFO	Listening on 127.0.0.1:50111
+1495020421045	mozprofile::profile	INFO	Using profile path C:\Users\jiufu\AppData\Local\Temp\rust_mozprofile.nPPd6nyVHLIk
+1495020421077	geckodriver::marionette	INFO	Starting browser C:\Program Files (x86)\Mozilla Firefox\firefox.exe with args []
+1495020421092	geckodriver::marionette	INFO	Connecting to Marionette on localhost:50117
+1495020421341	addons.manager	DEBUG	Application has been upgraded
+1495020421351	addons.manager	DEBUG	Loaded provider scope for resource://gre/modules/addons/XPIProvider.jsm: ["XPIProvider"]
+1495020421352	addons.manager	DEBUG	Loaded provider scope for resource://gre/modules/LightweightThemeManager.jsm: ["LightweightThemeManager"]
+1495020421353	addons.xpi	DEBUG	startup
+1495020421354	addons.xpi	INFO	Mapping {972ce4c6-7e08-4474-a285-3208198ce6fd} to C:\Program Files (x86)\Mozilla Firefox\browser\extensions\{972ce4c6-7e08-4474-a285-3208198ce6fd}
+1495020421354	addons.xpi	DEBUG	checkForChanges
+1495020421355	addons.xpi	DEBUG	Directory state JSON differs: cache [] state [{"name":"app-global","addons":{"{972ce4c6-7e08-4474-a285-3208198ce6fd}":{"descriptor":"C:\\Program Files (x86)\\Mozilla Firefox\\browser\\extensions\\{972ce4c6-7e08-4474-a285-3208198ce6fd}","mtime":1495014218072,"rdfTime":1411526203000}}}]
+1495020421360	addons.xpi-utils	DEBUG	Opening XPI database C:\Users\jiufu\AppData\Local\Temp\rust_mozprofile.nPPd6nyVHLIk\extensions.json
+1495020421361	addons.xpi	DEBUG	New add-on {972ce4c6-7e08-4474-a285-3208198ce6fd} installed in app-global
+1495020421470	addons.xpi-utils	DEBUG	Make addon app-global:{972ce4c6-7e08-4474-a285-3208198ce6fd} visible
+1495020421473	DeferredSave.extensions.json	DEBUG	Save changes
+1495020421475	DeferredSave.extensions.json	DEBUG	Save changes
+1495020421478	addons.xpi	DEBUG	Updating database with changes to installed add-ons
+1495020421478	addons.xpi-utils	DEBUG	Updating add-on states
+1495020421481	addons.xpi-utils	DEBUG	Writing add-ons list
+1495020422381	DeferredSave.extensions.json	DEBUG	Starting timer
+1495020422420	DeferredSave.extensions.json	DEBUG	Starting write
+1495020422505	DeferredSave.extensions.json	DEBUG	Write succeeded
+1495020422505	addons.xpi-utils	DEBUG	XPI Database saved, setting schema version preference to 16
+*** Blocklist::_preloadBlocklistFile: blocklist is disabled
+JavaScript error: chrome://browser/content/urlbarBindings.xml, line 677: aUrl is undefined
+JavaScript error: chrome://browser/content/urlbarBindings.xml, line 677: aUrl is undefined
+JavaScript error: chrome://browser/content/urlbarBindings.xml, line 677: aUrl is undefined
+JavaScript error: chrome://browser/content/urlbarBindings.xml, line 677: aUrl is undefined
+JavaScript error: chrome://browser/content/urlbarBindings.xml, line 677: aUrl is undefined
+1495020901590	addons.manager	DEBUG	Background update check beginning

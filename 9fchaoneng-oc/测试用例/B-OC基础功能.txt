@@ -1,0 +1,913 @@
+*** Settings ***
+Library           Selenium2Library
+Resource          ../元素操作/oc-通用关键字.txt
+Resource          ../元素操作/oc-页面元素.txt
+Library           AutoItLibrary
+
+*** Test Cases ***
+登录-密码不正确
+    读取excel数据-OC
+    打开浏览器
+    用户登录OC-带参数    999111    cyj1234
+    提示判断    登录密码不正确
+    浏览器关闭
+    [Teardown]    Close Browser
+
+登录-用户不存在
+    读取excel数据-OC
+    打开浏览器
+    用户登录OC-带参数    9991111    cyj123
+    提示判断    用户不存在
+    浏览器关闭
+    [Teardown]    Close Browser
+
+登录成功
+    读取excel数据-OC
+    用户登录-OC
+    浏览器关闭
+    [Teardown]    Close Browser
+
+工单查询菜单
+    读取excel数据-OC
+    用户登录-OC
+    用户软电话
+    菜单选择-OC    工单查询
+    判断页面跳转-OC    工单查询
+    浏览器关闭
+    [Teardown]    Close Browser
+
+初步审核（POS）菜单
+    读取excel数据-OC
+    用户登录-OC
+    用户软电话
+    菜单选择-OC    人工审核
+    菜单选择-OC    初步审核（POS）
+    判断页面跳转-OC    人工初步审核
+    浏览器关闭
+    [Teardown]    Close Browser
+
+审核分单（POS）菜单
+    读取excel数据-OC
+    用户登录-OC
+    用户软电话
+    菜单选择-OC    人工审核
+    菜单选择-OC    审核分单（POS）
+    判断页面跳转-OC    人工审核分单
+    浏览器关闭
+    [Teardown]    Close Browser
+
+初步审核（CASH）菜单
+    读取excel数据-OC
+    用户登录-OC
+    用户软电话
+    菜单选择-OC    人工审核
+    菜单选择-OC    初步审核（CASH）
+    判断页面跳转-OC    人工初步审核
+    浏览器关闭
+    [Teardown]    Close Browser
+
+审核分单（CASH）菜单
+    读取excel数据-OC
+    用户登录-OC
+    用户软电话
+    菜单选择-OC    人工审核
+    菜单选择-OC    审核分单（CASH）
+    判断页面跳转-OC    人工审核分单
+    浏览器关闭
+    [Teardown]    Close Browser
+
+初步审批（POS）菜单
+    读取excel数据-OC
+    用户登录-OC
+    用户软电话
+    菜单选择-OC    专家审批
+    菜单选择-OC    初步审批（POS）
+    判断页面跳转-OC    信用专家审核
+    浏览器关闭
+    [Teardown]    Close Browser
+
+审批分单（POS）菜单
+    读取excel数据-OC
+    用户登录-OC
+    用户软电话
+    菜单选择-OC    专家审批
+    菜单选择-OC    审批分单（POS）
+    判断页面跳转-OC    专家审批分单
+    浏览器关闭
+    [Teardown]    Close Browser
+
+初步审批（CASH）菜单
+    读取excel数据-OC
+    用户登录-OC
+    用户软电话
+    菜单选择-OC    专家审批
+    菜单选择-OC    初步审批（CASH）
+    判断页面跳转-OC    信用专家审核
+    浏览器关闭
+    [Teardown]    Close Browser
+
+审批分单（CASH）菜单
+    读取excel数据-OC
+    用户登录-OC
+    用户软电话
+    菜单选择-OC    专家审批
+    菜单选择-OC    审批分单（CASH）
+    判断页面跳转-OC    专家审批分单
+    浏览器关闭
+    [Teardown]    Close Browser
+
+电话仓库菜单
+    读取excel数据-OC
+    用户登录-OC
+    用户软电话
+    菜单选择-OC    客户信息
+    菜单选择-OC    电话仓库
+    判断页面跳转1-OC    电话仓库
+    浏览器关闭
+    [Teardown]    Close Browser
+
+工单查询-工单编号
+    读取excel数据-OC
+    获取工单信息    50
+    用户登录-OC
+    用户软电话
+    菜单选择-OC    工单查询
+    判断页面跳转-OC    工单查询
+    文本框输入-OC    工单编号    ${appid-q}
+    按钮点击-OC    查询
+    判断结果页面包含链接    ${appid-q}
+    浏览器关闭
+
+工单查询-BUS单号
+    读取excel数据-OC
+    用户登录-OC
+    用户软电话
+    菜单选择-OC    工单查询
+    判断页面跳转-OC    工单查询
+    文本框输入-OC    BUS单号    ${busid-q}
+    按钮点击-OC    查询
+    判断结果页面包含    ${busid-q}
+    浏览器关闭
+
+工单查询-商户名称
+    读取excel数据-OC
+    用户登录-OC
+    用户软电话
+    菜单选择-OC    工单查询
+    判断页面跳转-OC    工单查询
+    文本框输入-OC    商户名称    ${firmname-q}
+    按钮点击-OC    查询
+    判断结果页面包含    ${firmname-q}
+    浏览器关闭
+
+工单查询-门店名称
+    读取excel数据-OC
+    用户登录-OC
+    用户软电话
+    菜单选择-OC    工单查询
+    判断页面跳转-OC    工单查询
+    文本框输入-OC    门店名称    ${shopname-q}
+    按钮点击-OC    查询
+    判断结果页面包含    ${shopname-q}
+    浏览器关闭
+
+工单查询-产品系列
+    读取excel数据-OC
+    用户登录-OC
+    用户软电话
+    菜单选择-OC    工单查询
+    判断页面跳转-OC    工单查询
+    下拉选择-OC    产品系列    ${series-q}
+    按钮点击-OC    查询
+    判断结果页面包含    ${series-q}
+    浏览器关闭
+
+工单查询-申请人姓名
+    读取excel数据-OC
+    用户登录-OC
+    用户软电话
+    菜单选择-OC    工单查询
+    判断页面跳转-OC    工单查询
+    文本框输入-OC    申请人姓名    ${customername-q}
+    按钮点击-OC    查询
+    判断结果页面包含    ${customername-q}
+    浏览器关闭
+
+工单查询-身份证号
+    读取excel数据-OC
+    用户登录-OC
+    用户软电话
+    菜单选择-OC    工单查询
+    判断页面跳转-OC    工单查询
+    文本框输入-OC    身份证号    ${cardid-q}
+    按钮点击-OC    查询
+    判断结果页面包含    ${cardid-q}
+    浏览器关闭
+
+工单查询-销售顾问
+    读取excel数据-OC
+    用户登录-OC
+    用户软电话
+    菜单选择-OC    工单查询
+    判断页面跳转-OC    工单查询
+    文本框输入-OC    销售顾问    ${createby-q}
+    按钮点击-OC    查询
+    判断结果页面包含    ${createby-q}
+    浏览器关闭
+
+工单查询-工单状态
+    读取excel数据-OC
+    用户登录-OC
+    用户软电话
+    菜单选择-OC    工单查询
+    判断页面跳转-OC    工单查询
+    工单状态列表选择    未提交
+    验证记录条数    01
+    工单状态列表选择    审核中 - 人工退回
+    验证记录条数    05
+    工单状态列表选择    审核中 - 自动审核
+    验证记录条数    11
+    工单状态列表选择    审核中 - 人工审核
+    验证记录条数    12
+    工单状态列表选择    审核中 - 二次评分
+    验证记录条数    13
+    工单状态列表选择    审核中 - 专家审批
+    验证记录条数    14
+    工单状态列表选择    审批完毕
+    验证记录条数    15
+    工单状态列表选择    待额度审批
+    验证记录条数    18
+    工单状态列表选择    待生成合同
+    验证记录条数    20
+    工单状态列表选择    待签章
+    验证记录条数    21
+    工单状态列表选择    待上传资料
+    验证记录条数    30
+    工单状态列表选择    待交易确认
+    验证记录条数    31
+    工单状态列表选择    已推BUS
+    验证记录条数    32
+    工单状态列表选择    待保理放款
+    验证记录条数    35
+    工单状态列表选择    放款成功
+    验证记录条数    50
+    工单状态列表选择    工单撤销
+    验证记录条数    70
+    工单状态列表选择    拒绝
+    验证记录条数    80
+    工单状态列表选择    拒绝 - 待拒绝
+    验证记录条数    81
+    工单状态列表选择    数据异常
+    验证记录条数    90
+    工单状态列表选择    合同 - 审核中
+    Comment    验证记录条数    C1
+    工单状态列表选择    合同 - 审核退回
+    Comment    验证记录条数    C2
+    工单状态列表选择    合同 - 审核通过
+    Comment    验证记录条数    C3
+    浏览器关闭
+    [Teardown]    Close Browser
+
+工单查询-贷款类型
+    读取excel数据-OC
+    用户登录-OC
+    用户软电话
+    菜单选择-OC    工单查询
+    判断页面跳转-OC    工单查询
+    Comment    贷款类型列表选择    1    pos贷    #pos贷数量多
+    贷款类型列表选择    2    现金贷
+    贷款类型列表选择    3    农机贷
+    浏览器关闭
+    [Teardown]    Close Browser
+
+工单查询-工单申请时间
+    读取excel数据-OC
+    获取当天日期
+    用户登录-OC
+    用户软电话
+    菜单选择-OC    工单查询
+    判断页面跳转-OC    工单查询
+    inputText    id=startTime    ${today}
+    Sleep    222
+    inputText    id=endTime    ${today}
+    按钮点击-OC    查询
+    判断结果页面包含    ${today}
+    浏览器关闭
+
+工单查询-工单详情
+    读取excel数据-OC
+    用户登录-OC
+    用户软电话
+    菜单选择-OC    工单查询
+    判断页面跳转-OC    工单查询
+    文本框输入-OC    工单编号    ${appid-q}
+    按钮点击-OC    查询
+    判断结果页面包含链接    ${appid-q}
+    点击链接    ${appid-q}
+    判断页面跳转-OC    工单详情
+    点击链接    合同资料
+    点击链接    协审信息
+    点击链接    商品信息
+    按钮点击-OC    返回
+    判断页面跳转-OC    工单查询
+    浏览器关闭
+
+工单查询-查看还款信息
+    读取excel数据-OC
+    用户登录-OC
+    用户软电话
+    菜单选择-OC    工单查询
+    判断页面跳转-OC    工单查询
+    文本框输入-OC    工单编号    ${appid-q}
+    按钮点击-OC    查询
+    还款信息查看
+    判断页面跳转-OC    还款计划列表
+    点击链接    返回
+    判断页面跳转-OC    工单查询
+    浏览器关闭
+
+工单查询-查看审核记录
+    读取excel数据-OC
+    用户登录-OC
+    用户软电话
+    菜单选择-OC    工单查询
+    判断页面跳转-OC    工单查询
+    文本框输入-OC    工单编号    ${appid-q}
+    按钮点击-OC    查询
+    审核记录查看
+    判断页面跳转-OC    审核记录
+    按钮点击-OC    返回
+    判断页面跳转-OC    工单查询
+    浏览器关闭
+
+工单查询-按键测试
+    读取excel数据-OC
+    用户登录-OC
+    用户软电话
+    菜单选择-OC    工单查询
+    判断页面跳转-OC    工单查询
+    按钮点击-OC    查询
+    点击链接    下一页
+    点击链接    最后一页
+    输入页码    5
+    点击链接    go
+    点击链接    上一页
+    点击链接    第一页
+    浏览器关闭
+
+审核分单（pos）
+    [Tags]    pos
+    读取excel数据-OC
+    获取工单信息    12
+    用户登录-OC
+    用户软电话
+    菜单选择-OC    人工审核
+    菜单选择-OC    审核分单（POS）
+    判断页面跳转-OC    人工审核分单
+    文本输入    工单编号    ${appid-q}
+    按钮点击-OC    查询
+    勾选复选框
+    选择审核人    ${username-oc}
+    进行调单分配
+    浏览器关闭
+    [Teardown]    Close Browser
+
+审核分单（pos）-工单编号
+    读取excel数据-OC
+    用户登录-OC
+    用户软电话
+    菜单选择-OC    人工审核
+    菜单选择-OC    审核分单（POS）
+    判断页面跳转-OC    人工审核分单
+    文本输入    工单编号    ${appid-q}
+    按钮点击-OC    查询
+    判断结果页面包含链接    ${appid-q}
+    浏览器关闭
+    [Teardown]    Close Browser
+
+审核分单（pos）-审核人
+    读取excel数据-OC
+    用户登录-OC
+    用户软电话
+    菜单选择-OC    人工审核
+    菜单选择-OC    审核分单（POS）
+    判断页面跳转-OC    人工审核分单
+    查询条件审核人    审核人    ${username-oc}
+    按钮点击-OC    查询
+    判断结果页面包含    ${username-oc}
+    浏览器关闭
+    [Teardown]    Close Browser
+
+审核分单（pos）-分配状态
+    读取excel数据-OC
+    用户登录-OC
+    用户软电话
+    菜单选择-OC    人工审核
+    菜单选择-OC    审核分单（POS）
+    判断页面跳转-OC    人工审核分单
+    下拉框    分配状态    已分配
+    按钮点击-OC    查询
+    Comment    判断结果页面包含    ${username-oc}
+    浏览器关闭
+    [Teardown]    Close Browser
+
+审核分单（pos）-申请人
+    读取excel数据-OC
+    用户登录-OC
+    用户软电话
+    菜单选择-OC    人工审核
+    菜单选择-OC    审核分单（POS）
+    判断页面跳转-OC    人工审核分单
+    文本输入    申请人    ${customername-q}
+    按钮点击-OC    查询
+    判断结果页面包含    ${customername-q}
+    浏览器关闭
+    [Teardown]    Close Browser
+
+审核分单（pos）-身份证号
+    读取excel数据-OC
+    用户登录-OC
+    用户软电话
+    菜单选择-OC    人工审核
+    菜单选择-OC    审核分单（POS）
+    判断页面跳转-OC    人工审核分单
+    文本输入    身份证号    ${cardid-q}
+    按钮点击-OC    查询
+    判断结果页面包含    ${cardid-q}
+    浏览器关闭
+    [Teardown]    Close Browser
+
+审核分单（pos）-手机号
+    读取excel数据-OC
+    用户登录-OC
+    用户软电话
+    菜单选择-OC    人工审核
+    菜单选择-OC    审核分单（POS）
+    判断页面跳转-OC    人工审核分单
+    文本输入    手机号    ${mobile-q}
+    按钮点击-OC    查询
+    判断结果页面包含    ${mobile-q}
+    浏览器关闭
+    [Teardown]    Close Browser
+
+初步审核（pos）-继续审核
+    读取excel数据-OC
+    用户登录-OC
+    用户软电话
+    菜单选择-OC    人工审核
+    菜单选择-OC    初步审核（POS）
+    判断页面跳转-OC    人工初步审核
+    继续审核操作    ${appid-q}
+    判断页面包含    图片核实
+    按钮点击-OC    退回申请
+    下拉选择-OC    退回原因    授权委托书类
+    文本输入-OC    退回意见    人工审核退回
+    按钮点击-OC    提交
+    按钮点击-OC    确定
+    浏览器关闭
+    [Teardown]    Close Browser
+
+初步审核（pos）-获取工单
+    读取excel数据-OC
+    用户登录-OC
+    用户软电话
+    菜单选择-OC    人工审核
+    菜单选择-OC    初步审核（POS）
+    判断页面跳转-OC    人工初步审核
+    获取工单
+    判断页面包含    图片核实
+    浏览器关闭
+    [Teardown]    Close Browser
+
+初步审核 (pos) -待审核工单数量校验
+    读取excel数据-OC
+    用户登录-OC
+    用户软电话
+    菜单选择-OC    人工审核
+    菜单选择-OC    初步审核（POS）
+    判断页面跳转-OC    人工初步审核
+    判断数据库待审核工单数量和界面一致    'POS' , 'AGR'    12    #不一致时提示"界面显示的待审核工单数量和数据库查询到的数量不一致"
+    浏览器关闭
+    [Teardown]    Close Browser
+
+初步审核 (cash) -待审核工单数量校验
+    读取excel数据-OC
+    用户登录-OC
+    用户软电话
+    菜单选择-OC    人工审核
+    菜单选择-OC    初步审核（CASH）
+    判断页面跳转-OC    人工初步审核
+    判断数据库待审核工单数量和界面一致    'CASH'    12
+    浏览器关闭
+    [Teardown]    Close Browser
+
+审批分单（pos）
+    [Tags]    pos
+    读取excel数据-OC
+    获取工单信息    14
+    用户登录-OC
+    用户软电话
+    菜单选择-OC    专家审批
+    菜单选择-OC    审批分单（POS）
+    判断页面跳转-OC    专家审批分单
+    文本输入    工单编号    ${appid-q}
+    按钮点击-OC    查询
+    勾选复选框
+    查询结果审核人    审批人    ${username-oc}
+    进行调单分配
+    浏览器关闭
+    [Teardown]    Close Browser
+
+审批分单（pos）-工单编号
+    读取excel数据-OC
+    用户登录-OC
+    用户软电话
+    菜单选择-OC    专家审批
+    菜单选择-OC    审批分单（POS）
+    判断页面跳转-OC    专家审批分单
+    文本输入    工单编号    ${appid-q}
+    按钮点击-OC    查询
+    判断结果页面包含链接    ${appid-q}
+    浏览器关闭
+    [Teardown]    Close Browser
+
+审批分单（pos）-审核人
+    读取excel数据-OC
+    用户登录-OC
+    用户软电话
+    菜单选择-OC    专家审批
+    菜单选择-OC    审批分单（POS）
+    判断页面跳转-OC    专家审批分单
+    查询条件审核人    审批人    ${username-oc}
+    按钮点击-OC    查询
+    判断结果页面包含    ${username-oc}
+    浏览器关闭
+    [Teardown]    Close Browser
+
+审批分单（pos）-分配状态
+    读取excel数据-OC
+    用户登录-OC
+    用户软电话
+    菜单选择-OC    专家审批
+    菜单选择-OC    审批分单（POS）
+    判断页面跳转-OC    专家审批分单
+    下拉框    分配状态    已分配
+    按钮点击-OC    查询
+    Comment    判断结果页面包含    ${username-oc}
+    浏览器关闭
+    [Teardown]    Close Browser
+
+审批分单（pos）-申请人
+    读取excel数据-OC
+    用户登录-OC
+    用户软电话
+    菜单选择-OC    专家审批
+    菜单选择-OC    审批分单（POS）
+    判断页面跳转-OC    专家审批分单
+    文本输入    申请人    ${customername-q}
+    按钮点击-OC    查询
+    判断结果页面包含    ${customername-q}
+    浏览器关闭
+    [Teardown]    Close Browser
+
+审批分单（pos）-身份证号
+    读取excel数据-OC
+    用户登录-OC
+    用户软电话
+    菜单选择-OC    专家审批
+    菜单选择-OC    审批分单（POS）
+    判断页面跳转-OC    专家审批分单
+    文本输入    身份证号    ${cardid-q}
+    按钮点击-OC    查询
+    判断结果页面包含    ${cardid-q}
+    浏览器关闭
+    [Teardown]    Close Browser
+
+审批分单（pos）-手机号
+    读取excel数据-OC
+    用户登录-OC
+    用户软电话
+    菜单选择-OC    专家审批
+    菜单选择-OC    审批分单（POS）
+    判断页面跳转-OC    专家审批分单
+    文本输入    手机号    ${mobile-q}
+    按钮点击-OC    查询
+    判断结果页面包含    ${mobile-q}
+    浏览器关闭
+    [Teardown]    Close Browser
+
+初步审批（pos）-继续审核
+    读取excel数据-OC
+    用户登录-OC
+    用户软电话
+    菜单选择-OC    专家审批
+    菜单选择-OC    初步审批（POS）
+    判断页面跳转-OC    信用专家审核
+    继续审核操作    ${appid-q}
+    判断页面包含    图片核实
+    按钮点击-OC    退回申请
+    下拉选择-OC    退回原因    授权委托书类
+    文本输入-OC    退回意见    专家审批退回
+    按钮点击-OC    提交
+    按钮点击-OC    确定
+    浏览器关闭
+    [Teardown]    Close Browser
+
+初步审批（pos）-获取工单
+    读取excel数据-OC
+    用户登录-OC
+    用户软电话
+    菜单选择-OC    专家审批
+    菜单选择-OC    初步审批（POS）
+    判断页面跳转-OC    信用专家审核
+    获取工单
+    判断页面包含    图片核实
+    浏览器关闭
+    [Teardown]    Close Browser
+
+初步审批 (pos) -待审核工单数量校验
+    读取excel数据-OC
+    用户登录-OC
+    用户软电话
+    菜单选择-OC    专家审批
+    菜单选择-OC    初步审批（POS）
+    判断页面跳转-OC    信用专家审核
+    判断数据库待审核工单数量和界面一致    'POS' , 'AGR'    14
+    浏览器关闭
+    [Teardown]    Close Browser
+
+初步审批 (cash) -待审核工单数量校验
+    读取excel数据-OC
+    用户登录-OC
+    用户软电话
+    菜单选择-OC    专家审批
+    菜单选择-OC    初步审批（CASH）
+    判断页面跳转-OC    信用专家审核
+    判断数据库待审核工单数量和界面一致    'CASH'    14
+    浏览器关闭
+    [Teardown]    Close Browser
+
+电话仓库
+    读取excel数据-OC
+    用户登录-OC
+    用户软电话
+    菜单选择-OC    客户信息
+    菜单选择-OC    电话仓库
+    判断页面跳转1-OC    电话仓库
+    文本输入    工单编号    ${appid-q}
+    按钮点击-OC    查询
+    判断页面包含    本人联系信息
+    本人联系信息新增    本人联系信息
+    表格列表选择-OC    contactCategoryPhone    QQ
+    表格文本输入-oc    contact    785245343413
+    表格列表选择-oc    state    失效
+    表格文本框输入-oc    remark    test
+    点击按键    保存
+    按钮点击-OC    确定
+    等待    222
+    按钮点击-OC    确定
+    等待    222
+    其他联系人信息新增    其他联系人信息
+    表格文本输入-oc    name    黄豆豆
+    表格列表选择-OC    contactRelativesPhone    其他
+    表格文本输入-oc    contact    15673456789
+    表格列表选择-oc    state    失效
+    表格文本框输入-oc    remark    test
+    点击按键    保存
+    按钮点击-OC    确定
+    按钮点击-OC    确定
+    浏览器关闭
+    [Teardown]
+
+修改密码功能
+    读取excel数据-OC
+    用户登录-OC
+    用户软电话
+    点击链接    修改密码
+    密码输入-oc    oldPassword    ${password-oc}
+    密码输入-oc    newPassword    ${newpassword-oc}
+    密码输入-oc    samePassword    ${newpassword-oc}
+    按钮点击-oc    提交
+    按钮点击-oc    确定
+    用户软电话
+    点击退出
+    用户登录OC-带参数    ${loginname-oc}    ${newpassword-oc}
+    用户软电话
+    点击链接    修改密码
+    密码输入-oc    oldPassword    ${newpassword-oc}
+    密码输入-oc    newPassword    ${password-oc}
+    密码输入-oc    samePassword    ${password-oc}
+    按钮点击-oc    提交
+    按钮点击-oc    确定
+    浏览器关闭
+    [Teardown]    Close Browser
+
+用户管理菜单
+    读取excel数据-OC
+    用户登录-OC
+    用户软电话
+    菜单选择-OC    系统管理
+    菜单选择-OC    用户管理
+    判断页面跳转-OC    用户管理
+    浏览器关闭
+    [Teardown]    Close Browser
+
+用户管理-（用户名）查询
+    读取excel数据-OC
+    用户登录-OC
+    用户软电话
+    菜单选择-OC    系统管理
+    菜单选择-OC    用户管理
+    判断页面跳转-OC    用户管理
+    文本框输入-oc    用户名称:    ${username-oc}
+    按钮点击-OC    查询
+    验证记录条数1
+    ${num2}    mysql_test    select count(*) from oc_user_info where USER_NAME like '${username-oc}%' and status!='del';    ${mysql-user}    ${mysql-pwd}    ${mysql-db}
+    ${num2}    Evaluate    int(${num2[0][0]})
+    Should Be Equal    ${totoa_num}    ${num2}    msg=界面查询结果显示的用户数量和数据库不一致    values=True
+    判断结果页面包含    ${username-oc}
+    浏览器关闭
+    [Teardown]    Close Browser
+
+用户管理-查看用户详情
+    读取excel数据-OC
+    用户登录-OC
+    用户软电话
+    菜单选择-OC    系统管理
+    菜单选择-OC    用户管理
+    判断页面跳转-OC    用户管理
+    文本框输入-oc    用户名称:    ${username-oc}
+    按钮点击-OC    查询
+    获取表格单元格值    2    1    #获取第一行第一列=用户ID的值
+    点击链接    ${text}
+    判断页面包含    用户资料
+    按钮点击-oc    返回
+    浏览器关闭
+    [Teardown]    Close Browser
+
+用户管理-新增用户
+    读取excel数据-OC
+    生成测试数据
+    用户登录-OC
+    用户软电话
+    菜单选择-OC    系统管理
+    菜单选择-OC    用户管理
+    判断页面跳转-OC    用户管理
+    按钮点击-OC    新增
+    判断页面跳转-OC    新增用户
+    文本输入    登录名称:    ${newuser_loginName}
+    文本输入    用户名称:    ${newuser_name}
+    文本输入    密码:    cn123456
+    文本输入    身份证号:    ${newuser_cardId}
+    文本输入    邮箱:    ${newuser_email}
+    文本输入    手机号:    ${newuser_phoneNumber}
+    下拉框    组织机构:    超能公司
+    下拉框    选择角色:    oc管理角色
+    下拉框    性别:    男
+    按钮点击-OC    提交
+    按钮点击-OC    确定
+    判断页面包含    提交成功
+    按钮点击-OC    确定
+    浏览器关闭
+    [Teardown]    Close Browser
+
+用户管理-修改用户
+    读取excel数据-OC
+    用户登录-OC
+    用户软电话
+    菜单选择-OC    系统管理
+    菜单选择-OC    用户管理
+    判断页面跳转-OC    用户管理
+    文本框输入-oc    登录名称:    ${newuser_loginName}
+    按钮点击-OC    查询
+    生成测试数据
+    点击按键    修改
+    判断页面包含    用户资料
+    文本输入    用户名称:    ${newuser_name}
+    文本输入    密码:    cn123456
+    文本输入    身份证号:    ${newuser_cardId}
+    文本输入    邮箱:    ${newuser_email}
+    文本输入    手机号    ${newuser_phoneNumber}
+    下拉框    组织机构:    向阳花公司
+    下拉框    选择角色:    审核主管
+    下拉框    用户状态:    正常
+    下拉框    性别    女
+    按钮点击-oc    提交
+    按钮点击-oc    确定
+    按钮点击-oc    确定
+    浏览器关闭
+    [Teardown]    Close Browser
+
+用户管理-停用用户
+    读取excel数据-OC
+    用户登录-OC
+    用户软电话
+    菜单选择-OC    系统管理
+    菜单选择-OC    用户管理
+    判断页面跳转-OC    用户管理
+    文本框输入-oc    用户名称:    ${newuser_name}
+    按钮点击-OC    查询
+    点击链接    停用
+    按钮点击-oc    确定
+    按钮点击-oc    确定
+    浏览器关闭
+    [Teardown]    Close Browser
+
+用户管理-启用用户
+    读取excel数据-OC
+    用户登录-OC
+    用户软电话
+    菜单选择-OC    系统管理
+    菜单选择-OC    用户管理
+    判断页面跳转-OC    用户管理
+    文本框输入-oc    用户名称:    ${newuser_name}
+    按钮点击-OC    查询
+    点击链接    启用
+    按钮点击-oc    确定
+    按钮点击-oc    确定
+    浏览器关闭
+    [Teardown]    Close Browser
+
+用户管理-删除用户
+    读取excel数据-OC
+    用户登录-OC
+    用户软电话
+    菜单选择-OC    系统管理
+    菜单选择-OC    用户管理
+    判断页面跳转-OC    用户管理
+    文本框输入-oc    用户名称:    ${newuser_name}
+    按钮点击-OC    查询
+    点击链接    删除
+    按钮点击-oc    确定
+    按钮点击-oc    确定
+    浏览器关闭
+    [Teardown]    Close Browser
+
+角色管理菜单
+    读取excel数据-OC
+    用户登录-OC
+    用户软电话
+    菜单选择-OC    系统管理
+    下拉滚动栏
+    菜单选择-OC    角色管理
+    判断页面跳转-OC    角色管理
+    浏览器关闭
+    [Teardown]    Close Browser
+
+角色管理-新增角色
+    生成测试数据
+    读取excel数据-OC
+    用户登录-OC
+    用户软电话
+    菜单选择-OC    系统管理
+    下拉滚动栏
+    菜单选择-OC    角色管理
+    按钮点击-OC    新增
+    文本输入    角色名称:    ${newrole_name}
+    文本输入    角色编码:    ${newrole_no}
+    按钮点击-OC    选择权限编码
+    勾选权限编码
+    按钮点击-OC    确定
+    按钮点击-OC    保存
+    点击链接    返回
+    浏览器关闭
+    [Teardown]    Close Browser
+
+角色管理-修改角色
+    读取excel数据-OC
+    用户登录-OC
+    用户软电话
+    菜单选择-OC    系统管理
+    下拉滚动栏
+    菜单选择-OC    角色管理
+    判断页面跳转-OC    角色管理
+    文本框输入-OC    角色名称    ${newrole_name}
+    按钮点击-OC    查询
+    生成测试数据
+    点击按键    修改
+    文本输入    角色名称    ${newrole_name}
+    文本输入    角色编码    ${newrole_no}
+    按钮点击-OC    选择权限编码
+    修改权限编码
+    按钮点击-OC    确定
+    按钮点击-OC    保存
+    按钮点击-OC    确定
+    判断提示信息
+    浏览器关闭
+    [Teardown]    Close Browser
+
+角色管理-删除角色
+    读取excel数据-OC
+    用户登录-OC
+    用户软电话
+    菜单选择-OC    系统管理
+    下拉滚动栏
+    菜单选择-OC    角色管理
+    判断页面跳转-OC    角色管理
+    文本框输入-OC    角色名称    ${newrole_name}
+    按钮点击-OC    查询
+    点击按键    删除
+    按钮点击-OC    确定
+    判断提示信息
+    浏览器关闭
+    [Teardown]    Close Browser
