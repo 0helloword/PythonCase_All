@@ -1,0 +1,112 @@
+*** Settings ***
+Library           ExcelLibrary
+Library           Selenium2Library
+
+*** Keywords ***
+个人用户登录
+    [Documentation]    用户登录
+    Input Text    id=cusername    ${phoneno}
+    Input Text    name=password    ${personal-pwd}
+    Click Button    id=loginCustomerButton
+    Sleep    2
+    Page Should Contain    温馨提示：
+    Comment    \    ${phoneno}
+    Comment    \    ${personal-pwd}
+    [Teardown]
+
+获取个人用户密码
+    ${personal-pwd}    Evaluate    ${phoneno[5:11]}
+    log    ${personal-pwd}
+    Set Global Variable    ${personal-pwd}
+
+门店用户登录
+    [Arguments]    ${store-name}    ${store-pwd}
+    [Documentation]    用户登录
+    Sleep    1
+    Input Text    id=fusername    ${store-name}
+    Sleep    1
+    Input Text    css=#loginStoreForm > div.form-group > div.input-icon.input-icon-lg > input[name="password"]    ${store-pwd}
+    Click Button    id=loginStoreButton
+    Sleep    1
+    Page Should Contain    欢迎使用玖富超能合同签章系统！
+    [Teardown]
+
+按钮点击-qz
+    [Arguments]    ${name}
+    Sleep    2
+    Wait Until Page Contains Element    jquery=button:contains('${name}'):visible
+    Wait Until Element Is Visible    jquery=button:contains('${name}'):visible
+    click element    jquery=button:contains('${name}'):visible
+
+点击链接-qz
+    [Arguments]    ${name}
+    Sleep    1
+    Wait Until Page Contains Element    jquery=div a:contains('${name}')
+    Wait Until Element Is Visible    jquery=div a:contains('${name}')
+    Click Link    jquery=div a:contains('${name}')
+
+阅读合同old
+    [Arguments]    ${name}
+    Sleep    2
+    Wait Until Page Contains Element    jquery=div:contains('${name}')
+    Wait Until Element Is Visible    jquery=div:contains('${name}')
+    Click Element    jquery=div:contains('${name}') a:contains(' 阅 读 ')
+
+阅读合同
+    [Arguments]    ${num}
+    Sleep    2
+    Click Element    xpath=//*[@id="div_contract_list"]/div[${num}]/div/p/a[1]
+
+文本输入-qz
+    [Arguments]    ${value}
+    Sleep    1
+    inputText    xpath=//*[@id="ipt_code"]    ${value}
+
+点击签章
+    Click Element    xpath=//*[@id="btn_sign"]
+
+点击工单
+    Sleep    2
+    Click Element    css=i.fa.fa-file-text
+
+打开浏览器
+    [Arguments]    ${url-qz}
+    [Documentation]    用户登录
+    open browser    ${url-qz}    chrome
+    Maximize Browser Window
+    [Teardown]
+
+鼠标移动
+    Sleep    2
+    Mouse Over    xpath=/html/body/div[1]/div/div[3]/ul/li/a/span
+
+点击确认
+    [Arguments]    ${name}
+    Sleep    10
+    Comment    Comment    Sleep    2    xpath=//*[@id="signModal"]/div[2]/div/div[3]/button
+    Comment    Wait Until Page Contains Element    jquery=div h4:contains('注意')
+    Comment    Wait Until Element Is Visible    jquery=div h4:contains('注意')
+    Comment    Click Element    xpath=//*[@id="signModal"]/div[2]/div/div[3]/button
+    Wait Until Page Contains Element    jquery=button:contains('${name}'):visible
+    Wait Until Element Is Visible    jquery=button:contains('${name}'):visible
+    click element    jquery=button:contains('${name}'):visible
+
+文本框输入-qz
+    [Arguments]    ${name}    ${value}
+    Wait Until Page Contains Element    jquery=div:contains('${name}')+div input
+    Wait Until Element Is Visible    jquery=div:contains('${name}')+div input
+    input text    jquery=div:contains('${name}')+div input    ${value}
+
+关闭所有浏览器
+    Sleep    3
+    Close All Browsers
+
+判断页面跳转-qz
+    [Arguments]    ${name}
+    Wait Until Page Contains Element    jquery=div h3:contains('${name}')
+    Wait Until Element Is Visible    jquery=div h3:contains('${name}')
+    page Should Contain element    jquery=div h3:contains('${name}')
+
+点击查询-qz
+    Sleep    1
+    Click Element    css=button.btn.grey

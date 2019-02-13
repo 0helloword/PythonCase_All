@@ -1,0 +1,2163 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<robot generated="20170728 15:42:03.020" generator="Robot 2.8.7 (Python 2.7.13 on win32)">
+<suite source="G:\pythonCase\9fchaoneng\测试用例" id="s1" name="测试用例">
+<suite source="G:\pythonCase\9fchaoneng\测试用例\A新增工单.txt" id="s1-s1" name="A新增工单">
+<test id="s1-s1-t1" name="pos贷提交">
+<kw type="kw" name="配置文件.读取excel数据-sa1">
+<doc></doc>
+<arguments>
+</arguments>
+<kw type="kw" name="ExcelLibrary.Open Excel">
+<doc>Opens the Excel file from the path provided in the file name parameter.</doc>
+<arguments>
+<arg>G:\\pythonCase\\userlogin.xls</arg>
+</arguments>
+<status status="PASS" endtime="20170728 15:42:03.757" starttime="20170728 15:42:03.749"></status>
+</kw>
+<kw type="kw" name="${url} = ExcelLibrary.Read Cell Data By Name">
+<doc>Uses the cell name to return the data from that cell.</doc>
+<arguments>
+<arg>Sheet1</arg>
+<arg>A3</arg>
+</arguments>
+<msg timestamp="20170728 15:42:03.760" level="INFO">${url} = https://sasit.9fchaoneng.cn/initLogin</msg>
+<status status="PASS" endtime="20170728 15:42:03.760" starttime="20170728 15:42:03.758"></status>
+</kw>
+<kw type="kw" name="BuiltIn.Set Global Variable">
+<doc>Makes a variable available globally in all tests and suites.</doc>
+<arguments>
+<arg>${url}</arg>
+</arguments>
+<msg timestamp="20170728 15:42:03.761" level="INFO">${url} = https://sasit.9fchaoneng.cn/initLogin</msg>
+<status status="PASS" endtime="20170728 15:42:03.761" starttime="20170728 15:42:03.760"></status>
+</kw>
+<kw type="kw" name="${b} = ExcelLibrary.Read Cell Data By Name">
+<doc>Uses the cell name to return the data from that cell.</doc>
+<arguments>
+<arg>Sheet1</arg>
+<arg>B3</arg>
+</arguments>
+<msg timestamp="20170728 15:42:03.763" level="INFO">${b} = 998866</msg>
+<status status="PASS" endtime="20170728 15:42:03.763" starttime="20170728 15:42:03.761"></status>
+</kw>
+<kw type="kw" name="${username} = BuiltIn.Evaluate">
+<doc>Evaluates the given expression in Python and returns the results.</doc>
+<arguments>
+<arg>int(${b})</arg>
+</arguments>
+<msg timestamp="20170728 15:42:03.764" level="INFO">${username} = 998866</msg>
+<status status="PASS" endtime="20170728 15:42:03.763" starttime="20170728 15:42:03.763"></status>
+</kw>
+<kw type="kw" name="BuiltIn.Set Global Variable">
+<doc>Makes a variable available globally in all tests and suites.</doc>
+<arguments>
+<arg>${username}</arg>
+</arguments>
+<msg timestamp="20170728 15:42:03.764" level="INFO">${username} = 998866</msg>
+<status status="PASS" endtime="20170728 15:42:03.765" starttime="20170728 15:42:03.764"></status>
+</kw>
+<kw type="kw" name="${password} = ExcelLibrary.Read Cell Data By Name">
+<doc>Uses the cell name to return the data from that cell.</doc>
+<arguments>
+<arg>Sheet1</arg>
+<arg>C3</arg>
+</arguments>
+<msg timestamp="20170728 15:42:03.767" level="INFO">${password} = cyj123</msg>
+<status status="PASS" endtime="20170728 15:42:03.767" starttime="20170728 15:42:03.765"></status>
+</kw>
+<kw type="kw" name="BuiltIn.Set Global Variable">
+<doc>Makes a variable available globally in all tests and suites.</doc>
+<arguments>
+<arg>${password}</arg>
+</arguments>
+<msg timestamp="20170728 15:42:03.768" level="INFO">${password} = cyj123</msg>
+<status status="PASS" endtime="20170728 15:42:03.768" starttime="20170728 15:42:03.768"></status>
+</kw>
+<kw type="kw" name="${storeId} = ExcelLibrary.Read Cell Data By Name">
+<doc>Uses the cell name to return the data from that cell.</doc>
+<arguments>
+<arg>Sheet1</arg>
+<arg>D3</arg>
+</arguments>
+<msg timestamp="20170728 15:42:03.770" level="INFO">${storeId} = 竹子林门店1</msg>
+<status status="PASS" endtime="20170728 15:42:03.770" starttime="20170728 15:42:03.769"></status>
+</kw>
+<kw type="kw" name="BuiltIn.Set Global Variable">
+<doc>Makes a variable available globally in all tests and suites.</doc>
+<arguments>
+<arg>${storeId}</arg>
+</arguments>
+<msg timestamp="20170728 15:42:03.771" level="INFO">${storeId} = 竹子林门店1</msg>
+<status status="PASS" endtime="20170728 15:42:03.771" starttime="20170728 15:42:03.771"></status>
+</kw>
+<kw type="kw" name="${carType} = ExcelLibrary.Read Cell Data By Name">
+<doc>Uses the cell name to return the data from that cell.</doc>
+<arguments>
+<arg>Sheet1</arg>
+<arg>E3</arg>
+</arguments>
+<msg timestamp="20170728 15:42:03.773" level="INFO">${carType} = 在职人员</msg>
+<status status="PASS" endtime="20170728 15:42:03.773" starttime="20170728 15:42:03.771"></status>
+</kw>
+<kw type="kw" name="BuiltIn.Set Global Variable">
+<doc>Makes a variable available globally in all tests and suites.</doc>
+<arguments>
+<arg>${carType}</arg>
+</arguments>
+<msg timestamp="20170728 15:42:03.774" level="INFO">${carType} = 在职人员</msg>
+<status status="PASS" endtime="20170728 15:42:03.774" starttime="20170728 15:42:03.773"></status>
+</kw>
+<kw type="kw" name="${productSeriesId} = ExcelLibrary.Read Cell Data By Name">
+<doc>Uses the cell name to return the data from that cell.</doc>
+<arguments>
+<arg>Sheet1</arg>
+<arg>F3</arg>
+</arguments>
+<msg timestamp="20170728 15:42:03.776" level="INFO">${productSeriesId} = 手机-JD</msg>
+<status status="PASS" endtime="20170728 15:42:03.776" starttime="20170728 15:42:03.774"></status>
+</kw>
+<kw type="kw" name="BuiltIn.Set Global Variable">
+<doc>Makes a variable available globally in all tests and suites.</doc>
+<arguments>
+<arg>${productSeriesId}</arg>
+</arguments>
+<msg timestamp="20170728 15:42:03.776" level="INFO">${productSeriesId} = 手机-JD</msg>
+<status status="PASS" endtime="20170728 15:42:03.777" starttime="20170728 15:42:03.776"></status>
+</kw>
+<kw type="kw" name="${cargoTypeName} = ExcelLibrary.Read Cell Data By Name">
+<doc>Uses the cell name to return the data from that cell.</doc>
+<arguments>
+<arg>Sheet1</arg>
+<arg>G3</arg>
+</arguments>
+<msg timestamp="20170728 15:42:03.778" level="INFO">${cargoTypeName} = 手机</msg>
+<status status="PASS" endtime="20170728 15:42:03.778" starttime="20170728 15:42:03.777"></status>
+</kw>
+<kw type="kw" name="BuiltIn.Set Global Variable">
+<doc>Makes a variable available globally in all tests and suites.</doc>
+<arguments>
+<arg>${cargoTypeName}</arg>
+</arguments>
+<msg timestamp="20170728 15:42:03.779" level="INFO">${cargoTypeName} = 手机</msg>
+<status status="PASS" endtime="20170728 15:42:03.779" starttime="20170728 15:42:03.779"></status>
+</kw>
+<kw type="kw" name="${commodityClassName} = ExcelLibrary.Read Cell Data By Name">
+<doc>Uses the cell name to return the data from that cell.</doc>
+<arguments>
+<arg>Sheet1</arg>
+<arg>H3</arg>
+</arguments>
+<msg timestamp="20170728 15:42:03.781" level="INFO">${commodityClassName} = 非苹果手机</msg>
+<status status="PASS" endtime="20170728 15:42:03.781" starttime="20170728 15:42:03.780"></status>
+</kw>
+<kw type="kw" name="BuiltIn.Set Global Variable">
+<doc>Makes a variable available globally in all tests and suites.</doc>
+<arguments>
+<arg>${commodityClassName}</arg>
+</arguments>
+<msg timestamp="20170728 15:42:03.783" level="INFO">${commodityClassName} = 非苹果手机</msg>
+<status status="PASS" endtime="20170728 15:42:03.783" starttime="20170728 15:42:03.781"></status>
+</kw>
+<kw type="kw" name="${commodityName} = ExcelLibrary.Read Cell Data By Name">
+<doc>Uses the cell name to return the data from that cell.</doc>
+<arguments>
+<arg>Sheet1</arg>
+<arg>I3</arg>
+</arguments>
+<msg timestamp="20170728 15:42:03.784" level="INFO">${commodityName} = 三星</msg>
+<status status="PASS" endtime="20170728 15:42:03.784" starttime="20170728 15:42:03.783"></status>
+</kw>
+<kw type="kw" name="BuiltIn.Set Global Variable">
+<doc>Makes a variable available globally in all tests and suites.</doc>
+<arguments>
+<arg>${commodityName}</arg>
+</arguments>
+<msg timestamp="20170728 15:42:03.786" level="INFO">${commodityName} = 三星</msg>
+<status status="PASS" endtime="20170728 15:42:03.787" starttime="20170728 15:42:03.785"></status>
+</kw>
+<kw type="kw" name="${commodityType} = ExcelLibrary.Read Cell Data By Name">
+<doc>Uses the cell name to return the data from that cell.</doc>
+<arguments>
+<arg>Sheet1</arg>
+<arg>J3</arg>
+</arguments>
+<msg timestamp="20170728 15:42:03.789" level="INFO">${commodityType} = Z2</msg>
+<status status="PASS" endtime="20170728 15:42:03.789" starttime="20170728 15:42:03.787"></status>
+</kw>
+<kw type="kw" name="BuiltIn.Set Global Variable">
+<doc>Makes a variable available globally in all tests and suites.</doc>
+<arguments>
+<arg>${commodityType}</arg>
+</arguments>
+<msg timestamp="20170728 15:42:03.790" level="INFO">${commodityType} = Z2</msg>
+<status status="PASS" endtime="20170728 15:42:03.790" starttime="20170728 15:42:03.790"></status>
+</kw>
+<kw type="kw" name="${k} = ExcelLibrary.Read Cell Data By Name">
+<doc>Uses the cell name to return the data from that cell.</doc>
+<arguments>
+<arg>Sheet1</arg>
+<arg>K3</arg>
+</arguments>
+<msg timestamp="20170728 15:42:03.792" level="INFO">${k} = 4321</msg>
+<status status="PASS" endtime="20170728 15:42:03.792" starttime="20170728 15:42:03.791"></status>
+</kw>
+<kw type="kw" name="${commodityPrice} = BuiltIn.Evaluate">
+<doc>Evaluates the given expression in Python and returns the results.</doc>
+<arguments>
+<arg>int(${k})</arg>
+</arguments>
+<msg timestamp="20170728 15:42:03.793" level="INFO">${commodityPrice} = 4321</msg>
+<status status="PASS" endtime="20170728 15:42:03.793" starttime="20170728 15:42:03.792"></status>
+</kw>
+<kw type="kw" name="BuiltIn.Set Global Variable">
+<doc>Makes a variable available globally in all tests and suites.</doc>
+<arguments>
+<arg>${commodityPrice}</arg>
+</arguments>
+<msg timestamp="20170728 15:42:03.794" level="INFO">${commodityPrice} = 4321</msg>
+<status status="PASS" endtime="20170728 15:42:03.794" starttime="20170728 15:42:03.793"></status>
+</kw>
+<kw type="kw" name="${l} = ExcelLibrary.Read Cell Data By Name">
+<doc>Uses the cell name to return the data from that cell.</doc>
+<arguments>
+<arg>Sheet1</arg>
+<arg>L3</arg>
+</arguments>
+<msg timestamp="20170728 15:42:03.795" level="INFO">${l} = 1000</msg>
+<status status="PASS" endtime="20170728 15:42:03.795" starttime="20170728 15:42:03.794"></status>
+</kw>
+<kw type="kw" name="${downPaymentAmount} = BuiltIn.Evaluate">
+<doc>Evaluates the given expression in Python and returns the results.</doc>
+<arguments>
+<arg>int(${l})</arg>
+</arguments>
+<msg timestamp="20170728 15:42:03.796" level="INFO">${downPaymentAmount} = 1000</msg>
+<status status="PASS" endtime="20170728 15:42:03.796" starttime="20170728 15:42:03.796"></status>
+</kw>
+<kw type="kw" name="BuiltIn.Set Global Variable">
+<doc>Makes a variable available globally in all tests and suites.</doc>
+<arguments>
+<arg>${downPaymentAmount}</arg>
+</arguments>
+<msg timestamp="20170728 15:42:03.798" level="INFO">${downPaymentAmount} = 1000</msg>
+<status status="PASS" endtime="20170728 15:42:03.798" starttime="20170728 15:42:03.797"></status>
+</kw>
+<kw type="kw" name="${buyInsurance} = ExcelLibrary.Read Cell Data By Name">
+<doc>Uses the cell name to return the data from that cell.</doc>
+<arguments>
+<arg>Sheet1</arg>
+<arg>M3</arg>
+</arguments>
+<msg timestamp="20170728 15:42:03.813" level="INFO">${buyInsurance} = 是</msg>
+<status status="PASS" endtime="20170728 15:42:03.813" starttime="20170728 15:42:03.811"></status>
+</kw>
+<kw type="kw" name="BuiltIn.Set Global Variable">
+<doc>Makes a variable available globally in all tests and suites.</doc>
+<arguments>
+<arg>${buyInsurance}</arg>
+</arguments>
+<msg timestamp="20170728 15:42:03.814" level="INFO">${buyInsurance} = 是</msg>
+<status status="PASS" endtime="20170728 15:42:03.814" starttime="20170728 15:42:03.813"></status>
+</kw>
+<kw type="kw" name="${n} = ExcelLibrary.Read Cell Data By Name">
+<doc>Uses the cell name to return the data from that cell.</doc>
+<arguments>
+<arg>Sheet1</arg>
+<arg>N3</arg>
+</arguments>
+<msg timestamp="20170728 15:42:03.816" level="INFO">${n} = 10</msg>
+<status status="PASS" endtime="20170728 15:42:03.815" starttime="20170728 15:42:03.814"></status>
+</kw>
+<kw type="kw" name="${productId} = BuiltIn.Evaluate">
+<doc>Evaluates the given expression in Python and returns the results.</doc>
+<arguments>
+<arg>int(${n})</arg>
+</arguments>
+<msg timestamp="20170728 15:42:03.816" level="INFO">${productId} = 10</msg>
+<status status="PASS" endtime="20170728 15:42:03.816" starttime="20170728 15:42:03.816"></status>
+</kw>
+<kw type="kw" name="BuiltIn.Set Global Variable">
+<doc>Makes a variable available globally in all tests and suites.</doc>
+<arguments>
+<arg>${productId}</arg>
+</arguments>
+<msg timestamp="20170728 15:42:03.818" level="INFO">${productId} = 10</msg>
+<status status="PASS" endtime="20170728 15:42:03.818" starttime="20170728 15:42:03.817"></status>
+</kw>
+<kw type="kw" name="${repaymentBank} = ExcelLibrary.Read Cell Data By Name">
+<doc>Uses the cell name to return the data from that cell.</doc>
+<arguments>
+<arg>Sheet1</arg>
+<arg>O3</arg>
+</arguments>
+<msg timestamp="20170728 15:42:03.821" level="INFO">${repaymentBank} = 招商银行</msg>
+<status status="PASS" endtime="20170728 15:42:03.821" starttime="20170728 15:42:03.819"></status>
+</kw>
+<kw type="kw" name="BuiltIn.Set Global Variable">
+<doc>Makes a variable available globally in all tests and suites.</doc>
+<arguments>
+<arg>${repaymentBank}</arg>
+</arguments>
+<msg timestamp="20170728 15:42:03.822" level="INFO">${repaymentBank} = 招商银行</msg>
+<status status="PASS" endtime="20170728 15:42:03.822" starttime="20170728 15:42:03.821"></status>
+</kw>
+<kw type="kw" name="${province} = ExcelLibrary.Read Cell Data By Name">
+<doc>Uses the cell name to return the data from that cell.</doc>
+<arguments>
+<arg>Sheet1</arg>
+<arg>P3</arg>
+</arguments>
+<msg timestamp="20170728 15:42:03.824" level="INFO">${province} = 广东省</msg>
+<status status="PASS" endtime="20170728 15:42:03.824" starttime="20170728 15:42:03.822"></status>
+</kw>
+<kw type="kw" name="BuiltIn.Set Global Variable">
+<doc>Makes a variable available globally in all tests and suites.</doc>
+<arguments>
+<arg>${province}</arg>
+</arguments>
+<msg timestamp="20170728 15:42:03.825" level="INFO">${province} = 广东省</msg>
+<status status="PASS" endtime="20170728 15:42:03.825" starttime="20170728 15:42:03.824"></status>
+</kw>
+<kw type="kw" name="${city} = ExcelLibrary.Read Cell Data By Name">
+<doc>Uses the cell name to return the data from that cell.</doc>
+<arguments>
+<arg>Sheet1</arg>
+<arg>Q3</arg>
+</arguments>
+<msg timestamp="20170728 15:42:03.826" level="INFO">${city} = 深圳市</msg>
+<status status="PASS" endtime="20170728 15:42:03.826" starttime="20170728 15:42:03.825"></status>
+</kw>
+<kw type="kw" name="BuiltIn.Set Global Variable">
+<doc>Makes a variable available globally in all tests and suites.</doc>
+<arguments>
+<arg>${city}</arg>
+</arguments>
+<msg timestamp="20170728 15:42:03.827" level="INFO">${city} = 深圳市</msg>
+<status status="PASS" endtime="20170728 15:42:03.827" starttime="20170728 15:42:03.827"></status>
+</kw>
+<kw type="kw" name="${idCardValidity} = ExcelLibrary.Read Cell Data By Name">
+<doc>Uses the cell name to return the data from that cell.</doc>
+<arguments>
+<arg>Sheet1</arg>
+<arg>R3</arg>
+</arguments>
+<msg timestamp="20170728 15:42:03.829" level="INFO">${idCardValidity} = 2019/03/04</msg>
+<status status="PASS" endtime="20170728 15:42:03.829" starttime="20170728 15:42:03.828"></status>
+</kw>
+<kw type="kw" name="BuiltIn.Set Global Variable">
+<doc>Makes a variable available globally in all tests and suites.</doc>
+<arguments>
+<arg>${idCardValidity}</arg>
+</arguments>
+<msg timestamp="20170728 15:42:03.830" level="INFO">${idCardValidity} = 2019/03/04</msg>
+<status status="PASS" endtime="20170728 15:42:03.831" starttime="20170728 15:42:03.829"></status>
+</kw>
+<kw type="kw" name="${degree} = ExcelLibrary.Read Cell Data By Name">
+<doc>Uses the cell name to return the data from that cell.</doc>
+<arguments>
+<arg>Sheet1</arg>
+<arg>S3</arg>
+</arguments>
+<msg timestamp="20170728 15:42:03.833" level="INFO">${degree} = 大专</msg>
+<status status="PASS" endtime="20170728 15:42:03.833" starttime="20170728 15:42:03.831"></status>
+</kw>
+<kw type="kw" name="BuiltIn.Set Global Variable">
+<doc>Makes a variable available globally in all tests and suites.</doc>
+<arguments>
+<arg>${degree}</arg>
+</arguments>
+<msg timestamp="20170728 15:42:03.834" level="INFO">${degree} = 大专</msg>
+<status status="PASS" endtime="20170728 15:42:03.834" starttime="20170728 15:42:03.834"></status>
+</kw>
+<kw type="kw" name="${marry} = ExcelLibrary.Read Cell Data By Name">
+<doc>Uses the cell name to return the data from that cell.</doc>
+<arguments>
+<arg>Sheet1</arg>
+<arg>T3</arg>
+</arguments>
+<msg timestamp="20170728 15:42:03.836" level="INFO">${marry} = 未婚</msg>
+<status status="PASS" endtime="20170728 15:42:03.836" starttime="20170728 15:42:03.835"></status>
+</kw>
+<kw type="kw" name="BuiltIn.Set Global Variable">
+<doc>Makes a variable available globally in all tests and suites.</doc>
+<arguments>
+<arg>${marry}</arg>
+</arguments>
+<msg timestamp="20170728 15:42:03.837" level="INFO">${marry} = 未婚</msg>
+<status status="PASS" endtime="20170728 15:42:03.837" starttime="20170728 15:42:03.836"></status>
+</kw>
+<kw type="kw" name="${liveCondition} = ExcelLibrary.Read Cell Data By Name">
+<doc>Uses the cell name to return the data from that cell.</doc>
+<arguments>
+<arg>Sheet1</arg>
+<arg>U3</arg>
+</arguments>
+<msg timestamp="20170728 15:42:03.839" level="INFO">${liveCondition} = 租赁住房</msg>
+<status status="PASS" endtime="20170728 15:42:03.839" starttime="20170728 15:42:03.837"></status>
+</kw>
+<kw type="kw" name="BuiltIn.Set Global Variable">
+<doc>Makes a variable available globally in all tests and suites.</doc>
+<arguments>
+<arg>${liveCondition}</arg>
+</arguments>
+<msg timestamp="20170728 15:42:03.840" level="INFO">${liveCondition} = 租赁住房</msg>
+<status status="PASS" endtime="20170728 15:42:03.840" starttime="20170728 15:42:03.839"></status>
+</kw>
+<kw type="kw" name="${householdProv} = ExcelLibrary.Read Cell Data By Name">
+<doc>Uses the cell name to return the data from that cell.</doc>
+<arguments>
+<arg>Sheet1</arg>
+<arg>V3</arg>
+</arguments>
+<msg timestamp="20170728 15:42:03.841" level="INFO">${householdProv} = 3</msg>
+<status status="PASS" endtime="20170728 15:42:03.841" starttime="20170728 15:42:03.840"></status>
+</kw>
+<kw type="kw" name="BuiltIn.Set Global Variable">
+<doc>Makes a variable available globally in all tests and suites.</doc>
+<arguments>
+<arg>${householdProv}</arg>
+</arguments>
+<msg timestamp="20170728 15:42:03.842" level="INFO">${householdProv} = 3</msg>
+<status status="PASS" endtime="20170728 15:42:03.842" starttime="20170728 15:42:03.842"></status>
+</kw>
+<kw type="kw" name="${householdCity} = ExcelLibrary.Read Cell Data By Name">
+<doc>Uses the cell name to return the data from that cell.</doc>
+<arguments>
+<arg>Sheet1</arg>
+<arg>W3</arg>
+</arguments>
+<msg timestamp="20170728 15:42:03.844" level="INFO">${householdCity} = 1</msg>
+<status status="PASS" endtime="20170728 15:42:03.844" starttime="20170728 15:42:03.843"></status>
+</kw>
+<kw type="kw" name="BuiltIn.Set Global Variable">
+<doc>Makes a variable available globally in all tests and suites.</doc>
+<arguments>
+<arg>${householdCity}</arg>
+</arguments>
+<msg timestamp="20170728 15:42:03.845" level="INFO">${householdCity} = 1</msg>
+<status status="PASS" endtime="20170728 15:42:03.845" starttime="20170728 15:42:03.844"></status>
+</kw>
+<kw type="kw" name="${householdTown} = ExcelLibrary.Read Cell Data By Name">
+<doc>Uses the cell name to return the data from that cell.</doc>
+<arguments>
+<arg>Sheet1</arg>
+<arg>X3</arg>
+</arguments>
+<msg timestamp="20170728 15:42:03.847" level="INFO">${householdTown} = 1</msg>
+<status status="PASS" endtime="20170728 15:42:03.847" starttime="20170728 15:42:03.845"></status>
+</kw>
+<kw type="kw" name="BuiltIn.Set Global Variable">
+<doc>Makes a variable available globally in all tests and suites.</doc>
+<arguments>
+<arg>${householdTown}</arg>
+</arguments>
+<msg timestamp="20170728 15:42:03.847" level="INFO">${householdTown} = 1</msg>
+<status status="PASS" endtime="20170728 15:42:03.848" starttime="20170728 15:42:03.847"></status>
+</kw>
+<kw type="kw" name="${addreRegist} = ExcelLibrary.Read Cell Data By Name">
+<doc>Uses the cell name to return the data from that cell.</doc>
+<arguments>
+<arg>Sheet1</arg>
+<arg>Y3</arg>
+</arguments>
+<msg timestamp="20170728 15:42:03.850" level="INFO">${addreRegist} = 不同</msg>
+<status status="PASS" endtime="20170728 15:42:03.850" starttime="20170728 15:42:03.848"></status>
+</kw>
+<kw type="kw" name="BuiltIn.Set Global Variable">
+<doc>Makes a variable available globally in all tests and suites.</doc>
+<arguments>
+<arg>${addreRegist}</arg>
+</arguments>
+<msg timestamp="20170728 15:42:03.852" level="INFO">${addreRegist} = 不同</msg>
+<status status="PASS" endtime="20170728 15:42:03.852" starttime="20170728 15:42:03.851"></status>
+</kw>
+<kw type="kw" name="${postState} = ExcelLibrary.Read Cell Data By Name">
+<doc>Uses the cell name to return the data from that cell.</doc>
+<arguments>
+<arg>Sheet1</arg>
+<arg>Z3</arg>
+</arguments>
+<msg timestamp="20170728 15:42:03.854" level="INFO">${postState} = 与户籍地址相同</msg>
+<status status="PASS" endtime="20170728 15:42:03.854" starttime="20170728 15:42:03.853"></status>
+</kw>
+<kw type="kw" name="BuiltIn.Set Global Variable">
+<doc>Makes a variable available globally in all tests and suites.</doc>
+<arguments>
+<arg>${postState}</arg>
+</arguments>
+<msg timestamp="20170728 15:42:03.855" level="INFO">${postState} = 与户籍地址相同</msg>
+<status status="PASS" endtime="20170728 15:42:03.855" starttime="20170728 15:42:03.855"></status>
+</kw>
+<kw type="kw" name="${liveProv} = ExcelLibrary.Read Cell Data By Name">
+<doc>Uses the cell name to return the data from that cell.</doc>
+<arguments>
+<arg>Sheet1</arg>
+<arg>AA3</arg>
+</arguments>
+<msg timestamp="20170728 15:42:03.857" level="INFO">${liveProv} = 1</msg>
+<status status="PASS" endtime="20170728 15:42:03.857" starttime="20170728 15:42:03.856"></status>
+</kw>
+<kw type="kw" name="BuiltIn.Set Global Variable">
+<doc>Makes a variable available globally in all tests and suites.</doc>
+<arguments>
+<arg>${liveProv}</arg>
+</arguments>
+<msg timestamp="20170728 15:42:03.858" level="INFO">${liveProv} = 1</msg>
+<status status="PASS" endtime="20170728 15:42:03.859" starttime="20170728 15:42:03.857"></status>
+</kw>
+<kw type="kw" name="${liveCity} = ExcelLibrary.Read Cell Data By Name">
+<doc>Uses the cell name to return the data from that cell.</doc>
+<arguments>
+<arg>Sheet1</arg>
+<arg>AB3</arg>
+</arguments>
+<msg timestamp="20170728 15:42:03.862" level="INFO">${liveCity} = 1</msg>
+<status status="PASS" endtime="20170728 15:42:03.862" starttime="20170728 15:42:03.860"></status>
+</kw>
+<kw type="kw" name="BuiltIn.Set Global Variable">
+<doc>Makes a variable available globally in all tests and suites.</doc>
+<arguments>
+<arg>${liveCity}</arg>
+</arguments>
+<msg timestamp="20170728 15:42:03.863" level="INFO">${liveCity} = 1</msg>
+<status status="PASS" endtime="20170728 15:42:03.863" starttime="20170728 15:42:03.862"></status>
+</kw>
+<kw type="kw" name="${liveTown} = ExcelLibrary.Read Cell Data By Name">
+<doc>Uses the cell name to return the data from that cell.</doc>
+<arguments>
+<arg>Sheet1</arg>
+<arg>AC3</arg>
+</arguments>
+<msg timestamp="20170728 15:42:03.865" level="INFO">${liveTown} = 1</msg>
+<status status="PASS" endtime="20170728 15:42:03.865" starttime="20170728 15:42:03.863"></status>
+</kw>
+<kw type="kw" name="BuiltIn.Set Global Variable">
+<doc>Makes a variable available globally in all tests and suites.</doc>
+<arguments>
+<arg>${liveTown}</arg>
+</arguments>
+<msg timestamp="20170728 15:42:03.865" level="INFO">${liveTown} = 1</msg>
+<status status="PASS" endtime="20170728 15:42:03.866" starttime="20170728 15:42:03.865"></status>
+</kw>
+<kw type="kw" name="${ad} = ExcelLibrary.Read Cell Data By Name">
+<doc>Uses the cell name to return the data from that cell.</doc>
+<arguments>
+<arg>Sheet1</arg>
+<arg>AD3</arg>
+</arguments>
+<msg timestamp="20170728 15:42:03.867" level="INFO">${ad} = 8000</msg>
+<status status="PASS" endtime="20170728 15:42:03.867" starttime="20170728 15:42:03.866"></status>
+</kw>
+<kw type="kw" name="${monthlyIncome} = BuiltIn.Evaluate">
+<doc>Evaluates the given expression in Python and returns the results.</doc>
+<arguments>
+<arg>int(${ad})</arg>
+</arguments>
+<msg timestamp="20170728 15:42:03.868" level="INFO">${monthlyIncome} = 8000</msg>
+<status status="PASS" endtime="20170728 15:42:03.868" starttime="20170728 15:42:03.868"></status>
+</kw>
+<kw type="kw" name="BuiltIn.Set Global Variable">
+<doc>Makes a variable available globally in all tests and suites.</doc>
+<arguments>
+<arg>${monthlyIncome}</arg>
+</arguments>
+<msg timestamp="20170728 15:42:03.869" level="INFO">${monthlyIncome} = 8000</msg>
+<status status="PASS" endtime="20170728 15:42:03.869" starttime="20170728 15:42:03.869"></status>
+</kw>
+<kw type="kw" name="${ae} = ExcelLibrary.Read Cell Data By Name">
+<doc>Uses the cell name to return the data from that cell.</doc>
+<arguments>
+<arg>Sheet1</arg>
+<arg>AE3</arg>
+</arguments>
+<msg timestamp="20170728 15:42:03.871" level="INFO">${ae} = 9000</msg>
+<status status="PASS" endtime="20170728 15:42:03.871" starttime="20170728 15:42:03.870"></status>
+</kw>
+<kw type="kw" name="${familyIncome} = BuiltIn.Evaluate">
+<doc>Evaluates the given expression in Python and returns the results.</doc>
+<arguments>
+<arg>int(${ae})</arg>
+</arguments>
+<msg timestamp="20170728 15:42:03.872" level="INFO">${familyIncome} = 9000</msg>
+<status status="PASS" endtime="20170728 15:42:03.872" starttime="20170728 15:42:03.871"></status>
+</kw>
+<kw type="kw" name="BuiltIn.Set Global Variable">
+<doc>Makes a variable available globally in all tests and suites.</doc>
+<arguments>
+<arg>${familyIncome}</arg>
+</arguments>
+<msg timestamp="20170728 15:42:03.873" level="INFO">${familyIncome} = 9000</msg>
+<status status="PASS" endtime="20170728 15:42:03.873" starttime="20170728 15:42:03.872"></status>
+</kw>
+<kw type="kw" name="${af} = ExcelLibrary.Read Cell Data By Name">
+<doc>Uses the cell name to return the data from that cell.</doc>
+<arguments>
+<arg>Sheet1</arg>
+<arg>AF3</arg>
+</arguments>
+<msg timestamp="20170728 15:42:03.875" level="INFO">${af} = 2500</msg>
+<status status="PASS" endtime="20170728 15:42:03.874" starttime="20170728 15:42:03.873"></status>
+</kw>
+<kw type="kw" name="${monthlySpending} = BuiltIn.Evaluate">
+<doc>Evaluates the given expression in Python and returns the results.</doc>
+<arguments>
+<arg>int(${af})</arg>
+</arguments>
+<msg timestamp="20170728 15:42:03.876" level="INFO">${monthlySpending} = 2500</msg>
+<status status="PASS" endtime="20170728 15:42:03.876" starttime="20170728 15:42:03.876"></status>
+</kw>
+<kw type="kw" name="BuiltIn.Set Global Variable">
+<doc>Makes a variable available globally in all tests and suites.</doc>
+<arguments>
+<arg>${monthlySpending}</arg>
+</arguments>
+<msg timestamp="20170728 15:42:03.877" level="INFO">${monthlySpending} = 2500</msg>
+<status status="PASS" endtime="20170728 15:42:03.878" starttime="20170728 15:42:03.877"></status>
+</kw>
+<kw type="kw" name="${industry} = ExcelLibrary.Read Cell Data By Name">
+<doc>Uses the cell name to return the data from that cell.</doc>
+<arguments>
+<arg>Sheet1</arg>
+<arg>AG3</arg>
+</arguments>
+<msg timestamp="20170728 15:42:03.879" level="INFO">${industry} = 建筑</msg>
+<status status="PASS" endtime="20170728 15:42:03.879" starttime="20170728 15:42:03.878"></status>
+</kw>
+<kw type="kw" name="BuiltIn.Set Global Variable">
+<doc>Makes a variable available globally in all tests and suites.</doc>
+<arguments>
+<arg>${industry}</arg>
+</arguments>
+<msg timestamp="20170728 15:42:03.880" level="INFO">${industry} = 建筑</msg>
+<status status="PASS" endtime="20170728 15:42:03.880" starttime="20170728 15:42:03.880"></status>
+</kw>
+<kw type="kw" name="${industryType} = ExcelLibrary.Read Cell Data By Name">
+<doc>Uses the cell name to return the data from that cell.</doc>
+<arguments>
+<arg>Sheet1</arg>
+<arg>AH3</arg>
+</arguments>
+<msg timestamp="20170728 15:42:03.882" level="INFO">${industryType} = 房屋建筑业</msg>
+<status status="PASS" endtime="20170728 15:42:03.882" starttime="20170728 15:42:03.880"></status>
+</kw>
+<kw type="kw" name="BuiltIn.Set Global Variable">
+<doc>Makes a variable available globally in all tests and suites.</doc>
+<arguments>
+<arg>${industryType}</arg>
+</arguments>
+<msg timestamp="20170728 15:42:03.883" level="INFO">${industryType} = 房屋建筑业</msg>
+<status status="PASS" endtime="20170728 15:42:03.883" starttime="20170728 15:42:03.882"></status>
+</kw>
+<kw type="kw" name="${careerType} = ExcelLibrary.Read Cell Data By Name">
+<doc>Uses the cell name to return the data from that cell.</doc>
+<arguments>
+<arg>Sheet1</arg>
+<arg>AI3</arg>
+</arguments>
+<msg timestamp="20170728 15:42:03.885" level="INFO">${careerType} = 现场技术检察员</msg>
+<status status="PASS" endtime="20170728 15:42:03.884" starttime="20170728 15:42:03.883"></status>
+</kw>
+<kw type="kw" name="BuiltIn.Set Global Variable">
+<doc>Makes a variable available globally in all tests and suites.</doc>
+<arguments>
+<arg>${careerType}</arg>
+</arguments>
+<msg timestamp="20170728 15:42:03.885" level="INFO">${careerType} = 现场技术检察员</msg>
+<status status="PASS" endtime="20170728 15:42:03.886" starttime="20170728 15:42:03.885"></status>
+</kw>
+<kw type="kw" name="${duty} = ExcelLibrary.Read Cell Data By Name">
+<doc>Uses the cell name to return the data from that cell.</doc>
+<arguments>
+<arg>Sheet1</arg>
+<arg>AJ3</arg>
+</arguments>
+<msg timestamp="20170728 15:42:03.888" level="INFO">${duty} = 专业（技术）人员</msg>
+<status status="PASS" endtime="20170728 15:42:03.887" starttime="20170728 15:42:03.886"></status>
+</kw>
+<kw type="kw" name="BuiltIn.Set Global Variable">
+<doc>Makes a variable available globally in all tests and suites.</doc>
+<arguments>
+<arg>${duty}</arg>
+</arguments>
+<msg timestamp="20170728 15:42:03.888" level="INFO">${duty} = 专业（技术）人员</msg>
+<status status="PASS" endtime="20170728 15:42:03.888" starttime="20170728 15:42:03.888"></status>
+</kw>
+<kw type="kw" name="${unittype} = ExcelLibrary.Read Cell Data By Name">
+<doc>Uses the cell name to return the data from that cell.</doc>
+<arguments>
+<arg>Sheet1</arg>
+<arg>AK3</arg>
+</arguments>
+<msg timestamp="20170728 15:42:03.892" level="INFO">${unittype} = 个体</msg>
+<status status="PASS" endtime="20170728 15:42:03.891" starttime="20170728 15:42:03.889"></status>
+</kw>
+<kw type="kw" name="BuiltIn.Set Global Variable">
+<doc>Makes a variable available globally in all tests and suites.</doc>
+<arguments>
+<arg>${unittype}</arg>
+</arguments>
+<msg timestamp="20170728 15:42:03.893" level="INFO">${unittype} = 个体</msg>
+<status status="PASS" endtime="20170728 15:42:03.893" starttime="20170728 15:42:03.892"></status>
+</kw>
+<kw type="kw" name="${isSocialSec} = ExcelLibrary.Read Cell Data By Name">
+<doc>Uses the cell name to return the data from that cell.</doc>
+<arguments>
+<arg>Sheet1</arg>
+<arg>AL3</arg>
+</arguments>
+<msg timestamp="20170728 15:42:03.894" level="INFO">${isSocialSec} = 否</msg>
+<status status="PASS" endtime="20170728 15:42:03.894" starttime="20170728 15:42:03.893"></status>
+</kw>
+<kw type="kw" name="BuiltIn.Set Global Variable">
+<doc>Makes a variable available globally in all tests and suites.</doc>
+<arguments>
+<arg>${isSocialSec}</arg>
+</arguments>
+<msg timestamp="20170728 15:42:03.895" level="INFO">${isSocialSec} = 否</msg>
+<status status="PASS" endtime="20170728 15:42:03.895" starttime="20170728 15:42:03.895"></status>
+</kw>
+<kw type="kw" name="${am} = ExcelLibrary.Read Cell Data By Name">
+<doc>Uses the cell name to return the data from that cell.</doc>
+<arguments>
+<arg>Sheet1</arg>
+<arg>AM3</arg>
+</arguments>
+<msg timestamp="20170728 15:42:03.897" level="INFO">${am} = 2013</msg>
+<status status="PASS" endtime="20170728 15:42:03.897" starttime="20170728 15:42:03.896"></status>
+</kw>
+<kw type="kw" name="${firstWorktime} = BuiltIn.Evaluate">
+<doc>Evaluates the given expression in Python and returns the results.</doc>
+<arguments>
+<arg>int(${am})</arg>
+</arguments>
+<msg timestamp="20170728 15:42:03.898" level="INFO">${firstWorktime} = 2013</msg>
+<status status="PASS" endtime="20170728 15:42:03.898" starttime="20170728 15:42:03.897"></status>
+</kw>
+<kw type="kw" name="BuiltIn.Set Global Variable">
+<doc>Makes a variable available globally in all tests and suites.</doc>
+<arguments>
+<arg>${firstWorktime}</arg>
+</arguments>
+<msg timestamp="20170728 15:42:03.899" level="INFO">${firstWorktime} = 2013</msg>
+<status status="PASS" endtime="20170728 15:42:03.899" starttime="20170728 15:42:03.898"></status>
+</kw>
+<kw type="kw" name="${an} = ExcelLibrary.Read Cell Data By Name">
+<doc>Uses the cell name to return the data from that cell.</doc>
+<arguments>
+<arg>Sheet1</arg>
+<arg>AN3</arg>
+</arguments>
+<msg timestamp="20170728 15:42:03.901" level="INFO">${an} = 11</msg>
+<status status="PASS" endtime="20170728 15:42:03.900" starttime="20170728 15:42:03.899"></status>
+</kw>
+<kw type="kw" name="${unitWorktime} = BuiltIn.Evaluate">
+<doc>Evaluates the given expression in Python and returns the results.</doc>
+<arguments>
+<arg>int(${an})</arg>
+</arguments>
+<msg timestamp="20170728 15:42:03.902" level="INFO">${unitWorktime} = 11</msg>
+<status status="PASS" endtime="20170728 15:42:03.901" starttime="20170728 15:42:03.901"></status>
+</kw>
+<kw type="kw" name="BuiltIn.Set Global Variable">
+<doc>Makes a variable available globally in all tests and suites.</doc>
+<arguments>
+<arg>${unitWorktime}</arg>
+</arguments>
+<msg timestamp="20170728 15:42:03.902" level="INFO">${unitWorktime} = 11</msg>
+<status status="PASS" endtime="20170728 15:42:03.902" starttime="20170728 15:42:03.902"></status>
+</kw>
+<kw type="kw" name="${unitAddre} = ExcelLibrary.Read Cell Data By Name">
+<doc>Uses the cell name to return the data from that cell.</doc>
+<arguments>
+<arg>Sheet1</arg>
+<arg>AO3</arg>
+</arguments>
+<msg timestamp="20170728 15:42:03.904" level="INFO">${unitAddre} = 1</msg>
+<status status="PASS" endtime="20170728 15:42:03.904" starttime="20170728 15:42:03.903"></status>
+</kw>
+<kw type="kw" name="BuiltIn.Set Global Variable">
+<doc>Makes a variable available globally in all tests and suites.</doc>
+<arguments>
+<arg>${unitAddre}</arg>
+</arguments>
+<msg timestamp="20170728 15:42:03.905" level="INFO">${unitAddre} = 1</msg>
+<status status="PASS" endtime="20170728 15:42:03.905" starttime="20170728 15:42:03.904"></status>
+</kw>
+<kw type="kw" name="${unitCity} = ExcelLibrary.Read Cell Data By Name">
+<doc>Uses the cell name to return the data from that cell.</doc>
+<arguments>
+<arg>Sheet1</arg>
+<arg>AP3</arg>
+</arguments>
+<msg timestamp="20170728 15:42:03.907" level="INFO">${unitCity} = 1</msg>
+<status status="PASS" endtime="20170728 15:42:03.907" starttime="20170728 15:42:03.905"></status>
+</kw>
+<kw type="kw" name="BuiltIn.Set Global Variable">
+<doc>Makes a variable available globally in all tests and suites.</doc>
+<arguments>
+<arg>${unitCity}</arg>
+</arguments>
+<msg timestamp="20170728 15:42:03.907" level="INFO">${unitCity} = 1</msg>
+<status status="PASS" endtime="20170728 15:42:03.908" starttime="20170728 15:42:03.907"></status>
+</kw>
+<kw type="kw" name="${unitTown} = ExcelLibrary.Read Cell Data By Name">
+<doc>Uses the cell name to return the data from that cell.</doc>
+<arguments>
+<arg>Sheet1</arg>
+<arg>AQ3</arg>
+</arguments>
+<msg timestamp="20170728 15:42:03.910" level="INFO">${unitTown} = 1</msg>
+<status status="PASS" endtime="20170728 15:42:03.910" starttime="20170728 15:42:03.908"></status>
+</kw>
+<kw type="kw" name="BuiltIn.Set Global Variable">
+<doc>Makes a variable available globally in all tests and suites.</doc>
+<arguments>
+<arg>${unitTown}</arg>
+</arguments>
+<msg timestamp="20170728 15:42:03.912" level="INFO">${unitTown} = 1</msg>
+<status status="PASS" endtime="20170728 15:42:03.912" starttime="20170728 15:42:03.911"></status>
+</kw>
+<kw type="kw" name="${contractType_0} = ExcelLibrary.Read Cell Data By Name">
+<doc>Uses the cell name to return the data from that cell.</doc>
+<arguments>
+<arg>Sheet1</arg>
+<arg>AR3</arg>
+</arguments>
+<msg timestamp="20170728 15:42:03.914" level="INFO">${contractType_0} = 兄弟</msg>
+<status status="PASS" endtime="20170728 15:42:03.914" starttime="20170728 15:42:03.912"></status>
+</kw>
+<kw type="kw" name="BuiltIn.Set Global Variable">
+<doc>Makes a variable available globally in all tests and suites.</doc>
+<arguments>
+<arg>${contractType_0}</arg>
+</arguments>
+<msg timestamp="20170728 15:42:03.915" level="INFO">${contractType_0} = 兄弟</msg>
+<status status="PASS" endtime="20170728 15:42:03.915" starttime="20170728 15:42:03.914"></status>
+</kw>
+<kw type="kw" name="${contractType_1} = ExcelLibrary.Read Cell Data By Name">
+<doc>Uses the cell name to return the data from that cell.</doc>
+<arguments>
+<arg>Sheet1</arg>
+<arg>AS3</arg>
+</arguments>
+<msg timestamp="20170728 15:42:03.917" level="INFO">${contractType_1} = 朋友</msg>
+<status status="PASS" endtime="20170728 15:42:03.917" starttime="20170728 15:42:03.915"></status>
+</kw>
+<kw type="kw" name="BuiltIn.Set Global Variable">
+<doc>Makes a variable available globally in all tests and suites.</doc>
+<arguments>
+<arg>${contractType_1}</arg>
+</arguments>
+<msg timestamp="20170728 15:42:03.918" level="INFO">${contractType_1} = 朋友</msg>
+<status status="PASS" endtime="20170728 15:42:03.918" starttime="20170728 15:42:03.917"></status>
+</kw>
+<kw type="kw" name="${checkApplyInfo} = ExcelLibrary.Read Cell Data By Name">
+<doc>Uses the cell name to return the data from that cell.</doc>
+<arguments>
+<arg>Sheet1</arg>
+<arg>AT3</arg>
+</arguments>
+<msg timestamp="20170728 15:42:03.920" level="INFO">${checkApplyInfo} = 0</msg>
+<status status="PASS" endtime="20170728 15:42:03.919" starttime="20170728 15:42:03.918"></status>
+</kw>
+<kw type="kw" name="BuiltIn.Set Global Variable">
+<doc>Makes a variable available globally in all tests and suites.</doc>
+<arguments>
+<arg>${checkApplyInfo}</arg>
+</arguments>
+<msg timestamp="20170728 15:42:03.920" level="INFO">${checkApplyInfo} = 0</msg>
+<status status="PASS" endtime="20170728 15:42:03.920" starttime="20170728 15:42:03.920"></status>
+</kw>
+<kw type="kw" name="${mattersNeed} = ExcelLibrary.Read Cell Data By Name">
+<doc>Uses the cell name to return the data from that cell.</doc>
+<arguments>
+<arg>Sheet1</arg>
+<arg>AU3</arg>
+</arguments>
+<msg timestamp="20170728 15:42:03.924" level="INFO">${mattersNeed} = 0</msg>
+<status status="PASS" endtime="20170728 15:42:03.924" starttime="20170728 15:42:03.921"></status>
+</kw>
+<kw type="kw" name="BuiltIn.Set Global Variable">
+<doc>Makes a variable available globally in all tests and suites.</doc>
+<arguments>
+<arg>${mattersNeed}</arg>
+</arguments>
+<msg timestamp="20170728 15:42:03.925" level="INFO">${mattersNeed} = 0</msg>
+<status status="PASS" endtime="20170728 15:42:03.925" starttime="20170728 15:42:03.925"></status>
+</kw>
+<kw type="kw" name="${checkMobile} = ExcelLibrary.Read Cell Data By Name">
+<doc>Uses the cell name to return the data from that cell.</doc>
+<arguments>
+<arg>Sheet1</arg>
+<arg>AV3</arg>
+</arguments>
+<msg timestamp="20170728 15:42:03.927" level="INFO">${checkMobile} = 0</msg>
+<status status="PASS" endtime="20170728 15:42:03.927" starttime="20170728 15:42:03.926"></status>
+</kw>
+<kw type="kw" name="BuiltIn.Set Global Variable">
+<doc>Makes a variable available globally in all tests and suites.</doc>
+<arguments>
+<arg>${checkMobile}</arg>
+</arguments>
+<msg timestamp="20170728 15:42:03.928" level="INFO">${checkMobile} = 0</msg>
+<status status="PASS" endtime="20170728 15:42:03.928" starttime="20170728 15:42:03.928"></status>
+</kw>
+<kw type="kw" name="${checkTel} = ExcelLibrary.Read Cell Data By Name">
+<doc>Uses the cell name to return the data from that cell.</doc>
+<arguments>
+<arg>Sheet1</arg>
+<arg>AW3</arg>
+</arguments>
+<msg timestamp="20170728 15:42:03.930" level="INFO">${checkTel} = 0</msg>
+<status status="PASS" endtime="20170728 15:42:03.930" starttime="20170728 15:42:03.928"></status>
+</kw>
+<kw type="kw" name="BuiltIn.Set Global Variable">
+<doc>Makes a variable available globally in all tests and suites.</doc>
+<arguments>
+<arg>${checkTel}</arg>
+</arguments>
+<msg timestamp="20170728 15:42:03.931" level="INFO">${checkTel} = 0</msg>
+<status status="PASS" endtime="20170728 15:42:03.931" starttime="20170728 15:42:03.930"></status>
+</kw>
+<kw type="kw" name="${accompany} = ExcelLibrary.Read Cell Data By Name">
+<doc>Uses the cell name to return the data from that cell.</doc>
+<arguments>
+<arg>Sheet1</arg>
+<arg>AX3</arg>
+</arguments>
+<msg timestamp="20170728 15:42:03.933" level="INFO">${accompany} = 0</msg>
+<status status="PASS" endtime="20170728 15:42:03.932" starttime="20170728 15:42:03.931"></status>
+</kw>
+<kw type="kw" name="BuiltIn.Set Global Variable">
+<doc>Makes a variable available globally in all tests and suites.</doc>
+<arguments>
+<arg>${accompany}</arg>
+</arguments>
+<msg timestamp="20170728 15:42:03.933" level="INFO">${accompany} = 0</msg>
+<status status="PASS" endtime="20170728 15:42:03.934" starttime="20170728 15:42:03.933"></status>
+</kw>
+<kw type="kw" name="${ay} = ExcelLibrary.Read Cell Data By Name">
+<doc>Uses the cell name to return the data from that cell.</doc>
+<arguments>
+<arg>Sheet1</arg>
+<arg>AY3</arg>
+</arguments>
+<msg timestamp="20170728 15:42:03.935" level="INFO">${ay} = 0</msg>
+<status status="PASS" endtime="20170728 15:42:03.935" starttime="20170728 15:42:03.934"></status>
+</kw>
+<kw type="kw" name="${accApply} = BuiltIn.Evaluate">
+<doc>Evaluates the given expression in Python and returns the results.</doc>
+<arguments>
+<arg>int(${ay})</arg>
+</arguments>
+<msg timestamp="20170728 15:42:03.936" level="INFO">${accApply} = 0</msg>
+<status status="PASS" endtime="20170728 15:42:03.936" starttime="20170728 15:42:03.936"></status>
+</kw>
+<kw type="kw" name="BuiltIn.Set Global Variable">
+<doc>Makes a variable available globally in all tests and suites.</doc>
+<arguments>
+<arg>${accApply}</arg>
+</arguments>
+<msg timestamp="20170728 15:42:03.937" level="INFO">${accApply} = 0</msg>
+<status status="PASS" endtime="20170728 15:42:03.937" starttime="20170728 15:42:03.937"></status>
+</kw>
+<kw type="kw" name="${mobileState} = ExcelLibrary.Read Cell Data By Name">
+<doc>Uses the cell name to return the data from that cell.</doc>
+<arguments>
+<arg>Sheet1</arg>
+<arg>AZ3</arg>
+</arguments>
+<msg timestamp="20170728 15:42:03.939" level="INFO">${mobileState} = 有损坏</msg>
+<status status="PASS" endtime="20170728 15:42:03.939" starttime="20170728 15:42:03.937"></status>
+</kw>
+<kw type="kw" name="BuiltIn.Set Global Variable">
+<doc>Makes a variable available globally in all tests and suites.</doc>
+<arguments>
+<arg>${mobileState}</arg>
+</arguments>
+<msg timestamp="20170728 15:42:03.941" level="INFO">${mobileState} = 有损坏</msg>
+<status status="PASS" endtime="20170728 15:42:03.941" starttime="20170728 15:42:03.940"></status>
+</kw>
+<kw type="kw" name="${ba} = ExcelLibrary.Read Cell Data By Name">
+<doc>Uses the cell name to return the data from that cell.</doc>
+<arguments>
+<arg>Sheet1</arg>
+<arg>BA3</arg>
+</arguments>
+<msg timestamp="20170728 15:42:03.944" level="INFO">${ba} = 11</msg>
+<status status="PASS" endtime="20170728 15:42:03.944" starttime="20170728 15:42:03.942"></status>
+</kw>
+<kw type="kw" name="${stortFamKm} = BuiltIn.Evaluate">
+<doc>Evaluates the given expression in Python and returns the results.</doc>
+<arguments>
+<arg>int(${ba})</arg>
+</arguments>
+<msg timestamp="20170728 15:42:03.945" level="INFO">${stortFamKm} = 11</msg>
+<status status="PASS" endtime="20170728 15:42:03.945" starttime="20170728 15:42:03.944"></status>
+</kw>
+<kw type="kw" name="BuiltIn.Set Global Variable">
+<doc>Makes a variable available globally in all tests and suites.</doc>
+<arguments>
+<arg>${stortFamKm}</arg>
+</arguments>
+<msg timestamp="20170728 15:42:03.946" level="INFO">${stortFamKm} = 11</msg>
+<status status="PASS" endtime="20170728 15:42:03.946" starttime="20170728 15:42:03.945"></status>
+</kw>
+<kw type="kw" name="${bb} = ExcelLibrary.Read Cell Data By Name">
+<doc>Uses the cell name to return the data from that cell.</doc>
+<arguments>
+<arg>Sheet1</arg>
+<arg>BB3</arg>
+</arguments>
+<msg timestamp="20170728 15:42:03.948" level="INFO">${bb} = 11</msg>
+<status status="PASS" endtime="20170728 15:42:03.947" starttime="20170728 15:42:03.946"></status>
+</kw>
+<kw type="kw" name="${stortComKm} = BuiltIn.Evaluate">
+<doc>Evaluates the given expression in Python and returns the results.</doc>
+<arguments>
+<arg>int(${bb})</arg>
+</arguments>
+<msg timestamp="20170728 15:42:03.948" level="INFO">${stortComKm} = 11</msg>
+<status status="PASS" endtime="20170728 15:42:03.948" starttime="20170728 15:42:03.948"></status>
+</kw>
+<kw type="kw" name="BuiltIn.Set Global Variable">
+<doc>Makes a variable available globally in all tests and suites.</doc>
+<arguments>
+<arg>${stortComKm}</arg>
+</arguments>
+<msg timestamp="20170728 15:42:03.949" level="INFO">${stortComKm} = 11</msg>
+<status status="PASS" endtime="20170728 15:42:03.949" starttime="20170728 15:42:03.949"></status>
+</kw>
+<kw type="kw" name="${bc} = ExcelLibrary.Read Cell Data By Name">
+<doc>Uses the cell name to return the data from that cell.</doc>
+<arguments>
+<arg>Sheet1</arg>
+<arg>BC3</arg>
+</arguments>
+<msg timestamp="20170728 15:42:03.951" level="INFO">${bc} = 11</msg>
+<status status="PASS" endtime="20170728 15:42:03.951" starttime="20170728 15:42:03.950"></status>
+</kw>
+<kw type="kw" name="${famComKm} = BuiltIn.Evaluate">
+<doc>Evaluates the given expression in Python and returns the results.</doc>
+<arguments>
+<arg>int(${bc})</arg>
+</arguments>
+<msg timestamp="20170728 15:42:03.952" level="INFO">${famComKm} = 11</msg>
+<status status="PASS" endtime="20170728 15:42:03.952" starttime="20170728 15:42:03.952"></status>
+</kw>
+<kw type="kw" name="BuiltIn.Set Global Variable">
+<doc>Makes a variable available globally in all tests and suites.</doc>
+<arguments>
+<arg>${famComKm}</arg>
+</arguments>
+<msg timestamp="20170728 15:42:03.953" level="INFO">${famComKm} = 11</msg>
+<status status="PASS" endtime="20170728 15:42:03.953" starttime="20170728 15:42:03.952"></status>
+</kw>
+<kw type="kw" name="${userEvaluate} = ExcelLibrary.Read Cell Data By Name">
+<doc>Uses the cell name to return the data from that cell.</doc>
+<arguments>
+<arg>Sheet1</arg>
+<arg>BD3</arg>
+</arguments>
+<msg timestamp="20170728 15:42:03.955" level="INFO">${userEvaluate} = 1</msg>
+<status status="PASS" endtime="20170728 15:42:03.955" starttime="20170728 15:42:03.953"></status>
+</kw>
+<kw type="kw" name="BuiltIn.Set Global Variable">
+<doc>Makes a variable available globally in all tests and suites.</doc>
+<arguments>
+<arg>${userEvaluate}</arg>
+</arguments>
+<msg timestamp="20170728 15:42:03.955" level="INFO">${userEvaluate} = 1</msg>
+<status status="PASS" endtime="20170728 15:42:03.956" starttime="20170728 15:42:03.955"></status>
+</kw>
+<status status="PASS" endtime="20170728 15:42:03.956" starttime="20170728 15:42:03.748"></status>
+</kw>
+<kw type="kw" name="sa-通用关键字.生成测试数据">
+<doc></doc>
+<arguments>
+</arguments>
+<kw type="kw" name="${custname} = create_cust_name.Get Chinese Name">
+<doc></doc>
+<arguments>
+</arguments>
+<msg timestamp="20170728 15:42:03.959" level="INFO">${custname} = 文泽</msg>
+<status status="PASS" endtime="20170728 15:42:03.959" starttime="20170728 15:42:03.958"></status>
+</kw>
+<kw type="kw" name="BuiltIn.Set Global Variable">
+<doc>Makes a variable available globally in all tests and suites.</doc>
+<arguments>
+<arg>${custname}</arg>
+</arguments>
+<msg timestamp="20170728 15:42:03.961" level="INFO">${custname} = 文泽</msg>
+<status status="PASS" endtime="20170728 15:42:03.961" starttime="20170728 15:42:03.960"></status>
+</kw>
+<kw type="kw" name="${idcard} = create_id_card.Get Id Card">
+<doc></doc>
+<arguments>
+</arguments>
+<msg timestamp="20170728 15:42:03.962" level="INFO">${idcard} = 371621197708177970</msg>
+<status status="PASS" endtime="20170728 15:42:03.962" starttime="20170728 15:42:03.961"></status>
+</kw>
+<kw type="kw" name="BuiltIn.Set Global Variable">
+<doc>Makes a variable available globally in all tests and suites.</doc>
+<arguments>
+<arg>${idcard}</arg>
+</arguments>
+<msg timestamp="20170728 15:42:03.963" level="INFO">${idcard} = 371621197708177970</msg>
+<status status="PASS" endtime="20170728 15:42:03.963" starttime="20170728 15:42:03.963"></status>
+</kw>
+<kw type="kw" name="${phoneno} = create_phone_number.Get Phone Number">
+<doc></doc>
+<arguments>
+</arguments>
+<msg timestamp="20170728 15:42:03.964" level="INFO">${phoneno} = 18952261184</msg>
+<status status="PASS" endtime="20170728 15:42:03.964" starttime="20170728 15:42:03.964"></status>
+</kw>
+<kw type="kw" name="BuiltIn.Set Global Variable">
+<doc>Makes a variable available globally in all tests and suites.</doc>
+<arguments>
+<arg>${phoneno}</arg>
+</arguments>
+<msg timestamp="20170728 15:42:03.965" level="INFO">${phoneno} = 18952261184</msg>
+<status status="PASS" endtime="20170728 15:42:03.965" starttime="20170728 15:42:03.964"></status>
+</kw>
+<kw type="kw" name="${bankno} = create_bank_card.Get Bank No">
+<doc></doc>
+<arguments>
+</arguments>
+<msg timestamp="20170728 15:42:03.966" level="INFO">${bankno} = 6225887812366108</msg>
+<status status="PASS" endtime="20170728 15:42:03.965" starttime="20170728 15:42:03.965"></status>
+</kw>
+<kw type="kw" name="BuiltIn.Set Global Variable">
+<doc>Makes a variable available globally in all tests and suites.</doc>
+<arguments>
+<arg>${bankno}</arg>
+</arguments>
+<msg timestamp="20170728 15:42:03.966" level="INFO">${bankno} = 6225887812366108</msg>
+<status status="PASS" endtime="20170728 15:42:03.967" starttime="20170728 15:42:03.966"></status>
+</kw>
+<kw type="kw" name="${emailno} = create_email_code.Get Email Code">
+<doc></doc>
+<arguments>
+</arguments>
+<msg timestamp="20170728 15:42:03.967" level="INFO">${emailno} = uh45vcauyu@163.com</msg>
+<status status="PASS" endtime="20170728 15:42:03.967" starttime="20170728 15:42:03.967"></status>
+</kw>
+<kw type="kw" name="BuiltIn.Set Global Variable">
+<doc>Makes a variable available globally in all tests and suites.</doc>
+<arguments>
+<arg>${emailno}</arg>
+</arguments>
+<msg timestamp="20170728 15:42:03.968" level="INFO">${emailno} = uh45vcauyu@163.com</msg>
+<status status="PASS" endtime="20170728 15:42:03.968" starttime="20170728 15:42:03.968"></status>
+</kw>
+<kw type="kw" name="${wechatno} = create_wechat_code.Get Wechat Code">
+<doc></doc>
+<arguments>
+</arguments>
+<msg timestamp="20170728 15:42:03.969" level="INFO">${wechatno} = tpuznmhp9oe</msg>
+<status status="PASS" endtime="20170728 15:42:03.969" starttime="20170728 15:42:03.969"></status>
+</kw>
+<kw type="kw" name="BuiltIn.Set Global Variable">
+<doc>Makes a variable available globally in all tests and suites.</doc>
+<arguments>
+<arg>${wechatno}</arg>
+</arguments>
+<msg timestamp="20170728 15:42:03.971" level="INFO">${wechatno} = tpuznmhp9oe</msg>
+<status status="PASS" endtime="20170728 15:42:03.972" starttime="20170728 15:42:03.970"></status>
+</kw>
+<kw type="kw" name="${qqno} = create_qq_number.Get Qq Code">
+<doc></doc>
+<arguments>
+</arguments>
+<msg timestamp="20170728 15:42:03.973" level="INFO">${qqno} = 7297434745</msg>
+<status status="PASS" endtime="20170728 15:42:03.973" starttime="20170728 15:42:03.972"></status>
+</kw>
+<kw type="kw" name="BuiltIn.Set Global Variable">
+<doc>Makes a variable available globally in all tests and suites.</doc>
+<arguments>
+<arg>${qqno}</arg>
+</arguments>
+<msg timestamp="20170728 15:42:03.974" level="INFO">${qqno} = 7297434745</msg>
+<status status="PASS" endtime="20170728 15:42:03.974" starttime="20170728 15:42:03.974"></status>
+</kw>
+<kw type="kw" name="${livephone} = create_phone_number.Get Phone Number">
+<doc></doc>
+<arguments>
+</arguments>
+<msg timestamp="20170728 15:42:03.975" level="INFO">${livephone} = 13441035600</msg>
+<status status="PASS" endtime="20170728 15:42:03.975" starttime="20170728 15:42:03.975"></status>
+</kw>
+<kw type="kw" name="BuiltIn.Set Global Variable">
+<doc>Makes a variable available globally in all tests and suites.</doc>
+<arguments>
+<arg>${livephone}</arg>
+</arguments>
+<msg timestamp="20170728 15:42:03.976" level="INFO">${livephone} = 13441035600</msg>
+<status status="PASS" endtime="20170728 15:42:03.976" starttime="20170728 15:42:03.975"></status>
+</kw>
+<kw type="kw" name="${unitPhone} = create_phone_number.Get Phone Number">
+<doc></doc>
+<arguments>
+</arguments>
+<msg timestamp="20170728 15:42:03.977" level="INFO">${unitPhone} = 15023705107</msg>
+<status status="PASS" endtime="20170728 15:42:03.976" starttime="20170728 15:42:03.976"></status>
+</kw>
+<kw type="kw" name="BuiltIn.Set Global Variable">
+<doc>Makes a variable available globally in all tests and suites.</doc>
+<arguments>
+<arg>${unitPhone}</arg>
+</arguments>
+<msg timestamp="20170728 15:42:03.977" level="INFO">${unitPhone} = 15023705107</msg>
+<status status="PASS" endtime="20170728 15:42:03.977" starttime="20170728 15:42:03.977"></status>
+</kw>
+<kw type="kw" name="${contractName} = create_cust_name.Get Chinese Name">
+<doc></doc>
+<arguments>
+</arguments>
+<msg timestamp="20170728 15:42:03.978" level="INFO">${contractName} = 葛双</msg>
+<status status="PASS" endtime="20170728 15:42:03.978" starttime="20170728 15:42:03.978"></status>
+</kw>
+<kw type="kw" name="BuiltIn.Set Global Variable">
+<doc>Makes a variable available globally in all tests and suites.</doc>
+<arguments>
+<arg>${contractName}</arg>
+</arguments>
+<msg timestamp="20170728 15:42:03.979" level="INFO">${contractName} = 葛双</msg>
+<status status="PASS" endtime="20170728 15:42:03.979" starttime="20170728 15:42:03.979"></status>
+</kw>
+<kw type="kw" name="${contractPhone} = create_phone_number.Get Phone Number">
+<doc></doc>
+<arguments>
+</arguments>
+<msg timestamp="20170728 15:42:03.980" level="INFO">${contractPhone} = 13820698410</msg>
+<status status="PASS" endtime="20170728 15:42:03.980" starttime="20170728 15:42:03.980"></status>
+</kw>
+<kw type="kw" name="BuiltIn.Set Global Variable">
+<doc>Makes a variable available globally in all tests and suites.</doc>
+<arguments>
+<arg>${contractPhone}</arg>
+</arguments>
+<msg timestamp="20170728 15:42:03.981" level="INFO">${contractPhone} = 13820698410</msg>
+<status status="PASS" endtime="20170728 15:42:03.981" starttime="20170728 15:42:03.980"></status>
+</kw>
+<kw type="kw" name="${contactWeixin} = create_wechat_code.Get Wechat Code">
+<doc></doc>
+<arguments>
+</arguments>
+<msg timestamp="20170728 15:42:03.982" level="INFO">${contactWeixin} = 1xsyiwf1jv9</msg>
+<status status="PASS" endtime="20170728 15:42:03.981" starttime="20170728 15:42:03.981"></status>
+</kw>
+<kw type="kw" name="BuiltIn.Set Global Variable">
+<doc>Makes a variable available globally in all tests and suites.</doc>
+<arguments>
+<arg>${contactWeixin}</arg>
+</arguments>
+<msg timestamp="20170728 15:42:03.982" level="INFO">${contactWeixin} = 1xsyiwf1jv9</msg>
+<status status="PASS" endtime="20170728 15:42:03.982" starttime="20170728 15:42:03.982"></status>
+</kw>
+<kw type="kw" name="${contactQq} = create_qq_number.Get Qq Code">
+<doc></doc>
+<arguments>
+</arguments>
+<msg timestamp="20170728 15:42:03.983" level="INFO">${contactQq} = 8844293584</msg>
+<status status="PASS" endtime="20170728 15:42:03.983" starttime="20170728 15:42:03.983"></status>
+</kw>
+<kw type="kw" name="BuiltIn.Set Global Variable">
+<doc>Makes a variable available globally in all tests and suites.</doc>
+<arguments>
+<arg>${contactQq}</arg>
+</arguments>
+<msg timestamp="20170728 15:42:03.985" level="INFO">${contactQq} = 8844293584</msg>
+<status status="PASS" endtime="20170728 15:42:03.985" starttime="20170728 15:42:03.984"></status>
+</kw>
+<kw type="kw" name="${contractName1} = create_cust_name.Get Chinese Name">
+<doc></doc>
+<arguments>
+</arguments>
+<msg timestamp="20170728 15:42:03.986" level="INFO">${contractName1} = 宰欣</msg>
+<status status="PASS" endtime="20170728 15:42:03.986" starttime="20170728 15:42:03.986"></status>
+</kw>
+<kw type="kw" name="BuiltIn.Set Global Variable">
+<doc>Makes a variable available globally in all tests and suites.</doc>
+<arguments>
+<arg>${contractName1}</arg>
+</arguments>
+<msg timestamp="20170728 15:42:03.987" level="INFO">${contractName1} = 宰欣</msg>
+<status status="PASS" endtime="20170728 15:42:03.987" starttime="20170728 15:42:03.987"></status>
+</kw>
+<kw type="kw" name="${contractPhone1} = create_phone_number.Get Phone Number">
+<doc></doc>
+<arguments>
+</arguments>
+<msg timestamp="20170728 15:42:03.988" level="INFO">${contractPhone1} = 15220644788</msg>
+<status status="PASS" endtime="20170728 15:42:03.988" starttime="20170728 15:42:03.988"></status>
+</kw>
+<kw type="kw" name="BuiltIn.Set Global Variable">
+<doc>Makes a variable available globally in all tests and suites.</doc>
+<arguments>
+<arg>${contractPhone1}</arg>
+</arguments>
+<msg timestamp="20170728 15:42:03.989" level="INFO">${contractPhone1} = 15220644788</msg>
+<status status="PASS" endtime="20170728 15:42:03.989" starttime="20170728 15:42:03.988"></status>
+</kw>
+<kw type="kw" name="${contactWeixin1} = create_wechat_code.Get Wechat Code">
+<doc></doc>
+<arguments>
+</arguments>
+<msg timestamp="20170728 15:42:03.990" level="INFO">${contactWeixin1} = no7hj5391r6</msg>
+<status status="PASS" endtime="20170728 15:42:03.990" starttime="20170728 15:42:03.989"></status>
+</kw>
+<kw type="kw" name="BuiltIn.Set Global Variable">
+<doc>Makes a variable available globally in all tests and suites.</doc>
+<arguments>
+<arg>${contactWeixin1}</arg>
+</arguments>
+<msg timestamp="20170728 15:42:03.990" level="INFO">${contactWeixin1} = no7hj5391r6</msg>
+<status status="PASS" endtime="20170728 15:42:03.991" starttime="20170728 15:42:03.990"></status>
+</kw>
+<kw type="kw" name="${contactQq1} = create_qq_number.Get Qq Code">
+<doc></doc>
+<arguments>
+</arguments>
+<msg timestamp="20170728 15:42:03.991" level="INFO">${contactQq1} = 4696239396</msg>
+<status status="PASS" endtime="20170728 15:42:03.991" starttime="20170728 15:42:03.991"></status>
+</kw>
+<kw type="kw" name="BuiltIn.Set Global Variable">
+<doc>Makes a variable available globally in all tests and suites.</doc>
+<arguments>
+<arg>${contactQq1}</arg>
+</arguments>
+<msg timestamp="20170728 15:42:03.992" level="INFO">${contactQq1} = 4696239396</msg>
+<status status="PASS" endtime="20170728 15:42:03.992" starttime="20170728 15:42:03.992"></status>
+</kw>
+<kw type="kw" name="${accName} = create_cust_name.Get Chinese Name">
+<doc></doc>
+<arguments>
+</arguments>
+<msg timestamp="20170728 15:42:03.993" level="INFO">${accName} = 阴利</msg>
+<status status="PASS" endtime="20170728 15:42:03.993" starttime="20170728 15:42:03.993"></status>
+</kw>
+<kw type="kw" name="BuiltIn.Set Global Variable">
+<doc>Makes a variable available globally in all tests and suites.</doc>
+<arguments>
+<arg>${accName}</arg>
+</arguments>
+<msg timestamp="20170728 15:42:03.994" level="INFO">${accName} = 阴利</msg>
+<status status="PASS" endtime="20170728 15:42:03.994" starttime="20170728 15:42:03.993"></status>
+</kw>
+<kw type="kw" name="${accMobile} = create_phone_number.Get Phone Number">
+<doc></doc>
+<arguments>
+</arguments>
+<msg timestamp="20170728 15:42:03.995" level="INFO">${accMobile} = 18331624804</msg>
+<status status="PASS" endtime="20170728 15:42:03.995" starttime="20170728 15:42:03.994"></status>
+</kw>
+<kw type="kw" name="BuiltIn.Set Global Variable">
+<doc>Makes a variable available globally in all tests and suites.</doc>
+<arguments>
+<arg>${accMobile}</arg>
+</arguments>
+<msg timestamp="20170728 15:42:03.995" level="INFO">${accMobile} = 18331624804</msg>
+<status status="PASS" endtime="20170728 15:42:03.996" starttime="20170728 15:42:03.995"></status>
+</kw>
+<kw type="kw" name="${assistWeixin} = create_wechat_code.Get Wechat Code">
+<doc></doc>
+<arguments>
+</arguments>
+<msg timestamp="20170728 15:42:03.996" level="INFO">${assistWeixin} = guk8k5dlzpu</msg>
+<status status="PASS" endtime="20170728 15:42:03.996" starttime="20170728 15:42:03.996"></status>
+</kw>
+<kw type="kw" name="BuiltIn.Set Global Variable">
+<doc>Makes a variable available globally in all tests and suites.</doc>
+<arguments>
+<arg>${assistWeixin}</arg>
+</arguments>
+<msg timestamp="20170728 15:42:03.997" level="INFO">${assistWeixin} = guk8k5dlzpu</msg>
+<status status="PASS" endtime="20170728 15:42:03.997" starttime="20170728 15:42:03.997"></status>
+</kw>
+<kw type="kw" name="${assistQq} = create_qq_number.Get Qq Code">
+<doc></doc>
+<arguments>
+</arguments>
+<msg timestamp="20170728 15:42:03.998" level="INFO">${assistQq} = 6575665895</msg>
+<status status="PASS" endtime="20170728 15:42:03.998" starttime="20170728 15:42:03.998"></status>
+</kw>
+<kw type="kw" name="BuiltIn.Set Global Variable">
+<doc>Makes a variable available globally in all tests and suites.</doc>
+<arguments>
+<arg>${assistQq}</arg>
+</arguments>
+<msg timestamp="20170728 15:42:03.999" level="INFO">${assistQq} = 6575665895</msg>
+<status status="PASS" endtime="20170728 15:42:03.999" starttime="20170728 15:42:03.998"></status>
+</kw>
+<kw type="kw" name="${parterName} = create_cust_name.Get Chinese Name">
+<doc></doc>
+<arguments>
+</arguments>
+<msg timestamp="20170728 15:42:04.000" level="INFO">${parterName} = 麻桂</msg>
+<status status="PASS" endtime="20170728 15:42:03.999" starttime="20170728 15:42:03.999"></status>
+</kw>
+<kw type="kw" name="BuiltIn.Set Global Variable">
+<doc>Makes a variable available globally in all tests and suites.</doc>
+<arguments>
+<arg>${parterName}</arg>
+</arguments>
+<msg timestamp="20170728 15:42:04.001" level="INFO">${parterName} = 麻桂</msg>
+<status status="PASS" endtime="20170728 15:42:04.002" starttime="20170728 15:42:04.000"></status>
+</kw>
+<kw type="kw" name="${mateMobel} = create_phone_number.Get Phone Number">
+<doc></doc>
+<arguments>
+</arguments>
+<msg timestamp="20170728 15:42:04.003" level="INFO">${mateMobel} = 18335918139</msg>
+<status status="PASS" endtime="20170728 15:42:04.003" starttime="20170728 15:42:04.002"></status>
+</kw>
+<kw type="kw" name="BuiltIn.Set Global Variable">
+<doc>Makes a variable available globally in all tests and suites.</doc>
+<arguments>
+<arg>${mateMobel}</arg>
+</arguments>
+<msg timestamp="20170728 15:42:04.004" level="INFO">${mateMobel} = 18335918139</msg>
+<status status="PASS" endtime="20170728 15:42:04.005" starttime="20170728 15:42:04.004"></status>
+</kw>
+<kw type="kw" name="${parteWeixin} = create_wechat_code.Get Wechat Code">
+<doc></doc>
+<arguments>
+</arguments>
+<msg timestamp="20170728 15:42:04.005" level="INFO">${parteWeixin} = bg657ss5pg1</msg>
+<status status="PASS" endtime="20170728 15:42:04.005" starttime="20170728 15:42:04.005"></status>
+</kw>
+<kw type="kw" name="BuiltIn.Set Global Variable">
+<doc>Makes a variable available globally in all tests and suites.</doc>
+<arguments>
+<arg>${parteWeixin}</arg>
+</arguments>
+<msg timestamp="20170728 15:42:04.006" level="INFO">${parteWeixin} = bg657ss5pg1</msg>
+<status status="PASS" endtime="20170728 15:42:04.006" starttime="20170728 15:42:04.006"></status>
+</kw>
+<kw type="kw" name="${parteQq} = create_qq_number.Get Qq Code">
+<doc></doc>
+<arguments>
+</arguments>
+<msg timestamp="20170728 15:42:04.007" level="INFO">${parteQq} = 4652426645</msg>
+<status status="PASS" endtime="20170728 15:42:04.007" starttime="20170728 15:42:04.006"></status>
+</kw>
+<kw type="kw" name="BuiltIn.Set Global Variable">
+<doc>Makes a variable available globally in all tests and suites.</doc>
+<arguments>
+<arg>${parteQq}</arg>
+</arguments>
+<msg timestamp="20170728 15:42:04.008" level="INFO">${parteQq} = 4652426645</msg>
+<status status="PASS" endtime="20170728 15:42:04.008" starttime="20170728 15:42:04.007"></status>
+</kw>
+<status status="PASS" endtime="20170728 15:42:04.008" starttime="20170728 15:42:03.957"></status>
+</kw>
+<kw type="kw" name="sa-用例套件.用户登录">
+<doc></doc>
+<arguments>
+</arguments>
+<kw type="kw" name="sa-通用关键字.打开地址">
+<doc></doc>
+<arguments>
+<arg>${url}</arg>
+</arguments>
+<kw type="kw" name="sa-通用关键字.关闭浏览器">
+<doc></doc>
+<arguments>
+</arguments>
+<kw type="kw" name="Selenium2Library.Close All Browsers">
+<doc>Closes all open browsers and resets the browser cache.</doc>
+<arguments>
+</arguments>
+<status status="PASS" endtime="20170728 15:42:04.013" starttime="20170728 15:42:04.013"></status>
+</kw>
+<status status="PASS" endtime="20170728 15:42:04.013" starttime="20170728 15:42:04.011"></status>
+</kw>
+<kw type="kw" name="Selenium2Library.Open Browser">
+<doc>Opens a new browser instance to given URL.</doc>
+<arguments>
+<arg>${url}</arg>
+<arg>chrome</arg>
+</arguments>
+<msg timestamp="20170728 15:42:04.015" level="INFO">Opening browser 'chrome' to base url 'https://sasit.9fchaoneng.cn/initLogin'</msg>
+<status status="PASS" endtime="20170728 15:42:14.104" starttime="20170728 15:42:04.014"></status>
+</kw>
+<kw type="kw" name="Selenium2Library.Maximize Browser Window">
+<doc>Maximizes current browser window.</doc>
+<arguments>
+</arguments>
+<status status="PASS" endtime="20170728 15:42:15.305" starttime="20170728 15:42:14.105"></status>
+</kw>
+<status status="PASS" endtime="20170728 15:42:15.305" starttime="20170728 15:42:04.010"></status>
+</kw>
+<kw type="kw" name="sa-通用关键字.文本框输入">
+<doc></doc>
+<arguments>
+<arg>用户名</arg>
+<arg>${username}</arg>
+</arguments>
+<kw type="kw" name="BuiltIn.Wait Until Keyword Succeeds">
+<doc>Waits until the specified keyword succeeds or the given timeout expires.</doc>
+<arguments>
+<arg>10</arg>
+<arg>2</arg>
+<arg>input text</arg>
+<arg>jquery=label:contains('${name}')+div input</arg>
+<arg>${value}</arg>
+</arguments>
+<kw type="kw" name="Selenium2Library.Input Text">
+<doc>Types the given `text` into text field identified by `locator`.</doc>
+<arguments>
+<arg>jquery=label:contains('${name}')+div input</arg>
+<arg>${value}</arg>
+</arguments>
+<msg timestamp="20170728 15:42:15.308" level="INFO">Typing text '998866' into text field 'jquery=label:contains('用户名')+div input'</msg>
+<kw type="kw" name="Selenium2Library.Capture Page Screenshot">
+<doc>Takes a screenshot of the current page and embeds it into the log.</doc>
+<arguments>
+</arguments>
+<msg timestamp="20170728 15:42:15.460" html="yes" level="INFO">&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td colspan="3"&gt;&lt;a href="selenium-screenshot-1.png"&gt;&lt;img src="selenium-screenshot-1.png" width="800px"&gt;&lt;/a&gt;</msg>
+<status status="PASS" endtime="20170728 15:42:15.460" starttime="20170728 15:42:15.317"></status>
+</kw>
+<msg timestamp="20170728 15:42:15.461" level="FAIL">ValueError: Element locator 'jquery=label:contains('用户名')+div input' did not match any elements.</msg>
+<status status="FAIL" endtime="20170728 15:42:15.461" starttime="20170728 15:42:15.308"></status>
+</kw>
+<kw type="kw" name="Selenium2Library.Input Text">
+<doc>Types the given `text` into text field identified by `locator`.</doc>
+<arguments>
+<arg>jquery=label:contains('${name}')+div input</arg>
+<arg>${value}</arg>
+</arguments>
+<msg timestamp="20170728 15:42:17.464" level="INFO">Typing text '998866' into text field 'jquery=label:contains('用户名')+div input'</msg>
+<kw type="kw" name="Selenium2Library.Capture Page Screenshot">
+<doc>Takes a screenshot of the current page and embeds it into the log.</doc>
+<arguments>
+</arguments>
+<msg timestamp="20170728 15:42:17.652" html="yes" level="INFO">&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td colspan="3"&gt;&lt;a href="selenium-screenshot-2.png"&gt;&lt;img src="selenium-screenshot-2.png" width="800px"&gt;&lt;/a&gt;</msg>
+<status status="PASS" endtime="20170728 15:42:17.652" starttime="20170728 15:42:17.478"></status>
+</kw>
+<msg timestamp="20170728 15:42:17.653" level="FAIL">ValueError: Element locator 'jquery=label:contains('用户名')+div input' did not match any elements.</msg>
+<status status="FAIL" endtime="20170728 15:42:17.653" starttime="20170728 15:42:17.462"></status>
+</kw>
+<kw type="kw" name="Selenium2Library.Input Text">
+<doc>Types the given `text` into text field identified by `locator`.</doc>
+<arguments>
+<arg>jquery=label:contains('${name}')+div input</arg>
+<arg>${value}</arg>
+</arguments>
+<msg timestamp="20170728 15:42:19.657" level="INFO">Typing text '998866' into text field 'jquery=label:contains('用户名')+div input'</msg>
+<kw type="kw" name="Selenium2Library.Capture Page Screenshot">
+<doc>Takes a screenshot of the current page and embeds it into the log.</doc>
+<arguments>
+</arguments>
+<msg timestamp="20170728 15:42:19.827" html="yes" level="INFO">&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td colspan="3"&gt;&lt;a href="selenium-screenshot-3.png"&gt;&lt;img src="selenium-screenshot-3.png" width="800px"&gt;&lt;/a&gt;</msg>
+<status status="PASS" endtime="20170728 15:42:19.827" starttime="20170728 15:42:19.674"></status>
+</kw>
+<msg timestamp="20170728 15:42:19.828" level="FAIL">ValueError: Element locator 'jquery=label:contains('用户名')+div input' did not match any elements.</msg>
+<status status="FAIL" endtime="20170728 15:42:19.828" starttime="20170728 15:42:19.654"></status>
+</kw>
+<kw type="kw" name="Selenium2Library.Input Text">
+<doc>Types the given `text` into text field identified by `locator`.</doc>
+<arguments>
+<arg>jquery=label:contains('${name}')+div input</arg>
+<arg>${value}</arg>
+</arguments>
+<msg timestamp="20170728 15:42:21.830" level="INFO">Typing text '998866' into text field 'jquery=label:contains('用户名')+div input'</msg>
+<kw type="kw" name="Selenium2Library.Capture Page Screenshot">
+<doc>Takes a screenshot of the current page and embeds it into the log.</doc>
+<arguments>
+</arguments>
+<msg timestamp="20170728 15:42:22.012" html="yes" level="INFO">&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td colspan="3"&gt;&lt;a href="selenium-screenshot-4.png"&gt;&lt;img src="selenium-screenshot-4.png" width="800px"&gt;&lt;/a&gt;</msg>
+<status status="PASS" endtime="20170728 15:42:22.013" starttime="20170728 15:42:21.845"></status>
+</kw>
+<msg timestamp="20170728 15:42:22.013" level="FAIL">ValueError: Element locator 'jquery=label:contains('用户名')+div input' did not match any elements.</msg>
+<status status="FAIL" endtime="20170728 15:42:22.014" starttime="20170728 15:42:21.828"></status>
+</kw>
+<kw type="kw" name="Selenium2Library.Input Text">
+<doc>Types the given `text` into text field identified by `locator`.</doc>
+<arguments>
+<arg>jquery=label:contains('${name}')+div input</arg>
+<arg>${value}</arg>
+</arguments>
+<msg timestamp="20170728 15:42:24.016" level="INFO">Typing text '998866' into text field 'jquery=label:contains('用户名')+div input'</msg>
+<kw type="kw" name="Selenium2Library.Capture Page Screenshot">
+<doc>Takes a screenshot of the current page and embeds it into the log.</doc>
+<arguments>
+</arguments>
+<msg timestamp="20170728 15:42:24.184" html="yes" level="INFO">&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td colspan="3"&gt;&lt;a href="selenium-screenshot-5.png"&gt;&lt;img src="selenium-screenshot-5.png" width="800px"&gt;&lt;/a&gt;</msg>
+<status status="PASS" endtime="20170728 15:42:24.184" starttime="20170728 15:42:24.030"></status>
+</kw>
+<msg timestamp="20170728 15:42:24.185" level="FAIL">ValueError: Element locator 'jquery=label:contains('用户名')+div input' did not match any elements.</msg>
+<status status="FAIL" endtime="20170728 15:42:24.185" starttime="20170728 15:42:24.014"></status>
+</kw>
+<kw type="kw" name="Selenium2Library.Input Text">
+<doc>Types the given `text` into text field identified by `locator`.</doc>
+<arguments>
+<arg>jquery=label:contains('${name}')+div input</arg>
+<arg>${value}</arg>
+</arguments>
+<msg timestamp="20170728 15:42:26.187" level="INFO">Typing text '998866' into text field 'jquery=label:contains('用户名')+div input'</msg>
+<kw type="kw" name="Selenium2Library.Capture Page Screenshot">
+<doc>Takes a screenshot of the current page and embeds it into the log.</doc>
+<arguments>
+</arguments>
+<msg timestamp="20170728 15:42:26.361" html="yes" level="INFO">&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td colspan="3"&gt;&lt;a href="selenium-screenshot-6.png"&gt;&lt;img src="selenium-screenshot-6.png" width="800px"&gt;&lt;/a&gt;</msg>
+<status status="PASS" endtime="20170728 15:42:26.362" starttime="20170728 15:42:26.206"></status>
+</kw>
+<msg timestamp="20170728 15:42:26.362" level="FAIL">ValueError: Element locator 'jquery=label:contains('用户名')+div input' did not match any elements.</msg>
+<status status="FAIL" endtime="20170728 15:42:26.362" starttime="20170728 15:42:26.185"></status>
+</kw>
+<msg timestamp="20170728 15:42:26.364" level="FAIL">Timeout 10 seconds exceeded. The last error was: ValueError: Element locator 'jquery=label:contains('用户名')+div input' did not match any elements.</msg>
+<status status="FAIL" endtime="20170728 15:42:26.364" starttime="20170728 15:42:15.307"></status>
+</kw>
+<status status="FAIL" endtime="20170728 15:42:26.364" starttime="20170728 15:42:15.305"></status>
+</kw>
+<status status="FAIL" endtime="20170728 15:42:26.364" starttime="20170728 15:42:04.009"></status>
+</kw>
+<doc></doc>
+<tags>
+<tag>a</tag>
+</tags>
+<status status="FAIL" endtime="20170728 15:42:26.365" critical="yes" starttime="20170728 15:42:03.747">Timeout 10 seconds exceeded. The last error was: ValueError: Element locator 'jquery=label:contains('用户名')+div input' did not match any elements.</status>
+</test>
+<doc></doc>
+<metadata>
+</metadata>
+<status status="FAIL" endtime="20170728 15:42:26.368" starttime="20170728 15:42:03.050"></status>
+</suite>
+<suite source="G:\pythonCase\9fchaoneng\测试用例\B审核审批.txt" id="s1-s2" name="B审核审批">
+<test id="s1-s2-t1" name="pos贷审核审批12-14-18">
+<kw type="kw" name="配置文件.读取excel数据-oc">
+<doc></doc>
+<arguments>
+</arguments>
+<kw type="kw" name="ExcelLibrary.Open Excel">
+<doc>Opens the Excel file from the path provided in the file name parameter.</doc>
+<arguments>
+<arg>G:\\pythonCase\\userlogin-rel.xls</arg>
+</arguments>
+<status status="PASS" endtime="20170728 15:42:26.439" starttime="20170728 15:42:26.425"></status>
+</kw>
+<kw type="kw" name="${url-oc} = ExcelLibrary.Read Cell Data By Name">
+<doc>Uses the cell name to return the data from that cell.</doc>
+<arguments>
+<arg>Sheet1</arg>
+<arg>A7</arg>
+</arguments>
+<msg timestamp="20170728 15:42:26.442" level="INFO">${url-oc} = http://182.92.106.121:7778/OC/login</msg>
+<status status="PASS" endtime="20170728 15:42:26.442" starttime="20170728 15:42:26.439"></status>
+</kw>
+<kw type="kw" name="BuiltIn.Set Global Variable">
+<doc>Makes a variable available globally in all tests and suites.</doc>
+<arguments>
+<arg>${url-oc}</arg>
+</arguments>
+<msg timestamp="20170728 15:42:26.442" level="INFO">${url-oc} = http://182.92.106.121:7778/OC/login</msg>
+<status status="PASS" endtime="20170728 15:42:26.443" starttime="20170728 15:42:26.442"></status>
+</kw>
+<kw type="kw" name="${b} = ExcelLibrary.Read Cell Data By Name">
+<doc>Uses the cell name to return the data from that cell.</doc>
+<arguments>
+<arg>Sheet1</arg>
+<arg>B7</arg>
+</arguments>
+<msg timestamp="20170728 15:42:26.444" level="INFO">${b} = 998866</msg>
+<status status="PASS" endtime="20170728 15:42:26.444" starttime="20170728 15:42:26.443"></status>
+</kw>
+<kw type="kw" name="${loginname-oc} = BuiltIn.Evaluate">
+<doc>Evaluates the given expression in Python and returns the results.</doc>
+<arguments>
+<arg>int(${b})</arg>
+</arguments>
+<msg timestamp="20170728 15:42:26.445" level="INFO">${loginname-oc} = 998866</msg>
+<status status="PASS" endtime="20170728 15:42:26.445" starttime="20170728 15:42:26.445"></status>
+</kw>
+<kw type="kw" name="BuiltIn.Set Global Variable">
+<doc>Makes a variable available globally in all tests and suites.</doc>
+<arguments>
+<arg>${loginname-oc}</arg>
+</arguments>
+<msg timestamp="20170728 15:42:26.446" level="INFO">${loginname-oc} = 998866</msg>
+<status status="PASS" endtime="20170728 15:42:26.446" starttime="20170728 15:42:26.445"></status>
+</kw>
+<kw type="kw" name="${password-oc} = ExcelLibrary.Read Cell Data By Name">
+<doc>Uses the cell name to return the data from that cell.</doc>
+<arguments>
+<arg>Sheet1</arg>
+<arg>C7</arg>
+</arguments>
+<msg timestamp="20170728 15:42:26.448" level="INFO">${password-oc} = cyj123</msg>
+<status status="PASS" endtime="20170728 15:42:26.448" starttime="20170728 15:42:26.446"></status>
+</kw>
+<kw type="kw" name="BuiltIn.Set Global Variable">
+<doc>Makes a variable available globally in all tests and suites.</doc>
+<arguments>
+<arg>${password-oc}</arg>
+</arguments>
+<msg timestamp="20170728 15:42:26.449" level="INFO">${password-oc} = cyj123</msg>
+<status status="PASS" endtime="20170728 15:42:26.449" starttime="20170728 15:42:26.449"></status>
+</kw>
+<kw type="kw" name="${c} = ExcelLibrary.Read Cell Data By Name">
+<doc>Uses the cell name to return the data from that cell.</doc>
+<arguments>
+<arg>Sheet1</arg>
+<arg>D7</arg>
+</arguments>
+<msg timestamp="20170728 15:42:26.452" level="INFO">${c} = 123456</msg>
+<status status="PASS" endtime="20170728 15:42:26.452" starttime="20170728 15:42:26.450"></status>
+</kw>
+<kw type="kw" name="${appid-oc} = BuiltIn.Evaluate">
+<doc>Evaluates the given expression in Python and returns the results.</doc>
+<arguments>
+<arg>int(${c})</arg>
+</arguments>
+<msg timestamp="20170728 15:42:26.453" level="INFO">${appid-oc} = 123456</msg>
+<status status="PASS" endtime="20170728 15:42:26.453" starttime="20170728 15:42:26.452"></status>
+</kw>
+<kw type="kw" name="BuiltIn.Set Global Variable">
+<doc>Makes a variable available globally in all tests and suites.</doc>
+<arguments>
+<arg>${appid-oc}</arg>
+</arguments>
+<msg timestamp="20170728 15:42:26.453" level="INFO">${appid-oc} = 123456</msg>
+<status status="PASS" endtime="20170728 15:42:26.453" starttime="20170728 15:42:26.453"></status>
+</kw>
+<kw type="kw" name="${username-oc} = ExcelLibrary.Read Cell Data By Name">
+<doc>Uses the cell name to return the data from that cell.</doc>
+<arguments>
+<arg>Sheet1</arg>
+<arg>E7</arg>
+</arguments>
+<msg timestamp="20170728 15:42:26.455" level="INFO">${username-oc} = caoyj</msg>
+<status status="PASS" endtime="20170728 15:42:26.455" starttime="20170728 15:42:26.454"></status>
+</kw>
+<kw type="kw" name="BuiltIn.Set Global Variable">
+<doc>Makes a variable available globally in all tests and suites.</doc>
+<arguments>
+<arg>${username-oc}</arg>
+</arguments>
+<msg timestamp="20170728 15:42:26.456" level="INFO">${username-oc} = caoyj</msg>
+<status status="PASS" endtime="20170728 15:42:26.456" starttime="20170728 15:42:26.455"></status>
+</kw>
+<kw type="kw" name="${d} = ExcelLibrary.Read Cell Data By Name">
+<doc>Uses the cell name to return the data from that cell.</doc>
+<arguments>
+<arg>Sheet1</arg>
+<arg>F7</arg>
+</arguments>
+<msg timestamp="20170728 15:42:26.458" level="INFO">${d} = 120222199901016315</msg>
+<status status="PASS" endtime="20170728 15:42:26.458" starttime="20170728 15:42:26.456"></status>
+</kw>
+<kw type="kw" name="${cardId} = BuiltIn.Evaluate">
+<doc>Evaluates the given expression in Python and returns the results.</doc>
+<arguments>
+<arg>int(${d})</arg>
+</arguments>
+<msg timestamp="20170728 15:42:26.459" level="INFO">${cardId} = 120222199901016315</msg>
+<status status="PASS" endtime="20170728 15:42:26.459" starttime="20170728 15:42:26.458"></status>
+</kw>
+<kw type="kw" name="BuiltIn.Set Global Variable">
+<doc>Makes a variable available globally in all tests and suites.</doc>
+<arguments>
+<arg>${cardId}</arg>
+</arguments>
+<msg timestamp="20170728 15:42:26.459" level="INFO">${cardId} = 120222199901016315</msg>
+<status status="PASS" endtime="20170728 15:42:26.459" starttime="20170728 15:42:26.459"></status>
+</kw>
+<status status="PASS" endtime="20170728 15:42:26.460" starttime="20170728 15:42:26.424"></status>
+</kw>
+<kw type="kw" name="oc-通用关键字.用户登录-OC">
+<doc>用户登录</doc>
+<arguments>
+</arguments>
+<kw type="kw" name="BuiltIn.Sleep">
+<doc>Pauses the test executed for the given time.</doc>
+<arguments>
+<arg>10</arg>
+</arguments>
+<msg timestamp="20170728 15:42:36.463" level="INFO">Slept 10 seconds</msg>
+<status status="PASS" endtime="20170728 15:42:36.463" starttime="20170728 15:42:26.462"></status>
+</kw>
+<kw type="kw" name="Selenium2Library.Open Browser">
+<doc>Opens a new browser instance to given URL.</doc>
+<arguments>
+<arg>${url-oc}</arg>
+<arg>chrome</arg>
+</arguments>
+<msg timestamp="20170728 15:42:36.465" level="INFO">Opening browser 'chrome' to base url 'http://182.92.106.121:7778/OC/login'</msg>
+<status status="PASS" endtime="20170728 15:42:47.368" starttime="20170728 15:42:36.464"></status>
+</kw>
+<kw type="kw" name="Selenium2Library.Maximize Browser Window">
+<doc>Maximizes current browser window.</doc>
+<arguments>
+</arguments>
+<status status="PASS" endtime="20170728 15:42:48.571" starttime="20170728 15:42:47.369"></status>
+</kw>
+<kw type="kw" name="Selenium2Library.Input Text">
+<doc>Types the given `text` into text field identified by `locator`.</doc>
+<arguments>
+<arg>id=username</arg>
+<arg>${loginname-oc}</arg>
+</arguments>
+<msg timestamp="20170728 15:42:48.573" level="INFO">Typing text '998866' into text field 'id=username'</msg>
+<status status="PASS" endtime="20170728 15:42:48.687" starttime="20170728 15:42:48.572"></status>
+</kw>
+<kw type="kw" name="Selenium2Library.Input Text">
+<doc>Types the given `text` into text field identified by `locator`.</doc>
+<arguments>
+<arg>id=password</arg>
+<arg>${password-oc}</arg>
+</arguments>
+<msg timestamp="20170728 15:42:48.688" level="INFO">Typing text 'cyj123' into text field 'id=password'</msg>
+<status status="PASS" endtime="20170728 15:42:48.796" starttime="20170728 15:42:48.688"></status>
+</kw>
+<kw type="kw" name="BuiltIn.Wait Until Keyword Succeeds">
+<doc>Waits until the specified keyword succeeds or the given timeout expires.</doc>
+<arguments>
+<arg>10</arg>
+<arg>2</arg>
+<arg>Click Button</arg>
+<arg>id=loginButton</arg>
+</arguments>
+<kw type="kw" name="Selenium2Library.Click Button">
+<doc>Clicks a button identified by `locator`.</doc>
+<arguments>
+<arg>id=loginButton</arg>
+</arguments>
+<msg timestamp="20170728 15:42:48.797" level="INFO">Clicking button 'id=loginButton'.</msg>
+<status status="PASS" endtime="20170728 15:42:52.425" starttime="20170728 15:42:48.797"></status>
+</kw>
+<status status="PASS" endtime="20170728 15:42:52.425" starttime="20170728 15:42:48.796"></status>
+</kw>
+<kw type="kw" name="BuiltIn.Wait Until Keyword Succeeds">
+<doc>Waits until the specified keyword succeeds or the given timeout expires.</doc>
+<arguments>
+<arg>10</arg>
+<arg>2</arg>
+<arg>Page Should Contain</arg>
+<arg>首页</arg>
+</arguments>
+<kw type="kw" name="Selenium2Library.Page Should Contain">
+<doc>Verifies that current page contains `text`.</doc>
+<arguments>
+<arg>首页</arg>
+</arguments>
+<msg timestamp="20170728 15:42:52.502" level="INFO">Current page contains text '首页'.</msg>
+<status status="PASS" endtime="20170728 15:42:52.502" starttime="20170728 15:42:52.428"></status>
+</kw>
+<status status="PASS" endtime="20170728 15:42:52.503" starttime="20170728 15:42:52.426"></status>
+</kw>
+<status status="PASS" endtime="20170728 15:42:52.504" starttime="20170728 15:42:26.461"></status>
+</kw>
+<kw type="kw" name="oc-用例套件.用户软电话">
+<doc></doc>
+<arguments>
+</arguments>
+<kw type="kw" name="Selenium2Library.Wait Until Page Contains Element">
+<doc>Waits until element specified with `locator` appears on current page.</doc>
+<arguments>
+<arg>jquery=div[i='title']</arg>
+</arguments>
+<kw type="kw" name="Selenium2Library.Capture Page Screenshot">
+<doc>Takes a screenshot of the current page and embeds it into the log.</doc>
+<arguments>
+</arguments>
+<msg timestamp="20170728 15:42:57.762" html="yes" level="INFO">&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td colspan="3"&gt;&lt;a href="selenium-screenshot-7.png"&gt;&lt;img src="selenium-screenshot-7.png" width="800px"&gt;&lt;/a&gt;</msg>
+<status status="PASS" endtime="20170728 15:42:57.763" starttime="20170728 15:42:57.581"></status>
+</kw>
+<msg timestamp="20170728 15:42:57.763" level="FAIL">Element 'jquery=div[i='title']' did not appear in 5 seconds</msg>
+<status status="FAIL" endtime="20170728 15:42:57.763" starttime="20170728 15:42:52.508"></status>
+</kw>
+<status status="FAIL" endtime="20170728 15:42:57.764" starttime="20170728 15:42:52.506"></status>
+</kw>
+<doc></doc>
+<tags>
+<tag>a</tag>
+</tags>
+<status status="FAIL" endtime="20170728 15:42:57.764" critical="yes" starttime="20170728 15:42:26.420">Element 'jquery=div[i='title']' did not appear in 5 seconds</status>
+</test>
+<test id="s1-s2-t2" name="pos贷审核审批12-18">
+<kw type="kw" name="配置文件.读取excel数据-oc">
+<doc></doc>
+<arguments>
+</arguments>
+<kw type="kw" name="ExcelLibrary.Open Excel">
+<doc>Opens the Excel file from the path provided in the file name parameter.</doc>
+<arguments>
+<arg>G:\\pythonCase\\userlogin-rel.xls</arg>
+</arguments>
+<status status="PASS" endtime="20170728 15:42:57.781" starttime="20170728 15:42:57.774"></status>
+</kw>
+<kw type="kw" name="${url-oc} = ExcelLibrary.Read Cell Data By Name">
+<doc>Uses the cell name to return the data from that cell.</doc>
+<arguments>
+<arg>Sheet1</arg>
+<arg>A7</arg>
+</arguments>
+<msg timestamp="20170728 15:42:57.784" level="INFO">${url-oc} = http://182.92.106.121:7778/OC/login</msg>
+<status status="PASS" endtime="20170728 15:42:57.784" starttime="20170728 15:42:57.781"></status>
+</kw>
+<kw type="kw" name="BuiltIn.Set Global Variable">
+<doc>Makes a variable available globally in all tests and suites.</doc>
+<arguments>
+<arg>${url-oc}</arg>
+</arguments>
+<msg timestamp="20170728 15:42:57.785" level="INFO">${url-oc} = http://182.92.106.121:7778/OC/login</msg>
+<status status="PASS" endtime="20170728 15:42:57.785" starttime="20170728 15:42:57.785"></status>
+</kw>
+<kw type="kw" name="${b} = ExcelLibrary.Read Cell Data By Name">
+<doc>Uses the cell name to return the data from that cell.</doc>
+<arguments>
+<arg>Sheet1</arg>
+<arg>B7</arg>
+</arguments>
+<msg timestamp="20170728 15:42:57.787" level="INFO">${b} = 998866</msg>
+<status status="PASS" endtime="20170728 15:42:57.787" starttime="20170728 15:42:57.785"></status>
+</kw>
+<kw type="kw" name="${loginname-oc} = BuiltIn.Evaluate">
+<doc>Evaluates the given expression in Python and returns the results.</doc>
+<arguments>
+<arg>int(${b})</arg>
+</arguments>
+<msg timestamp="20170728 15:42:57.788" level="INFO">${loginname-oc} = 998866</msg>
+<status status="PASS" endtime="20170728 15:42:57.788" starttime="20170728 15:42:57.787"></status>
+</kw>
+<kw type="kw" name="BuiltIn.Set Global Variable">
+<doc>Makes a variable available globally in all tests and suites.</doc>
+<arguments>
+<arg>${loginname-oc}</arg>
+</arguments>
+<msg timestamp="20170728 15:42:57.788" level="INFO">${loginname-oc} = 998866</msg>
+<status status="PASS" endtime="20170728 15:42:57.789" starttime="20170728 15:42:57.788"></status>
+</kw>
+<kw type="kw" name="${password-oc} = ExcelLibrary.Read Cell Data By Name">
+<doc>Uses the cell name to return the data from that cell.</doc>
+<arguments>
+<arg>Sheet1</arg>
+<arg>C7</arg>
+</arguments>
+<msg timestamp="20170728 15:42:57.792" level="INFO">${password-oc} = cyj123</msg>
+<status status="PASS" endtime="20170728 15:42:57.792" starttime="20170728 15:42:57.789"></status>
+</kw>
+<kw type="kw" name="BuiltIn.Set Global Variable">
+<doc>Makes a variable available globally in all tests and suites.</doc>
+<arguments>
+<arg>${password-oc}</arg>
+</arguments>
+<msg timestamp="20170728 15:42:57.793" level="INFO">${password-oc} = cyj123</msg>
+<status status="PASS" endtime="20170728 15:42:57.793" starttime="20170728 15:42:57.792"></status>
+</kw>
+<kw type="kw" name="${c} = ExcelLibrary.Read Cell Data By Name">
+<doc>Uses the cell name to return the data from that cell.</doc>
+<arguments>
+<arg>Sheet1</arg>
+<arg>D7</arg>
+</arguments>
+<msg timestamp="20170728 15:42:57.795" level="INFO">${c} = 123456</msg>
+<status status="PASS" endtime="20170728 15:42:57.795" starttime="20170728 15:42:57.793"></status>
+</kw>
+<kw type="kw" name="${appid-oc} = BuiltIn.Evaluate">
+<doc>Evaluates the given expression in Python and returns the results.</doc>
+<arguments>
+<arg>int(${c})</arg>
+</arguments>
+<msg timestamp="20170728 15:42:57.796" level="INFO">${appid-oc} = 123456</msg>
+<status status="PASS" endtime="20170728 15:42:57.796" starttime="20170728 15:42:57.795"></status>
+</kw>
+<kw type="kw" name="BuiltIn.Set Global Variable">
+<doc>Makes a variable available globally in all tests and suites.</doc>
+<arguments>
+<arg>${appid-oc}</arg>
+</arguments>
+<msg timestamp="20170728 15:42:57.796" level="INFO">${appid-oc} = 123456</msg>
+<status status="PASS" endtime="20170728 15:42:57.797" starttime="20170728 15:42:57.796"></status>
+</kw>
+<kw type="kw" name="${username-oc} = ExcelLibrary.Read Cell Data By Name">
+<doc>Uses the cell name to return the data from that cell.</doc>
+<arguments>
+<arg>Sheet1</arg>
+<arg>E7</arg>
+</arguments>
+<msg timestamp="20170728 15:42:57.798" level="INFO">${username-oc} = caoyj</msg>
+<status status="PASS" endtime="20170728 15:42:57.798" starttime="20170728 15:42:57.797"></status>
+</kw>
+<kw type="kw" name="BuiltIn.Set Global Variable">
+<doc>Makes a variable available globally in all tests and suites.</doc>
+<arguments>
+<arg>${username-oc}</arg>
+</arguments>
+<msg timestamp="20170728 15:42:57.799" level="INFO">${username-oc} = caoyj</msg>
+<status status="PASS" endtime="20170728 15:42:57.799" starttime="20170728 15:42:57.799"></status>
+</kw>
+<kw type="kw" name="${d} = ExcelLibrary.Read Cell Data By Name">
+<doc>Uses the cell name to return the data from that cell.</doc>
+<arguments>
+<arg>Sheet1</arg>
+<arg>F7</arg>
+</arguments>
+<msg timestamp="20170728 15:42:57.801" level="INFO">${d} = 120222199901016315</msg>
+<status status="PASS" endtime="20170728 15:42:57.801" starttime="20170728 15:42:57.799"></status>
+</kw>
+<kw type="kw" name="${cardId} = BuiltIn.Evaluate">
+<doc>Evaluates the given expression in Python and returns the results.</doc>
+<arguments>
+<arg>int(${d})</arg>
+</arguments>
+<msg timestamp="20170728 15:42:57.802" level="INFO">${cardId} = 120222199901016315</msg>
+<status status="PASS" endtime="20170728 15:42:57.802" starttime="20170728 15:42:57.801"></status>
+</kw>
+<kw type="kw" name="BuiltIn.Set Global Variable">
+<doc>Makes a variable available globally in all tests and suites.</doc>
+<arguments>
+<arg>${cardId}</arg>
+</arguments>
+<msg timestamp="20170728 15:42:57.802" level="INFO">${cardId} = 120222199901016315</msg>
+<status status="PASS" endtime="20170728 15:42:57.802" starttime="20170728 15:42:57.802"></status>
+</kw>
+<status status="PASS" endtime="20170728 15:42:57.803" starttime="20170728 15:42:57.771"></status>
+</kw>
+<kw type="kw" name="oc-通用关键字.用户登录-OC">
+<doc>用户登录</doc>
+<arguments>
+</arguments>
+<kw type="kw" name="BuiltIn.Sleep">
+<doc>Pauses the test executed for the given time.</doc>
+<arguments>
+<arg>10</arg>
+</arguments>
+<msg timestamp="20170728 15:43:07.807" level="INFO">Slept 10 seconds</msg>
+<status status="PASS" endtime="20170728 15:43:07.808" starttime="20170728 15:42:57.807"></status>
+</kw>
+<kw type="kw" name="Selenium2Library.Open Browser">
+<doc>Opens a new browser instance to given URL.</doc>
+<arguments>
+<arg>${url-oc}</arg>
+<arg>chrome</arg>
+</arguments>
+<msg timestamp="20170728 15:43:07.811" level="INFO">Opening browser 'chrome' to base url 'http://182.92.106.121:7778/OC/login'</msg>
+<status status="PASS" endtime="20170728 15:43:12.308" starttime="20170728 15:43:07.809"></status>
+</kw>
+<kw type="kw" name="Selenium2Library.Maximize Browser Window">
+<doc>Maximizes current browser window.</doc>
+<arguments>
+</arguments>
+<kw type="kw" name="Selenium2Library.Capture Page Screenshot">
+<doc>Takes a screenshot of the current page and embeds it into the log.</doc>
+<arguments>
+</arguments>
+<status status="FAIL" endtime="20170728 15:43:16.127" starttime="20170728 15:43:16.125"></status>
+</kw>
+<msg timestamp="20170728 15:43:16.128" level="WARN">Keyword 'Capture Page Screenshot' could not be run on failure: Execution terminated by signal</msg>
+<msg timestamp="20170728 15:43:16.222" level="FAIL">error: [Errno 10054] </msg>
+<status status="FAIL" endtime="20170728 15:43:16.223" starttime="20170728 15:43:12.309"></status>
+</kw>
+<status status="FAIL" endtime="20170728 15:43:16.223" starttime="20170728 15:42:57.805"></status>
+</kw>
+<kw type="teardown" name="Selenium2Library.Close Browser">
+<doc>Closes the current browser.</doc>
+<arguments>
+</arguments>
+<status status="PASS" endtime="20170728 15:43:19.228" starttime="20170728 15:43:16.224"></status>
+</kw>
+<doc></doc>
+<tags>
+</tags>
+<status status="FAIL" endtime="20170728 15:43:19.231" critical="yes" starttime="20170728 15:42:57.769">error: [Errno 10054] </status>
+</test>
+<doc></doc>
+<metadata>
+</metadata>
+<status status="FAIL" endtime="20170728 15:43:19.241" starttime="20170728 15:42:26.372"></status>
+</suite>
+<suite source="G:\pythonCase\9fchaoneng\测试用例\C生成合同.txt" id="s1-s3" name="C生成合同">
+<test id="s1-s3-t1" name="额度申请生成合同18-21">
+<kw type="kw" name="配置文件.读取excel数据-sa2">
+<doc></doc>
+<arguments>
+</arguments>
+<kw type="kw" name="ExcelLibrary.Open Excel">
+<doc>Opens the Excel file from the path provided in the file name parameter.</doc>
+<arguments>
+<arg>G:\\pythonCase\\userlogin123.xls</arg>
+</arguments>
+<status status="FAIL" endtime="20170728 15:43:19.315" starttime="20170728 15:43:19.315"></status>
+</kw>
+<status status="FAIL" endtime="20170728 15:43:19.316" starttime="20170728 15:43:19.313"></status>
+</kw>
+<kw type="teardown" name="Selenium2Library.Close Browser">
+<doc>Closes the current browser.</doc>
+<arguments>
+</arguments>
+<status status="PASS" endtime="20170728 15:43:19.319" starttime="20170728 15:43:19.319"></status>
+</kw>
+<doc></doc>
+<tags>
+<tag>a</tag>
+</tags>
+<status status="FAIL" endtime="20170728 15:43:19.319" critical="yes" starttime="20170728 15:43:19.309">Execution terminated by signal</status>
+</test>
+<test id="s1-s3-t2" name="额度申请生成合同(批量)">
+<doc></doc>
+<tags>
+<tag>a</tag>
+</tags>
+<status status="FAIL" endtime="20170728 15:43:19.325" critical="yes" starttime="20170728 15:43:19.322">Test execution stopped due to a fatal error.</status>
+</test>
+<doc></doc>
+<metadata>
+</metadata>
+<status status="FAIL" endtime="20170728 15:43:19.328" starttime="20170728 15:43:19.259"></status>
+</suite>
+<suite source="G:\pythonCase\9fchaoneng\测试用例\D签章.txt" id="s1-s4" name="D签章">
+<test id="s1-s4-t1" name="用户商户签章21-30">
+<doc></doc>
+<tags>
+<tag>a</tag>
+</tags>
+<status status="FAIL" endtime="20170728 15:43:19.341" critical="yes" starttime="20170728 15:43:19.339">Test execution stopped due to a fatal error.</status>
+</test>
+<doc></doc>
+<metadata>
+</metadata>
+<status status="FAIL" endtime="20170728 15:43:19.343" starttime="20170728 15:43:19.333"></status>
+</suite>
+<suite source="G:\pythonCase\9fchaoneng\测试用例\E确认交易.txt" id="s1-s5" name="E确认交易">
+<test id="s1-s5-t1" name="资料补充确认交易30-35">
+<doc></doc>
+<tags>
+<tag>a</tag>
+</tags>
+<status status="FAIL" endtime="20170728 15:43:19.355" critical="yes" starttime="20170728 15:43:19.353">Test execution stopped due to a fatal error.</status>
+</test>
+<doc></doc>
+<metadata>
+</metadata>
+<status status="FAIL" endtime="20170728 15:43:19.358" starttime="20170728 15:43:19.348"></status>
+</suite>
+<doc></doc>
+<metadata>
+</metadata>
+<status status="FAIL" endtime="20170728 15:43:19.362" starttime="20170728 15:42:03.021"></status>
+</suite>
+<statistics>
+<total>
+<stat fail="7" pass="0">Critical Tests</stat>
+<stat fail="7" pass="0">All Tests</stat>
+</total>
+<tag>
+<stat info="" links="" doc="" combined="" pass="0" fail="6">a</stat>
+</tag>
+<suite>
+<stat fail="7" pass="0" id="s1" name="测试用例">测试用例</stat>
+<stat fail="1" pass="0" id="s1-s1" name="A新增工单">测试用例.A新增工单</stat>
+<stat fail="2" pass="0" id="s1-s2" name="B审核审批">测试用例.B审核审批</stat>
+<stat fail="2" pass="0" id="s1-s3" name="C生成合同">测试用例.C生成合同</stat>
+<stat fail="1" pass="0" id="s1-s4" name="D签章">测试用例.D签章</stat>
+<stat fail="1" pass="0" id="s1-s5" name="E确认交易">测试用例.E确认交易</stat>
+</suite>
+</statistics>
+<errors>
+<msg timestamp="20170728 15:43:16.128" level="WARN">Keyword 'Capture Page Screenshot' could not be run on failure: Execution terminated by signal</msg>
+</errors>
+</robot>

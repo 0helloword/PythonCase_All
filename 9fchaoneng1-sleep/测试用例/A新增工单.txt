@@ -1,0 +1,138 @@
+*** Settings ***
+Resource          ../元素操作/sa-通用关键字.txt
+Resource          ../元素操作/sa-用例套件.txt
+Resource          ../元素操作/配置文件.txt
+
+*** Test Cases ***
+pos贷提交
+    [Tags]    a
+    读取excel数据-sa1
+    生成测试数据
+    用户登录
+    判断主页    玖富超能系统
+    菜单选择    新增工单
+    判断页面跳转    新增申请
+    下拉框选择    门店选择    ${storeId}
+    判断选择    门店选择    ${storeId}
+    下拉框选择    职业选择    ${carType}
+    判断选择    职业选择    ${carType}
+    下拉框选择    系列选择    ${productSeriesId}
+    判断选择    系列选择    ${productSeriesId}
+    货物类别    请选择    ${cargoTypeName}
+    判断货物    ${cargoTypeName}    ${cargoTypeName}
+    商品类型    请选择    ${commodityClassName}
+    判断商品    ${commodityClassName}    ${commodityClassName}
+    货物商品判断
+    商品价格    ${commodityPrice}
+    文本框输入    自付金额(元)    ${downPaymentAmount}
+    按钮点击    计算
+    读取页面数据    商品余额(元)：
+    选择期数    ${productId}
+    提交数据    提交
+    按钮点击    确定
+    判断流程跳转    申请人姓名
+    文本框输入    申请人姓名    ${custname}
+    文本框输入    申请人身份证号    ${idcard}
+    文本框输入    手机号码    ${phoneno}
+    下拉选择    还款类型    银行代扣
+    判断下拉选择    还款类型    银行代扣
+    下拉选择    客户开户银行    ${repaymentBank}
+    判断下拉选择    客户开户银行    ${repaymentBank}
+    文本框输入    客户银行账号    ${bankno}
+    下拉选择    开户行省份    ${province}
+    判断下拉选择    开户行省份    ${province}
+    下拉选择    开户行城市    ${city}
+    判断下拉选择    开户行城市    ${city}
+    文本框输入    银行卡开户手机    ${phoneno}
+    按钮点击    下一步
+    判断流程跳转    工单编号：
+    读取客户信息数据    工单编号：
+    上传图片1
+    按钮点击    下一步
+    判断流程跳转    客户姓名
+    文本框输入    签发机关    公安局
+    选择时间    有效期至    ${idCardValidity}
+    下拉选择    教育程度    ${degree}
+    文本框输入    住宅/宿舍电话    ${livephone}
+    文本框输入    电子邮件    ${emailno}
+    文本框输入    微信号码    ${wechatno}
+    文本框输入    QQ号码    ${qqno}
+    下拉选择    婚姻状况    ${marry}
+    婚姻状况选择
+    下拉选择    住房状况    ${liveCondition}
+    省市区    householdProv    ${householdProv}
+    省市区    householdCity    ${householdCity}
+    省市区    householdTown    ${householdTown}
+    乡街小房    乡镇    householdZhen    南山长
+    乡街小房    街道/路    householdStr    南山跿
+    乡街小房    小区/楼盘    householdRidge    南山楿
+    乡街小房    栋/单元/房号    householdHome    12345
+    下拉选择    住址与户籍    ${addreRegist}
+    住址户籍选择
+    下拉选择    邮寄地址    ${postState}
+    文本框输入    月收入(元)    ${monthlyIncome}
+    文本框输入    家庭月收入(元)    ${familyIncome}
+    文本框输入    月支出(元)    ${monthlySpending}
+    下拉选择    行业类别    ${industry}
+    判断下拉选择    行业类别    ${industry}
+    下拉选择    行业细分    ${industryType}
+    判断下拉选择    行业细分    ${industryType}
+    下拉选择    职业类别    ${careerType}
+    判断下拉选择    职业类别    ${careerType}
+    文本框输入    现单位名称    奎星街分礿
+    文本框输入    单位电话    ${unitPhone}
+    文本框输入    任职部门    江苏分行
+    下拉选择    职位级别    ${duty}
+    判断下拉选择    职位级别    ${duty}
+    下拉选择    购买社保    ${isSocialSec}
+    判断下拉选择    购买社保    ${isSocialSec}
+    下拉选择    单位性质    ${unittype}
+    判断下拉选择    单位性质    ${unittype}
+    选择时间    首次工作年份(年)    ${firstWorktime}
+    文本框输入    现单位工作时长（月）    ${unitWorktime}
+    省市区    unitAddre    ${unitAddre}
+    判断下拉选择    单位地址    ${unitAddre}
+    省市区    unitCity    1
+    判断下拉选择    单位地址    ${unitCity}
+    省市区    unitTown    ${unitTown}
+    判断下拉选择    单位地址    ${unitTown}
+    乡街小房    乡镇    unitZhen    罗湖
+    乡街小房    街道/路    unitStr    罗湖罗湖
+    乡街小房    小区/楼盘    unitRidge    罗湖罗湖罗湖
+    乡街小房    栋/单元/房号    unitHome    1203
+    选择下拉框内容    contractInfos[0].contractProperty    ${contractType_0}
+    选择联系人关系    contractInfos[0].contractProperty    ${contractType_0}
+    联系人信息    contractInfos[0].contractName    ${contractName}
+    联系人信息    contractInfos[0].contractPhone    ${contractPhone}    #家庭联系人电话
+    联系人信息    contractInfos[0].contactWeixin    ${contactWeixin}    #家庭联系人微信
+    联系人信息    contractInfos[0].contactQq    ${contactQq}    #家庭联系人QQ
+    选择下拉框内容    contractInfos[1].contractProperty    ${contractType_1}    #非家庭联系人关系
+    选择联系人关系    contractInfos[1].contractProperty    ${contractType_1}
+    联系人信息    contractInfos[1].contractName    ${contractName1}    #非家庭联系人姓名
+    联系人信息    contractInfos[1].contractPhone    ${contractPhone1}    #非家庭联系人电话
+    联系人信息    contractInfos[1].contactWeixin    ${contactWeixin1}    #非家庭联系人微信
+    联系人信息    contractInfos[1].contactQq    ${contactQq1}    #非家庭联系人QQ
+    单选点击    checkApplyInfo    ${checkApplyInfo}    #申请资料（是：0）
+    单选点击    mattersNeed    ${mattersNeed}    #告知事项（是：0）
+    单选点击    checkMobile    ${checkMobile}    #客户手机核实（是：0）
+    单选点击    checkTel    ${checkTel}    #单位电话合适（是：0）
+    下拉选择    陪同人数    ${accompany}
+    判断下拉选择    陪同人数    ${accompany}
+    单选点击    accApply    ${accApply}    #陪同人员是否有申请（是：1）
+    陪同人申请选择
+    文本框输入    客户目前所使用手机品牌    诺基亚99
+    文本框输入    门店与家庭住址距离(KM)    ${stortFamKm}
+    文本框输入    家庭住址与工作单位距离(KM)    ${famComKm}
+    文本框输入    门店与工作单位距离(KM)    ${stortComKm}
+    下拉选择    目前所用手机状态    ${mobileState}
+    选择下拉框内容    userEvaluate    ${userEvaluate}    #客户评级
+    按钮点击    保存草稿
+    提示信息    alert_info_content    保存草稿成功!
+    按钮点击    确认
+    文本框输入    密码:    ${password}
+    按钮点击    提交
+    数据提交    text-success font-hg    提交成功！
+    关闭浏览器
+    [Teardown]
+
+*** Keywords ***

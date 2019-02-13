@@ -1,0 +1,101 @@
+*** Settings ***
+Library           ExcelLibrary
+Library           Selenium2Library
+
+*** Keywords ***
+个人用户登录
+    [Documentation]    用户登录
+    Sleep    2
+    Input Text    id=cusername    ${phoneno}
+    Input Text    name=password    ${personal-pwd}
+    Sleep    1
+    Comment    Input Text    name=vcode    111111    #验证码
+    Sleep    1
+    Click Button    id=loginCustomerButton
+    Wait Until Keyword Succeeds    10    2    Page Should Contain    温馨提示：
+    Comment    Run Keyword Unless
+    Comment    Run Keyword If
+    Comment
+    Comment
+    Comment    ${code}    Get Text    xpath=//*[@id="verify_baseInfoForm"]//div/div[1]/div/div[3]/div[1]
+    Comment    Set Global Variable    ${shenhe}
+    [Teardown]
+
+获取个人用户密码
+    Sleep    2
+    ${personal-pwd}    Set Variable    ${phoneno[5:11]}
+    log    ${personal-pwd}
+    Set Global Variable    ${personal-pwd}
+    Sleep    30
+
+门店用户登录
+    [Arguments]    ${store-name}    ${store-pwd}
+    [Documentation]    用户登录
+    Sleep    2
+    Input Text    id=fusername    ${store-name}
+    Input Text    css=#loginStoreForm > div.form-group > div.input-icon.input-icon-lg > input[name="password"]    ${store-pwd}
+    Sleep    1
+    Comment    Input Text    xpath=(//input[@name='vcode'])[2]    111111    #验证码
+    Sleep    1
+    Click Button    id=loginStoreButton
+    Wait Until Keyword Succeeds    10    2    Page Should Contain    欢迎使用玖富超能合同签章系统！
+    [Teardown]
+
+按钮点击-qz
+    [Arguments]    ${name}
+    Wait Until Keyword Succeeds    60    2    click element    jquery=button:contains('${name}'):visible
+
+点击链接-qz
+    [Arguments]    ${name}
+    Wait Until Keyword Succeeds    10    2    Click Link    jquery=div a:contains('${name}')
+
+阅读合同old
+    [Arguments]    ${name}
+    Wait Until Keyword Succeeds    10    2    Click Element    jquery=div:contains('${name}') a:contains(' 阅 读 ')
+
+阅读合同
+    [Arguments]    ${num}
+    Wait Until Keyword Succeeds    10    2    Click Element    xpath=//*[@id="div_contract_list"]/div[${num}]/div/p/a[1]
+
+文本输入-qz
+    [Arguments]    ${value}
+    Wait Until Keyword Succeeds    10    2    inputText    xpath=//*[@id="ipt_code"]    ${value}
+
+点击签章
+    Wait Until Keyword Succeeds    60    2    Click Element    xpath=//*[@id="btn_sign"]
+
+点击工单
+    Sleep    3
+    Click Element    css=i.fa.fa-file-text
+
+打开浏览器
+    [Arguments]    ${url-qz}
+    [Documentation]    用户登录
+    open browser    ${url-qz}    chrome
+    Maximize Browser Window
+    [Teardown]
+
+鼠标移动
+    Wait Until Keyword Succeeds    10    2    Mouse Over    xpath=/html/body/div[1]/div/div[3]/ul/li/a/span
+
+点击确认
+    [Arguments]    ${name}
+    Wait Until Keyword Succeeds    10    2    click element    jquery=button:contains('${name}'):visible
+    Comment    Comment    Sleep    2    xpath=//*[@id="signModal"]/div[2]/div/div[3]/button
+    Comment    Wait Until Page Contains Element    jquery=div h4:contains('注意')
+    Comment    Wait Until Element Is Visible    jquery=div h4:contains('注意')
+    Comment    Click Element    xpath=//*[@id="signModal"]/div[2]/div/div[3]/button
+
+文本框输入-qz
+    [Arguments]    ${name}    ${value}
+    Wait Until Keyword Succeeds    10    2    input text    jquery=div:contains('${name}')+div input    ${value}
+
+关闭所有浏览器
+    Wait Until Keyword Succeeds    10    2    Close All Browsers
+
+判断页面跳转-qz
+    [Arguments]    ${name}
+    Wait Until Keyword Succeeds    10    2    page Should Contain element    jquery=div h3:contains('${name}')
+
+点击查询-qz
+    Wait Until Keyword Succeeds    10    2    Click Element    css=button.btn.grey

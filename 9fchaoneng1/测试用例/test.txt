@@ -1,0 +1,42 @@
+*** Settings ***
+Library           AutoItLibrary
+Library           Selenium2Library
+
+*** Test Cases ***
+123
+    open browser    http://47.93.174.203:7000    chrome
+    Maximize Browser Window
+    Sleep    2
+    input text    id=username    huangweijiu
+    input text    id=password    App123456+
+    Sleep    2
+    Click Element    name=btnSubmit
+    Sleep    2
+    Select Frame    name=fraLeft
+    Wait Until Keyword Succeeds    20    2    Click Element    id=main
+    Sleep    2
+    send    {DOWN}
+    send    {DOWN}
+    send    {DOWN}
+    send    {DOWN}
+    send    {DOWN}
+    send    {DOWN}
+    send    {DOWN}
+    Click Element    id=span520
+    Sleep    2
+    Click Element    id=span520061
+    unselect frame
+    Wait Until Keyword Succeeds    120    2    Select Frame    id=fraMain
+    Wait Until Keyword Succeeds    10    2    Select From List by index    id=productId    1
+    Sleep    1
+    Wait Until Keyword Succeeds    10    2    Select From List by index    id=accountType    1
+    Sleep    2
+    Click Button    id=btnListQuery
+    Sleep    2
+    Click Element    id=allcheck
+    Sleep    2
+    Click Button    id=launchLoanAll
+    Sleep    2
+    Click Element    xpath=/html/body/div[2]/div[2]/div[4]/a[1]/span/span
+    Sleep    2
+    Click Element    xpath=/html/body/div[2]/div[2]/div[3]/a/span/span

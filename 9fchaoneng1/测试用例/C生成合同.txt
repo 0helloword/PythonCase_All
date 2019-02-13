@@ -1,0 +1,41 @@
+*** Settings ***
+Resource          ../元素操作/sa-通用关键字.txt
+Resource          ../元素操作/sa-用例套件.txt
+Resource          ../元素操作/配置文件.txt
+Library           ../自写库/mysqltest.py
+Library           AutoItLibrary
+
+*** Test Cases ***
+额度申请生成合同18-21
+    [Tags]    a
+    读取excel数据-sa2
+    用户登录
+    判断主页    玖富超能系统
+    菜单选择    工单查询
+    判断页面跳转    工单查询
+    文本框输入    工单编号    ${app_id}
+    按钮点击    查询
+    按钮点击    查询
+    进行操作    ${app_id}    额度申请
+    按钮点击    确定
+    判断页面跳转    处理结果
+    提交数据    返回
+    判断页面跳转    工单查询
+    文本框输入    工单编号    ${app_id}
+    按钮点击    查询
+    进行操作    ${app_id}    生成合同
+    按钮点击    确定
+    提交数据    返回
+    关闭浏览器
+    [Teardown]    Close Browser
+
+额度申请生成合同(批量)
+    [Tags]    a
+    读取excel数据-sa2
+    用户登录
+    判断主页    玖富超能系统
+    菜单选择    工单查询
+    判断页面跳转    工单查询
+    批量处理工单    18
+    关闭浏览器
+    [Teardown]    Close Browser

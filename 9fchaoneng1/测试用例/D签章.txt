@@ -1,0 +1,33 @@
+*** Settings ***
+Resource          ../元素操作/qz-通用关键字.txt
+Resource          ../元素操作/配置文件.txt
+
+*** Test Cases ***
+用户商户签章21-30
+    [Tags]    a
+    [Template]
+    读取excel数据-qz
+    获取个人用户密码
+    打开浏览器    ${url-qz}
+    个人用户登录
+    按钮点击-qz    我知道了
+    点击链接-qz    合同管理
+    点击链接-qz    查看合同
+    阅读合同    1    #根据选择的产品系列来决定此处共有几份需阅读的合同
+    阅读合同    2
+    阅读合同    3
+    阅读合同    4
+    阅读合同    5
+    文本输入-qz    111111
+    点击签章
+    打开浏览器    ${url-qz}
+    点击链接-qz    门店用户
+    门店用户登录    ${store-name}    ${store-pwd}
+    点击链接-qz    合同管理
+    文本框输入-qz    工单编号    ${app_id}
+    点击查询-qz
+    点击工单
+    按钮点击-qz    签 章
+    按钮点击-qz    确认
+    关闭所有浏览器
+    [Teardown]    Close Browser
