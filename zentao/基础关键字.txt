@@ -1,0 +1,151 @@
+*** Settings ***
+Library           ExcelLibrary
+Library           DateTime
+Library           Selenium2Library
+Library           stringToList.py
+
+*** Keywords ***
+登录禅道
+    Open Browser    http://192.168.190.80:81/zentao/user-login.html    gc
+    最大化浏览器
+    文本框输入    用户名    lifeilong
+    文本框输入    密码    123123
+    点击提交按钮
+
+文本框输入
+    [Arguments]    ${textName}    ${textValue}
+    Input Text    jquery=tr>th:contains("${textName}")+td input    ${textValue}
+
+点击提交按钮
+    Click Button    jquery=#submit
+    sleep    3
+
+最大化浏览器
+    Maximize Browser Window
+
+选择一级导航栏
+    [Arguments]    ${navbarName}
+    智能等待    jquery=#navbar>ul li>a:contains('${navbarName}')
+    Click Element    jquery=#navbar>ul li>a:contains('${navbarName}')
+
+选择二级导航栏
+    [Arguments]    ${subNavbarName}
+    智能等待    jquery=#subNavbar>ul li>a:contains('${subNavbarName}')
+    Click Element    jquery=#subNavbar>ul li>a:contains('${subNavbarName}')
+
+智能等待
+    [Arguments]    ${locator}
+    Wait Until Page Contains Element    ${locator}
+    Wait Until Element Is Visible    ${locator}
+
+点击元素
+    [Arguments]    ${elementName}
+    智能等待    jquery=ul li>a:contains('${elementName}')
+    Click Element    jquery=ul li>a:contains('${elementName}')
+
+行内输入框输入
+    [Arguments]    ${spanName}    ${spanValue}
+    Input Text    jquery=div span:contains("${spanName}")+input    ${spanValue}
+
+选择下拉值
+    [Arguments]    ${spanName}    ${level}
+    Click Element    jquery=div>span:contains("${spanName}")+div>button
+    智能等待    jquery=div>span:contains("${spanName}")+div div>span:contains("${level}")
+    Click Element    jquery=div>span:contains("${spanName}")+div div>span:contains("${level}")
+
+点击图标
+    [Arguments]    ${titileName}
+    智能等待    jquery=td>a[title="${titileName}"]:eq(0)
+    Click Element    jquery=td>a[title="${titileName}"]:eq(0)
+
+登录redmine
+    Open Browser    http://192.168.190.211/redmine/login    gc
+    最大化浏览器
+    Input Text    jquery=#username    lifeilong
+    Input Text    jquery=#password    cn123789
+    Click Element    jquery=input[name="login"]
+
+需求规模转换
+    [Arguments]    ${scale}
+    ${level}=    Set Variable If    '${scale}' == '小型(S)'    1    '${scale}' == '中型(M)'    2    '${scale}' == '大型(L)'
+    ...    3
+    ${level}    Evaluate    int(${level})
+    Set Global Variable    ${level}
+
+点击选择下拉值
+    [Arguments]    ${container}    ${chosen}
+    点击下拉框    ${container}
+    智能等待    jquery=th:contains("${container}")+td ul.chosen-results>li:contains("${chosen}")
+    Click Element    jquery=th:contains("${container}")+td ul.chosen-results>li:contains("${chosen}")    #点击选择下拉框的值
+
+点击下拉框
+    [Arguments]    ${container}
+    智能等待    jquery=th:contains("${container}")+td div>a
+    Click Element    jquery=th:contains("${container}")+td div>a    #点击下拉框
+
+日期选择框输入
+    [Arguments]    ${plan}    ${planTime}    ${date}
+    Input Text    jquery=th:contains("${plan}")+td>div input[placeholder="${planTime}"]    ${date}
+    Click Element    jquery=th:contains("${plan}")
+
+关闭浏览器
+    Close Browser
+
+点击按钮
+    [Arguments]    ${buttonName}
+    Click Button    jquery=button:contains('${buttonName}')
+
+按需求编号搜索
+    智能等待    jquery=#bysearchTab
+    Click Element    jquery=#bysearchTab
+    智能等待    jquery=#value1
+    Input Text    jquery=#value1    ${storyNumber}
+    点击提交按钮
+
+下拉框选择
+    [Arguments]    ${selectName}    ${selectValue}
+    Click Element    jquery=th:contains("${selectName}")+td select
+    Select From List By Label    jquery=th:contains("${selectName}")+td select    ${selectValue}
+
+指派任务给多人
+    点击复选框
+    智能等待    jquery=th:contains("指派给")+td>div>span:contains("团队")
+    Click Element    jquery=th:contains("指派给")+td>div>span    #点击团队
+    循环获取值
+    Click Element    jquery=[class="btn btn-primary"]:contains("确认")    #确认
+
+点击复选框
+    智能等待    jquery=div[class="checkbox-primary affair"]
+    Click Element    jquery=div[class="checkbox-primary affair"]
+
+团队选择
+    [Arguments]    ${row}    ${user}
+    智能等待    jquery=div h4:contains("团队")
+    Click Element    jquery=tr[data-row="${row}"]>td div>a
+    智能等待    jquery=tr[data-row="${row}"]>td ul>li:contains("${user}")
+    Click Element    jquery=tr[data-row="${row}"]>td ul>li:contains("${user}")
+
+获取文本值
+    [Arguments]    ${i}=0
+    ${testUser}    Get Text    jquery=div[class="cf_4 attribute"] div.value>a:eq(${i})
+    Set Global Variable    ${testUser}
+
+获取多个文本值
+    ${testusers}    get text    jquery=div[class="cf_4 attribute"] div.value
+    @{testuserslist}    String To List    ${testusers}
+    Set Global Variable    @{testuserslist}
+
+循环获取值
+    ${index}    Set Variable    0
+    : FOR    ${value}    IN    @{testuserslist}
+    \    团队选择    ${index}    ${value}
+    \    ${index}    Evaluate    ${index} + 1
+    \    Run Keyword If    ${index} == ${testUserslen}    Exit For Loop
+
+点击链接
+    [Arguments]    ${aname}
+    智能等待    jquery=tr>td>nobr>a:contains('${aname}')
+    Click Element    jquery=tr>td>nobr>a:contains('${aname}')
+
+页面下拉至底部
+    Execute Javascript    window.scrollTo(0,document.body.scrollHeight)

@@ -1,0 +1,106 @@
+*** Settings ***
+Resource          基础关键字.txt
+
+*** Variables ***
+${storyNumbers}    3267
+
+*** Keywords ***
+获取数据
+    登录redmine
+    Input Text    jquery=#q    ${storynumber}    #输入需求编号搜素条件
+    Press Key    jquery=#q    \ue007    #模拟回车键
+    智能等待    jquery=#content h2:contains("${storyNumber}")
+    #获取需求名称
+    ${name}    Get Text    jquery=h2:contains(${storyNumber})+div>div h3    #获取需求中文名
+    ${storyNumber}    Evaluate    '#'+'${storyNumber}'    #添加#号
+    ${storyName}    Catenate    SEPARATOR=-    ${storyNumber}    ${name}    #拼接成需要的需求名称
+    Set Global Variable    ${storyName}    #设置全局变量
+    #获取需求来源
+    ${storySource}    Get Text    jquery=h2:contains(${storynumber})+div p>a
+    Set Global Variable    ${storySource}
+    #获取任务规模
+    ${scale}    Get Text    jquery=div[class="cf_7 attribute"] div.value
+    需求规模转换    ${scale}
+    #获取计划开始时间
+    ${planStartDate}    Get Text    jquery=div:contains("开始日期")+div
+    Set Global Variable    ${planStartDate}
+    #获取计划完成时间
+    ${planDueDate}    Get Text    jquery=div:contains("计划完成日期")+div
+    Set Global Variable    ${planDueDate}
+    #获取测试开始时间
+    ${testBegin}    Get Text    jquery=div[class="cf_12 attribute"] div.value
+    ${testBeginlen}    Get Length    ${testBegin}
+    ${testBeginDate}    Set Variable If    ${testBeginlen} == 0    ${planStartDate}    ${testBeginlen} > 0    ${testBegin}
+    Set Global Variable    ${testBeginDate}
+    #获取测试截止时间
+    ${testEnd}    Get Text    jquery=div[class="cf_13 attribute"] div.value
+    ${testEndlen}    Get Length    ${testEnd}
+    ${testEndDate}    Set Variable If    ${testEndlen} == 0    ${planDueDate}    ${testEndlen} > 0    ${testEnd}
+    Set Global Variable    ${testEndDate}
+    #获取测试人员
+    ${testUserslen}    Get Element Count    jquery=div[class="cf_4 attribute"] div>a
+    set global variable    ${testUserslen}
+    Run Keyword If    ${testUserslen} == 1    获取文本值
+    ...    ELSE IF    ${testUserslen} > 1    获取多个文本值
+    Close Browser
+
+指派任务
+    Run Keyword If    ${testUserslen} > 1    指派任务给多人
+    ...    ELSE    点击选择下拉值    指派给    ${testUser}
+    sleep    1
+
+添加需求和任务
+    获取数据
+    登录禅道
+    #添加需求
+    选择一级导航栏    项目
+    页面下拉至底部
+    点击链接    信息技术部（超能）-2018
+    选择二级导航栏    需求
+    点击按钮    添加需求
+    点击元素    添加需求
+    行内输入框输入    来源备注    ${storySource}
+    文本框输入    需求名称    ${storyName}
+    选择下拉值    优先级    ${level}
+    行内输入框输入    预计    99
+    文本框输入    关键词    ${planDueDate}
+    点击提交按钮
+    #分解任务
+    按需求编号搜索
+    点击图标    分解任务
+    点击选择下拉值    任务类型    功能测试
+    指派任务
+    点击下拉框    任务名称
+    下拉框选择    任务名称    一般
+    页面下拉至底部
+    日期选择框输入    日程规划    预计开始    ${testBeginDate}
+    日期选择框输入    日程规划    截止日期    ${planDueDate}
+    点击提交按钮
+    关闭浏览器
+
+循环创建需求任务
+    [Arguments]    ${keyword}
+    @{storyNumberslist}    String To List    ${storyNumbers}
+    : FOR    ${storynumber}    IN    @{storyNumberslist}
+    \    Set Global Variable    ${storynumber}
+    \    ${storynumberlen}    Get Length    ${storynumber}
+    \    Run Keyword If    ${storynumberlen} > 0    ${keyword}
+
+添加任务
+    Comment    获取数据
+    登录禅道
+    选择一级导航栏    项目
+    页面下拉至底部
+    点击链接    信息技术部（超能）-2018
+    选择二级导航栏    需求
+    按需求编号搜索
+    点击图标    分解任务
+    点击选择下拉值    任务类型    功能测试
+    指派任务
+    点击下拉框    任务名称
+    下拉框选择    任务名称    一般
+    页面下拉至底部
+    日期选择框输入    日程规划    预计开始    ${testBeginDate}
+    日期选择框输入    日程规划    截止日期    ${planDueDate}
+    点击提交按钮
+    关闭浏览器
